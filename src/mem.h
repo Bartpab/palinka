@@ -66,7 +66,7 @@ void avl_page_delete(page_node_t* pnode)
 
 void avl_page_delete_tree(page_tree_t t)
 {
-  if(!t)
+  if(t == NULL)
     return;
   
   avl_page_delete_tree(t->child[0]);
@@ -77,7 +77,7 @@ void avl_page_delete_tree(page_tree_t t)
 
 int avl_page_get_height(page_tree_t tree)
 {
-  if(!tree)
+  if(tree == NULL)
     return 0;
   
   return tree->height;
@@ -97,7 +97,7 @@ bool avl_page_search(page_tree_t tree, unsigned long pid, page_node_t** out)
 
 void avl_page_fix_height(page_tree_t tree)
 {
-  if(!tree)
+  if(tree == NULL)
     return;
 
   tree->height = 1 + MAX(avl_page_get_height(tree->child[0]), avl_page_get_height(tree->child[1]));  
@@ -126,13 +126,13 @@ void avl_page_rebalance(page_tree_t* t)
 {
   unsigned char d;
 
-  if(!*t)
+  if(*t == NULL)
     return;
   
   for(d = 0; d != 1; d++) 
   {
     // Imbalanced ?
-    if(avl_page_get_height((*t)->child[d]) > avl_page_get_height((*t)->child[!d] + 1)) 
+    if(avl_page_get_height((*t)->child[d]) > avl_page_get_height((*t)->child[!d]) + 1) 
     {
       if(avl_page_get_height((*t)->child[d]->child[d]) > avl_page_get_height((*t)->child[d]->child[!d])) {
         avl_page_rotate(t, d);
@@ -154,7 +154,7 @@ page_node_t* avl_page_insert(page_tree_t* t, unsigned long pid, allocator_t* all
   if(avl_page_search(*t, pid, &pnode)) 
     return pnode;
 
-  if(!*t) {
+  if(*t == NULL) {
     *t = (page_node_t*) pmalloc(allocator, sizeof(page_node_t));
 
     if(*t == NULL)

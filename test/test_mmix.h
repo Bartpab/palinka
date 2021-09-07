@@ -14,6 +14,14 @@ void test_trap_handler(system_t* sys, instr_t* instr)
   proc->reg[0x40] = 0xD00D;
 }
 
+void* mmix_install_memory(system_t* sys, void* vaddr, size_t len)
+{
+  allocator_t allocator = GLOBAL_ALLOCATOR;
+  unsigned long offset = PAGE_OFFSET(vaddr);
+  void* pblock = mem_alloc_managed(&sys->mem, &allocator, vaddr, len);
+  return (pblock + offset);
+}
+
 system_t* mmix_bootstrap(octa* prog, size_t len){
   len *= sizeof(octa);
 
@@ -305,7 +313,8 @@ define_test(
   mmix_processor_t* proc = __get_mmix_proc(sys);
 
   proc->reg[rD]   = tetra_to_octa(0, 1);
-  proc->reg[0xC0] = tetra_to_octa(0, 0);
+  proc->reg[0xC0] = int_to_octa(0);
+  proc->reg[0xC1] = tetra_to_octa(0, 1);
   octa e = tetra_to_octa(1 << 31, 0);
   
   octa_str(e, se, 32);
@@ -329,10 +338,12 @@ define_test(
     test_failure("Expecting %s, got %s", se, s0)
   )
 
+  e = uint_to_octa(1);
+  octa_str(e, se, 32);
   test_check(
-    test_print("reg[rR] should be 1"),
-    proc->reg[rR] == 1,
-    test_failure("Expecting %d, got %lu", 1, proc->reg[rR])
+    test_print("r[rR] should be %s", se),
+    proc->reg[rR] == e,
+    test_failure("Expecting %s, got %lu", se, proc->reg[rR])
   )
 
   test_success;  
@@ -408,6 +419,179 @@ define_test(
   test_end;
 }
 
+define_test(mmix_ldb, test_print("LDB")) 
+{
+  octa prog [] = {
+    __mmix_instr(LDB, 0xC0, 0xC1, 0xC2)
+  };  
+  
+  char se[32], s0[32];
+  octa e;
+
+  system_t* sys = mmix_bootstrap(prog, 1);
+  mmix_processor_t* proc = __get_mmix_proc(sys);
+
+  proc->reg[0xC1] = 0x10;
+  proc->reg[0xC2] = 0x05;
+
+  // Install memory and define an initial state
+  octa* stored_value = (octa*) mmix_install_memory(sys, (void*)(0x10 + 0x05), sizeof(octa));
+
+  assert(stored_value);
+  *stored_value = byte_to_octa(0x88, 0x77, 0x66, 0x55, 0x44, 0x33, 0x22, 0x11);
+
+  proc->reg[0xC0] = 0;
+
+  e = tetra_to_octa(0, 0x11);
+
+  // Execute one step
+  mmix_step(sys);
+
+  octa_str(e, se, 32), octa_str(proc->reg[0xC0], s0, 32);
+
+  test_check(
+    test_print("r[0xC0] == %s", se),
+    proc->reg[0xC0] == e,
+    test_failure("Expecting %s, got %s", se, s0)
+  );
+
+  test_success;  
+  test_teardown {
+    sys_delete(sys);
+  }
+  test_end;
+}
+
+define_test(mmix_ldw, test_print("LDW")) 
+{
+  octa prog [] = {
+    __mmix_instr(LDW, 0xC0, 0xC1, 0xC2)
+  };  
+  
+  char se[32], s0[32];
+  octa e;
+
+  system_t* sys = mmix_bootstrap(prog, 1);
+  mmix_processor_t* proc = __get_mmix_proc(sys);
+
+  proc->reg[0xC1] = 0x10;
+  proc->reg[0xC2] = 0x05;
+
+  // Install memory and define an initial state
+  octa* stored_value = (octa*) mmix_install_memory(sys, (void*)(0x10 + 0x05), sizeof(octa));
+
+  assert(stored_value);
+  *stored_value = word_to_octa(0x8877, 0x6655, 0x4433, 0x2211);
+
+  proc->reg[0xC0] = 0;
+
+  e = word_to_octa(0, 0, 0, 0x2211);
+
+  // Execute one step
+  mmix_step(sys);
+
+  octa_str(e, se, 32), octa_str(proc->reg[0xC0], s0, 32);
+
+  test_check(
+    test_print("r[0xC0] == %s", se),
+    proc->reg[0xC0] == e,
+    test_failure("Expecting %s, got %s", se, s0)
+  );
+
+  test_success;  
+  test_teardown {
+    sys_delete(sys);
+  }
+  test_end;
+}
+
+define_test(mmix_ldt, test_print("LDT")) 
+{
+  octa prog [] = {
+    __mmix_instr(LDT, 0xC0, 0xC1, 0xC2)
+  };  
+  
+  char se[32], s0[32];
+  octa e;
+
+  system_t* sys = mmix_bootstrap(prog, 1);
+  mmix_processor_t* proc = __get_mmix_proc(sys);
+
+  proc->reg[0xC1] = 0x10;
+  proc->reg[0xC2] = 0x05;
+
+  // Install memory and define an initial state
+  octa* stored_value = (octa*) mmix_install_memory(sys, (void*)(0x10 + 0x05), sizeof(octa));
+
+  assert(stored_value);
+  *stored_value = tetra_to_octa(0x88776655, 0x44332211);
+
+  proc->reg[0xC0] = 0;
+
+  e = tetra_to_octa(0, 0x44332211);
+
+  // Execute one step
+  mmix_step(sys);
+
+  octa_str(e, se, 32), octa_str(proc->reg[0xC0], s0, 32);
+
+  test_check(
+    test_print("r[0xC0] == %s", se),
+    proc->reg[0xC0] == e,
+    test_failure("Expecting %s, got %s", se, s0)
+  );
+
+  test_success;  
+  test_teardown {
+    sys_delete(sys);
+  }
+  test_end;
+}
+
+define_test(mmix_ldo, test_print("LDO")) 
+{
+  octa prog [] = {
+    __mmix_instr(LDO, 0xC0, 0xC1, 0xC2)
+  };  
+  
+  char se[32], s0[32];
+  octa e;
+
+  system_t* sys = mmix_bootstrap(prog, 1);
+  mmix_processor_t* proc = __get_mmix_proc(sys);
+
+  proc->reg[0xC1] = 0x10;
+  proc->reg[0xC2] = 0x05;
+
+  // Install memory and define an initial state
+  octa* stored_value = (octa*) mmix_install_memory(sys, (void*)(0x10 + 0x05), sizeof(octa));
+
+  assert(stored_value);
+  *stored_value = tetra_to_octa(0x88776655, 0x44332211);
+
+  proc->reg[0xC0] = 0;
+
+  e = tetra_to_octa(0x88776655, 0x44332211);
+
+  // Execute one step
+  mmix_step(sys);
+
+  octa_str(e, se, 32), octa_str(proc->reg[0xC0], s0, 32);
+
+  test_check(
+    test_print("r[0xC0] == %s", se),
+    proc->reg[0xC0] == e,
+    test_failure("Expecting %s, got %s", se, s0)
+  );
+
+  test_success;  
+  test_teardown {
+    sys_delete(sys);
+  }
+  test_end;
+}
+
+
 define_test_chapter(
   mmix_arith_1, test_print("MMIX ALU #1"), 
   mmix_mul, 
@@ -432,7 +616,16 @@ define_test_chapter(
 )
 
 define_test_chapter(
+  mmix_load_store, test_print("MMIX Flow Control"),
+  mmix_ldb,
+  mmix_ldw,
+  mmix_ldt,
+  mmix_ldo
+)
+
+define_test_chapter(
   mmix, test_print("MMIX"),
   mmix_arith,
-  mmix_flow_control  
+  mmix_flow_control,
+  mmix_load_store
 )

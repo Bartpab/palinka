@@ -317,13 +317,14 @@ define_test(
   octa z, q, r, e;
   
   hexadeca x = {1, 01};
-  z = (octa)(1) << 63;
+  z = uint_to_octa(2);
 
   hexadeca_str(x, sx, 32), octa_str(z, sz, 32);
   
   test_print("Perform euclidean division: %s = q * %s + r\n", sx, sz);
+  
   q = octa_div(x, z, &r), octa_str(q, sq, 32), octa_str(r, sr, 32);
-  e = uint_to_octa(2), octa_str(e, se, 32);
+  e = tetra_to_octa(1 << 31, 0), octa_str(e, se, 32);
   
   test_check(
     test_print("q == %s", se),

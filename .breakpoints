@@ -1,35 +1,11 @@
 {
   "files": {
-    "src/arith.h": [
+    "src/mem.h": [
       {
-        "id": "5b2a1f2a-00a9-4aed-ba3e-4a3cd6575e09",
-        "line": 391,
-        "version": 21889,
-        "index": 7404
-      }
-    ],
-    "src/mmix/dispatch.h": [
-      {
-        "id": "a61a4b5e-79c1-4cd6-923a-b1cd64ad94dc",
-        "line": 121,
-        "version": 8038,
-        "index": 2119
-      }
-    ],
-    "test/test_arith.h": [
-      {
-        "id": "bfe29cf0-12e1-4427-8d28-42deb6477e6b",
-        "line": 713,
-        "version": 9197,
-        "index": 14684
-      }
-    ],
-    "test/utils.h": [
-      {
-        "id": "cc86b2c3-5f9f-4584-b74a-a8e6d62001ff",
-        "line": 93,
-        "version": 4572,
-        "index": 2314
+        "id": "a05aaa8e-4635-4d0d-b2da-e605b45a6959",
+        "line": 135,
+        "version": 8589,
+        "index": 2457
       }
     ]
   }

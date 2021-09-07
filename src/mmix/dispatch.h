@@ -4,6 +4,7 @@
 #include <math.h>
 
 #include "instr.h"
+#include "mem.h"
 #include "processor.h"
 
 #include "../arith.h"
@@ -11,7 +12,9 @@
 #include "../types.h"
 
 typedef void (*mmix_exec_t)(system_t* sys, mmix_processor_t* proc, instr_t* instr);
-#define MEXS(op_name) void mmix_ ##op_name (system_t * sys, mmix_processor_t* proc,instr_t * instr)
+#define MEX_ARGS sys, proc, instr
+#define MEX_DEF_ARGS system_t * sys, mmix_processor_t* proc,instr_t * instr
+#define MEXF(op_name) void mmix_ ##op_name (MEX_DEF_ARGS)
 #define MEXN(op_name) mmix_##op_name
 
 #define XX instr->xx
@@ -23,6 +26,7 @@ typedef void (*mmix_exec_t)(system_t* sys, mmix_processor_t* proc, instr_t* inst
 #define YZI byte_to_octa(0, 0, 0, 0, 0, 0, YY, ZZ)
 #define XYZI byte_to_octa(0, 0, 0, 0, 0, XX, YY, ZZ)
 
+#define MMEMR(addr, type, out) MMIX_MEM_READ(sys, addr, type, out)
 #define MREG(REG) proc->reg[REG]
 
 #define EXCEPTION_MREG proc->reg[rA]
@@ -37,7 +41,7 @@ typedef void (*mmix_exec_t)(system_t* sys, mmix_processor_t* proc, instr_t* inst
 #define Z ((instr->info->flags & Z_is_immed_bit) ? ZI : ZMREG)
 #define Y ((instr->info->flags & Y_is_immed_bit) ? YI : YMREG)
 
-MEXS(TRAP) 
+MEXF(TRAP) 
 {
   MREG(rWW) = (octa) proc->instr_ptr;
   MREG(rXX) = sign_bit | binary_tl_op(*instr);
@@ -47,86 +51,97 @@ MEXS(TRAP)
     proc->ivt[XX].hdlr(sys, instr);
 }
 
-MEXS(FCMP) 
+MEXF(FCMP) 
 {
   XMREG = octa_fcmp(Y, Z, &EXCEPTION_MREG);
 }
 
-MEXS(FUN) 
+MEXF(FUN) 
 {
   XMREG = octa_fun(Y, Z);
 }
 
-MEXS(FEQL) 
+MEXF(FEQL) 
 {
   XMREG = octa_feql(YMREG, ZMREG, &EXCEPTION_MREG); 
 }
 
-MEXS(FADD) 
+MEXF(FADD) 
 {
   XMREG = octa_fadd(YMREG, ZMREG, &EXCEPTION_MREG);
 }
 
-MEXS(FIX) 
+MEXF(FIX) 
 {
   XMREG = octa_fix(ZMREG, &EXCEPTION_MREG);
 }
 
-MEXS(FSUB) 
+MEXF(FSUB) 
 {
   XMREG = octa_fsub(YMREG, ZMREG, &EXCEPTION_MREG);
 }
 
-MEXS(FIXU) 
+MEXF(FIXU) 
 {
   XMREG = octa_fixu(YMREG, &EXCEPTION_MREG);
 }
 
-MEXS(FLOT) 
-{
-  XMREG = octa_flot(ZMREG, proc->rounding_mode, &EXCEPTION_MREG);
+static inline void __flot(MEX_DEF_ARGS) {
+  XMREG = octa_flot(Z, proc->rounding_mode, &EXCEPTION_MREG);
 }
 
-MEXS(FLOTI) 
+MEXF(FLOT) 
 {
-  
+  __flot(MEX_ARGS);
 }
 
-MEXS(FLOTU) {}
-MEXS(FLOTUI) {}
-MEXS(SFLOT) {}
-MEXS(SFLOTI) {}
-MEXS(SFLOTU) {}
-MEXS(SFLOTUI) {}
+MEXF(FLOTI) 
+{
+  __flot(MEX_ARGS);
+}
 
-MEXS(FMUL) 
+MEXF(FLOTU) 
+{
+  __flot(MEX_ARGS);
+}
+MEXF(FLOTUI) 
+{
+  __flot(MEX_ARGS);
+}
+
+MEXF(SFLOT) {}
+MEXF(SFLOTI) {}
+MEXF(SFLOTU) {}
+MEXF(SFLOTUI) {}
+
+MEXF(FMUL) 
 {
   XMREG = octa_fmult(YMREG, ZMREG, &EXCEPTION_MREG);
 }
 
-MEXS(FCMPE) {}
-MEXS(FUNE) {}
-MEXS(FEQLE) {}
+MEXF(FCMPE) {}
+MEXF(FUNE) {}
+MEXF(FEQLE) {}
 
-MEXS(FDIV) 
+MEXF(FDIV) 
 {
   XMREG = octa_fdiv(YMREG, ZMREG, &EXCEPTION_MREG);
 }
 
-MEXS(FSQRT) 
+MEXF(FSQRT) 
 {
   XMREG = octa_fsqrt(ZMREG, YLMREG, &EXCEPTION_MREG);
 }
 
-MEXS(FREM) {
+MEXF(FREM) {
   XMREG = octa_frem(YMREG, ZMREG, &EXCEPTION_MREG);
 }
 
-MEXS(FINT) {
+MEXF(FINT) {
   XMREG = octa_fint(ZMREG, proc->rounding_mode, &EXCEPTION_MREG);
 }
 
-static inline void __signed_mul(system_t* sys, mmix_processor_t* proc, instr_t* instr)
+static inline void __signed_mul(MEX_DEF_ARGS)
 {
   bool overflow; 
   octa aux;
@@ -137,17 +152,17 @@ static inline void __signed_mul(system_t* sys, mmix_processor_t* proc, instr_t* 
     EXCEPTION_MREG |= V_BIT;
 }
 
-MEXS(MUL) 
+MEXF(MUL) 
 {
-  __signed_mul(sys, proc, instr);
+  __signed_mul(MEX_ARGS);
 }
 
-MEXS(MULI) 
+MEXF(MULI) 
 {
-  __signed_mul(sys, proc, instr);
+  __signed_mul(MEX_ARGS);
 }
 
-static inline void __unsigned_mul(system_t* sys, mmix_processor_t* proc, instr_t* instr)
+static inline void __unsigned_mul(MEX_DEF_ARGS)
 {
   bool overflow;
   octa aux;
@@ -160,15 +175,15 @@ static inline void __unsigned_mul(system_t* sys, mmix_processor_t* proc, instr_t
   MREG(rH) = aux;
 }
 
-MEXS(MULU) {
-  __unsigned_mul(sys, proc, instr);
+MEXF(MULU) {
+  __unsigned_mul(MEX_ARGS);
 }
 
-MEXS(MULUI) {
-  __unsigned_mul(sys, proc, instr);
+MEXF(MULUI) {
+  __unsigned_mul(MEX_ARGS);
 }
 
-static inline void __signed_div(system_t* sys, mmix_processor_t* proc, instr_t* instr)
+static inline void __signed_div(MEX_DEF_ARGS)
 {
   octa aux;
   hexadeca yy = {Y & sign_bit, Y};
@@ -177,34 +192,31 @@ static inline void __signed_div(system_t* sys, mmix_processor_t* proc, instr_t* 
   REMAINDER_MREG = aux;
 }
 
-MEXS(DIV) {
-  __signed_div(sys, proc, instr);
+MEXF(DIV) {
+  __signed_div(MEX_ARGS);
 }
 
-MEXS(DIVI) {
-  __signed_div(sys, proc, instr);
+MEXF(DIVI) {
+  __signed_div(MEX_ARGS);
 }
 
-static inline void __unsigned_div(system_t* sys, mmix_processor_t* proc, instr_t* instr)
+static inline void __unsigned_div(MEX_DEF_ARGS)
 {
-  octa aux = 0;
   hexadeca yy = {MREG(rD), Y};
-
-  XMREG = octa_div(yy, Z, &aux);
-  REMAINDER_MREG = aux;
+  XMREG = octa_div(yy, Z, &REMAINDER_MREG);
 }
 
-MEXS(DIVU) 
+MEXF(DIVU) 
 {
-  __unsigned_div(sys, proc, instr);
+  __unsigned_div(MEX_ARGS);
 }
 
-MEXS(DIVUI) 
+MEXF(DIVUI) 
 {
-  __unsigned_div(sys, proc, instr);
+  __unsigned_div(MEX_ARGS);
 }
 
-static inline void __add(system_t* sys, mmix_processor_t* proc, instr_t* instr, bool test_overflow) 
+static inline void __add(MEX_DEF_ARGS, bool test_overflow) 
 {
   bool overflow = false;
 
@@ -214,20 +226,20 @@ static inline void __add(system_t* sys, mmix_processor_t* proc, instr_t* instr, 
     EXCEPTION_MREG |= V_BIT;
 }
 
-MEXS(ADD) {
-  __add(sys, proc, instr, true);
+MEXF(ADD) {
+  __add(MEX_ARGS, true);
 }
-MEXS(ADDI) {
-  __add(sys, proc, instr, true);
+MEXF(ADDI) {
+  __add(MEX_ARGS, true);
 }
-MEXS(ADDU) {
-  __add(sys, proc, instr, true);
+MEXF(ADDU) {
+  __add(MEX_ARGS, false);
 }
-MEXS(ADDUI) {
-  __add(sys, proc, instr, true);
+MEXF(ADDUI) {
+  __add(MEX_ARGS, false);
 }
 
-static inline void __sub(system_t* sys, mmix_processor_t* proc, instr_t* instr, bool test_overflow) {
+static inline void __sub(MEX_DEF_ARGS, bool test_overflow) {
   bool overflow = false;
 
   XMREG = octa_minus(Y, Z, &overflow);
@@ -236,20 +248,20 @@ static inline void __sub(system_t* sys, mmix_processor_t* proc, instr_t* instr, 
     EXCEPTION_MREG |= V_BIT; 
 }
 
-MEXS(SUB) {
-  __sub(sys, proc, instr, true);
+MEXF(SUB) {
+  __sub(MEX_ARGS, true);
 }
-MEXS(SUBI) {
-  __sub(sys, proc, instr, true);
+MEXF(SUBI) {
+  __sub(MEX_ARGS, true);
 }
-MEXS(SUBU) {
-  __sub(sys, proc, instr, false);
+MEXF(SUBU) {
+  __sub(MEX_ARGS, false);
 }
-MEXS(SUBUI) {
-  __sub(sys, proc, instr, false);
+MEXF(SUBUI) {
+  __sub(MEX_ARGS, false);
 }
 
-static inline void __unsigned_2add(system_t* sys, mmix_processor_t* proc, instr_t* instr){
+static inline void __unsigned_2add(MEX_DEF_ARGS){
   bool overflow;
   XMREG = octa_plus(
     octa_plus(Y, Y, &overflow), 
@@ -257,7 +269,7 @@ static inline void __unsigned_2add(system_t* sys, mmix_processor_t* proc, instr_
   );
 }
 
-static inline void __unsigned_4add(system_t* sys, mmix_processor_t* proc, instr_t* instr) {
+static inline void __unsigned_4add(MEX_DEF_ARGS) {
   bool overflow;
   XMREG = octa_plus(
     octa_plus(
@@ -268,7 +280,7 @@ static inline void __unsigned_4add(system_t* sys, mmix_processor_t* proc, instr_
   );
 }
 
-static inline void __unsigned_8add(system_t* sys, mmix_processor_t* proc, instr_t* instr) {
+static inline void __unsigned_8add(MEX_DEF_ARGS) {
   bool overflow;
 
   XMREG = octa_plus(
@@ -287,7 +299,7 @@ static inline void __unsigned_8add(system_t* sys, mmix_processor_t* proc, instr_
   );
 }
 
-static inline void __unsigned_16add(system_t* sys, mmix_processor_t* proc, instr_t* instr) {
+static inline void __unsigned_16add(MEX_DEF_ARGS) {
   bool overflow;
 
   XMREG = octa_plus(
@@ -318,235 +330,441 @@ static inline void __unsigned_16add(system_t* sys, mmix_processor_t* proc, instr
   );
 }
 
-MEXS(IIADDU) {
-  __unsigned_2add(sys, proc, instr);
+MEXF(IIADDU) {
+  __unsigned_2add(MEX_ARGS);
 }
-MEXS(IIADDUI) {
-  __unsigned_2add(sys, proc, instr);
+MEXF(IIADDUI) {
+  __unsigned_2add(MEX_ARGS);
 }
-MEXS(IVADDU) {
-  __unsigned_4add(sys, proc, instr);
+MEXF(IVADDU) {
+  __unsigned_4add(MEX_ARGS);
 }
-MEXS(IVADDUI) {
-  __unsigned_4add(sys, proc, instr);
+MEXF(IVADDUI) {
+  __unsigned_4add(MEX_ARGS);
 }
-MEXS(VIIIADDU) {
-  __unsigned_8add(sys, proc, instr);
+MEXF(VIIIADDU) {
+  __unsigned_8add(MEX_ARGS);
 }
-MEXS(VIIIADDUI) {
-  __unsigned_8add(sys, proc, instr);
+MEXF(VIIIADDUI) {
+  __unsigned_8add(MEX_ARGS);
 }
-MEXS(XVIADDU) {
-  __unsigned_16add(sys, proc, instr);
+MEXF(XVIADDU) {
+  __unsigned_16add(MEX_ARGS);
 }
-MEXS(XVIADDUI) {
-  __unsigned_16add(sys, proc, instr);
+MEXF(XVIADDUI) {
+  __unsigned_16add(MEX_ARGS);
 }
-MEXS(CMP) {}
-MEXS(CMPI) {}
-MEXS(CMPU) {}
-MEXS(CMPUI) {}
-MEXS(NEG) {
-}
-MEXS(NEGI) {
-}
-MEXS(NEGU) {}
-MEXS(NEGUI) {}
-MEXS(SL) {}
-MEXS(SLI) {}
-MEXS(SLU) {}
-MEXS(SLUI) {}
-MEXS(SR) {}
-MEXS(SRI) {}
-MEXS(SRU) {}
-MEXS(SRUI) {}
-MEXS(BN) {}
-MEXS(BNB) {}
-MEXS(BZ) {}
-MEXS(BZB) {}
-MEXS(BP) {}
-MEXS(BPB) {}
-MEXS(BOD) {}
-MEXS(BODB) {}
-MEXS(BNN) {}
-MEXS(BNNB) {}
-MEXS(BNZ) {}
-MEXS(BNZB) {}
-MEXS(BNP) {}
-MEXS(BNPB) {}
-MEXS(BEV) {}
-MEXS(BEVB) {}
-MEXS(PBN) {}
-MEXS(PBNB) {}
-MEXS(PBZ) {}
-MEXS(PBZB) {}
-MEXS(PBP) {}
-MEXS(PBPB) {}
-MEXS(PBOD) {}
-MEXS(PBODB) {}
-MEXS(PBNN) {}
-MEXS(PBNNB) {}
-MEXS(PBNZ) {}
-MEXS(PBNZB) {}
-MEXS(PBNP) {}
-MEXS(PBNPB) {}
-MEXS(PBEV) {}
-MEXS(PBEVB) {}
-MEXS(CSN) {}
-MEXS(CSNI) {}
-MEXS(CSZ) {}
-MEXS(CSZI) {}
-MEXS(CSP) {}
-MEXS(CSPI) {}
-MEXS(CSOD) {}
-MEXS(CSODI) {}
-MEXS(CSNN) {}
-MEXS(CSNNI) {}
-MEXS(CSNZ) {}
-MEXS(CSNZI) {}
-MEXS(CSNP) {}
-MEXS(CSNPI) {}
-MEXS(CSEV) {}
-MEXS(CSEVI) {}
-MEXS(ZSN) {}
-MEXS(ZSNI) {}
-MEXS(ZSZ) {}
-MEXS(ZSZI) {}
-MEXS(ZSP) {}
-MEXS(ZSPI) {}
-MEXS(ZSOD) {}
-MEXS(ZSODI) {}
-MEXS(ZSNN) {}
-MEXS(ZSNNI) {}
-MEXS(ZSNZ) {}
-MEXS(ZSNZI) {}
-MEXS(ZSNP) {}
-MEXS(ZSNPI) {}
-MEXS(ZSEV) {}
-MEXS(ZSEVI) {}
-MEXS(LDB) {}
-MEXS(LDBI) {}
-MEXS(LDBU) {}
-MEXS(LDBUI) {}
-MEXS(LDW) {}
-MEXS(LDWI) {}
-MEXS(LDWU) {}
-MEXS(LDWUI) {}
-MEXS(LDT) {}
-MEXS(LDTI) {}
-MEXS(LDTU) {}
-MEXS(LDTUI) {}
-MEXS(LDO) {}
-MEXS(LDOI) {}
-MEXS(LDOU) {}
-MEXS(LDOUI) {}
-MEXS(LDSF) {}
-MEXS(LDSFI) {}
-MEXS(LDHT) {}
-MEXS(LDHTI) {}
-MEXS(CSWAP) {}
-MEXS(CSWAPI) {}
-MEXS(LDUNC) {}
-MEXS(LDUNCI) {}
-MEXS(LDVTS) {}
-MEXS(LDVTSI) {}
-MEXS(PRELD) {}
-MEXS(PRELDI) {}
-MEXS(PREGO) {}
-MEXS(PREGOI) {}
-MEXS(GO) {}
-MEXS(GOI) {}
-MEXS(STB) {}
-MEXS(STBI) {}
-MEXS(STBU) {}
-MEXS(STBUI) {}
-MEXS(STW) {}
-MEXS(STWI) {}
-MEXS(STWU) {}
-MEXS(STWUI) {}
-MEXS(STT) {}
-MEXS(STTI) {}
-MEXS(STTU) {}
-MEXS(STTUI) {}
-MEXS(STO) {}
-MEXS(STOI) {}
-MEXS(STOU) {}
-MEXS(STOUI) {}
-MEXS(STSF) {}
-MEXS(STSFI) {}
-MEXS(STHT) {}
-MEXS(STHTI) {}
-MEXS(STCO) {}
-MEXS(STCOI) {}
-MEXS(STUNC) {}
-MEXS(STUNCI) {}
-MEXS(SYNCD) {}
-MEXS(SYNCDI) {}
-MEXS(PREST) {}
-MEXS(PRESTI) {}
-MEXS(SYNCID) {}
-MEXS(SYNCIDI) {}
-MEXS(PUSHGO) {}
-MEXS(PUSHGOI) {}
-MEXS(OR) {}
-MEXS(ORI) {}
-MEXS(ORN) {}
-MEXS(ORNI) {}
-MEXS(NOR) {}
-MEXS(NORI) {}
-MEXS(XOR) {}
-MEXS(XORI) {}
-MEXS(AND) {}
-MEXS(ANDI) {}
-MEXS(ANDN) {}
-MEXS(ANDNI) {}
-MEXS(NAND) {}
-MEXS(NANDI) {}
-MEXS(NXOR) {}
-MEXS(NXORI) {}
-MEXS(BDIF) {}
-MEXS(BDIFI) {}
-MEXS(WDIF) {}
-MEXS(WDIFI) {}
-MEXS(TDIF) {}
-MEXS(TDIFI) {}
-MEXS(ODIF) {}
-MEXS(ODIFI) {}
-MEXS(MUX) {}
-MEXS(MUXI) {}
-MEXS(SADD) {}
-MEXS(SADDI) {}
-MEXS(MOR) {}
-MEXS(MORI) {}
-MEXS(MXOR) {}
-MEXS(MXORI) {}
-MEXS(SETH) {}
-MEXS(SETMH) {}
-MEXS(SETML) {}
-MEXS(SETL) {}
-MEXS(INCH) {}
-MEXS(INCMH) {}
-MEXS(INCML) {}
-MEXS(INCL) {}
-MEXS(ORH) {}
-MEXS(ORMH) {}
-MEXS(ORML) {}
-MEXS(ORL) {}
-MEXS(ANDNH) {}
-MEXS(ANDNMH) {}
-MEXS(ANDNML) {}
-MEXS(ANDNL) {}
-MEXS(JMP) {}
-MEXS(JMPB) {}
-MEXS(PUSHJ) {}
-MEXS(PUSHJB) {}
-MEXS(GETA) {}
-MEXS(GETAB) {}
-MEXS(PUT) {}
-MEXS(PUTI) {}
-MEXS(POP) {}
 
-MEXS(RESUME) 
+static inline void __cmp(MEX_DEF_ARGS) {
+  XMREG = octa_cmp(Y, Z);
+}
+
+MEXF(CMP) {
+  __cmp(sys, proc, instr);
+}
+MEXF(CMPI) {
+  __cmp(sys, proc, instr);
+}
+MEXF(CMPU) {
+  __cmp(sys, proc, instr);
+}
+MEXF(CMPUI) {
+  __cmp(sys, proc, instr);
+}
+
+static inline void __neg(MEX_DEF_ARGS, bool test_overflow) {
+  bool overflow = false;
+  XMREG = octa_minus(Y, Z, &overflow);
+
+  if(test_overflow && overflow)
+    EXCEPTION_MREG |= V_BIT;
+}
+
+MEXF(NEG) {
+  __neg(MEX_ARGS, true);
+}
+MEXF(NEGI) {
+  __neg(MEX_ARGS, true);
+}
+MEXF(NEGU) {
+  __neg(MEX_ARGS, false);
+}
+MEXF(NEGUI) {
+  __neg(MEX_ARGS, false);
+}
+
+MEXF(SL) {}
+MEXF(SLI) {}
+MEXF(SLU) {}
+MEXF(SLUI) {}
+MEXF(SR) {}
+MEXF(SRI) {}
+MEXF(SRU) {}
+MEXF(SRUI) {}
+MEXF(BN) {}
+MEXF(BNB) {}
+MEXF(BZ) {}
+MEXF(BZB) {}
+MEXF(BP) {}
+MEXF(BPB) {}
+MEXF(BOD) {}
+MEXF(BODB) {}
+MEXF(BNN) {}
+MEXF(BNNB) {}
+MEXF(BNZ) {}
+MEXF(BNZB) {}
+MEXF(BNP) {}
+MEXF(BNPB) {}
+MEXF(BEV) {}
+MEXF(BEVB) {}
+MEXF(PBN) {}
+MEXF(PBNB) {}
+MEXF(PBZ) {}
+MEXF(PBZB) {}
+MEXF(PBP) {}
+MEXF(PBPB) {}
+MEXF(PBOD) {}
+MEXF(PBODB) {}
+MEXF(PBNN) {}
+MEXF(PBNNB) {}
+MEXF(PBNZ) {}
+MEXF(PBNZB) {}
+MEXF(PBNP) {}
+MEXF(PBNPB) {}
+MEXF(PBEV) {}
+MEXF(PBEVB) {}
+MEXF(CSN) {}
+MEXF(CSNI) {}
+MEXF(CSZ) {}
+MEXF(CSZI) {}
+MEXF(CSP) {}
+MEXF(CSPI) {}
+MEXF(CSOD) {}
+MEXF(CSODI) {}
+MEXF(CSNN) {}
+MEXF(CSNNI) {}
+MEXF(CSNZ) {}
+MEXF(CSNZI) {}
+MEXF(CSNP) {}
+MEXF(CSNPI) {}
+MEXF(CSEV) {}
+MEXF(CSEVI) {}
+MEXF(ZSN) {}
+MEXF(ZSNI) {}
+MEXF(ZSZ) {}
+MEXF(ZSZI) {}
+MEXF(ZSP) {}
+MEXF(ZSPI) {}
+MEXF(ZSOD) {}
+MEXF(ZSODI) {}
+MEXF(ZSNN) {}
+MEXF(ZSNNI) {}
+MEXF(ZSNZ) {}
+MEXF(ZSNZI) {}
+MEXF(ZSNP) {}
+MEXF(ZSNPI) {}
+MEXF(ZSEV) {}
+MEXF(ZSEVI) {}
+
+static inline void __ldb(MEX_DEF_ARGS) 
+{
+  byte out;  
+  MMEMR((void*)(Y + Z), byte, out);
+  XMREG = tetra_to_octa(0, out);
+}
+
+MEXF(LDB) 
+{
+  __ldb(MEX_ARGS);
+}
+MEXF(LDBI) 
+{
+    __ldb(MEX_ARGS);
+}
+MEXF(LDBU) {
+  __ldb(MEX_ARGS);
+}
+MEXF(LDBUI) {
+  __ldb(MEX_ARGS);
+}
+
+static inline void __ldw(MEX_DEF_ARGS) 
+{
+  word out;  
+  MMEMR((void*)(Y + Z), word, out);
+  XMREG = tetra_to_octa(0, out);
+}
+
+MEXF(LDW) {
+  __ldw(MEX_ARGS);
+}
+MEXF(LDWI) {
+  __ldw(MEX_ARGS);
+}
+MEXF(LDWU) {
+  __ldw(MEX_ARGS);
+}
+MEXF(LDWUI) {
+  __ldw(MEX_ARGS);
+}
+
+static inline void __ldt(MEX_DEF_ARGS) 
+{
+  tetra out;  
+  MMEMR((void*)(Y + Z), tetra, out);
+  XMREG = tetra_to_octa(0, out);
+}
+
+MEXF(LDT) {
+  __ldt(MEX_ARGS);
+}
+MEXF(LDTI) {
+  __ldt(MEX_ARGS);
+}
+MEXF(LDTU) {
+  __ldt(MEX_ARGS);
+}
+MEXF(LDTUI) {
+  __ldt(MEX_ARGS);
+}
+
+static inline void __ldo(MEX_DEF_ARGS) 
+{
+  octa out;  
+  MMEMR((void*)(Y + Z), octa, out);
+  XMREG = out;
+}
+
+MEXF(LDO) {
+  __ldo(MEX_ARGS);
+}
+MEXF(LDOI) {
+  __ldo(MEX_ARGS);
+}
+MEXF(LDOU) {
+  __ldo(MEX_ARGS);
+}
+MEXF(LDOUI) {
+  __ldo(MEX_ARGS);
+}
+
+MEXF(LDSF) {}
+MEXF(LDSFI) {}
+MEXF(LDHT) {}
+MEXF(LDHTI) {}
+MEXF(CSWAP) {}
+MEXF(CSWAPI) {}
+MEXF(LDUNC) {}
+MEXF(LDUNCI) {}
+MEXF(LDVTS) {}
+MEXF(LDVTSI) {}
+MEXF(PRELD) {}
+MEXF(PRELDI) {}
+MEXF(PREGO) {}
+MEXF(PREGOI) {}
+MEXF(GO) {}
+MEXF(GOI) {}
+MEXF(STB) {}
+MEXF(STBI) {}
+MEXF(STBU) {}
+MEXF(STBUI) {}
+MEXF(STW) {}
+MEXF(STWI) {}
+MEXF(STWU) {}
+MEXF(STWUI) {}
+MEXF(STT) {}
+MEXF(STTI) {}
+MEXF(STTU) {}
+MEXF(STTUI) {}
+MEXF(STO) {}
+MEXF(STOI) {}
+MEXF(STOU) {}
+MEXF(STOUI) {}
+MEXF(STSF) {}
+MEXF(STSFI) {}
+MEXF(STHT) {}
+MEXF(STHTI) {}
+MEXF(STCO) {}
+MEXF(STCOI) {}
+MEXF(STUNC) {}
+MEXF(STUNCI) {}
+MEXF(SYNCD) {}
+MEXF(SYNCDI) {}
+MEXF(PREST) {}
+MEXF(PRESTI) {}
+MEXF(SYNCID) {}
+MEXF(SYNCIDI) {}
+MEXF(PUSHGO) {}
+MEXF(PUSHGOI) {}
+
+static inline void __or(MEX_DEF_ARGS) {
+  XMREG = octa_or(Y, Z);
+}
+
+MEXF(OR) {
+  __or(MEX_ARGS);
+}
+MEXF(ORI) {
+  __or(MEX_ARGS);
+}
+
+static inline void __orn(MEX_DEF_ARGS) {
+  XMREG = octa_orn(Y, Z);
+}
+
+MEXF(ORN) {
+  __orn(MEX_ARGS);
+}
+MEXF(ORNI) {
+  __orn(MEX_ARGS);
+}
+
+static inline void __nor(MEX_DEF_ARGS) {
+  XMREG = octa_orn(Y, Z);
+}
+
+MEXF(NOR) {
+  __nor(MEX_ARGS);
+}
+
+MEXF(NORI) {
+  __nor(MEX_ARGS);
+}
+
+static inline void __xor(MEX_DEF_ARGS) {
+  XMREG = octa_xor(Y, Z);
+}
+
+MEXF(XOR) {
+  __xor(MEX_ARGS);
+}
+MEXF(XORI) {
+  __xor(MEX_ARGS);
+}
+
+static inline void __and(MEX_DEF_ARGS) {
+  XMREG = octa_and(Y, Z);
+}
+
+MEXF(AND) {
+  __and(MEX_ARGS);
+}
+MEXF(ANDI) {
+  __and(MEX_ARGS);
+}
+
+static inline void __andn(MEX_DEF_ARGS) {
+  XMREG = octa_andn(Y, Z);
+}
+
+MEXF(ANDN) {
+  __andn(MEX_ARGS);
+}
+MEXF(ANDNI) {
+  __andn(MEX_ARGS);
+}
+
+static inline void __nand(MEX_DEF_ARGS) {
+  XMREG = octa_nand(Y, Z);
+}
+
+MEXF(NAND) {
+  __nand(MEX_ARGS);
+}
+MEXF(NANDI) {
+  __nand(MEX_ARGS);
+}
+
+static inline void __nxor(MEX_DEF_ARGS) {
+  XMREG = octa_nxor(Y, Z);
+}
+
+MEXF(NXOR) {
+  __nxor(MEX_ARGS);
+}
+MEXF(NXORI) {
+  __nxor(MEX_ARGS);
+}
+
+static inline void __bdif(MEX_DEF_ARGS) {
+  XMREG = octa_bdif(Y, Z);
+}
+
+MEXF(BDIF) {
+  __bdif(MEX_ARGS);
+}
+MEXF(BDIFI) {
+  __bdif(MEX_ARGS);
+}
+
+static inline void __wdif(MEX_DEF_ARGS) {
+  XMREG = octa_wdif(Y, Z);
+}
+
+MEXF(WDIF) {
+  __wdif(MEX_ARGS);  
+}
+MEXF(WDIFI) {
+  __wdif(MEX_ARGS);
+}
+
+static inline void __tdif(MEX_DEF_ARGS) {
+  XMREG = octa_tdif(Y, Z);
+}
+
+MEXF(TDIF) {
+  __tdif(MEX_ARGS);
+}
+MEXF(TDIFI) {
+  __tdif(MEX_ARGS);
+}
+
+static inline void __odif(MEX_DEF_ARGS) {
+  XMREG = octa_odif(Y, Z);
+}
+
+MEXF(ODIF) {
+  __odif(MEX_ARGS);
+}
+MEXF(ODIFI) {
+  __odif(MEX_ARGS);
+}
+
+MEXF(MUX) {}
+MEXF(MUXI) {}
+MEXF(SADD) {}
+MEXF(SADDI) {}
+MEXF(MOR) {}
+MEXF(MORI) {}
+MEXF(MXOR) {}
+MEXF(MXORI) {}
+MEXF(SETH) {}
+MEXF(SETMH) {}
+MEXF(SETML) {}
+MEXF(SETL) {}
+MEXF(INCH) {}
+MEXF(INCMH) {}
+MEXF(INCML) {}
+MEXF(INCL) {}
+MEXF(ORH) {}
+MEXF(ORMH) {}
+MEXF(ORML) {}
+MEXF(ORL) {}
+MEXF(ANDNH) {}
+MEXF(ANDNMH) {}
+MEXF(ANDNML) {}
+MEXF(ANDNL) {}
+MEXF(JMP) {}
+MEXF(JMPB) {}
+MEXF(PUSHJ) {}
+MEXF(PUSHJB) {}
+MEXF(GETA) {}
+MEXF(GETAB) {}
+MEXF(PUT) {}
+MEXF(PUTI) {}
+MEXF(POP) {}
+
+MEXF(RESUME) 
 {
   octa b, z;
   z = proc->reg[instr->zz];
@@ -555,17 +773,17 @@ MEXS(RESUME)
   b = proc->reg[rX];
 }
 
-MEXS(SAVE) {}
+MEXF(SAVE) {}
 
-MEXS(UNSAVE) 
+MEXF(UNSAVE) 
 {
 
 }
 
-MEXS(SYNC) {}
-MEXS(SWYM) {}
-MEXS(GET) {}
-MEXS(TRIP) 
+MEXF(SYNC) {}
+MEXF(SWYM) {}
+MEXF(GET) {}
+MEXF(TRIP) 
 {
   proc->reg[rX] = sign_bit | instr->bin;
   proc->reg[rY] = instr->yy;

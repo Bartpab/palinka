@@ -63,7 +63,7 @@ octa octa_minus(octa y, octa z, bool *overflow);
 bool octa_is_neg(octa x);
 octa octa_compl(octa x);
 octa octa_incr(octa y, int d);
-
+octa octa_cmp(octa x, octa y);
 octa octa_right_shift(octa y, int s, int u);
 octa octa_left_shift(octa y, int s);
 
@@ -251,6 +251,16 @@ octa octa_incr(octa y, int d)
   return y + d;
 }
 
+octa octa_cmp(octa x, octa y)
+{
+  if(x < y)
+    return -1;
+  else if(x > y)
+    return 1;
+  else
+    return 0;
+}
+
 octa octa_right_shift(octa y, int s, int u)
 {
   return y >> s;
@@ -331,16 +341,15 @@ octa octa_div(hexadeca x, octa z, octa* aux)
   
   char s = 127;
   char rs = -1;
+  
   while(s >= 0) 
   {
-    rs = -1;
     // Shift divisor until rem is bigger
     if(rem < z) 
     {
       rem <<= 1;
-      rs++;
-
-      if(s > 31)
+  
+      if(s > 63)
         rem |= (x.h >> (s - 64)) & 0b1;
       else
         rem |= (x.l >> s) & 0b1;
@@ -349,8 +358,9 @@ octa octa_div(hexadeca x, octa z, octa* aux)
     if(rem >= z) 
     {
       rem -= z;
-      q |= (0b1 << s);
+      q |= (uint_to_octa(1) << s);
     }
+    
     s--;
   }
 

@@ -39,6 +39,14 @@ define_test(
     test_failure("Should be true")
   );
 
+  pnode = avl_page_insert(&tree, 5, &allocator);
+
+  test_check(
+    test_print("Insert #5th page."),
+    pnode != NULL,
+    test_failure("Should get an inserted page node.")
+  );
+
   avl_page_remove(&tree, 10);
 
   test_check(

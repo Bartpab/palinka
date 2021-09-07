@@ -40,13 +40,15 @@ void mmix_step(system_t* sys)
   // Get the current instruction to execute.
   octa bin_instr;
 
-  MMIX_MEM_READ(sys, proc->instr_ptr, bin_instr);
+  // Read the instruction (64-bit)
+  MMIX_MEM_READ(sys, proc->instr_ptr, octa, bin_instr);
   
   instr_t instr = op_tl_binary(bin_instr);
 
   // Dispatch the instruction.
   mmix_dispatch(sys, proc, &instr);
   
+  // Increment the instr pointer for the next step.
   proc->instr_ptr++;
 }
 
