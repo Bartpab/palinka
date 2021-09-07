@@ -1,0 +1,316 @@
+#ifndef __MMIX_OP_H__
+#define __MMIX_OP_H__
+
+#include <string.h>
+
+#include "reg.h"
+
+typedef enum{
+  TRAP,FCMP,FUN,FEQL,FADD,FIX,FSUB,FIXU,FLOT,FLOTI,FLOTU,FLOTUI,SFLOT,SFLOTI,SFLOTU,SFLOTUI,FMUL,FCMPE,FUNE,FEQLE,FDIV,FSQRT,FREM,FINT,MUL,MULI,MULU,MULUI,DIV,DIVI,DIVU,DIVUI,ADD,ADDI,ADDU,ADDUI,SUB,SUBI,SUBU,SUBUI,IIADDU,IIADDUI,IVADDU,IVADDUI,VIIIADDU,VIIIADDUI,XVIADDU,XVIADDUI,CMP,CMPI,CMPU,CMPUI,NEG,NEGI,NEGU,NEGUI,SL,SLI,SLU,SLUI,SR,SRI,SRU,SRUI,BN,BNB,BZ,BZB,BP,BPB,BOD,BODB,BNN,BNNB,BNZ,BNZB,BNP,BNPB,BEV,BEVB,PBN,PBNB,PBZ,PBZB,PBP,PBPB,PBOD,PBODB,PBNN,PBNNB,PBNZ,PBNZB,PBNP,PBNPB,PBEV,PBEVB,CSN,CSNI,CSZ,CSZI,CSP,CSPI,CSOD,CSODI,CSNN,CSNNI,CSNZ,CSNZI,CSNP,CSNPI,CSEV,CSEVI,ZSN,ZSNI,ZSZ,ZSZI,ZSP,ZSPI,ZSOD,ZSODI,ZSNN,ZSNNI,ZSNZ,ZSNZI,ZSNP,ZSNPI,ZSEV,ZSEVI,LDB,LDBI,LDBU,LDBUI,LDW,LDWI,LDWU,LDWUI,LDT,LDTI,LDTU,LDTUI,LDO,LDOI,LDOU,LDOUI,LDSF,LDSFI,LDHT,LDHTI,CSWAP,CSWAPI,LDUNC,LDUNCI,LDVTS,LDVTSI,PRELD,PRELDI,PREGO,PREGOI,GO,GOI,STB,STBI,STBU,STBUI,STW,STWI,STWU,STWUI,STT,STTI,STTU,STTUI,STO,STOI,STOU,STOUI,STSF,STSFI,STHT,STHTI,STCO,STCOI,STUNC,STUNCI,SYNCD,SYNCDI,PREST,PRESTI,SYNCID,SYNCIDI,PUSHGO,PUSHGOI,OR,ORI,ORN,ORNI,NOR,NORI,XOR,XORI,AND,ANDI,ANDN,ANDNI,NAND,NANDI,NXOR,NXORI,BDIF,BDIFI,WDIF,WDIFI,TDIF,TDIFI,ODIF,ODIFI,MUX,MUXI,SADD,SADDI,MOR,MORI,MXOR,MXORI,SETH,SETMH,SETML,SETL,INCH,INCMH,INCML,INCL,ORH,ORMH,ORML,ORL,ANDNH,ANDNMH,ANDNML,ANDNL,JMP,JMPB,PUSHJ,PUSHJB,GETA,GETAB,PUT,PUTI,POP,RESUME,SAVE,UNSAVE,SYNC,SWYM,GET,TRIP
+} mmix_opcode;
+
+typedef struct {
+  char *name;
+  unsigned char flags; /*! Instruction format */
+  unsigned char third_operand; /*! Special register input */
+  unsigned char mems; /*! How many u it costs */
+  unsigned char oops; /*! How meny v it costs */
+  char* trace_format; /*! How it appears when traced */
+} mmix_op_info;
+
+#define Z_is_immed_bit 0x01
+#define Z_is_source_bit 0x02
+#define Y_is_immed_bit 0x04
+#define Y_is_source_bit 0x08
+#define X_is_source_bit 0x10
+#define X_is_dest_bit 0x20
+#define rel_addr_bit 0x40
+#define push_pop_bit 0x80
+
+mmix_op_info MMIX_OP_INFOS[256] = {
+  {"TRAP",0x0a,255,0,5,"%r"},
+  {"FCMP",0x2a,0,0,1,"%l = %.y cmp %.z = %x"},
+  {"FUN",0x2a,0,0,1,"%l = [%.y(||)%.z] = %x"},
+  {"FEQL",0x2a,0,0,1,"%l = [%.y(==)%.z] = %x"},
+  {"FADD",0x2a,0,0,4,"%l = %.y %(+%) %.z = %.x"},
+  {"FIX",0x26,0,0,4,"%l = %(fix%) %.z = %x"},
+  {"FSUB",0x2a,0,0,4,"%l = %.y %(−%) %.z = %.x"},
+  {"FIXU",0x26,0,0,4,"%l = %(fix%) %.z = % 0xx"},
+  {"FLOT",0x26,0,0,4,"%l = %(flot%) %z = %.x"},
+  {"FLOTI",0x25,0,0,4,"%l = %(flot%) %z = %.x"},
+  {"FLOTU",0x26,0,0,4,"%l = %(flot%) % 0xz = %.x"},
+  {"FLOTUI",0x25,0,0,4,"%l = %(flot%) %z = %.x"},
+  {"SFLOT",0x26,0,0,4,"%l = %(sflot%) %z = %.x"},
+  {"SFLOTI",0x25,0,0,4,"%l = %(sflot%) %z = %.x"},
+  {"SFLOTU",0x26,0,0,4,"%l = %(sflot%) % 0xz = %.x"},
+  {"SFLOTUI",0x25,0,0,4,"%l = %(sflot%) %z = %.x"},
+  {"FMUL",0x2a,0,0,4,"%l = %.y %(*%) %.z = %.x"},
+  {"FCMPE",0x2a,rE,0,4,"%l = %.y cmp %.z (%.b)) = %x"},
+  {"FUNE",0x2a,rE,0,1,"%l = [%.y(||)%.z (%.b)] = %x"},
+  {"FEQLE",0x2a,rE,0,4,"%l = [%.y(==)%.z (%.b)] = %x"},
+  {"FDIV",0x2a,0,0,40,"%l = %.y %(/%) %.z = %.x"},
+  {"FSQRT",0x26,0,0,40,"%l = %(sqrt%) %.z = %.x"},
+  {"FREM",0x2a,0,0,4,"%l = %.y %(rem%) %.z = %.x"},
+  {"FINT",0x26,0,0,4,"%l = %(int%) %.z = %.x"},
+  {"MUL",0x2a,0,0,10,"%l = %y * %z = %x"},
+  {"MULI",0x29,0,0,10,"%l = %y * %z = %x"},
+  {"MULU",0x2a,0,0,10,"%l = % 0xy * % 0xz = % 0xx,rH=% 0xa"},
+  {"MULUI",0x29,0,0,10,"%l = % 0xy * %z = % 0xx,rH=% 0xa"},
+  {"DIV",0x2a,0,0,60,"%l = %y / %z = %x,rR=%a"},
+  {"DIVI",0x29,0,0,60,"%l = %y / %z = %x,rR=%a"},
+  {"DIVU",0x2a,rD,0,60,"%l = % 0xb%0y / % 0xz = % 0xx,rR=% 0xa"},
+  {"DIVUI",0x29,rD,0,60,"%l = % 0xb%0y / %z = % 0xx,rR=% 0xa"},
+  {"ADD",0x2a,0,0,1,"%l = %y + %z = %x"},
+  {"ADDI",0x29,0,0,1,"%l = %y + %z = %x"},
+  {"ADDU",0x2a,0,0,1,"%l = % 0xy + % 0xz = % 0xx"},
+  {"ADDUI",0x29,0,0,1,"%l = % 0xy + %z = % 0xx"},
+  {"SUB",0x2a,0,0,1,"%l = %y − %z = %x"},
+  {"SUBI",0x29,0,0,1,"%l = %y − %z = %x"},
+  {"SUBU",0x2a,0,0,1,"%l = % 0xy − % 0xz = % 0xx"},
+  {"SUBUI",0x29,0,0,1,"%l = % 0xy − %z = % 0xx"},
+  {"2ADDU",0x2a,0,0,1,"%l = % 0xy <<1+ % 0xz = % 0xx"},
+  {"2ADDUI",0x29,0,0,1,"%l = % 0xy <<1+ %z = % 0xx"},
+  {"4ADDU",0x2a,0,0,1,"%l = % 0xy <<2+ % 0xz = % 0xx"},
+  {"4ADDUI",0x29,0,0,1,"%l = % 0xy <<2+ %z = % 0xx"},
+  {"8ADDU",0x2a,0,0,1,"%l = % 0xy <<3+ % 0xz = % 0xx"},
+  {"8ADDUI",0x29,0,0,1,"%l = % 0xy <<3+ %z = % 0xx"},
+  {"16ADDU",0x2a,0,0,1,"%l = % 0xy <<4+ % 0xz = % 0xx"},
+  {"16ADDUI",0x29,0,0,1,"%l = % 0xy <<4+ %z = % 0xx"},
+  {"CMP",0x2a,0,0,1,"%l = %y cmp %z = %x"},
+  {"CMPI",0x29,0,0,1,"%l = %y cmp %z = %x"},
+  {"CMPU",0x2a,0,0,1,"%l = % 0xy cmp % 0xz = %x"},
+  {"CMPUI",0x29,0,0,1,"%l=%#ycmp%z=%x"},
+  {"NEG",0x26,0,0,1,"%l=%y−%z=%x"},
+  {"NEGI",0x25,0,0,1,"%l=%y−%z=%x"},
+  {"NEGU",0x26,0,0,1,"%l=%y−%#z=%#x"},
+  {"NEGUI",0x25,0,0,1,"%l=%y−%z=%#x"},
+  {"SL",0x2a,0,0,1,"%l=%y<<%#z=%x"},
+  {"SLI",0x29,0,0,1,"%l=%y<<%z=%x"},
+  {"SLU",0x2a,0,0,1,"%l=%#y<<%#z=%#x"},
+  {"SLUI",0x29,0,0,1,"%l=%#y<<%z=%#x"},
+  {"SR",0x2a,0,0,1,"%l=%y>>%#z=%x"},
+  {"SRI",0x29,0,0,1,"%l=%y>>%z=%x"},
+  {"SRU",0x2a,0,0,1,"%l=%#y>>%#z=%#x"},
+  {"SRUI",0x29,0,0,1,"%l=%#y>>%z=%#x"},
+  {"BN",0x50,0,0,1,"%b<0?%t%g"},
+  {"BNB",0x50,0,0,1,"%b<0?%t%g"},
+  {"BZ",0x50,0,0,1,"%b==0?%t%g"},
+  {"BZB",0x50,0,0,1,"%b==0?%t%g"},
+  {"BP",0x50,0,0,1,"%b>0?%t%g"},
+  {"BPB",0x50,0,0,1,"%b>0?%t%g"},
+  {"BOD",0x50,0,0,1,"%bodd?%t%g"},
+  {"BODB",0x50,0,0,1,"%bodd?%t%g"},
+  {"BNN",0x50,0,0,1,"%b>=0?%t%g"},
+  {"BNNB",0x50,0,0,1,"%b>=0?%t%g"},
+  {"BNZ",0x50,0,0,1,"%b!=0?%t%g"},
+  {"BNZB",0x50,0,0,1,"%b!=0?%t%g"},
+  {"BNP",0x50,0,0,1,"%b<=0?%t%g"},
+  {"BNPB",0x50,0,0,1,"%b<=0?%t%g"},
+  {"BEV",0x50,0,0,1,"%beven?%t%g"},
+  {"BEVB",0x50,0,0,1,"%beven?%t%g"},
+  {"PBN",0x50,0,0,1,"%b<0?%t%g"},
+  {"PBNB",0x50,0,0,1,"%b<0?%t%g"},
+  {"PBZ",0x50,0,0,1,"%b==0?%t%g"},
+  {"PBZB",0x50,0,0,1,"%b==0?%t%g"},
+  {"PBP",0x50,0,0,1,"%b>0?%t%g"},
+  {"PBPB",0x50,0,0,1,"%b>0?%t%g"},
+  {"PBOD",0x50,0,0,1,"%bodd?%t%g"},
+  {"PBODB",0x50,0,0,1,"%bodd?%t%g"},
+  {"PBNN",0x50,0,0,1,"%b>=0?%t%g"},
+  {"PBNNB",0x50,0,0,1,"%b>=0?%t%g"},
+  {"PBNZ",0x50,0,0,1,"%b!=0?%t%g"},
+  {"PBNZB",0x50,0,0,1,"%b!=0?%t%g"},
+  {"PBNP",0x50,0,0,1,"%b<=0?%t%g"},
+  {"PBNPB",0x50,0,0,1,"%b<=0?%t%g"},
+  {"PBEV",0x50,0,0,1,"%beven?%t%g"},
+  {"PBEVB",0x50,0,0,1,"%beven?%t%g"},
+  {"CSN",0x3a,0,0,1,"%l=%y<0?%z:%b=%x"},
+  {"CSNI",0x39,0,0,1,"%l=%y<0?%z:%b=%x"},
+  {"CSZ",0x3a,0,0,1,"%l=%y==0?%z:%b=%x"},
+  {"CSZI",0x39,0,0,1,"%l=%y==0?%z:%b=%x"},
+  {"CSP",0x3a,0,0,1,"%l=%y>0?%z:%b=%x"},
+  {"CSPI",0x39,0,0,1,"%l=%y>0?%z:%b=%x"},
+  {"CSOD",0x3a,0,0,1,"%l=%yodd?%z:%b=%x"},
+  {"CSODI",0x39,0,0,1,"%l=%yodd?%z:%b=%x"},
+  {"CSNN",0x3a,0,0,1,"%l=%y>=0?%z:%b=%x"},
+  {"CSNNI",0x39,0,0,1,"%l=%y>=0?%z:%b=%x"},
+  {"CSNZ",0x3a,0,0,1,"%l=%y!=0?%z:%b=%x"},
+  {"CSNZI",0x39,0,0,1,"%l=%y!=0?%z:%b=%x"},
+  {"CSNP",0x3a,0,0,1,"%l=%y<=0?%z:%b=%x"},
+  {"CSNPI",0x39,0,0,1,"%l=%y<=0?%z:%b=%x"},
+  {"CSEV",0x3a,0,0,1,"%l=%yeven?%z:%b=%x"},
+  {"CSEVI",0x39,0,0,1,"%l=%yeven?%z:%b=%x"},
+  {"ZSN",0x2a,0,0,1,"%l=%y<0?%z:0=%x"},
+  {"ZSNI",0x29,0,0,1,"%l=%y<0?%z:0=%x"},
+  {"ZSZ",0x2a,0,0,1,"%l=%y==0?%z:0=%x"},
+  {"ZSZI",0x29,0,0,1,"%l=%y==0?%z:0=%x"},
+  {"ZSP",0x2a,0,0,1,"%l=%y>0?%z:0=%x"},
+  {"ZSPI",0x29,0,0,1,"%l=%y>0?%z:0=%x"},
+  {"ZSOD",0x2a,0,0,1,"%l=%yodd?%z:0=%x"},
+  {"ZSODI",0x29,0,0,1,"%l=%yodd?%z:0=%x"},
+  {"ZSNN",0x2a,0,0,1,"%l=%y>=0?%z:0=%x"},
+  {"ZSNNI",0x29,0,0,1,"%l=%y>=0?%z:0=%x"},
+  {"ZSNZ",0x2a,0,0,1,"%l=%y!=0?%z:0=%x"},
+  {"ZSNZI",0x29,0,0,1,"%l=%y!=0?%z:0=%x"},
+  {"ZSNP",0x2a,0,0,1,"%l=%y<=0?%z:0=%x"},
+  {"ZSNPI",0x29,0,0,1,"%l=%y<=0?%z:0=%x"},
+  {"ZSEV",0x2a,0,0,1,"%l=%yeven?%z:0=%x"},
+  {"ZSEVI",0x29,0,0,1,"%l=%yeven?%z:0=%x"},
+  {"LDB",0x2a,0,1,1,"%l=M1[%#y+%#z]=%x"},
+  {"LDBI",0x29,0,1,1,"%l=M1[%#y%?+]=%x"},
+  {"LDBU",0x2a,0,1,1,"%l=M1[%#y+%#z]=%#x"},
+  {"LDBUI",0x29,0,1,1,"%l=M1[%#y%?+]=%#x"},
+  {"LDW",0x2a,0,1,1,"%l=M2[%#y+%#z]=%x"},
+  {"LDWI",0x29,0,1,1,"%l=M2[%#y%?+]=%x"},
+  {"LDWU",0x2a,0,1,1,"%l=M2[%#y+%#z]=%#x"},
+  {"LDWUI",0x29,0,1,1,"%l=M2[%#y%?+]=%#x"},
+  {"LDT",0x2a,0,1,1,"%l=M4[%#y+%#z]=%x"},
+  {"LDTI",0x29,0,1,1,"%l=M4[%#y%?+]=%x"},
+  {"LDTU",0x2a,0,1,1,"%l=M4[%#y+%#z]=%#x"},
+  {"LDTUI",0x29,0,1,1,"%l=M4[%#y%?+]=%#x"},
+  {"LDO",0x2a,0,1,1,"%l=M8[%#y+%#z]=%x"},
+  {"LDOI",0x29,0,1,1,"%l=M8[%#y%?+]=%x"},
+  {"LDOU",0x2a,0,1,1,"%l=M8[%#y+%#z]=%#x"},
+  {"LDOUI",0x29,0,1,1,"%l=M8[%#y%?+]=%#x"},
+  {"LDSF",0x2a,0,1,1,"%l=(M4[%#y+%#z])=%.x"},
+  {"LDSFI",0x29,0,1,1,"%l=(M4[%#y%?+])=%.x"},
+  {"LDHT",0x2a,0,1,1,"%l=M4[%#y+%#z]<<32=%#x"},
+  {"LDHTI",0x29,0,1,1,"%l=M4[%#y%?+]<<32=%#x"},
+  {"CSWAP",0x3a,0,2,2,"%l=[M8[%#y+%#z]==%a]=%x,%r"},
+  {"CSWAPI",0x39,0,2,2,"%l=[M8[%#y%?+]==%a]=%x,%r"},
+  {"LDUNC",0x2a,0,1,1,"%l=M8[%#y+%#z]=%#x"},
+  {"LDUNCI",0x29,0,1,1,"%l=M8[%#y%?+]=%#x"},
+  {"LDVTS",0x2a,0,0,1,""},
+  {"LDVTSI",0x29,0,0,1,""},
+  {"PRELD",0x0a,0,0,1,"[%#y+%#z..%#x]"},
+  {"PRELDI",0x09,0,0,1,"[%#y%?+..%#x]"},
+  {"PREGO",0x0a,0,0,1,"[%#y+%#z..%#x]"},
+  {"PREGOI",0x09,0,0,1,"[%#y%?+..%#x]"},
+  {"GO",0x2a,0,0,3,"%l=%#x,−>%#y+%#z"},
+  {"GOI",0x29,0,0,3,"%l=%#x,−>%#y%?+"},
+  {"STB",0x1a,0,1,1,"M1[%#y+%#z]=%b,M8[%#w]=%#a"}
+  ,{"STBI",0x19,0,1,1,"M1[%#y%?+]=%b,M8[%#w]=%#a"},
+  {"STBU",0x1a,0,1,1,"M1[%#y+%#z]=%#b,M8[%#w]=%#a"},
+  {"STBUI",0x19,0,1,1,"M1[%#y%?+]=%#b,M8[%#w]=%#a"},
+  {"STW",0x1a,0,1,1,"M2[%#y+%#z]=%b,M8[%#w]=%#a"},
+  {"STWI",0x19,0,1,1,"M2[%#y%?+]=%b,M8[%#w]=%#a"},
+  {"STWU",0x1a,0,1,1,"M2[%#y+%#z]=%#b,M8[%#w]=%#a"},
+  {"STWUI",0x19,0,1,1,"M2[%#y%?+]=%#b,M8[%#w]=%#a"},
+  {"STT",0x1a,0,1,1,"M4[%#y+%#z]=%b,M8[%#w]=%#a"},
+  {"STTI",0x19,0,1,1,"M4[%#y%?+]=%b,M8[%#w]=%#a"},
+  {"STTU",0x1a,0,1,1,"M4[%#y+%#z]=%#b,M8[%#w]=%#a"},
+  {"STTUI",0x19,0,1,1,"M4[%#y%?+]=%#b,M8[%#w]=%#a"},
+  {"STO",0x1a,0,1,1,"M8[%#y+%#z]=%b"},
+  {"STOI",0x19,0,1,1,"M8[%#y%?+]=%b"},
+  {"STOU",0x1a,0,1,1,"M8[%#y+%#z]=%#b"},
+  {"STOUI",0x19,0,1,1,"M8[%#y%?+]=%#b"},
+  {"STSF",0x1a,0,1,1,"%(M4[%#y+%#z]%)=%.b,M8[%#w]=%#a"},
+  {"STSFI",0x19,0,1,1,"%(M4[%#y%?+]%)=%.b,M8[%#w]=%#a"},
+  {"STHT",0x1a,0,1,1,"M4[%#y+%#z]=%#b>>32,M8[%#w]=%#a"},
+  {"STHTI",0x19,0,1,1,"M4[%#y%?+]=%#b>>32,M8[%#w]=%#a"},
+  {"STCO",0x0a,0,1,1,"M8[%#y+%#z]=%b"},
+  {"STCOI",0x09,0,1,1,"M8[%#y%?+]=%b"},
+  {"STUNC",0x1a,0,1,1,"M8[%#y+%#z]=%#b"},
+  {"STUNCI",0x19,0,1,1,"M8[%#y%?+]=%#b"},
+  {"SYNCD",0x0a,0,0,1,"[%#y+%#z..%#x]"},
+  {"SYNCDI",0x09,0,0,1,"[%#y%?+..%#x]"},
+  {"PREST",0x0a,0,0,1,"[%#y+%#z..%#x]"},
+  {"PRESTI",0x09,0,0,1,"[%#y%?+..%#x]"},
+  {"SYNCID",0x0a,0,0,1,"[%#y+%#z..%#x]"},
+  {"SYNCIDI",0x09,0,0,1,"[%#y%?+..%#x]"},
+  {"PUSHGO",0xaa,0,0,3,"%lrO=%#b,rL=%a,rJ=%#x,−>%#y+%#z"},
+  {"PUSHGOI",0xa9,0,0,3,"%lrO=%#b,rL=%a,rJ=%#x,−>%#y%?+"},
+  {"OR",0x2a,0,0,1,"%l=%#y|%#z=%#x"},
+  {"ORI",0x29,0,0,1,"%l=%#y|%z=%#x"},
+  {"ORN",0x2a,0,0,1,"%l=%#y|~%#z=%#x"},
+  {"ORNI",0x29,0,0,1,"%l=%#y|~%z=%#x"},
+  {"NOR",0x2a,0,0,1,"%l=%#y~|%#z=%#x"},
+  {"NORI",0x29,0,0,1,"%l=%#y~|%z=%#x"},
+  {"XOR",0x2a,0,0,1,"%l=%#y^%#z=%#x"},
+  {"XORI",0x29,0,0,1,"%l=%#y^%z=%#x"},
+  {"AND",0x2a,0,0,1,"%l=%#y&%#z=%#x"},
+  {"ANDI",0x29,0,0,1,"%l=%#y&%z=%#x"},
+  {"ANDN",0x2a,0,0,1,"%l=%#y\\%#z=%#x"},
+  {"ANDNI",0x29,0,0,1,"%l=%#y\\%z=%#x"},
+  {"NAND",0x2a,0,0,1,"%l=%#y~&%#z=%#x"},
+  {"NANDI",0x29,0,0,1,"%l=%#y~&%z=%#x"},
+  {"NXOR",0x2a,0,0,1,"%l=%#y~^%#z=%#x"},
+  {"NXORI",0x29,0,0,1,"%l=%#y~^%z=%#x"},
+  {"BDIF",0x2a,0,0,1,"%l=%#ybdif%#z=%#x"},
+  {"BDIFI",0x29,0,0,1,"%l=%#ybdif%z=%#x"},
+  {"WDIF",0x2a,0,0,1,"%l=%#ywdif%#z=%#x"},
+  {"WDIFI",0x29,0,0,1,"%l=%#ywdif%z=%#x"},
+  {"TDIF",0x2a,0,0,1,"%l=%#ytdif%#z=%#x"},
+  {"TDIFI",0x29,0,0,1,"%l=%#ytdif%z=%#x"},
+  {"ODIF",0x2a,0,0,1,"%l=%#yodif%#z=%#x"},
+  {"ODIFI",0x29,0,0,1,"%l=%#yodif%z=%#x"},
+  {"MUX",0x2a,rM,0,1,"%l=%#b?%#y:%#z=%#x"},
+  {"MUXI",0x29,rM,0,1,"%l=%#b?%#y:%z=%#x"},
+  {"SADD",0x2a,0,0,1,"%l=nu(%#y\\%#z)=%x"},
+  {"SADDI",0x29,0,0,1,"%l=nu(%#y%?\\)=%x"},
+  {"MOR",0x2a,0,0,1,"%l=%#ymor%#z=%#x"},
+  {"MORI",0x29,0,0,1,"%l=%#ymor%z=%#x"},
+  {"MXOR",0x2a,0,0,1,"%l=%#ymxor%#z=%#x"},
+  {"MXORI",0x29,0,0,1,"%l=%#ymxor%z=%#x"},
+  {"SETH",0x20,0,0,1,"%l=%#z"},
+  {"SETMH",0x20,0,0,1,"%l=%#z"},
+  {"SETML",0x20,0,0,1,"%l=%#z"},
+  {"SETL",0x20,0,0,1,"%l=%#z"},
+  {"INCH",0x30,0,0,1,"%l=%#y+%#z=%#x"},
+  {"INCMH",0x30,0,0,1,"%l=%#y+%#z=%#x"},
+  {"INCML",0x30,0,0,1,"%l=%#y+%#z=%#x"},
+  {"INCL",0x30,0,0,1,"%l=%#y+%#z=%#x"},
+  {"ORH",0x30,0,0,1,"%l=%#y|%#z=%#x"},
+  {"ORMH",0x30,0,0,1,"%l=%#y|%#z=%#x"},
+  {"ORML",0x30,0,0,1,"%l=%#y|%#z=%#x"},
+  {"ORL",0x30,0,0,1,"%l=%#y|%#z=%#x"},
+  {"ANDNH",0x30,0,0,1,"%l=%#y\\%#z=%#x"},
+  {"ANDNMH",0x30,0,0,1,"%l=%#y\\%#z=%#x"},
+  {"ANDNML",0x30,0,0,1,"%l=%#y\\%#z=%#x"},
+  {"ANDNL",0x30,0,0,1,"%l=%#y\\%#z=%#x"},
+  {"JMP",0x40,0,0,1,"−>%#z"},
+  {"JMPB",0x40,0,0,1,"−>%#z"},
+  {"PUSHJ",0xe0,0,0,1,"%lrO=%#b,rL=%a,rJ=%#x,−>%#z"},
+  {"PUSHJB",0xe0,0,0,1,"%lrO=%#b,rL=%a,rJ=%#x,−>%#z"},
+  {"GETA",0x60,0,0,1,"%l=%#z"},
+  {"GETAB",0x60,0,0,1,"%l=%#z"},
+  {"PUT",0x02,0,0,1,"%s=%r"},
+  {"PUTI",0x01,0,0,1,"%s=%r"},
+  {"POP",0x80,rJ,0,3,"%lrL=%a,rO=%#b,−>%#y%?+"},
+  {"RESUME",0x00,0,0,5,"{%#b}−>%#z"},
+  {"SAVE",0x20,0,20,1,"%l=%#x"},
+  {"UNSAVE",0x82,0,20,1,"%#z:rG=%x,...,rL=%a"},
+  {"SYNC",0x01,0,0,1,""},
+  {"SWYM",0x00,0,0,1,""},
+  {"GET",0x20,0,0,1,"%l=%s=%#x"},
+  {"TRIP",0x0a,255,0,5,"rW=%#w,rX=%#x,rY=%#y,rZ=%#z,rB=%#b,g[255]=%#a"}
+};
+
+/**
+* \brief Translate an op name into an opcode
+*
+* \return 1 if valid op_name, 0 else.
+*/
+char mmix_op_name_tl(const char* op_name, char* out)
+{
+  mmix_op_info* it, *limit;
+  it = MMIX_OP_INFOS;
+  limit = MMIX_OP_INFOS + 256 - 1;
+
+  char op_code = 0;
+
+  while(it != limit) 
+  {
+    if(strcmp(op_name, it->name) == 0) 
+    {
+      *out = op_code;
+      return 1;
+    }
+    op_code++;
+    it++;
+  }
+
+  return 0;
+}
+
+#endif
