@@ -1,6 +1,56 @@
 #include "utils.h"
 #include "../src/arith.h"
 
+define_test(
+  octa_orn, test_print("Octa Or Not")
+) {
+  char sx[32], sy[32], sz[32], se[32];
+  octa x, y, z, e;
+
+  y = byte_to_octa(0, 0, 0, 0, 0, 0, 0, ~0);
+  z = byte_to_octa(0, 0, 0, 0, 0, 0, ~0, ~0);
+  e = byte_to_octa(~0, ~0, ~0, ~0, ~0, ~0, 0, ~0);
+
+  x = octa_orn(y, z);
+  octa_str(x, sx, 32), octa_str(y, sy, 32);
+  octa_str(z, sz, 32), octa_str(e, se, 32);
+
+  test_check(
+    test_print("%s || ~%s = %s", sy, sz, se),
+    x == e,
+    test_failure("Expecting %s, got %s", se, sx)
+  )
+
+  test_success;
+  test_teardown {}
+  test_end;
+}
+
+define_test(
+  octa_nor, test_print("Octa Not Or")
+) {
+  char sx[32], sy[32], sz[32], se[32];
+  octa x, y, z, e;
+
+  y = byte_to_octa(0, 0, 0, 0, 0, 0, ~0, 0);
+  z = byte_to_octa(0, 0, 0, 0, 0, 0, 0, ~0);
+  e = byte_to_octa(~0, ~0, ~0, ~0, ~0, ~0, 0, 0);
+
+  x = octa_nor(y, z);
+  
+  octa_str(x, sx, 32), octa_str(y, sy, 32);
+  octa_str(z, sz, 32), octa_str(e, se, 32);
+
+  test_check(
+    test_print("~(%s || %s) = %s", sy, sz, se),
+    x == e,
+    test_failure("Expecting %s, got %s", se, sx)
+  )
+
+  test_success;
+  test_teardown {}
+  test_end;
+}
 
 define_test(
   octa_bdif, test_print("Octa byte diff")
@@ -706,8 +756,15 @@ define_test_chapter(
 )
 
 define_test_chapter(
+  arith_4, test_print("Arithmetics #4"),
+  octa_orn,
+  octa_nor
+)
+
+define_test_chapter(
   arith, test_print("Arithmetics"), 
   arith_1,
   arith_2,
-  arith_3
+  arith_3,
+  arith_4
 )

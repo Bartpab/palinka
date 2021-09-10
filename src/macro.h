@@ -24,5 +24,4 @@
 #define MAP_14(F, A, ...) F(A); MAP_13(F, __VA_ARGS__)
 #define MAP_15(F, A, ...) F(A); MAP_14(F, __VA_ARGS__)
 #define MAP_16(F, A, ...) F(A); MAP_15(F, __VA_ARGS__)
-
 #endif

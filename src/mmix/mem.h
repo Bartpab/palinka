@@ -29,8 +29,9 @@
   if(!mmix_memtl(sys, addr, &__out)) {\
     sys_panic(sys); \
     on_failure; \
-  \} \
-  *(type*) __out = val;}
+  } \
+  *(type*) __out = val;\
+}
 
 #define MMIX_MEM_ACCESS(sys, addr, out) MMIX_MEM_ACCESS_FAILBACK(sys, addr, type, out, return)
 #define MMIX_MEM_READ(sys, addr, type, out) MMIX_MEM_READ_FAILBACK(sys, addr, type, out, return)
@@ -48,7 +49,7 @@ bool mmix_memtl(system_t* sys, void* addr, void** out)
   bool retres = mem_tl(&sys->mem, addr, out, &exceptions);
   
   if(!retres)
-    proc->reg[rA] |= exceptions << 19; // Set the value
+    proc->g[rA] |= exceptions << 19; // Set the value
 
   return retres;
 }
