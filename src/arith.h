@@ -29,6 +29,9 @@
 #define oh(o) (o >> 32)
 #define ol(o) (o & 0xFFFFFFFF)
 
+unsigned char octa_count_bits(octa x);
+octa octa_mux(octa x, octa y, octa mask);
+
 octa octa_and(octa x, octa y);
 octa octa_or(octa x, octa y);
 octa octa_xor(octa x, octa y);
@@ -56,6 +59,25 @@ octa octa_right_shift(octa y, int s, int u);
 octa octa_left_shift(octa y, int s);
 
 /* IMPL */
+unsigned char octa_count_bits(octa x) {
+  unsigned char c = 0;
+  
+  for(unsigned char i = 0; i < 64; i++) 
+  {
+    if(x & 1) c++;
+    x >>= 1;
+  }
+
+  return c;
+}
+
+octa octa_mux(octa x, octa y, octa mask) {
+  return octa_or(
+    octa_and(x, mask),
+    octa_and(y, ~mask)
+  );
+}
+
 octa octa_and(octa x, octa y) {
   return x & y;
 }

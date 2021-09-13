@@ -358,7 +358,7 @@ MEXF(DIVUI)
   __unsigned_div(MEX_ARGS);
 }
 
-static inline void __add(MEX_DEF_ARGS, bool test_overflow) 
+static inline void __add(MEX_DEF_ARGS, bool test_overflow)
 {
   bool overflow = false;
 
@@ -552,14 +552,41 @@ MEXF(NEGUI) {
   __neg(MEX_ARGS, false);
 }
 
-MEXF(SL) {}
-MEXF(SLI) {}
-MEXF(SLU) {}
-MEXF(SLUI) {}
-MEXF(SR) {}
-MEXF(SRI) {}
-MEXF(SRU) {}
-MEXF(SRUI) {}
+static inline void __sl(MEX_DEF_ARGS) {
+  instr->x = octa_left_shift(instr->y, instr->z);
+  __store_x(MEX_ARGS);
+}
+
+MEXF(SL) {
+  __sl(MEX_ARGS);
+}
+MEXF(SLI) {
+  __sl(MEX_ARGS);
+}
+MEXF(SLU) {
+  __sl(MEX_ARGS);
+}
+MEXF(SLUI) {
+  __sl(MEX_ARGS);
+}
+
+static inline void __sr(MEX_DEF_ARGS) {
+  instr->x = octa_right_shift(instr->y, instr->z, instr->op & 0x2);
+  __store_x(MEX_ARGS);
+}
+
+MEXF(SR) {
+  __sr(MEX_ARGS);
+}
+MEXF(SRI) {
+  __sr(MEX_ARGS);
+}
+MEXF(SRU) {
+  __sr(MEX_ARGS);
+}
+MEXF(SRUI) {
+  __sr(MEX_ARGS);
+}
 
 static inline void __bn(MEX_DEF_ARGS)
 {
@@ -586,38 +613,102 @@ static inline void __bn(MEX_DEF_ARGS)
   }
 }
 
-MEXF(BN) {}
-MEXF(BNB) {}
-MEXF(BZ) {}
-MEXF(BZB) {}
-MEXF(BP) {}
-MEXF(BPB) {}
-MEXF(BOD) {}
-MEXF(BODB) {}
-MEXF(BNN) {}
-MEXF(BNNB) {}
-MEXF(BNZ) {}
-MEXF(BNZB) {}
-MEXF(BNP) {}
-MEXF(BNPB) {}
-MEXF(BEV) {}
-MEXF(BEVB) {}
-MEXF(PBN) {}
-MEXF(PBNB) {}
-MEXF(PBZ) {}
-MEXF(PBZB) {}
-MEXF(PBP) {}
-MEXF(PBPB) {}
-MEXF(PBOD) {}
-MEXF(PBODB) {}
-MEXF(PBNN) {}
-MEXF(PBNNB) {}
-MEXF(PBNZ) {}
-MEXF(PBNZB) {}
-MEXF(PBNP) {}
-MEXF(PBNPB) {}
-MEXF(PBEV) {}
-MEXF(PBEVB) {}
+MEXF(BN) {
+  __bn(MEX_ARGS);
+}
+MEXF(BNB) {
+  __bn(MEX_ARGS);
+}
+MEXF(BZ) {
+  __bn(MEX_ARGS);
+}
+MEXF(BZB) {
+  __bn(MEX_ARGS);
+}
+MEXF(BP) {
+  __bn(MEX_ARGS);
+}
+MEXF(BPB) {
+  __bn(MEX_ARGS);
+}
+MEXF(BOD) {
+  __bn(MEX_ARGS);
+}
+MEXF(BODB) {
+  __bn(MEX_ARGS);
+}
+MEXF(BNN) {
+  __bn(MEX_ARGS);
+}
+MEXF(BNNB) {
+  __bn(MEX_ARGS);
+}
+MEXF(BNZ) {
+  __bn(MEX_ARGS);
+}
+MEXF(BNZB) {
+  __bn(MEX_ARGS);
+}
+MEXF(BNP) {
+  __bn(MEX_ARGS);
+}
+MEXF(BNPB) {
+  __bn(MEX_ARGS);
+}
+MEXF(BEV) {
+  __bn(MEX_ARGS);
+}
+MEXF(BEVB) {
+  __bn(MEX_ARGS);
+}
+MEXF(PBN) {
+  __bn(MEX_ARGS);
+}
+MEXF(PBNB) {
+  __bn(MEX_ARGS);
+}
+MEXF(PBZ) {
+  __bn(MEX_ARGS);
+}
+MEXF(PBZB) {
+  __bn(MEX_ARGS);
+}
+MEXF(PBP) {
+  __bn(MEX_ARGS);
+}
+MEXF(PBPB) {
+  __bn(MEX_ARGS);
+}
+MEXF(PBOD) {
+  __bn(MEX_ARGS);
+}
+MEXF(PBODB) {
+  __bn(MEX_ARGS);
+}
+MEXF(PBNN) {
+  __bn(MEX_ARGS);
+}
+MEXF(PBNNB) {
+  __bn(MEX_ARGS);
+}
+MEXF(PBNZ) {
+  __bn(MEX_ARGS);
+}
+MEXF(PBNZB) {
+  __bn(MEX_ARGS);
+}
+MEXF(PBNP) {
+  __bn(MEX_ARGS);
+}
+MEXF(PBNPB) {
+  __bn(MEX_ARGS);
+}
+MEXF(PBEV) {
+  __bn(MEX_ARGS);
+}
+MEXF(PBEVB) {
+  __bn(MEX_ARGS);
+}
 
 static inline void __cs(MEX_DEF_ARGS) {
   instr->x = __reg_truth(instr->y, instr->op) ? instr->z : instr->b;
@@ -729,17 +820,18 @@ static inline void __ldb(MEX_DEF_ARGS)
   __store_x(MEX_ARGS);
 }
 
-MEXF(LDB) 
-{
+MEXF(LDB) {
   __ldb(MEX_ARGS);
 }
-MEXF(LDBI) 
-{
+
+MEXF(LDBI) {
   __ldb(MEX_ARGS);
 }
+
 MEXF(LDBU) {
   __ldb(MEX_ARGS);
 }
+
 MEXF(LDBUI) {
   __ldb(MEX_ARGS);
 }
@@ -807,12 +899,68 @@ MEXF(LDOUI) {
   __ldo(MEX_ARGS);
 }
 
-MEXF(LDSF) {}
-MEXF(LDSFI) {}
-MEXF(LDHT) {}
-MEXF(LDHTI) {}
-MEXF(CSWAP) {}
-MEXF(CSWAPI) {}
+static inline void __ldsf(MEX_DEF_ARGS) {
+  MMEMR(
+    octa_to_voidp(instr->w),
+    octa,
+    instr->x
+  );
+
+  __store_x(MEX_ARGS);
+}
+
+MEXF(LDSF) {
+  __ldsf(MEX_ARGS);
+}
+
+MEXF(LDSFI) {
+  __ldsf(MEX_ARGS);
+}
+
+static inline void __ldht(MEX_DEF_ARGS) {
+  MMEMR(
+    octa_to_voidp(instr->w),
+    octa,
+    instr->x
+  );
+
+  instr->x = tetra_to_octa(oh(instr->x), 0);
+  __store_x(MEX_ARGS);
+}
+
+MEXF(LDHT) {
+  __ldht(MEX_ARGS);
+}
+MEXF(LDHTI) {
+  __ldht(MEX_ARGS);
+}
+
+static inline void __cswap(MEX_DEF_ARGS)
+{
+  void* v;
+  octa b;
+
+  v = octa_to_voidp(instr->w);
+  MMEMR(v, octa, b);
+
+  if(octa_eq(b, proc->g[rP])) {
+    MMEMW(v, octa, instr->b);
+    instr->x = int_to_octa(1);
+  } else {
+    proc->g[rP] = b;
+    instr->x = octa_zero;
+  }
+
+  __store_x(MEX_ARGS);
+}
+
+MEXF(CSWAP) {
+  __cswap(MEX_ARGS);
+}
+MEXF(CSWAPI) {
+  __cswap(MEX_ARGS);
+}
+
 MEXF(LDUNC) {}
 MEXF(LDUNCI) {}
 MEXF(LDVTS) {}
@@ -821,8 +969,19 @@ MEXF(PRELD) {}
 MEXF(PRELDI) {}
 MEXF(PREGO) {}
 MEXF(PREGOI) {}
-MEXF(GO) {}
-MEXF(GOI) {}
+
+static inline void __go(MEX_DEF_ARGS) {
+  instr->x = (octa) proc->instr_ptr;
+  proc->instr_ptr = (octa*) instr->w;
+  __store_x(MEX_ARGS);
+}
+
+MEXF(GO) {
+  __go(MEX_ARGS);
+}
+MEXF(GOI) {
+  __go(MEX_ARGS);
+}
 
 static void __stb(MEX_DEF_ARGS, bool test_overflow)
 {
@@ -957,6 +1116,7 @@ static inline void __stht(MEX_DEF_ARGS)
 MEXF(STHT) {
   __stht(MEX_ARGS);
 }
+
 MEXF(STHTI) {
   __stht(MEX_ARGS);
 }
@@ -973,6 +1133,7 @@ static inline void __stco(MEX_DEF_ARGS)
 MEXF(STCO) {
   __stco(MEX_ARGS);
 }
+
 MEXF(STCOI) {
   __stco(MEX_ARGS);
 }
@@ -1140,32 +1301,121 @@ MEXF(ODIFI) {
   __odif(MEX_ARGS);
 }
 
-MEXF(MUX) {}
-MEXF(MUXI) {}
-MEXF(SADD) {}
-MEXF(SADDI) {}
+static inline void __mux(MEX_DEF_ARGS) {
+  instr->x = octa_mux(
+    instr->y, 
+    instr->z, 
+    proc->g[rM]
+  );
+  
+  __store_x(MEX_ARGS);
+}
+
+MEXF(MUX) {
+  __mux(MEX_ARGS);
+}
+
+MEXF(MUXI) {
+  __mux(MEX_ARGS);
+}
+
+static inline void __sadd(MEX_DEF_ARGS) {
+  instr->x = unsigned_char_to_octa(
+    octa_count_bits(
+      octa_and(
+        instr->x, 
+        octa_compl(instr->z)
+      )
+    )
+  );
+
+  __store_x(MEX_ARGS);
+}
+
+MEXF(SADD) {
+  __sadd(MEX_ARGS);
+}
+MEXF(SADDI) {
+  __sadd(MEX_ARGS);
+}
+
 MEXF(MOR) {}
 MEXF(MORI) {}
 MEXF(MXOR) {}
 MEXF(MXORI) {}
-MEXF(SETH) {}
-MEXF(SETMH) {}
-MEXF(SETML) {}
-MEXF(SETL) {}
-MEXF(INCH) {}
-MEXF(INCMH) {}
-MEXF(INCML) {}
-MEXF(INCL) {}
-MEXF(ORH) {}
-MEXF(ORMH) {}
-MEXF(ORML) {}
-MEXF(ORL) {}
-MEXF(ANDNH) {}
-MEXF(ANDNMH) {}
-MEXF(ANDNML) {}
-MEXF(ANDNL) {}
-MEXF(JMP) {}
-MEXF(JMPB) {}
+
+MEXF(SETH) {
+    instr->x = instr->z;
+  __store_x(MEX_ARGS);
+}
+MEXF(SETMH) {
+  instr->x = instr->z;
+  __store_x(MEX_ARGS);
+}
+MEXF(SETML) {
+  instr->x = instr->z;
+  __store_x(MEX_ARGS);
+}
+MEXF(SETL) {
+  instr->x = instr->z;
+  __store_x(MEX_ARGS);
+}
+
+MEXF(INCH) {
+  instr->x = instr->w;
+  __store_x(MEX_ARGS);
+}
+
+MEXF(INCMH) {
+  instr->x = instr->z;
+  __store_x(MEX_ARGS);
+}
+
+MEXF(INCML) {
+  instr->x = instr->z;
+  __store_x(MEX_ARGS);
+}
+
+MEXF(INCL) {
+  instr->x = instr->z;
+  __store_x(MEX_ARGS);
+}
+
+MEXF(ORH) {
+  __or(MEX_ARGS);
+}
+MEXF(ORMH) {
+  __or(MEX_ARGS);
+}
+MEXF(ORML) {
+  __or(MEX_ARGS);
+}
+MEXF(ORL) {
+  __or(MEX_ARGS);
+}
+MEXF(ANDNH) {
+  __andn(MEX_ARGS);
+}
+MEXF(ANDNMH) {
+  __andn(MEX_ARGS);
+}
+MEXF(ANDNML) {
+  __andn(MEX_ARGS);
+}
+MEXF(ANDNL) {
+  __andn(MEX_ARGS);
+}
+
+static inline void __jmp(MEX_DEF_ARGS) {
+  proc->instr_ptr = (octa*)(instr->z);
+}
+
+MEXF(JMP) {
+  __jmp(MEX_ARGS);
+}
+MEXF(JMPB) {
+  __jmp(MEX_ARGS);
+}
 
 static inline void __push(MEX_DEF_ARGS)
 {
@@ -1202,8 +1452,14 @@ MEXF(PUSHJB) {
   __push(MEX_ARGS);
 }
 
-MEXF(GETA) {}
-MEXF(GETAB) {}
+MEXF(GETA) {
+  instr->x = instr->z;
+  __store_x(MEX_ARGS);
+}
+MEXF(GETAB) {
+  instr->x = instr->z;
+  __store_x(MEX_ARGS);
+}
 MEXF(PUT) {}
 MEXF(PUTI) {}
 MEXF(POP) {}
@@ -1269,14 +1525,11 @@ MEXF(SAVE)
   __store_x(MEX_ARGS);
 }
 
-MEXF(UNSAVE) 
-{
-
-}
-
+MEXF(UNSAVE) {}
 MEXF(SYNC) {}
 MEXF(SWYM) {}
 MEXF(GET) {}
+
 MEXF(TRIP) 
 {
   proc->g[rX] = sign_bit | instr->bin;

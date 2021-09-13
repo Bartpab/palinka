@@ -47,6 +47,106 @@ system_t* mmix_bootstrap(octa* prog, size_t len)
   return sys;
 }
 
+define_test(mmix_mux, test_print("MUX")) {
+  char se[32], s0[32];
+  octa e;
+  octa prog [] = {
+    __mmix_instr(MUX, 0xC0, 0xC1, 0xC2)
+  };
+
+  system_t* sys = mmix_bootstrap(prog, 1); 
+  // Setup the init state.
+  mmix_processor_t* proc = __get_mmix_proc(sys);
+
+  mmix_set_regv(proc, octa_zero, 0xC0);
+
+  mmix_set_regv(
+    proc, 
+    byte_to_octa(0, 0, 0, 0, 0, 0, 0, 0b11), 
+    0xC1
+  );
+  
+  mmix_set_regv(
+    proc, 
+    byte_to_octa(0, 0, 0, 0, 0, 0b11, 0b11, 0), 
+    0xC2
+  );
+  
+  mmix_set_sregv(
+    proc, 
+    byte_to_octa(0, 0, 0, 0, 0, 0b11, 0, 0b11), 
+    rM
+  );
+
+  e = byte_to_octa(0, 0, 0, 0, 0, 0, 0b11, 0b11);
+  
+  // Execute the instruction
+  sys_step(sys);
+
+  test_print("Execute MUX 0xC0 0xC1 0xC2.\n");
+
+  octa_str(e, se, 32), octa_str(mmix_get_regv(proc, 0xC0), s0, 32);
+
+  test_check(
+    test_print("Expecting r[0xC0] == %s", se),
+    mmix_get_regv(proc, 0xC0) == e,
+    test_failure("Expecting %s, got %s", se, s0)
+  )
+
+  test_success;  
+  test_teardown {
+    sys_delete(sys);
+  }
+  test_end; 
+}
+
+define_test(mmix_muxi, test_print("MUXI")) {
+  char se[32], s0[32];
+  octa e;
+  octa prog [] = {
+    __mmix_instr(MUXI, 0xC0, 0xC1, 0b01)
+  };
+
+  system_t* sys = mmix_bootstrap(prog, 1); 
+  // Setup the init state.
+  mmix_processor_t* proc = __get_mmix_proc(sys);
+
+  mmix_set_regv(proc, octa_zero, 0xC0);
+
+  mmix_set_regv(
+    proc, 
+    byte_to_octa(0, 0, 0, 0, 0, 0, 0, 0b10), 
+    0xC1
+  );
+  
+  mmix_set_sregv(
+    proc, 
+    byte_to_octa(0, 0, 0, 0, 0, 0, 0, 0b10), 
+    rM
+  );
+
+  e = byte_to_octa(0, 0, 0, 0, 0, 0, 0, 0b11);
+  
+  // Execute the instruction
+  sys_step(sys);
+
+  test_print("Execute MUX 0xC0 0xC1 0xC2.\n");
+
+  octa_str(e, se, 32), octa_str(mmix_get_regv(proc, 0xC0), s0, 32);
+
+  test_check(
+    test_print("Expecting r[0xC0] == %s", se),
+    mmix_get_regv(proc, 0xC0) == e,
+    test_failure("Expecting %s, got %s", se, s0)
+  )
+
+  test_success;  
+  test_teardown {
+    sys_delete(sys);
+  }
+  test_end; 
+}
+
 define_test(mmix_or, test_print("OR")) {
   char se[32], s0[32];
   octa e;
@@ -55,6 +155,7 @@ define_test(mmix_or, test_print("OR")) {
   };
 
   system_t* sys = mmix_bootstrap(prog, 1); 
+  
   // Setup the init state.
   mmix_processor_t* proc = __get_mmix_proc(sys);
 
@@ -1505,6 +1606,87 @@ define_test(
 }
 
 define_test(
+  mmix_neg, test_print("NEG")
+){
+  char se[32], s0[32];
+  octa e;
+
+  octa prog [] = {
+    __mmix_instr(NEG, 0xC0, 0x00, 0xC2)
+  };
+
+  system_t* sys = mmix_bootstrap(prog, 1);  
+  
+  // Setup the init state.
+  mmix_processor_t* proc = __get_mmix_proc(sys);
+
+  mmix_set_regv(proc, int_to_octa(0), 0xC0);
+  mmix_set_regv(proc, int_to_octa(5), 0xC2);
+
+  e = int_to_octa(-5);
+  
+  // Execute the instruction
+  sys_step(sys);
+
+  octa_str(mmix_get_regv(proc, 0xC0), s0, 32);
+  octa_str(e, se, 32);
+
+  test_print("Execute NEG 0xC0 0x00 0xC2.\n");
+
+  test_check(
+    test_print("Expecting r[0xC0] == %s", se),
+    mmix_get_regv(proc, 0xC0) == e,
+    test_failure("Expecting %s, got %s", se, s0)
+  )
+
+  test_success;  
+  test_teardown {
+    sys_delete(sys);
+  }
+  test_end;
+}
+
+define_test(
+  mmix_negi, test_print("NEGI")
+){
+  char se[32], s0[32];
+  octa e;
+
+  octa prog [] = {
+    __mmix_instr(NEGI, 0xC0, 0x00, 0x05)
+  };
+
+  system_t* sys = mmix_bootstrap(prog, 1);  
+  
+  // Setup the init state.
+  mmix_processor_t* proc = __get_mmix_proc(sys);
+
+  mmix_set_regv(proc, int_to_octa(0), 0xC0);
+
+  e = int_to_octa(-5);
+  
+  // Execute the instruction
+  sys_step(sys);
+
+  octa_str(mmix_get_regv(proc, 0xC0), s0, 32);
+  octa_str(e, se, 32);
+
+  test_print("Execute NEG 0xC0 0x00 0xC2.\n");
+
+  test_check(
+    test_print("Expecting r[0xC0] == %s", se),
+    mmix_get_regv(proc, 0xC0) == e,
+    test_failure("Expecting %s, got %s", se, s0)
+  )
+
+  test_success;  
+  test_teardown {
+    sys_delete(sys);
+  }
+  test_end;
+}
+
+define_test(
   mmix_sub, test_print("SUB")
 ){
   char se[32], s0[32];
@@ -2408,6 +2590,7 @@ define_test(mmix_sto, test_print("STO"))
 define_test_chapter(
   mmix_arith_1, test_print("MMIX ALU #1 - Integer"), 
   mmix_add, mmix_addi,
+  mmix_neg, mmix_negi,
   mmix_sub, mmix_subi,
   mmix_mul, mmix_muli,
   mmix_mulu, mmix_mului,
@@ -2429,6 +2612,7 @@ define_test_chapter(
 
 define_test_chapter(
   mmix_arith_4, test_print("MMIX ALU #3 - Binary"),
+  mmix_mux, mmix_muxi,
   mmix_or, mmix_ori,
   mmix_and, mmix_andi,
   mmix_xor, mmix_xori,

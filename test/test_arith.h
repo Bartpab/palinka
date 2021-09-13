@@ -2,6 +2,57 @@
 #include "../src/arith.h"
 
 define_test(
+  octa_count_bits, test_print("Octa Bits Count")
+) {
+  char sx[32];
+  unsigned char c, e;
+  octa x;
+
+  x = tetra_to_octa(0, ~0);
+  c = octa_count_bits(x);
+
+  e = 32;
+
+  octa_str(x, sx, 32);
+
+  test_check(
+    test_print("COUNT_BITS(%s) == %d", sx, e),
+    c == e,
+    test_failure("Expecting %d, got %d", e, c)
+  )
+
+  test_success;
+  test_teardown {}
+  test_end;  
+}
+
+define_test(
+  octa_mux, test_print("Octa MUX")
+) {
+  char sx[32], sy[32], sz[32], sm[32], se[32];
+  octa x, y, z, m, e;
+
+  y = byte_to_octa(0, 0, 0, 0, 0, 0, 0, 0b11);
+  z = byte_to_octa(0, 0, 0, 0, 0, 0b11, 0b11, 0);
+  m = byte_to_octa(0, 0, 0, 0, 0, 0b11, 0, 0b11);
+  e = byte_to_octa(0, 0, 0, 0, 0, 0, 0b11, 0b11);
+
+  x = octa_mux(y, z, m);
+  octa_str(x, sx, 32), octa_str(y, sy, 32);
+  octa_str(z, sz, 32), octa_str(m, sm, 32), octa_str(e, se, 32);
+
+  test_check(
+    test_print("MUX(%s, %s, %s) = %s", sy, sz, sm, se),
+    x == e,
+    test_failure("Expecting %s, got %s", se, sx)
+  )
+
+  test_success;
+  test_teardown {}
+  test_end;
+}
+
+define_test(
   octa_orn, test_print("Octa Or Not")
 ) {
   char sx[32], sy[32], sz[32], se[32];
@@ -904,6 +955,8 @@ define_test_chapter(
 
 define_test_chapter(
   arith_4, test_print("Arithmetics #4"),
+  octa_count_bits,
+  octa_mux,
   octa_orn,
   octa_nor
 )

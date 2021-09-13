@@ -29,6 +29,7 @@ octa byte_to_octa(byte b7, byte b6, byte b5, byte b4, byte b3, byte b2, byte b1,
 octa word_to_octa(word hh, word hl, word lh, word ll);
 octa tetra_to_octa(tetra h, tetra l);
 
+octa unsigned_char_to_octa(unsigned char x);
 octa char_to_octa(char x);
 octa uint_to_octa(unsigned int x);
 octa int_to_octa(int x);
@@ -71,6 +72,10 @@ octa word_to_octa(word hh, word hl, word lh, word ll)
 
 octa tetra_to_octa(tetra h, tetra l) {
   return ((octa)(h) << 32) + l;
+}
+
+octa unsigned_char_to_octa(unsigned char x) {
+  return x;
 }
 
 octa char_to_octa(char x) {

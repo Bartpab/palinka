@@ -1,8 +1,8 @@
 #ifndef __MACRO_H__
 #define __MACRO_H__
 
-#define __COUT_VA_ARGS__(...) __VA_VALS__(__VA_ARGS__, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1)
-#define __VA_VALS__(N1, N2, N3, N4, N5, N6, N7, N8, N9, N10, N11, N12, N13, N14, N15, N16, N17, N, ...) N
+#define __COUT_VA_ARGS__(...) __VA_VALS__(__VA_ARGS__, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1)
+#define __VA_VALS__(N1, N2, N3, N4, N5, N6, N7, N8, N9, N10, N11, N12, N13, N14, N15, N16, N17, N18, N, ...) N
 #define MAP_NAME(N) __MAP_NAME__(N)
 #define __MAP_NAME__(N) MAP_ ## N
 
@@ -25,4 +25,5 @@
 #define MAP_15(F, A, ...) F(A); MAP_14(F, __VA_ARGS__)
 #define MAP_16(F, A, ...) F(A); MAP_15(F, __VA_ARGS__)
 #define MAP_17(F, A, ...) F(A); MAP_16(F, __VA_ARGS__)
+#define MAP_18(F, A, ...) F(A); MAP_17(F, __VA_ARGS__)
 #endif
