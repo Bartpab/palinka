@@ -94,7 +94,8 @@ void test_ ##id(test_context_t* tctx) {\
 };
 
 #define set_tests(...) \
-void test() {\
+int test() {\
+  printf("TEST\n");\
   test_context_t ctx;\
   ctx.total = 0, ctx.success = 0, ctx.failed = 0;\
   ctx.cursor = 0;\
@@ -105,7 +106,8 @@ void test() {\
 \
   exec_test_chapters(__VA_ARGS__); \
   printf("\n");\
-  printf("PASSED: %d /  %d.\n", ctx.success, ctx.total);\
+  printf("PASSED: %d / %d.\n", ctx.success, ctx.total);\
+  return ctx.failed > 0 ? 1 : 0;\
 }
 
 #endif

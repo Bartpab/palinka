@@ -19,13 +19,13 @@ typedef void (*mmix_exec_t)(system_t* sys, mmix_processor_t* proc, instr_t* inst
 
 #define MMEMR(addr, type, out) MMIX_MEM_READ(sys, addr, type, out)
 #define MMEMW(addr, type, val) MMIX_MEM_WRITE(sys, addr, type, val)
-#define MREG(REG) proc->g[REG]
+#define MMIX_SREG(REG) proc->g[REG]
 
-#define EXCEPTION_MREG proc->g[rA]
-#define REMAINDER_MREG proc->g[rR]
+#define EXCEPTION_MMIX_SREG proc->g[rA]
+#define REMAINDER_MMIX_SREG proc->g[rR]
 
-bool mmix_lring_is_full(mmix_processor_t* proc);
-unsigned int mmix_lring_push_local(system_t* sys, mmix_processor_t* proc);
+bool __mmix_lring_is_full(mmix_processor_t* proc);
+unsigned int __mmix_lring_push_local(system_t* sys, mmix_processor_t* proc);
 
 void mmix_read_regv(mmix_processor_t* proc, octa* x, unsigned char xx);
 octa mmix_get_regv(mmix_processor_t* proc, unsigned char xx);
@@ -33,8 +33,42 @@ void mmix_set_regv(mmix_processor_t* proc, octa x, unsigned int xx);
 void mmix_set_sregv(mmix_processor_t* proc, octa x, unsigned char xx);
 octa mmix_get_sregv(mmix_processor_t* proc, unsigned char xx);
 
-void mmix_stack_store(system_t* sys);
-void mmix_stack_load(system_t* sys);
+void __mmix_stack_store(system_t* sys);
+void __mmix_stack_load(system_t* sys);
+
+void __mmix_sclock_incr(mmix_processor_t* proc, unsigned int s);
+
+//////////
+// IMPL //
+//////////
+
+void __mmix_sclock_incr(mmix_processor_t* proc, unsigned int s) {
+  proc->sclock = octa_incr(proc->sclock, s);
+  if(octa_unsigned_cmp(MMIX_SREG(rI), uint_to_octa(s)) > 0) {
+    MMIX_SREG(rI) = octa_incr(MMIX_SREG(rI), s);
+  } else {
+    MMIX_SREG(rI) = 0;
+  }
+}
+
+static int __reg_truth(octa o, unsigned char op) {
+  register int b;
+  switch((op >> 1) & 0x3) {
+    case 0: 
+      b = octa_signed_cmp(o, octa_zero) == -1; 
+    break; // Negative ?
+    default: case 1: 
+      b = octa_eq(o, octa_zero);
+    break; // Zero ?
+    case 2: 
+      b = octa_signed_cmp(o, octa_zero) == 1; 
+    break; // Positive ?
+  }
+
+  if(op & 0x8) return b ^ 1;
+  
+  return b;
+}
 
 //////////
 // IMPL //
@@ -73,7 +107,7 @@ void mmix_set_sregv(mmix_processor_t* proc, octa x, unsigned char xx)
   proc->g[xx] = x;
 }
 
-bool mmix_lring_is_full(mmix_processor_t* proc)
+bool __mmix_lring_is_full(mmix_processor_t* proc)
 {
   if((proc->S - proc->O - proc->L) & proc->lmask)
     return true;
@@ -81,13 +115,13 @@ bool mmix_lring_is_full(mmix_processor_t* proc)
   return false;
 }
 
-unsigned int mmix_lring_push_local(system_t* sys, mmix_processor_t* proc)
+unsigned int __mmix_lring_push_local(system_t* sys, mmix_processor_t* proc)
 {
   proc->l[(proc->O + proc->L) & proc->lmask] = octa_zero;
   proc->L = proc->g[rL] = proc->L + 1;
         
-  if(mmix_lring_is_full(proc)) 
-    mmix_stack_store(sys); 
+  if(__mmix_lring_is_full(proc)) 
+    __mmix_stack_store(sys); 
 
   return proc->L;
 }
@@ -97,7 +131,7 @@ static inline void __store_x(MEX_DEF_ARGS)
   *instr->x_ptr = instr->x;
 }
 
-void mmix_stack_store(system_t* sys)
+void __mmix_stack_store(system_t* sys)
 {
   mmix_processor_t* proc = __get_mmix_proc(sys);
   unsigned int k = proc->S & proc->lmask;
@@ -111,7 +145,7 @@ void mmix_stack_store(system_t* sys)
   proc->g[rS] = octa_incr(proc->g[rS], 8); proc->S++;
 }
 
-void mmix_stack_load(system_t* sys) 
+void __mmix_stack_load(system_t* sys) 
 {
   mmix_processor_t* proc = __get_mmix_proc(sys);
   unsigned int k = proc->S & proc->lmask;
@@ -127,9 +161,9 @@ void mmix_stack_load(system_t* sys)
 
 MEXF(TRAP) 
 {
-  MREG(rWW) = (octa) proc->instr_ptr;
-  MREG(rXX) = tetra_to_octa(0x80000000, mmix_write_instr(*instr));
-  MREG(rYY) = instr->y, MREG(rZZ) = instr->z;
+  MMIX_SREG(rWW) = (octa) proc->instr_ptr;
+  MMIX_SREG(rXX) = tetra_to_octa(0x80000000, mmix_write_instr(*instr));
+  MMIX_SREG(rYY) = instr->y, MMIX_SREG(rZZ) = instr->z;
 
   instr->z = tetra_to_octa(0, instr->zz);
   instr->a = octa_incr(instr->b, 8);
@@ -275,7 +309,7 @@ static inline void __unsigned_mul(MEX_DEF_ARGS)
   if(overflow)
     instr->exc |= V_BIT;
 
-  MREG(rH) = aux;
+  MMIX_SREG(rH) = aux;
   __store_x(MEX_ARGS);
 }
 
@@ -294,7 +328,7 @@ static inline void __signed_div(MEX_DEF_ARGS)
   
   instr->x = octa_signed_div(yy, instr->z, &aux);
   
-  REMAINDER_MREG = aux;
+  REMAINDER_MMIX_SREG = aux;
 
   __store_x(MEX_ARGS);
 }
@@ -309,8 +343,8 @@ MEXF(DIVI) {
 
 static inline void __unsigned_div(MEX_DEF_ARGS)
 {
-  hexadeca yy = {MREG(rD), instr->y};
-  instr->x = octa_div(yy, instr->z, &REMAINDER_MREG);
+  hexadeca yy = {MMIX_SREG(rD), instr->y};
+  instr->x = octa_div(yy, instr->z, &REMAINDER_MMIX_SREG);
   __store_x(MEX_ARGS);
 }
 
@@ -476,22 +510,22 @@ MEXF(XVIADDUI) {
   __unsigned_16add(MEX_ARGS);
 }
 
-static inline void __cmp(MEX_DEF_ARGS) {
-  instr->x = octa_cmp(instr->y, instr->z);
+static inline void __cmp(MEX_DEF_ARGS, bool is_signed) {
+  instr->x = !is_signed ? octa_unsigned_cmp(instr->y, instr->z) : octa_signed_cmp(instr->y, instr->z);
   __store_x(MEX_ARGS);
 }
 
 MEXF(CMP) {
-  __cmp(sys, proc, instr);
+  __cmp(sys, proc, instr, true);
 }
 MEXF(CMPI) {
-  __cmp(sys, proc, instr);
+  __cmp(sys, proc, instr, true);
 }
 MEXF(CMPU) {
-  __cmp(sys, proc, instr);
+  __cmp(sys, proc, instr, false);
 }
 MEXF(CMPUI) {
-  __cmp(sys, proc, instr);
+  __cmp(sys, proc, instr, false);
 }
 
 static inline void __neg(MEX_DEF_ARGS, bool test_overflow) {
@@ -526,6 +560,32 @@ MEXF(SR) {}
 MEXF(SRI) {}
 MEXF(SRU) {}
 MEXF(SRUI) {}
+
+static inline void __bn(MEX_DEF_ARGS)
+{
+  bool good_assumption;
+
+  instr->x = int_to_octa(
+    __reg_truth(
+      instr->b, 
+      instr->op
+    )
+  );
+
+  if(octa_signed_cmp(instr->x, octa_zero)) 
+  {
+    proc->instr_ptr = (octa*) instr->z;
+    good_assumption = (instr->op >= PBN);
+  } else {
+    good_assumption = instr->op < PBN;
+  }
+
+  if(good_assumption) {} 
+  else {
+    __mmix_sclock_incr(proc, 2); // Penalty aïe !
+  }
+}
+
 MEXF(BN) {}
 MEXF(BNB) {}
 MEXF(BZ) {}
@@ -558,38 +618,108 @@ MEXF(PBNP) {}
 MEXF(PBNPB) {}
 MEXF(PBEV) {}
 MEXF(PBEVB) {}
-MEXF(CSN) {}
-MEXF(CSNI) {}
-MEXF(CSZ) {}
-MEXF(CSZI) {}
-MEXF(CSP) {}
-MEXF(CSPI) {}
-MEXF(CSOD) {}
-MEXF(CSODI) {}
-MEXF(CSNN) {}
-MEXF(CSNNI) {}
-MEXF(CSNZ) {}
-MEXF(CSNZI) {}
-MEXF(CSNP) {}
-MEXF(CSNPI) {}
-MEXF(CSEV) {}
-MEXF(CSEVI) {}
-MEXF(ZSN) {}
-MEXF(ZSNI) {}
-MEXF(ZSZ) {}
-MEXF(ZSZI) {}
-MEXF(ZSP) {}
-MEXF(ZSPI) {}
-MEXF(ZSOD) {}
-MEXF(ZSODI) {}
-MEXF(ZSNN) {}
-MEXF(ZSNNI) {}
-MEXF(ZSNZ) {}
-MEXF(ZSNZI) {}
-MEXF(ZSNP) {}
-MEXF(ZSNPI) {}
-MEXF(ZSEV) {}
-MEXF(ZSEVI) {}
+
+static inline void __cs(MEX_DEF_ARGS) {
+  instr->x = __reg_truth(instr->y, instr->op) ? instr->z : instr->b;
+  __store_x(MEX_ARGS);
+}
+
+MEXF(CSN) {
+  __cs(MEX_ARGS);
+}
+MEXF(CSNI) {
+  __cs(MEX_ARGS);
+}
+MEXF(CSZ) {
+  __cs(MEX_ARGS);
+}
+MEXF(CSZI) {
+  __cs(MEX_ARGS);
+}
+MEXF(CSP) {
+  __cs(MEX_ARGS);
+}
+MEXF(CSPI) {
+  __cs(MEX_ARGS);
+}
+MEXF(CSOD) {
+  __cs(MEX_ARGS);
+}
+MEXF(CSODI) {
+  __cs(MEX_ARGS);
+}
+MEXF(CSNN) {
+  __cs(MEX_ARGS);
+}
+MEXF(CSNNI) {
+  __cs(MEX_ARGS);
+}
+MEXF(CSNZ) {
+  __cs(MEX_ARGS);
+}
+MEXF(CSNZI) {
+  __cs(MEX_ARGS);
+}
+MEXF(CSNP) {
+  __cs(MEX_ARGS);
+}
+MEXF(CSNPI) {
+  __cs(MEX_ARGS);
+}
+MEXF(CSEV) {
+  __cs(MEX_ARGS);
+}
+MEXF(CSEVI) {
+  __cs(MEX_ARGS);
+}
+MEXF(ZSN) {
+  __cs(MEX_ARGS);
+}
+MEXF(ZSNI) {
+  __cs(MEX_ARGS);
+}
+MEXF(ZSZ) {
+  __cs(MEX_ARGS);
+}
+MEXF(ZSZI) {
+  __cs(MEX_ARGS);
+}
+MEXF(ZSP) {
+  __cs(MEX_ARGS);
+}
+MEXF(ZSPI) {
+  __cs(MEX_ARGS);
+}
+MEXF(ZSOD) {
+  __cs(MEX_ARGS);
+}
+MEXF(ZSODI) {
+  __cs(MEX_ARGS);
+}
+MEXF(ZSNN) {
+  __cs(MEX_ARGS);
+}
+MEXF(ZSNNI) {
+  __cs(MEX_ARGS);
+}
+MEXF(ZSNZ) {
+  __cs(MEX_ARGS);
+}
+MEXF(ZSNZI) {
+  __cs(MEX_ARGS);
+}
+MEXF(ZSNP) {
+  __cs(MEX_ARGS);
+}
+MEXF(ZSNPI) {
+  __cs(MEX_ARGS);
+}
+MEXF(ZSEV) {
+  __cs(MEX_ARGS);
+}
+MEXF(ZSEVI) {
+  __cs(MEX_ARGS);
+}
 
 static inline void __ldb(MEX_DEF_ARGS) 
 {
@@ -1043,7 +1173,7 @@ static inline void __push(MEX_DEF_ARGS)
   octa x, b;
   
   while(instr->xx >= proc->G) 
-    instr->xx = mmix_lring_push_local(sys, proc);
+    instr->xx = __mmix_lring_push_local(sys, proc);
 
   x = tetra_to_octa(0, instr->xx);
   mmix_set_regv(proc, x, instr->xx);
@@ -1100,14 +1230,14 @@ MEXF(SAVE)
   proc->L++;
 
   if(((proc->S-proc->L-proc->O) & proc->lmask) == 0) 
-    mmix_stack_store(sys);
+    __mmix_stack_store(sys);
 
   proc->O += proc->L;
   proc->g[rO] = octa_incr(proc->g[rO], proc->L << 3);
   proc->L = 0; proc->g[rL] = octa_zero;
 
   while(proc->g[rO] != proc->g[rS]) 
-    mmix_stack_store(sys);
+    __mmix_stack_store(sys);
   
   for(k = proc->G;;) {
     // Store g[k] in the register stack.
@@ -1155,7 +1285,6 @@ MEXF(TRIP)
   proc->g[rB] = proc->g[0xFF];
   proc->g[0xFF] = proc->g[rJ];
 }
-
 
 mmix_exec_t MMIX_DISPATCH_ROUTER[256] = {
   MEXN(TRAP), 

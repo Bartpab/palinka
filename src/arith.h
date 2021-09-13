@@ -49,7 +49,9 @@ octa octa_minus(octa y, octa z, bool *overflow);
 bool octa_is_neg(octa x);
 octa octa_compl(octa x);
 octa octa_incr(octa y, int d);
-octa octa_cmp(octa x, octa y);
+octa octa_signed_cmp(octa x, octa y);
+octa octa_unsigned_cmp(octa x, octa y);
+octa octa_eq(octa x, octa y);
 octa octa_right_shift(octa y, int s, int u);
 octa octa_left_shift(octa y, int s);
 
@@ -105,18 +107,21 @@ octa octa_bdif(octa x, octa y) {
 }
 
 octa octa_wdif(octa x, octa y) {
+  char shift;
   octa tmp = 0;
   
   for (char i = 0; i < 4; i++) 
   {
-    word wx = (x >> (i * 16)) & 0xFFFF;
-    word wy = (y >> (i * 16)) & 0xFFFF;
+    shift = i*16;
+    
+    word wx = (x >> shift) & 0xFFFF;
+    word wy = (y >> shift) & 0xFFFF;
 
     word wd = wx - wy;
     
     wd = wd & 0x8000 ? 0 : wd;
 
-    tmp |= (wd << (i * 16));
+    tmp |= (wd << shift);
   }
 
   return tmp;
@@ -181,7 +186,7 @@ octa octa_incr(octa y, int d)
   return y + d;
 }
 
-octa octa_cmp(octa x, octa y)
+octa octa_unsigned_cmp(octa x, octa y)
 {
   if(x < y)
     return -1;
@@ -189,6 +194,31 @@ octa octa_cmp(octa x, octa y)
     return 1;
   else
     return 0;
+}
+
+octa octa_signed_cmp(octa x, octa y)
+{
+  // both negatives, we take to 2's complement.
+  if((x & sign_bit) && (y & sign_bit))
+  {
+    x = octa_compl(x);
+    y = octa_compl(y);
+
+    return octa_compl(octa_unsigned_cmp(x, y));
+  }
+
+  else if(x & sign_bit)
+    return int_to_octa(-1);
+  
+  else if(y & sign_bit)
+    return int_to_octa(1);
+  
+  else
+    return octa_unsigned_cmp(x, y);
+}
+
+octa octa_eq(octa x, octa y) {
+  return x == y;
 }
 
 octa octa_right_shift(octa y, int s, int u)

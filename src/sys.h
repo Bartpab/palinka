@@ -5,10 +5,11 @@
 #include "mem.h"
 
 typedef enum {
-  STOPPED,
-  PAUSED,
-  RUNNING,
-  PANIC
+  SYS_READY,
+  SYS_STOPPED,
+  SYS_HALTED,
+  SYS_RUNNING,
+  SYS_PANICKED
 } system_state_t;
 
 typedef struct system_t
@@ -24,6 +25,9 @@ typedef struct system_t
   
   // VTable
   void (*step)(struct system_t* sys);
+  void (*alloc_sim_time)(struct system_t* sys, unsigned int ms);
+
+  // Some stats
 
 } system_t;
 
@@ -51,10 +55,36 @@ void sys_delete(system_t* sys)
   allocator_delete(&allocator);
 }
 
+void sys_step(system_t* sys) 
+{
+  assert(sys->state != SYS_PANICKED);
+  sys->step(sys);
+}
+
+void sys_run(system_t* sys, unsigned int ms)
+{
+  if(sys->state == SYS_STOPPED)
+    return;
+
+  if(sys->state == SYS_HALTED || sys->state == SYS_READY) 
+  {
+    sys->alloc_sim_time(sys, ms);
+    sys->state = SYS_RUNNING;
+  }
+
+  while(sys->state != SYS_RUNNING)
+    sys_step(sys);
+}
+
+void sys_halt(system_t* sys) 
+{
+  sys->state = SYS_HALTED;
+}
+
 // Trigger system panic
 void sys_panic(system_t* sys)
 {
-  sys->state = PANIC;
+  sys->state = SYS_PANICKED;
 }
 
 #endif

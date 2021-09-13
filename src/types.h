@@ -17,6 +17,9 @@ typedef struct {
 } hexadeca;
 
 octa octa_zero = 0;
+octa octa_int_max = 0x7FFFFFFFFFFFFFFF;
+octa octa_uint_max = 0xFFFFFFFFFFFFFFFF;
+octa octa_sign_bit = 0x8000000000000000;
 
 void hexadeca_str(hexadeca x, char* buf, size_t len);
 void octa_str(octa x, char* buf, size_t len);

@@ -24,11 +24,12 @@ typedef struct {
 typedef struct {
   unsigned int lsize;
   unsigned int lmask;
+  unsigned int frequency;
 } mmix_cfg_t;
 
 typedef struct {
   octa g[256]; // Global Registers
-  octa* l; // Local Registers
+  octa* l;     // Local Registers
 
   unsigned int lsize; // Power of two
   unsigned int lmask; // == lring_size - 1
@@ -40,6 +41,9 @@ typedef struct {
   tetra rop;
 
   int state; // State of the processor
+  octa sclock; // System clock
+
+  unsigned int frequency; // Processor frequency
 
   mmix_ivte ivt[256]; // Interrupt Vector Table (TRAP)
 } mmix_processor_t;
@@ -48,6 +52,7 @@ void mmix_cfg_init(mmix_cfg_t* cfg)
 {
   cfg->lsize = 256;
   cfg->lmask = 255;
+  cfg->frequency = 500000000; // 500 MHz
 }
 
 mmix_processor_t* __get_mmix_proc(system_t* sys)

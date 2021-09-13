@@ -15,9 +15,13 @@
 #define VERSION_MINOR 0
 #define VERSION_PATCH 0
 
+typedef void(*mmix_ivt_hdlr)(system_t* sys, instr_t* instr);
+
 system_t* mmix_create(allocator_t* allocator, mmix_cfg_t* cfg);
+void mmix_alloc_sim_time(system_t* s, unsigned int ms);
 void mmix_step(system_t* sys);
-void mmix_set_interrupt_handler(system_t* sys, byte ircode, void (*hdlr)(system_t* sys, instr_t* instr));
+void mmix_restart(system_t* sys);
+void mmix_set_interrupt_handler(system_t* sys, byte ircode, mmix_ivt_hdlr hdlr);
 
 static void __mmix_init(system_t* sys, mmix_cfg_t* cfg);
 
@@ -31,12 +35,15 @@ static inline void __install_operands(system_t* sys, mmix_processor_t* proc, ins
 
 static void __mmix_init(system_t* sys, mmix_cfg_t* cfg)
 {
+  sys->step = mmix_step;
+  sys->alloc_sim_time = mmix_alloc_sim_time;
+  
   mmix_processor_t* proc = __get_mmix_proc(sys);
 
   proc->instr_ptr = (octa*) MMIX_START_ADDR;
-
-  proc->lmask = cfg->lmask;
-  proc->lsize = cfg->lsize;
+  proc->frequency = cfg->frequency;
+  proc->lmask     = cfg->lmask;
+  proc->lsize     = cfg->lsize;
   proc->l = __get_mmix_lregs(sys);
   
   for(unsigned char i = 0; i != 0xFF; i++) 
@@ -69,6 +76,56 @@ static void __mmix_init(system_t* sys, mmix_cfg_t* cfg)
   proc->G = 32;
 
   proc->state = 0;
+  proc->sclock = octa_zero;
+}
+
+void mmix_alloc_sim_time(system_t* sys, unsigned int ms)
+{
+  mmix_processor_t* proc = __get_mmix_proc(sys);
+
+  double s = ms / 1000.0;
+  int nb_cycle = (int)(s * proc->frequency);
+
+  proc->g[rI] = int_to_octa(nb_cycle);
+}
+
+void mmix_restart(system_t* sys)
+{
+  mmix_processor_t* proc = __get_mmix_proc(sys);
+
+  proc->instr_ptr = (octa*) MMIX_START_ADDR;
+
+  for(unsigned char i = 0; i != 0xFF; i++) 
+  {
+    proc->g[i] = 0x00;
+    proc->ivt[i].hdlr = NULL;
+  }
+  
+  for(unsigned int i = 0; i < proc->lsize; i++) 
+  {
+    proc->l[i] = 0x00;
+  }
+
+  proc->g[rK] = int_to_octa(-1);
+  proc->g[rN] = tetra_to_octa(
+    VERSION_MAJOR << 24 
+    | VERSION_MINOR << 16 
+    | VERSION_PATCH << 8, 
+    time(NULL)
+  );
+  
+  proc->g[rT]   = tetra_to_octa(0x80000005, 0);
+  proc->g[rTT]  = tetra_to_octa(0x80000006, 0);
+  proc->g[rV]   = tetra_to_octa(0x369c2004, 0);
+  proc->rounding_mode = ROUND_NEAR;
+ 
+  proc->rop = 0;
+
+  proc->S = proc->L = proc->O = 0;
+  proc->G = 32;
+
+  proc->state = 0; 
+  proc->sclock = octa_zero;
 }
 
 system_t* mmix_create(allocator_t* allocator, mmix_cfg_t* cfg)
@@ -183,10 +240,21 @@ static inline void __install_operands(system_t* sys, mmix_processor_t* proc, ins
     if(instr->xx > proc->G) {
       instr->x_ptr = &proc->g[instr->xx];
     } else {
-      while(instr->xx > proc->L) mmix_lring_push_local(sys, proc);
+      while(instr->xx > proc->L) __mmix_lring_push_local(sys, proc);
       instr->x_ptr = &proc->l[(proc->O + instr->xx) & proc->lmask];
     }
   }
+}
+
+static bool __check_sys_timed_interrupt(system_t* sys, mmix_processor_t* proc)
+{
+  if(octa_eq(proc->g[rI], octa_zero)) 
+  {
+    sys_halt(sys);
+    return true;
+  }
+
+  return false;
 }
 
 void mmix_step(system_t* sys)
@@ -212,9 +280,30 @@ void mmix_step(system_t* sys)
   // Dispatch the instruction.
   mmix_dispatch(sys, proc, &instr);
   
+  // Set the exception
+  proc->g[rA] = instr.exc;
+
+  if(!__check_sys_timed_interrupt(sys, proc)) 
+  {
+
+    bool overflow;
+    proc->sclock = octa_plus(
+      proc->sclock, 
+      octa_left_shift(
+        int_to_octa(instr.info->mems), 
+        32
+      ),
+      &overflow
+    );
+
+    proc->g[rU] = octa_incr(proc->g[rU], 1);
+    __mmix_sclock_incr(proc, instr.info->oops);
+    __check_sys_timed_interrupt(sys, proc);
+  }
+
+
   // Check for RESUME
-  if(instr.op != RESUME 
-    && HAS_FLAG(MMIX_RESUMING, proc->state)) {
+  if(instr.op != RESUME && HAS_FLAG(MMIX_RESUMING, proc->state)) {
       FLAG_OFF(MMIX_RESUMING, proc->state);
     }
 

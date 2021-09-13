@@ -58,9 +58,9 @@ define_test(
   char sx[32], sy[32], sz[32], se[32];
   octa x, y, z, e;
   
-  y = byte_to_octa(0, 0, 0, 0, 0, 0, 0x10, 0x09);
-  z = byte_to_octa(0, 0, 0, 0, 0, 0, 0x09, 0x10);
-  e = byte_to_octa(0, 0, 0, 0, 0, 0, 0x10 - 0x09, 0);
+  y = byte_to_octa(0, 0, 0, 0, 0, 0, 0x10, 0x15);
+  z = byte_to_octa(0, 0, 0, 0, 0, 0x09, 0x09, 0x10);
+  e = byte_to_octa(0, 0, 0, 0, 0, 0, 0x10 - 0x09, 0x15 - 0x10);
   
   x = octa_bdif(y, z);
   octa_str(x, sx, 32), octa_str(y, sy, 32), octa_str(z, sz, 32), octa_str(e, se, 32);
@@ -82,11 +82,12 @@ define_test(
   char sx[32], sy[32], sz[32], se[32];
   octa x, y, z, e;
   
-  y = word_to_octa(0x0, 0x0, 0x10, 0x09);
-  z = word_to_octa(0x0, 0x0, 0x09, 0x10);
-  e = word_to_octa(0x0, 0x0, 0x10 - 0x09, 0x0);
+  y = word_to_octa(0x0, 0x9, 0x10, 0x0FFF);
+  z = word_to_octa(0x0, 0x10, 0x09, 0xF0);
+  e = word_to_octa(0x0, 0x0, 0x10 - 0x09, 0x0FFF - 0xF0);
   
   x = octa_wdif(y, z);
+  
   octa_str(x, sx, 32), octa_str(y, sy, 32), octa_str(z, sz, 32), octa_str(e, se, 32);
 
   test_check(
@@ -195,6 +196,152 @@ define_test(
 }
 
 define_test(
+  octa_unsigned_cmp, test_print("Octa unsigned comparaison")
+) {
+  char sx[32], sy[32], sz[32], se[32];
+  octa x, y, z, e;
+
+  // UINT64_MAX_VALUE > 0
+
+  y = octa_uint_max;
+  z = octa_zero;
+  e = int_to_octa(1);
+
+  x = octa_unsigned_cmp(y, z);
+  
+  octa_str(x, sx, 32), octa_str(y, sy, 32), octa_str(z, sz, 32), octa_str(e, se, 32);
+
+  test_check(
+    test_print("unsigned_cmp(%s, %s) = %s", sy, sz, se),
+    x == e,
+    test_failure("Expecting %s, got %s", se, sx)
+  );
+
+  y = octa_zero;
+  z = octa_uint_max;
+  e = int_to_octa(-1);
+
+  x = octa_unsigned_cmp(y, z);
+  
+  octa_str(x, sx, 32), octa_str(y, sy, 32), octa_str(z, sz, 32), octa_str(e, se, 32);
+
+  test_check(
+    test_print("unsigned_cmp(%s, %s) = %s", sy, sz, se),
+    x == e,
+    test_failure("Expecting %s, got %s", se, sx)
+  );
+
+  y = octa_uint_max;
+  z = octa_uint_max;
+  e = int_to_octa(0);
+
+  x = octa_unsigned_cmp(y, z);
+  
+  octa_str(x, sx, 32), octa_str(y, sy, 32), octa_str(z, sz, 32), octa_str(e, se, 32);
+
+  test_check(
+    test_print("unsigned_cmp(%s, %s) = %s", sy, sz, se),
+    x == e,
+    test_failure("Expecting %s, got %s", se, sx)
+  );
+
+  test_success;
+  test_teardown {}
+  test_end;
+}
+
+define_test(
+  octa_signed_cmp, test_print("Octa signed comparaison")
+) {
+  char sx[32], sy[32], sz[32], se[32];
+  octa x, y, z, e;
+
+  // -5 < 5 => -1
+
+  y = int_to_octa(-5);
+  z = int_to_octa(5);
+  e = int_to_octa(-1);
+
+  x = octa_signed_cmp(y, z);
+  
+  octa_str(x, sx, 32), octa_str(y, sy, 32), octa_str(z, sz, 32), octa_str(e, se, 32);
+
+  test_check(
+    test_print("signed_cmp(%s, %s) = %s", sy, sz, se),
+    x == e,
+    test_failure("Expecting %s, got %s", se, sx)
+  );
+
+  // -6 < -5 => -1
+
+  y = int_to_octa(-6);
+  z = int_to_octa(-5);
+  e = int_to_octa(-1);
+
+  x = octa_signed_cmp(y, z);
+  
+  octa_str(x, sx, 32), octa_str(y, sy, 32), octa_str(z, sz, 32), octa_str(e, se, 32);
+
+  test_check(
+    test_print("signed_cmp(%s, %s) = %s", sy, sz, se),
+    x == e,
+    test_failure("Expecting %s, got %s", se, sx)
+  );
+  
+  // 6 > 5 => 1
+
+  y = int_to_octa(6);
+  z = int_to_octa(5);
+  e = int_to_octa(1);
+
+  x = octa_signed_cmp(y, z);
+  
+  octa_str(x, sx, 32), octa_str(y, sy, 32), octa_str(z, sz, 32), octa_str(e, se, 32);
+
+  test_check(
+    test_print("signed_cmp(%s, %s) = %s", sy, sz, se),
+    x == e,
+    test_failure("Expecting %s, got %s", se, sx)
+  );
+
+  // 6 > -5 => 1
+
+  y = int_to_octa(6);
+  z = int_to_octa(-5);
+  e = int_to_octa(1);
+
+  x = octa_signed_cmp(y, z);
+  
+  octa_str(x, sx, 32), octa_str(y, sy, 32), octa_str(z, sz, 32), octa_str(e, se, 32);
+
+  test_check(
+    test_print("signed_cmp(%s, %s) = %s", sy, sz, se),
+    x == e,
+    test_failure("Expecting %s, got %s", se, sx)
+  );
+  
+  // -6 == -6 => 0
+
+  y = int_to_octa(-6);
+  z = int_to_octa(-6);
+  e = int_to_octa(0);
+
+  x = octa_signed_cmp(y, z);
+  
+  octa_str(x, sx, 32), octa_str(y, sy, 32), octa_str(z, sz, 32), octa_str(e, se, 32);
+
+  test_check(
+    test_print("signed_cmp(%s, %s) = %s", sy, sz, se),
+    x == e,
+    test_failure("Expecting %s, got %s", se, sx)
+  );
+
+  test_success;
+  test_teardown {}
+  test_end;
+}
+
+define_test(
   octa_plus, test_print("Octa plus")
 ) {
   char sx[32], sy[32], sz[32], se[32];
@@ -226,9 +373,9 @@ define_test(
   test_print("Perform a signed addition with an overflow.\n");
 
   overflow = false;
-  y = INT64_MAX_VALUE;
+  y = octa_int_max;
   z = 1;
-  e = (octa)(1) << 63;
+  e = octa_sign_bit;
 
   x = octa_plus(y, z, &overflow);
   octa_str(x, sx, 32), octa_str(y, sy, 32), octa_str(z, sz, 32), octa_str(e, se, 32);
@@ -283,9 +430,9 @@ define_test(
   test_print("Perform a substraction with overflow.\n");
   overflow = false;
   
-  y = -INT64_MAX_VALUE - 1;
+  y = octa_sign_bit;
   z = 1;
-  e = 0x7fffffffffffffff; // Overflowed value
+  e = octa_int_max; // Overflowed value
 
   x = octa_minus(y, z, &overflow);
   octa_str(x, sx, 32), octa_str(y, sy, 32), octa_str(z, sz, 32), octa_str(e, se, 32);
@@ -762,9 +909,16 @@ define_test_chapter(
 )
 
 define_test_chapter(
+  arith_5, test_print("Arithmetics #5"),
+  octa_unsigned_cmp,
+  octa_signed_cmp
+)
+
+define_test_chapter(
   arith, test_print("Arithmetics"), 
   arith_1,
   arith_2,
   arith_3,
-  arith_4
+  arith_4,
+  arith_5
 )
