@@ -1,0 +1,100 @@
+\hypertarget{processor_8h}{}\doxysection{C\+:/\+Users/\+GP69\+E5\+EN/\+Documents/dev/palinka/src/mmix/processor.h File Reference}
+\label{processor_8h}\index{C:/Users/GP69E5EN/Documents/dev/palinka/src/mmix/processor.h@{C:/Users/GP69E5EN/Documents/dev/palinka/src/mmix/processor.h}}
+{\ttfamily \#include \char`\"{}../types.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../sys.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}instr.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}reg.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}op.\+h\char`\"{}}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structmmix__ivte}{mmix\+\_\+ivte}}
+\item 
+struct \mbox{\hyperlink{structmmix__cfg__t}{mmix\+\_\+cfg\+\_\+t}}
+\item 
+struct \mbox{\hyperlink{structmmix__processor__t}{mmix\+\_\+processor\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{processor_8h_ad488131394a8557fce25854085f2a704}{MMIX\+\_\+\+START\+\_\+\+ADDR}}~0x8000000000000000
+\item 
+\#define \mbox{\hyperlink{processor_8h_a5c438270082ce5e24b37dd324fa77adf}{MMIX\+\_\+\+STACK\+\_\+\+BASE}}~0x6000000000000000
+\item 
+\#define \mbox{\hyperlink{processor_8h_acb5e001349b7a33252dc50a4713fcc88}{MMIX\+\_\+\+RESUMING}}~1
+\item 
+\#define \mbox{\hyperlink{processor_8h_af38ee3659ccd64a91ba741bbdbff6ded}{MMIX\+\_\+\+RESUME\+\_\+\+AGAIN}}~0
+\item 
+\#define \mbox{\hyperlink{processor_8h_a4e004fba3618532e462dead93b15b97f}{MMIX\+\_\+\+RESUME\+\_\+\+CONT}}~1
+\item 
+\#define \mbox{\hyperlink{processor_8h_ac8349ce07e0b27304098285e872c71cc}{MMIX\+\_\+\+RESUME\+\_\+\+SET}}~2
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{processor_8h_a63d468a242738b907c41c753d15bc19c}{mmix\+\_\+cfg\+\_\+init}} (\mbox{\hyperlink{structmmix__cfg__t}{mmix\+\_\+cfg\+\_\+t}} $\ast$cfg)
+\item 
+\mbox{\hyperlink{structmmix__processor__t}{mmix\+\_\+processor\+\_\+t}} $\ast$ \mbox{\hyperlink{processor_8h_a1f05c6e0095f784029eb5a06be10e09b}{\+\_\+\+\_\+get\+\_\+mmix\+\_\+proc}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys)
+\item 
+\mbox{\hyperlink{types_8h_abf8479e8e86e389f81cf1da15c5100ec}{octa}} $\ast$ \mbox{\hyperlink{processor_8h_a186bb5458141b6d8e5cbf0b118f6743a}{\+\_\+\+\_\+get\+\_\+mmix\+\_\+lregs}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{processor_8h_af38ee3659ccd64a91ba741bbdbff6ded}\label{processor_8h_af38ee3659ccd64a91ba741bbdbff6ded}} 
+\index{processor.h@{processor.h}!MMIX\_RESUME\_AGAIN@{MMIX\_RESUME\_AGAIN}}
+\index{MMIX\_RESUME\_AGAIN@{MMIX\_RESUME\_AGAIN}!processor.h@{processor.h}}
+\doxysubsubsection{\texorpdfstring{MMIX\_RESUME\_AGAIN}{MMIX\_RESUME\_AGAIN}}
+{\footnotesize\ttfamily \#define MMIX\+\_\+\+RESUME\+\_\+\+AGAIN~0}
+
+\mbox{\Hypertarget{processor_8h_a4e004fba3618532e462dead93b15b97f}\label{processor_8h_a4e004fba3618532e462dead93b15b97f}} 
+\index{processor.h@{processor.h}!MMIX\_RESUME\_CONT@{MMIX\_RESUME\_CONT}}
+\index{MMIX\_RESUME\_CONT@{MMIX\_RESUME\_CONT}!processor.h@{processor.h}}
+\doxysubsubsection{\texorpdfstring{MMIX\_RESUME\_CONT}{MMIX\_RESUME\_CONT}}
+{\footnotesize\ttfamily \#define MMIX\+\_\+\+RESUME\+\_\+\+CONT~1}
+
+\mbox{\Hypertarget{processor_8h_ac8349ce07e0b27304098285e872c71cc}\label{processor_8h_ac8349ce07e0b27304098285e872c71cc}} 
+\index{processor.h@{processor.h}!MMIX\_RESUME\_SET@{MMIX\_RESUME\_SET}}
+\index{MMIX\_RESUME\_SET@{MMIX\_RESUME\_SET}!processor.h@{processor.h}}
+\doxysubsubsection{\texorpdfstring{MMIX\_RESUME\_SET}{MMIX\_RESUME\_SET}}
+{\footnotesize\ttfamily \#define MMIX\+\_\+\+RESUME\+\_\+\+SET~2}
+
+\mbox{\Hypertarget{processor_8h_acb5e001349b7a33252dc50a4713fcc88}\label{processor_8h_acb5e001349b7a33252dc50a4713fcc88}} 
+\index{processor.h@{processor.h}!MMIX\_RESUMING@{MMIX\_RESUMING}}
+\index{MMIX\_RESUMING@{MMIX\_RESUMING}!processor.h@{processor.h}}
+\doxysubsubsection{\texorpdfstring{MMIX\_RESUMING}{MMIX\_RESUMING}}
+{\footnotesize\ttfamily \#define MMIX\+\_\+\+RESUMING~1}
+
+\mbox{\Hypertarget{processor_8h_a5c438270082ce5e24b37dd324fa77adf}\label{processor_8h_a5c438270082ce5e24b37dd324fa77adf}} 
+\index{processor.h@{processor.h}!MMIX\_STACK\_BASE@{MMIX\_STACK\_BASE}}
+\index{MMIX\_STACK\_BASE@{MMIX\_STACK\_BASE}!processor.h@{processor.h}}
+\doxysubsubsection{\texorpdfstring{MMIX\_STACK\_BASE}{MMIX\_STACK\_BASE}}
+{\footnotesize\ttfamily \#define MMIX\+\_\+\+STACK\+\_\+\+BASE~0x6000000000000000}
+
+\mbox{\Hypertarget{processor_8h_ad488131394a8557fce25854085f2a704}\label{processor_8h_ad488131394a8557fce25854085f2a704}} 
+\index{processor.h@{processor.h}!MMIX\_START\_ADDR@{MMIX\_START\_ADDR}}
+\index{MMIX\_START\_ADDR@{MMIX\_START\_ADDR}!processor.h@{processor.h}}
+\doxysubsubsection{\texorpdfstring{MMIX\_START\_ADDR}{MMIX\_START\_ADDR}}
+{\footnotesize\ttfamily \#define MMIX\+\_\+\+START\+\_\+\+ADDR~0x8000000000000000}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{processor_8h_a186bb5458141b6d8e5cbf0b118f6743a}\label{processor_8h_a186bb5458141b6d8e5cbf0b118f6743a}} 
+\index{processor.h@{processor.h}!\_\_get\_mmix\_lregs@{\_\_get\_mmix\_lregs}}
+\index{\_\_get\_mmix\_lregs@{\_\_get\_mmix\_lregs}!processor.h@{processor.h}}
+\doxysubsubsection{\texorpdfstring{\_\_get\_mmix\_lregs()}{\_\_get\_mmix\_lregs()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_abf8479e8e86e389f81cf1da15c5100ec}{octa}}$\ast$ \+\_\+\+\_\+get\+\_\+mmix\+\_\+lregs (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{processor_8h_a1f05c6e0095f784029eb5a06be10e09b}\label{processor_8h_a1f05c6e0095f784029eb5a06be10e09b}} 
+\index{processor.h@{processor.h}!\_\_get\_mmix\_proc@{\_\_get\_mmix\_proc}}
+\index{\_\_get\_mmix\_proc@{\_\_get\_mmix\_proc}!processor.h@{processor.h}}
+\doxysubsubsection{\texorpdfstring{\_\_get\_mmix\_proc()}{\_\_get\_mmix\_proc()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structmmix__processor__t}{mmix\+\_\+processor\+\_\+t}}$\ast$ \+\_\+\+\_\+get\+\_\+mmix\+\_\+proc (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{processor_8h_a63d468a242738b907c41c753d15bc19c}\label{processor_8h_a63d468a242738b907c41c753d15bc19c}} 
+\index{processor.h@{processor.h}!mmix\_cfg\_init@{mmix\_cfg\_init}}
+\index{mmix\_cfg\_init@{mmix\_cfg\_init}!processor.h@{processor.h}}
+\doxysubsubsection{\texorpdfstring{mmix\_cfg\_init()}{mmix\_cfg\_init()}}
+{\footnotesize\ttfamily void mmix\+\_\+cfg\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmmix__cfg__t}{mmix\+\_\+cfg\+\_\+t}} $\ast$}]{cfg }\end{DoxyParamCaption})}
+

@@ -93,6 +93,8 @@ define_test(
   mem_map, 
   test_print("Memory map")
 ) {
+  char s[3][32];
+  octa o[3];
 
   char exceptions = 0;
   void* out;
@@ -103,22 +105,30 @@ define_test(
   
   vbase = mem_map(&mem, vbase, pblock, 1);
 
+  o[0] = voidp_to_octa(pblock);
+  o[1] = voidp_to_octa(vbase);
+
+  octa_str(o[0], s[0], 32), octa_str(o[1], s[1], 32);
+
   test_check(
-    test_print("Map physical %#08lx to virtual %#08lx, the returned address should not be NULL.",  (octa) pblock, (octa) vbase),
+    test_print("Map physical %s to virtual %s, the returned address should not be NULL.",  s[0], s[1]),
     vbase,
     test_failure("Should not be NULL")
   );
 
   test_check(
-    test_print("We translate virtual %#lx, it must not cause a page fault.", (octa) vbase),
+    test_print("We translate virtual %s, it must not cause a page fault.", s[1]),
     mem_tl(&mem, vbase, &out, &exceptions),
     test_failure("Should not have a page fault.")
   );
 
+  o[3] = voidp_to_octa(out);
+  octa_str(o[3], s[3], 32);
+
   test_check(
-    test_print("The translated address %#lx must be %#lx.", (octa) vbase, (octa) pblock),
+    test_print("The translated address %s must be %s.", s[1], s[0]),
     pblock == out,
-    test_failure("Got %#lx.", (octa) out)
+    test_failure("Got %s.", s[3])
   )
 
   test_success;
@@ -134,15 +144,20 @@ define_test(
   mem_alloc_managed, 
   test_print("Memory allocate managed physical memory")
 ) {
+  octa o[1];
+  char s[1][32];
+
   memory_t mem = mem_boostrap();
   allocator_t allocator = GLOBAL_ALLOCATOR;
 
   void* vaddr = (void*) 0x8000000000000000;
   void* pblock = mem_alloc_managed(&mem, &allocator, vaddr, sizeof(char));
-  void* out;
-  
+
+  o[1] = voidp_to_octa(vaddr);
+  octa_str(o[1], s[1], 32);
+
   test_check(
-    test_print("Managed physical memory is allocated by the memory unit and mapped to the closest page's lower bound near %#lx.", (octa) vaddr),
+    test_print("Managed physical memory is allocated by the memory unit and mapped to the closest page's lower bound near %s.", s[1]),
     pblock != NULL,
     test_failure("Should not be NULL")
   );

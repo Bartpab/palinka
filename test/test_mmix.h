@@ -5,7 +5,7 @@
 #include "../src/sys.h"
 #include "../src/mem.h"
 
-#include "../src/mmix/api.h"
+#include "../src/mmix/core.h"
 #include "../src/mmix/instr.h"
 
 void test_trap_handler(system_t* sys, instr_t* instr)
@@ -1828,6 +1828,8 @@ define_test(
   mmix_mul, test_print("MUL")
 ){
 
+  char sx[32], se[32];
+  octa x, e;
   octa prog [] = {
     __mmix_instr(MUL, 0xC0, 0xC1, 0xC2)
   };
@@ -1844,10 +1846,14 @@ define_test(
   // Execute the instruction
   sys_step(sys);
 
+  e = int_to_octa(-30);
+  x = mmix_get_regv(proc, 0xC0);
+  octa_str(x, sx, 32), octa_str(e, se, 32);
+
   test_check(
     test_print("Execute MUL 0XC0 0XC1 0XC2; Expecting r[0xC0] == -30"),
-    mmix_get_regv(proc, 0xC0) == int_to_octa(-30),
-    test_failure("Expecting %d, got %lu", -30, mmix_get_regv(proc, 0xC0))
+    x == e,
+    test_failure("Expecting %s, got %s", se, sx)
   )
 
   test_success;  
@@ -1860,6 +1866,8 @@ define_test(
 define_test(
   mmix_muli, test_print("MULI")
 ){
+  char sx[32], se[32];
+  octa x, e;
 
   octa prog [] = {
     __mmix_instr(MUL, 0xC0, 0xC1, 0xC2)
@@ -1877,10 +1885,14 @@ define_test(
   // Execute the instruction
   sys_step(sys);
 
+  e = int_to_octa(-30);
+  x = mmix_get_regv(proc, 0xC0);
+  octa_str(x, sx, 32), octa_str(e, se, 32);
+
   test_check(
     test_print("Execute MULI 0XC0 0XC1 0XC2; Expecint reg[0xC0] == -30"),
-    mmix_get_regv(proc, 0xC0) == -30,
-    test_failure("Expecting %d, got %lu", -30, mmix_get_regv(proc, 0xC0))
+    x == e,
+    test_failure("Expecting %s, got %s", se, sx)
   )
 
   test_success;  
@@ -1893,6 +1905,8 @@ define_test(
 define_test(
   mmix_mulu, test_print("MULU")
 ){
+  char sx[32], se[32];
+  octa x, e;
 
   octa prog [] = {
     __mmix_instr(MUL, 0xC0, 0xC1, 0xC2)
@@ -1910,10 +1924,14 @@ define_test(
   // Execute the instruction
   sys_step(sys);
 
+  e = int_to_octa(30);
+  x = mmix_get_regv(proc, 0xC0);
+  octa_str(x, sx, 32), octa_str(e, se, 32);
+
   test_check(
     test_print("Execute MULU 0XC0 0XC1 0XC2; Expecint reg[0xC0] == 30"),
-    mmix_get_regv(proc, 0xC0)  == 30,
-    test_failure("Expecting %d, got %lu", 30, mmix_get_regv(proc, 0xC0))
+    x == e,
+    test_failure("Expecting %s, got %s", se, sx)
   )
 
   test_success;  
@@ -1926,9 +1944,11 @@ define_test(
 define_test(
   mmix_mului, test_print("MULUI")
 ){
+  char sx[32], se[32];
+  octa x, e;
 
   octa prog [] = {
-    __mmix_instr(MUL, 0xC0, 0xC1, 0xC2)
+    __mmix_instr(MULUI, 0xC0, 0xC1, 0xC2)
   };
 
   system_t* sys = mmix_bootstrap(prog, 1);  
@@ -1943,10 +1963,15 @@ define_test(
   // Execute the instruction
   sys_step(sys);
 
+  e = int_to_octa(30);
+  x = mmix_get_regv(proc, 0xC0);
+  
+  octa_str(x, sx, 32), octa_str(e, se, 32);
+
   test_check(
     test_print("Execute MULUI 0XC0 0XC1 0XC2; Expecint reg[0xC0] == 30"),
-    mmix_get_regv(proc, 0xC0)  == int_to_octa(30),
-    test_failure("Expecting %d, got %lu", 30, mmix_get_regv(proc, 0xC0))
+    x == e,
+    test_failure("Expecting %s, got %s", se, sx)
   )
 
   test_success;  
@@ -1959,6 +1984,8 @@ define_test(
 define_test(
   mmix_div, test_print("DIV")
 ){
+  char sx[32], se[32];
+  octa x, e;
 
   octa prog [] = {
     __mmix_instr(DIV, 0xC0, 0xC1, 0xC2)
@@ -1976,16 +2003,25 @@ define_test(
   // Execute the instruction
   sys_step(sys);
 
+  x = mmix_get_regv(proc, 0xC0);
+
+  e = int_to_octa(32);
+  octa_str(x, sx, 32), octa_str(e, se, 32);
+
   test_check(
     test_print("Execute DIV 0XC0 0XC1 0XC2 \\w reg[0XC1] == 65, reg[0xC2] == 2; Expecting reg[0xC0] == 32"),
-    mmix_get_regv(proc, 0xC0) == int_to_octa(32),
-    test_failure("Expecting %d, got %lu", 32, mmix_get_regv(proc, 0xC0))
+    x == e,
+    test_failure("Expecting %s, got %s", se, sx)
   )
+
+  x = mmix_get_sregv(proc, rR);
+  e = int_to_octa(1);
+  octa_str(x, sx, 32), octa_str(e, se, 32);
 
   test_check(
     test_print("Execute DIV 0XC0 0XC1 0XC2 \\w reg[0XC1] == 65, reg[0xC2] == 2; Expecting aux == 1"),
-    proc->g[rR] == 1,
-    test_failure("Expecting %d, got %lu", 1, proc->g[rR])
+    x == e,
+    test_failure("Expecting %s, got %s", se, sx)
   )
 
   test_success;  
@@ -2044,6 +2080,7 @@ define_test(
 define_test(
   mmix_divu, test_print("DIVU")
 ){
+  char s[5][32];
 
   octa prog [] = {
     __mmix_instr(DIVU, 0xC0, 0xC1, 0xC2)
@@ -2062,24 +2099,29 @@ define_test(
   // Execute the instruction
   sys_step(sys);
 
-  test_print("Set reg[rD] to %lu\n",   mmix_get_sregv(proc, rD));
-  test_print("Set reg[0xC0] to %lu\n", mmix_get_regv(proc, 0xC0));
-  test_print("Set reg[0xC1] to %lu\n", mmix_get_regv(proc, 0xC1));
-  test_print("Set reg[0xC2] to %lu\n", mmix_get_regv(proc, 0xC2));
+  octa_str(mmix_get_sregv(proc, rD),  s[0], 32);
+  octa_str(mmix_get_regv(proc, 0xC0), s[1], 32);
+  octa_str(mmix_get_regv(proc, 0xC1), s[2], 32);
+  octa_str(mmix_get_regv(proc, 0xC2), s[3], 32);
+  octa_str(mmix_get_sregv(proc, rR),  s[4], 32);
+
+  test_print("Set reg[rD] to %s\n",   s[0]);
+  test_print("Set reg[0xC1] to %s\n", s[2]);
+  test_print("Set reg[0xC2] to %s\n", s[3]);
 
   test_print("Execute DIVUI 0XC0 0XC1 0XC2\n")
   test_check(
     test_print("reg[0xC0] should be 2"),
     mmix_get_regv(proc, 0xC0) == int_to_octa(2),
     test_failure(
-      "Expecting %d, got %lu", 2, mmix_get_regv(proc, 0xC0)
+      "Expecting %d, got %s", 2, s[1]
     )
   )
 
   test_check(
     test_print("reg[rR] should be 1"),
     mmix_get_sregv(proc, rR) == int_to_octa(1),
-    test_failure("Expecting %d, got %lu", 1, mmix_get_sregv(proc, rR))
+    test_failure("Expecting %d, got %s", 1, s[4])
   )
 
   test_success;  
@@ -2093,7 +2135,7 @@ define_test(
   mmix_divui, test_print("DIVUI")
 ){
 
-  char sd[32], s0[32], s1[32], se[32];
+  char s[5][32];
 
   octa prog [] = {
     __mmix_instr(DIVUI, 0xC0, 0xC1, 0x02)
@@ -2109,39 +2151,29 @@ define_test(
   mmix_set_regv(proc, int_to_octa(1), 0xC1);
 
   octa e = tetra_to_octa(1 << 31, 0);
-  
-  octa_str(e, se, 32);
-
-  octa_str(mmix_get_sregv(proc, rD), sd, 32);
-  octa_str(mmix_get_regv(proc, 0xC0), s0, 32);
-  octa_str(mmix_get_regv(proc, 0xC1), s1, 32);
-  
-  test_print("Set reg[rD] to %s\n", sd);
-  test_print("Set reg[0xC0] to %s\n", s0);
-  test_print("Set reg[0xC1] to %s\n", s1);
-  test_print("Set Z to %d\n", 0x02);
-
   test_print("Execute DIVUI 0xC0 0xC1 0x02\n")
 
   sys_step(sys);
 
-  octa_str(e, se, 32);
-  octa_str(mmix_get_sregv(proc, rD), sd, 32);
-  octa_str(mmix_get_regv(proc, 0xC0), s0, 32);
-  octa_str(mmix_get_regv(proc, 0xC1), s1, 32);
+  octa_str(mmix_get_sregv(proc, rD),  s[0], 32);
+  octa_str(mmix_get_regv(proc, 0xC0), s[1], 32);
+  octa_str(mmix_get_regv(proc, 0xC1), s[2], 32);
+  octa_str(e, s[3], 32);
+  octa_str(mmix_get_sregv(proc, rR), s[4], 32);
 
   test_check(
-    test_print("r[0xC0] should be %s", se),
+    test_print("r[0xC0] should be %s", s[3]),
     mmix_get_regv(proc, 0xC0) == e,
-    test_failure("Expecting %s, got %s", se, s0)
+    test_failure("Expecting %s, got %s", s[3], s[1])
   )
 
   e = uint_to_octa(1);
-  octa_str(e, se, 32);
+  octa_str(e, s[3], 32);
+  
   test_check(
-    test_print("r[rR] should be %s", se),
+    test_print("r[rR] should be %s", s[3]),
     mmix_get_sregv(proc, rR) == e,
-    test_failure("Expecting %s, got %lu", se, mmix_get_sregv(proc, rR))
+    test_failure("Expecting %s, got %s", s[3], s[4])
   )
 
   test_success;  
@@ -2193,6 +2225,7 @@ define_test(
 define_test(
   mmix_trap, test_print("TRAP")
 ){
+  char s[32];
   octa prog [] = {
     __mmix_instr(TRAP, 0xC0, 0x00, 0x00)
   };  
@@ -2206,11 +2239,13 @@ define_test(
   // Execute on step
   sys_step(sys);
 
+  octa_str(mmix_get_regv(proc, 0x40), s, 32);
+
   // Get the result.
   test_check(
     test_print("The trap handler set the 0x40 reg value to 0xD00D."),
     mmix_get_regv(proc, 0x40) == 0xD00D,
-    test_failure("Expecting %#x, got %#lx", 0xD00D, mmix_get_regv(proc, 0x40))
+    test_failure("Expecting %#x, got %s", 0xD00D, s)
   )
 
   test_success;  

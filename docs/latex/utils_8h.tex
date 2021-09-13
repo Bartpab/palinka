@@ -1,0 +1,32 @@
+\hypertarget{utils_8h}{}\doxysection{C\+:/\+Users/\+GP69\+E5\+EN/\+Documents/dev/palinka/src/utils.h File Reference}
+\label{utils_8h}\index{C:/Users/GP69E5EN/Documents/dev/palinka/src/utils.h@{C:/Users/GP69E5EN/Documents/dev/palinka/src/utils.h}}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{utils_8h_a03c91a40ac149893ee643dbd90c20204}{HAS\+\_\+\+FLAG}}(MASK,  VAL)~VAL \& MASK
+\item 
+\#define \mbox{\hyperlink{utils_8h_a6ba5eba974b20769e875eae7671dc63d}{FLAG\+\_\+\+ON}}(MASK,  VAL)~VAL = VAL $\vert$ MASK
+\item 
+\#define \mbox{\hyperlink{utils_8h_a4509fbd6b575d0dd5e729419640abff8}{FLAG\+\_\+\+OFF}}(MASK,  VAL)~VAL = VAL \& $\sim$MASK
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{utils_8h_a4509fbd6b575d0dd5e729419640abff8}\label{utils_8h_a4509fbd6b575d0dd5e729419640abff8}} 
+\index{utils.h@{utils.h}!FLAG\_OFF@{FLAG\_OFF}}
+\index{FLAG\_OFF@{FLAG\_OFF}!utils.h@{utils.h}}
+\doxysubsubsection{\texorpdfstring{FLAG\_OFF}{FLAG\_OFF}}
+{\footnotesize\ttfamily \#define FLAG\+\_\+\+OFF(\begin{DoxyParamCaption}\item[{}]{MASK,  }\item[{}]{VAL }\end{DoxyParamCaption})~VAL = VAL \& $\sim$MASK}
+
+\mbox{\Hypertarget{utils_8h_a6ba5eba974b20769e875eae7671dc63d}\label{utils_8h_a6ba5eba974b20769e875eae7671dc63d}} 
+\index{utils.h@{utils.h}!FLAG\_ON@{FLAG\_ON}}
+\index{FLAG\_ON@{FLAG\_ON}!utils.h@{utils.h}}
+\doxysubsubsection{\texorpdfstring{FLAG\_ON}{FLAG\_ON}}
+{\footnotesize\ttfamily \#define FLAG\+\_\+\+ON(\begin{DoxyParamCaption}\item[{}]{MASK,  }\item[{}]{VAL }\end{DoxyParamCaption})~VAL = VAL $\vert$ MASK}
+
+\mbox{\Hypertarget{utils_8h_a03c91a40ac149893ee643dbd90c20204}\label{utils_8h_a03c91a40ac149893ee643dbd90c20204}} 
+\index{utils.h@{utils.h}!HAS\_FLAG@{HAS\_FLAG}}
+\index{HAS\_FLAG@{HAS\_FLAG}!utils.h@{utils.h}}
+\doxysubsubsection{\texorpdfstring{HAS\_FLAG}{HAS\_FLAG}}
+{\footnotesize\ttfamily \#define HAS\+\_\+\+FLAG(\begin{DoxyParamCaption}\item[{}]{MASK,  }\item[{}]{VAL }\end{DoxyParamCaption})~VAL \& MASK}
+

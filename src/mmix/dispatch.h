@@ -24,7 +24,14 @@ typedef void (*mmix_exec_t)(system_t* sys, mmix_processor_t* proc, instr_t* inst
 #define EXCEPTION_MMIX_SREG proc->g[rA]
 #define REMAINDER_MMIX_SREG proc->g[rR]
 
+/**
+ * \brief Check if the local register ring is full.
+ */
 bool __mmix_lring_is_full(mmix_processor_t* proc);
+
+/**
+ * \brief Increase local space by one and return the new L value.
+ */
 unsigned int __mmix_lring_push_local(system_t* sys, mmix_processor_t* proc);
 
 void mmix_read_regv(mmix_processor_t* proc, octa* x, unsigned char xx);
@@ -159,6 +166,11 @@ void __mmix_stack_load(system_t* sys)
   );
 }
 
+/**
+ * \brief Interrupt processing and transfer control to a handler.
+ * 
+ * If XYZ = 0, the user process should terminate.
+ */
 MEXF(TRAP) 
 {
   MMIX_SREG(rWW) = (octa) proc->instr_ptr;
@@ -174,42 +186,75 @@ MEXF(TRAP)
   instr->x = proc->g[0xFF] = proc->g[rBB];
 }
 
+/**
+ * \brief FCMP $X, $Y, $Z  "Floating-compare"
+ * 
+ * r[$X] := -1 if r[$Y] < r[$Z]
+ * 
+ * r[$X] := 1 if r[$Y] > r[$Z]
+ * 
+ * r[$X] := 0 if r[$Y] == r[$Z]
+ */
 MEXF(FCMP) 
 {
   instr->x = octa_fcmp(instr->y, instr->z, &instr->exc);
   __store_x(MEX_ARGS);
 }
 
+/**
+ * \brief FUN $X,$Y,$Z "Floating unordered"
+ * 
+ * r[$X] := 1 if r[$Y] and r[$Z] are unordered (eg: NaN)
+ */
 MEXF(FUN) 
 {
   instr->x = octa_fun(instr->y, instr->z);
   __store_x(MEX_ARGS);
 }
 
+/**
+ * \brief FEQL $X,$Y,$Z "Floating equal to"
+ * 
+ * r[$X] := 1 if r[$Y] == r[$Z]
+ * 
+ * r[$Y] := 0 if r[$Y] != r[$Z] or one of them is unordered.
+ */
 MEXF(FEQL) 
 {
   instr->x = octa_feql(instr->y, instr->x, &instr->exc);
   __store_x(MEX_ARGS);
 }
 
+/**
+ * \brief FADD $X, $Y, $Z "Floating add"
+ */
 MEXF(FADD) 
 {
   instr->x = octa_fadd(instr->y, instr->z, &instr->exc);
   __store_x(MEX_ARGS);
 }
 
+/**
+ * \brief FIX $X, $Z "Convert floating to fixed"
+ */
 MEXF(FIX) 
 {
   instr->x = octa_fix(instr->z, &instr->exc);
   __store_x(MEX_ARGS);
 }
 
+/**
+ * \brief FSUB $X, $Y, $Z "Floating substract"
+ */
 MEXF(FSUB) 
 {
   instr->x = octa_fsub(instr->y, instr->z, &instr->exc);
   __store_x(MEX_ARGS);
 }
 
+/**
+ * \brief FIXU $X, $Z "Convert floating to fixed unsigned"
+ */
 MEXF(FIXU) 
 {
   instr->x = octa_fixu(instr->z, &instr->exc);
@@ -221,30 +266,62 @@ static inline void __flot(MEX_DEF_ARGS) {
   __store_x(MEX_ARGS);
 }
 
+/**
+ * \brief FLOT $X, $Z "Convert fixed to floating."
+ */
 MEXF(FLOT) 
 {
   __flot(MEX_ARGS);
 }
 
+/**
+ * \brief FLOTI $X, Z "Convert fixed to floating."
+ */
 MEXF(FLOTI) 
 {
   __flot(MEX_ARGS);
 }
 
+/**
+ * \brief FLOTU $X, $Z "Convert fixed to floating unsigned."
+ */
 MEXF(FLOTU) 
 {
   __flot(MEX_ARGS);
 }
+
+/**
+ * \brief FLOT $X, Z "Convert fixed to floating unsigned."
+ */
 MEXF(FLOTUI) 
 {
   __flot(MEX_ARGS);
 }
 
+/**
+ * \brief SFLOT $X $Z "Converted fixed to short float"
+ */
 MEXF(SFLOT) {}
+
+/**
+ * \brief SFLOTI $X Z "Converted fixed to short float"
+ */
 MEXF(SFLOTI) {}
+
+/**
+ * \brief SFLOTU $X $Z "Converted fixed to short float unsigned"
+ */
 MEXF(SFLOTU) {}
+
+/**
+ * \brief SFLOTUI $X Z "Converted fixed to short float unsigned"
+ */
 MEXF(SFLOTUI) {}
 
+
+/**
+ * \brief FMUL $X, $Y, $Z "Floating multiply"
+ */
 MEXF(FMUL) 
 {
   instr->x = octa_fmult(instr->y, instr->z, &instr->exc);
@@ -255,23 +332,35 @@ MEXF(FCMPE) {}
 MEXF(FUNE) {}
 MEXF(FEQLE) {}
 
+/**
+ * \brief FDIV $X, $Y, $Z "Floating division"
+ */
 MEXF(FDIV) 
 {
   instr->x = octa_fdiv(instr->y, instr->z, &instr->exc);
   __store_x(MEX_ARGS);
 }
 
+/**
+ * \brief FSQRT $X, $Z "Floating square root"
+ */
 MEXF(FSQRT) 
 {
   instr->x = octa_fsqrt(instr->z, ol(instr->x), &instr->exc);
   __store_x(MEX_ARGS);
 }
 
+/**
+ * \brief FREM $X, $Y, $Z "Floating remainder"
+ */
 MEXF(FREM) {
   instr->x = octa_frem(instr->y, instr->z, &instr->exc);
   __store_x(MEX_ARGS);
 }
 
+/**
+ * \brief FINT $X, $Z "Floating integer"
+ */
 MEXF(FINT) {
   instr->x = octa_fint(instr->z, proc->rounding_mode, &instr->exc);
 }
@@ -1065,8 +1154,6 @@ MEXF(STTUI) {
 
 static inline void __sto(MEX_DEF_ARGS)
 {
-  octa o = instr->b;
-
   MMEMW(
     octa_to_voidp(instr->w), 
     octa, 
@@ -1419,8 +1506,7 @@ MEXF(JMPB) {
 
 static inline void __push(MEX_DEF_ARGS)
 {
-  unsigned int raddr;
-  octa x, b;
+  octa x;
   
   while(instr->xx >= proc->G) 
     instr->xx = __mmix_lring_push_local(sys, proc);
@@ -1466,11 +1552,10 @@ MEXF(POP) {}
 
 MEXF(RESUME) 
 {
-  octa b, z;
-  z = proc->g[instr->zz];
+  instr->z = proc->g[instr->zz];
   proc->instr_ptr = (octa*) proc->g[rW];
-  z = proc->g[rW];
-  b = proc->g[rX];
+  instr->z = proc->g[rW];
+  instr->b = proc->g[rX];
 }
 
 MEXF(SAVE) 

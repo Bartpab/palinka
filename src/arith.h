@@ -322,7 +322,6 @@ octa octa_div(hexadeca x, octa z, octa* aux)
   octa rem = 0;
   
   char s = 127;
-  char rs = -1;
   
   while(s >= 0) 
   {
@@ -383,7 +382,7 @@ octa octa_fadd(octa y, octa z, octa* exceptions)
   if ((isnan(dy) && dz == 0.0) || (isnan(dz) && dz == 0.0)) 
   {
     *exceptions |= I_BIT;
-    return NAN;
+    return double_to_octa(NAN);
   }
   
   double dx = dz + dy;
@@ -402,7 +401,7 @@ octa octa_fsub(octa y, octa z, octa* exceptions)
   if ((isnan(dy) && dz == 0.0) || (isnan(dz) && dz == 0.0)) 
   {
     *exceptions |= I_BIT;
-    return NAN;
+    return double_to_octa(NAN);
   }
   
   double dx = dy-+ dz;
@@ -421,7 +420,7 @@ octa octa_fmult(octa y, octa z, octa* exceptions)
   if ((isnan(dy) && dz == 0.0) || (isnan(dz) && dz == 0.0)) 
   {
     *exceptions |= I_BIT;
-    return NAN;
+    return double_to_octa(NAN);
   }
   
   double dx = dz * dy;

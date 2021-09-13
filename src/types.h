@@ -5,7 +5,8 @@
 #include <stddef.h>
 
 typedef enum {
-  false, true
+  false, 
+  true
 } bool;
 
 typedef unsigned char byte;
@@ -36,6 +37,7 @@ octa int_to_octa(int x);
 octa double_to_octa(double x);
 double octa_to_double(octa x);
 void* octa_to_voidp(octa x);
+octa voidp_to_octa(void* x);
 
 ////////////
 /// IMPL ///
@@ -43,12 +45,12 @@ void* octa_to_voidp(octa x);
 
 void hexadeca_str(hexadeca x, char* buf, size_t len)
 {
-  snprintf(buf, len, "%#lx%064lx", x.h, x.l);
+  snprintf(buf, len, "%#llx%064llx", x.h, x.l);
 }
 
 void octa_str(octa x, char* buf, size_t len)
 {
-  snprintf(buf, len, "%#lx", x);
+  snprintf(buf, len, "%#llx", x);
 }
 
 word byte_to_word(byte b2, byte b1)
@@ -103,5 +105,9 @@ double octa_to_double(octa x) {
 
 void* octa_to_voidp(octa x) {
   return (void*)x;
+}
+
+octa voidp_to_octa(void* x) {
+  return (octa) (x);
 }
 #endif

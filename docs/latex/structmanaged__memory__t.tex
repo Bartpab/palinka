@@ -1,0 +1,61 @@
+\hypertarget{structmanaged__memory__t}{}\doxysection{managed\+\_\+memory\+\_\+t Struct Reference}
+\label{structmanaged__memory__t}\index{managed\_memory\_t@{managed\_memory\_t}}
+
+
+Managed real memory.  
+
+
+
+
+{\ttfamily \#include $<$mem.\+h$>$}
+
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+void $\ast$ \mbox{\hyperlink{structmanaged__memory__t_ae92ce0a7003200676704526dbc7cccf7}{vaddr}}
+\item 
+size\+\_\+t \mbox{\hyperlink{structmanaged__memory__t_a5a3fdaaa5f9ef7bdaee529c68e42d6a7}{len}}
+\item 
+\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} \mbox{\hyperlink{structmanaged__memory__t_ab1e1718e3f8c3e2b13c38d8c3273bbdf}{allocator}}
+\item 
+struct \mbox{\hyperlink{structmanaged__memory__t}{managed\+\_\+memory\+\_\+t}} $\ast$ \mbox{\hyperlink{structmanaged__memory__t_ade90bff33d06ac86a9f65367ceb21f48}{next}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Managed real memory. 
+
+Paging works \textbackslash{}w 64-\/bits address
+
+20 bits for directory id (1MiB) 20 bits for table id (1MiB) 12 bits for offset (page\+\_\+size = 4KiB) 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structmanaged__memory__t_ab1e1718e3f8c3e2b13c38d8c3273bbdf}\label{structmanaged__memory__t_ab1e1718e3f8c3e2b13c38d8c3273bbdf}} 
+\index{managed\_memory\_t@{managed\_memory\_t}!allocator@{allocator}}
+\index{allocator@{allocator}!managed\_memory\_t@{managed\_memory\_t}}
+\doxysubsubsection{\texorpdfstring{allocator}{allocator}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} managed\+\_\+memory\+\_\+t\+::allocator}
+
+\mbox{\Hypertarget{structmanaged__memory__t_a5a3fdaaa5f9ef7bdaee529c68e42d6a7}\label{structmanaged__memory__t_a5a3fdaaa5f9ef7bdaee529c68e42d6a7}} 
+\index{managed\_memory\_t@{managed\_memory\_t}!len@{len}}
+\index{len@{len}!managed\_memory\_t@{managed\_memory\_t}}
+\doxysubsubsection{\texorpdfstring{len}{len}}
+{\footnotesize\ttfamily size\+\_\+t managed\+\_\+memory\+\_\+t\+::len}
+
+\mbox{\Hypertarget{structmanaged__memory__t_ade90bff33d06ac86a9f65367ceb21f48}\label{structmanaged__memory__t_ade90bff33d06ac86a9f65367ceb21f48}} 
+\index{managed\_memory\_t@{managed\_memory\_t}!next@{next}}
+\index{next@{next}!managed\_memory\_t@{managed\_memory\_t}}
+\doxysubsubsection{\texorpdfstring{next}{next}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structmanaged__memory__t}{managed\+\_\+memory\+\_\+t}}$\ast$ managed\+\_\+memory\+\_\+t\+::next}
+
+\mbox{\Hypertarget{structmanaged__memory__t_ae92ce0a7003200676704526dbc7cccf7}\label{structmanaged__memory__t_ae92ce0a7003200676704526dbc7cccf7}} 
+\index{managed\_memory\_t@{managed\_memory\_t}!vaddr@{vaddr}}
+\index{vaddr@{vaddr}!managed\_memory\_t@{managed\_memory\_t}}
+\doxysubsubsection{\texorpdfstring{vaddr}{vaddr}}
+{\footnotesize\ttfamily void$\ast$ managed\+\_\+memory\+\_\+t\+::vaddr}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+GP69\+E5\+EN/\+Documents/dev/palinka/src/\mbox{\hyperlink{mem_8h}{mem.\+h}}\end{DoxyCompactItemize}

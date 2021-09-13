@@ -1,0 +1,115 @@
+\hypertarget{mmix_2mem_8h}{}\doxysection{C\+:/\+Users/\+GP69\+E5\+EN/\+Documents/dev/palinka/src/mmix/mem.h File Reference}
+\label{mmix_2mem_8h}\index{C:/Users/GP69E5EN/Documents/dev/palinka/src/mmix/mem.h@{C:/Users/GP69E5EN/Documents/dev/palinka/src/mmix/mem.h}}
+{\ttfamily \#include \char`\"{}../types.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../sys.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../mem.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}processor.\+h\char`\"{}}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{mmix_2mem_8h_a87d4822f1cfde2862a9bed8a7909f434}{PAGE\+\_\+\+NOT\+\_\+\+PRESENT\+\_\+\+BIT}}~(1 $<$$<$ 19);
+\item 
+\#define \mbox{\hyperlink{mmix_2mem_8h_adc1353af49737b1192ef42cdba56a7ea}{MMIX\+\_\+\+MEM\+\_\+\+ACCESS\+\_\+\+FAILBACK}}(sys,  addr,  type,  out,  on\+\_\+failure)
+\item 
+\#define \mbox{\hyperlink{mmix_2mem_8h_a047198be0de1fabe5dd295bd36c45a80}{MMIX\+\_\+\+MEM\+\_\+\+READ\+\_\+\+FAILBACK}}(sys,  addr,  type,  out,  on\+\_\+failure)
+\item 
+\#define \mbox{\hyperlink{mmix_2mem_8h_a6b0f92472b6374d6783fc15f982e8032}{MMIX\+\_\+\+MEM\+\_\+\+WRITE\+\_\+\+FAILBACK}}(sys,  addr,  type,  val,  on\+\_\+failure)
+\item 
+\#define \mbox{\hyperlink{mmix_2mem_8h_a462027e804b0e89c13ebc0983c88f65a}{MMIX\+\_\+\+MEM\+\_\+\+ACCESS}}(sys,  addr,  out)~\mbox{\hyperlink{mmix_2mem_8h_adc1353af49737b1192ef42cdba56a7ea}{MMIX\+\_\+\+MEM\+\_\+\+ACCESS\+\_\+\+FAILBACK}}(sys, addr, type, out, return)
+\item 
+\#define \mbox{\hyperlink{mmix_2mem_8h_a7fe4297316d4cbac2da705462658b57d}{MMIX\+\_\+\+MEM\+\_\+\+READ}}(sys,  addr,  type,  out)~\mbox{\hyperlink{mmix_2mem_8h_a047198be0de1fabe5dd295bd36c45a80}{MMIX\+\_\+\+MEM\+\_\+\+READ\+\_\+\+FAILBACK}}(sys, addr, type, out, return)
+\item 
+\#define \mbox{\hyperlink{mmix_2mem_8h_a9c056c950b04959e9d3990a727b39b74}{MMIX\+\_\+\+MEM\+\_\+\+WRITE}}(sys,  addr,  type,  val)~\mbox{\hyperlink{mmix_2mem_8h_a6b0f92472b6374d6783fc15f982e8032}{MMIX\+\_\+\+MEM\+\_\+\+WRITE\+\_\+\+FAILBACK}}(sys, addr, type, val, return)
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{mmix_2mem_8h_a487bf9d644f6d4d1c9d82d23b12169ef}{mmix\+\_\+memtl}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys, void $\ast$addr, void $\ast$$\ast$out)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{mmix_2mem_8h_a462027e804b0e89c13ebc0983c88f65a}\label{mmix_2mem_8h_a462027e804b0e89c13ebc0983c88f65a}} 
+\index{mem.h@{mem.h}!MMIX\_MEM\_ACCESS@{MMIX\_MEM\_ACCESS}}
+\index{MMIX\_MEM\_ACCESS@{MMIX\_MEM\_ACCESS}!mem.h@{mem.h}}
+\doxysubsubsection{\texorpdfstring{MMIX\_MEM\_ACCESS}{MMIX\_MEM\_ACCESS}}
+{\footnotesize\ttfamily \#define MMIX\+\_\+\+MEM\+\_\+\+ACCESS(\begin{DoxyParamCaption}\item[{}]{sys,  }\item[{}]{addr,  }\item[{}]{out }\end{DoxyParamCaption})~\mbox{\hyperlink{mmix_2mem_8h_adc1353af49737b1192ef42cdba56a7ea}{MMIX\+\_\+\+MEM\+\_\+\+ACCESS\+\_\+\+FAILBACK}}(sys, addr, type, out, return)}
+
+\mbox{\Hypertarget{mmix_2mem_8h_adc1353af49737b1192ef42cdba56a7ea}\label{mmix_2mem_8h_adc1353af49737b1192ef42cdba56a7ea}} 
+\index{mem.h@{mem.h}!MMIX\_MEM\_ACCESS\_FAILBACK@{MMIX\_MEM\_ACCESS\_FAILBACK}}
+\index{MMIX\_MEM\_ACCESS\_FAILBACK@{MMIX\_MEM\_ACCESS\_FAILBACK}!mem.h@{mem.h}}
+\doxysubsubsection{\texorpdfstring{MMIX\_MEM\_ACCESS\_FAILBACK}{MMIX\_MEM\_ACCESS\_FAILBACK}}
+{\footnotesize\ttfamily \#define MMIX\+\_\+\+MEM\+\_\+\+ACCESS\+\_\+\+FAILBACK(\begin{DoxyParamCaption}\item[{}]{sys,  }\item[{}]{addr,  }\item[{}]{type,  }\item[{}]{out,  }\item[{}]{on\+\_\+failure }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \{\(\backslash\)}
+\DoxyCodeLine{  void* \_\_out;\(\backslash\)}
+\DoxyCodeLine{  if(!\mbox{\hyperlink{mmix_2mem_8h_a487bf9d644f6d4d1c9d82d23b12169ef}{mmix\_memtl}}(sys, addr, \&\_\_out)) \{\(\backslash\)}
+\DoxyCodeLine{    sys\_panic(sys);\(\backslash\)}
+\DoxyCodeLine{    on\_failure;\(\backslash\)}
+\DoxyCodeLine{  \}\(\backslash\)}
+\DoxyCodeLine{  out = (type*) \_\_out;\(\backslash\)}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{mmix_2mem_8h_a7fe4297316d4cbac2da705462658b57d}\label{mmix_2mem_8h_a7fe4297316d4cbac2da705462658b57d}} 
+\index{mem.h@{mem.h}!MMIX\_MEM\_READ@{MMIX\_MEM\_READ}}
+\index{MMIX\_MEM\_READ@{MMIX\_MEM\_READ}!mem.h@{mem.h}}
+\doxysubsubsection{\texorpdfstring{MMIX\_MEM\_READ}{MMIX\_MEM\_READ}}
+{\footnotesize\ttfamily \#define MMIX\+\_\+\+MEM\+\_\+\+READ(\begin{DoxyParamCaption}\item[{}]{sys,  }\item[{}]{addr,  }\item[{}]{type,  }\item[{}]{out }\end{DoxyParamCaption})~\mbox{\hyperlink{mmix_2mem_8h_a047198be0de1fabe5dd295bd36c45a80}{MMIX\+\_\+\+MEM\+\_\+\+READ\+\_\+\+FAILBACK}}(sys, addr, type, out, return)}
+
+\mbox{\Hypertarget{mmix_2mem_8h_a047198be0de1fabe5dd295bd36c45a80}\label{mmix_2mem_8h_a047198be0de1fabe5dd295bd36c45a80}} 
+\index{mem.h@{mem.h}!MMIX\_MEM\_READ\_FAILBACK@{MMIX\_MEM\_READ\_FAILBACK}}
+\index{MMIX\_MEM\_READ\_FAILBACK@{MMIX\_MEM\_READ\_FAILBACK}!mem.h@{mem.h}}
+\doxysubsubsection{\texorpdfstring{MMIX\_MEM\_READ\_FAILBACK}{MMIX\_MEM\_READ\_FAILBACK}}
+{\footnotesize\ttfamily \#define MMIX\+\_\+\+MEM\+\_\+\+READ\+\_\+\+FAILBACK(\begin{DoxyParamCaption}\item[{}]{sys,  }\item[{}]{addr,  }\item[{}]{type,  }\item[{}]{out,  }\item[{}]{on\+\_\+failure }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \{\(\backslash\)}
+\DoxyCodeLine{  type* \_\_out2; \(\backslash\)}
+\DoxyCodeLine{  MMIX\_MEM\_ACCESS\_FAILBACK(sys, addr, type, \_\_out2, on\_failure);\(\backslash\)}
+\DoxyCodeLine{  out = *(type*) \_\_out2; \(\backslash\)}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{mmix_2mem_8h_a9c056c950b04959e9d3990a727b39b74}\label{mmix_2mem_8h_a9c056c950b04959e9d3990a727b39b74}} 
+\index{mem.h@{mem.h}!MMIX\_MEM\_WRITE@{MMIX\_MEM\_WRITE}}
+\index{MMIX\_MEM\_WRITE@{MMIX\_MEM\_WRITE}!mem.h@{mem.h}}
+\doxysubsubsection{\texorpdfstring{MMIX\_MEM\_WRITE}{MMIX\_MEM\_WRITE}}
+{\footnotesize\ttfamily \#define MMIX\+\_\+\+MEM\+\_\+\+WRITE(\begin{DoxyParamCaption}\item[{}]{sys,  }\item[{}]{addr,  }\item[{}]{type,  }\item[{}]{val }\end{DoxyParamCaption})~\mbox{\hyperlink{mmix_2mem_8h_a6b0f92472b6374d6783fc15f982e8032}{MMIX\+\_\+\+MEM\+\_\+\+WRITE\+\_\+\+FAILBACK}}(sys, addr, type, val, return)}
+
+\mbox{\Hypertarget{mmix_2mem_8h_a6b0f92472b6374d6783fc15f982e8032}\label{mmix_2mem_8h_a6b0f92472b6374d6783fc15f982e8032}} 
+\index{mem.h@{mem.h}!MMIX\_MEM\_WRITE\_FAILBACK@{MMIX\_MEM\_WRITE\_FAILBACK}}
+\index{MMIX\_MEM\_WRITE\_FAILBACK@{MMIX\_MEM\_WRITE\_FAILBACK}!mem.h@{mem.h}}
+\doxysubsubsection{\texorpdfstring{MMIX\_MEM\_WRITE\_FAILBACK}{MMIX\_MEM\_WRITE\_FAILBACK}}
+{\footnotesize\ttfamily \#define MMIX\+\_\+\+MEM\+\_\+\+WRITE\+\_\+\+FAILBACK(\begin{DoxyParamCaption}\item[{}]{sys,  }\item[{}]{addr,  }\item[{}]{type,  }\item[{}]{val,  }\item[{}]{on\+\_\+failure }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \{\(\backslash\)}
+\DoxyCodeLine{  void* \_\_out;\(\backslash\)}
+\DoxyCodeLine{  if(!\mbox{\hyperlink{mmix_2mem_8h_a487bf9d644f6d4d1c9d82d23b12169ef}{mmix\_memtl}}(sys, addr, \&\_\_out)) \{\(\backslash\)}
+\DoxyCodeLine{    sys\_panic(sys); \(\backslash\)}
+\DoxyCodeLine{    on\_failure; \(\backslash\)}
+\DoxyCodeLine{  \} \(\backslash\)}
+\DoxyCodeLine{  *(type*) \_\_out = val;\(\backslash\)}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{mmix_2mem_8h_a87d4822f1cfde2862a9bed8a7909f434}\label{mmix_2mem_8h_a87d4822f1cfde2862a9bed8a7909f434}} 
+\index{mem.h@{mem.h}!PAGE\_NOT\_PRESENT\_BIT@{PAGE\_NOT\_PRESENT\_BIT}}
+\index{PAGE\_NOT\_PRESENT\_BIT@{PAGE\_NOT\_PRESENT\_BIT}!mem.h@{mem.h}}
+\doxysubsubsection{\texorpdfstring{PAGE\_NOT\_PRESENT\_BIT}{PAGE\_NOT\_PRESENT\_BIT}}
+{\footnotesize\ttfamily \#define PAGE\+\_\+\+NOT\+\_\+\+PRESENT\+\_\+\+BIT~(1 $<$$<$ 19);}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{mmix_2mem_8h_a487bf9d644f6d4d1c9d82d23b12169ef}\label{mmix_2mem_8h_a487bf9d644f6d4d1c9d82d23b12169ef}} 
+\index{mem.h@{mem.h}!mmix\_memtl@{mmix\_memtl}}
+\index{mmix\_memtl@{mmix\_memtl}!mem.h@{mem.h}}
+\doxysubsubsection{\texorpdfstring{mmix\_memtl()}{mmix\_memtl()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} mmix\+\_\+memtl (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys,  }\item[{void $\ast$}]{addr,  }\item[{void $\ast$$\ast$}]{out }\end{DoxyParamCaption})}
+

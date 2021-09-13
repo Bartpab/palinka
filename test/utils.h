@@ -102,7 +102,7 @@ int test() {\
   ctx.state = IDLE;\
 \
   test_context_t* tctx = &ctx;\
-  test_print("");\
+  test_print(" ");\
 \
   exec_test_chapters(__VA_ARGS__); \
   printf("\n");\

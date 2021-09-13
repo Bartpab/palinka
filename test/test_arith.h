@@ -1,9 +1,7 @@
 #include "utils.h"
 #include "../src/arith.h"
 
-define_test(
-  octa_count_bits, test_print("Octa Bits Count")
-) {
+define_test(octa_count_bits, test_print("Octa Bits Count")) {
   char sx[32];
   unsigned char c, e;
   octa x;
@@ -588,7 +586,9 @@ define_test(
   );
 
   test_success;
-  test_teardown {}
+  test_teardown {
+    ;
+  }
   test_end;
 }
 
@@ -631,18 +631,22 @@ define_test(
 define_test(
   octa_fdiv, test_print("Octa 64-bit float division.")
 ) {
+  char sx[32], sy[32], sz[32], se[32];
+  octa x, y, z, e;
   octa exceptions;
 
-  octa y  = double_to_octa(64.0);
-  octa z  = double_to_octa(32.0);
-  octa er = double_to_octa(2.0);
+  y  = double_to_octa(64.0);
+  z  = double_to_octa(32.0);
+  e = double_to_octa(2.0);
 
-  octa x = octa_fdiv(y, z, &exceptions);
+  x = octa_fdiv(y, z, &exceptions);
+
+  octa_str(x, sx, 32), octa_str(y, sy, 32), octa_str(z, sz, 32), octa_str(e, se, 32);
 
   test_check(
-    test_print("%#lx / %#lx == %#lx", y, z, er),
-    x == double_to_octa(2.0),
-    test_print("Expecting %#lx, got %#lx", er, x)
+    test_print("%s / %s == %s", sy, sz, se),
+    x == e,
+    test_failure("Expecting %s, got %s", se, sx)
   )
 
   test_success;
@@ -725,37 +729,50 @@ define_test(
 define_test(
   octa_fint, test_print("Octa 64-bit float integer.")
 ) {
-  double dx;
-  double dz = 49.3;
+  char sx[32], se[32];
+  octa x, y, e;
   octa exceptions;
 
-  octa x = octa_fint(double_to_octa(dz), ROUND_OFF, &exceptions);
+  y = double_to_octa(49.3);
+
+  x = octa_fint(y, ROUND_OFF, &exceptions);
+  e = double_to_octa(49.3);
+  octa_str(x, sx, 32), octa_str(e, se, 32);
 
   test_check(
     test_print("No rouding of 49.3, should be 49.3"),
-    octa_to_double(x) == 49.3,
-    test_failure("Expecting %f, got %f", 49.3, dx)
+    x == e,
+    test_failure("Expecting %s, got %s", se, sx)
   )
 
-  x = octa_fint(double_to_octa(dz), ROUND_NEAR, &exceptions);
+  x = octa_fint(y, ROUND_NEAR, &exceptions);
+  e = double_to_octa(49.0);
+  octa_str(x, sx, 32), octa_str(e, se, 32);
+
   test_check(
     test_print("Round near 49.3, should be 49.0"),
-    octa_to_double(x) == 49.0,
-    test_failure("Expecting %f, got %f", 49.0, dx)
+    x == e,
+    test_failure("Expecting %s, got %s", se, sx)
   )
 
-  x = octa_fint(double_to_octa(dz), ROUND_DOWN, &exceptions);
+  x = octa_fint(y, ROUND_DOWN, &exceptions);
+  e = double_to_octa(49.0);
+  octa_str(x, sx, 32), octa_str(e, se, 32);
+
   test_check(
     test_print("Round down 49.3, should be 49.0"),
-    octa_to_double(x) == 49.0,
-    test_failure("Expecting %f, got %f", 49.0, dx)
+    x == e,
+    test_failure("Expecting %s, got %s", se, sx)
   ) 
 
-  x = octa_fint(double_to_octa(dz), ROUND_UP, &exceptions);
+  x = octa_fint(y, ROUND_UP, &exceptions);
+  e = double_to_octa(50.0);
+  octa_str(x, sx, 32), octa_str(e, se, 32);
+  
   test_check(
     test_print("Round up 49.3, should be 50.0"),
-    octa_to_double(x) == 50.0,
-    test_failure("Expecting %f, got %f", 50.0, dx)
+    x == e,
+    test_failure("Expecting %s, got %s", se, sx)
   )
 
   test_success;
@@ -813,6 +830,7 @@ define_test(
 define_test(
   octa_fun, test_print("Octa 64-bit float unordered")
 ) {
+  char sx[32];
   octa x;
   double dy, dz;
   
@@ -821,10 +839,12 @@ define_test(
 
   x = octa_fun(double_to_octa(dy), double_to_octa(dz));
 
+  octa_str(x, sx, 32);
+
   test_check(
     test_print("y == NaN && z == NaN; expecting result to be 1."),
     x == 1,
-    test_failure("Expecting %d, got %lu", 1, x)
+    test_failure("Expecting %d, got %s", 1, sx)
   )
 
   test_success;
@@ -835,16 +855,18 @@ define_test(
 define_test(
   octa_fix, test_print("Octa 64-vbit float to signed fixed")
 ) {
+  char sx[32];
   octa exceptions;
   double dz = -64.15;
   octa x;
 
   x = octa_fix(double_to_octa(dz), &exceptions);
+  octa_str(x, sx, 32);
 
   test_check(
     test_print("int(-64.15) == -64"),
     x == -64,
-    test_failure("Expecting %d, got %lu", -64, x)
+    test_failure("Expecting %d, got %s", -64, sx)
   )
 
   test_success;
@@ -855,16 +877,18 @@ define_test(
 define_test(
   octa_fixu, test_print("Octa 64-bit float to unsigned fixed")
 ) {
+  char sx[32];
   octa exceptions;
   double dz = -64.15;
   octa x;
 
   x = octa_fixu(double_to_octa(dz), &exceptions);
+  octa_str(x, sx, 32);
 
   test_check(
     test_print("int(-64.15) == 64"),
     x == 64,
-    test_failure("Expecting %d, got %lu", 64, x)
+    test_failure("Expecting %d, got %s", 64, sx)
   )
 
   test_success;
@@ -897,20 +921,21 @@ define_test(
 define_test(
   octa_fqle, test_print("Octa 64-bit floating equivalent")
 ) {
+  char sx[32];
   octa exceptions;
-  octa x;
-  double dx, dy, dz, de;
-  
-  dy = 10.0;
-  dz = 10.2;
-  de = 0.5;
+  octa x, y, z, e;
 
-  x = octa_feqle(double_to_octa(dy), double_to_octa(dz), double_to_octa(de), &exceptions);
+  y = double_to_octa(10.0);
+  z = double_to_octa(10.2);
+  e = double_to_octa(0.5);
+
+  x = octa_feqle(y, z, e, &exceptions);
+  octa_str(x, sx, 32);
 
   test_check(
     test_print("10.0 == 10.2 [e=0.2]"),
-    x == 1,
-    test_failure("Expecting %d, got %lu", 1, x)
+    x == int_to_octa(1),
+    test_failure("Expecting %d, got %s", 1, sx)
   )
 
   test_success;

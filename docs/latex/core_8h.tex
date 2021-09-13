@@ -1,0 +1,119 @@
+\hypertarget{core_8h}{}\doxysection{C\+:/\+Users/\+GP69\+E5\+EN/\+Documents/dev/palinka/src/mmix/core.h File Reference}
+\label{core_8h}\index{C:/Users/GP69E5EN/Documents/dev/palinka/src/mmix/core.h@{C:/Users/GP69E5EN/Documents/dev/palinka/src/mmix/core.h}}
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}../sys.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../utils.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}mem.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}processor.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}instr.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}dispatch.\+h\char`\"{}}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{core_8h_a1a53b724b6de666faa8a9e0d06d1055f}{VERSION\+\_\+\+MAJOR}}~1
+\item 
+\#define \mbox{\hyperlink{core_8h_ae0cb52afb79b185b1bf82c7e235f682b}{VERSION\+\_\+\+MINOR}}~0
+\item 
+\#define \mbox{\hyperlink{core_8h_a901edadf17488bb6be1ac9a1e3cfea7a}{VERSION\+\_\+\+PATCH}}~0
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef void($\ast$ \mbox{\hyperlink{core_8h_ac512a6295b4666de8e4f415b569dcd4a}{mmix\+\_\+ivt\+\_\+hdlr}}) (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys, \mbox{\hyperlink{structinstr__t}{instr\+\_\+t}} $\ast$instr)
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$ \mbox{\hyperlink{core_8h_aad09c930cd6b756c0c436a461f40758f}{mmix\+\_\+create}} (\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator, \mbox{\hyperlink{structmmix__cfg__t}{mmix\+\_\+cfg\+\_\+t}} $\ast$cfg)
+\begin{DoxyCompactList}\small\item\em Create a MMIX-\/based system. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{core_8h_a8931f8e393c62e7889a7a66ca7a4ea68}{mmix\+\_\+alloc\+\_\+sim\+\_\+time}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$s, unsigned int ms)
+\begin{DoxyCompactList}\small\item\em Allocate a certain amount of simulation time to the system. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{core_8h_aa1cdf61f3ecffe1c8f52c4e2a71e2e9d}{mmix\+\_\+step}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys)
+\begin{DoxyCompactList}\small\item\em Execute a system step. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{core_8h_a2b82e71a1df481f3a5db78f31f7cc001}{mmix\+\_\+restart}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys)
+\begin{DoxyCompactList}\small\item\em Restart the system. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{core_8h_a9beb410332d2c6fa7a2af7ad347b4798}{mmix\+\_\+set\+\_\+interrupt\+\_\+handler}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys, \mbox{\hyperlink{types_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte}} ircode, \mbox{\hyperlink{core_8h_ac512a6295b4666de8e4f415b569dcd4a}{mmix\+\_\+ivt\+\_\+hdlr}} hdlr)
+\begin{DoxyCompactList}\small\item\em Defines a TRAP interrupt handler. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{core_8h_a1a53b724b6de666faa8a9e0d06d1055f}\label{core_8h_a1a53b724b6de666faa8a9e0d06d1055f}} 
+\index{core.h@{core.h}!VERSION\_MAJOR@{VERSION\_MAJOR}}
+\index{VERSION\_MAJOR@{VERSION\_MAJOR}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{VERSION\_MAJOR}{VERSION\_MAJOR}}
+{\footnotesize\ttfamily \#define VERSION\+\_\+\+MAJOR~1}
+
+\mbox{\Hypertarget{core_8h_ae0cb52afb79b185b1bf82c7e235f682b}\label{core_8h_ae0cb52afb79b185b1bf82c7e235f682b}} 
+\index{core.h@{core.h}!VERSION\_MINOR@{VERSION\_MINOR}}
+\index{VERSION\_MINOR@{VERSION\_MINOR}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{VERSION\_MINOR}{VERSION\_MINOR}}
+{\footnotesize\ttfamily \#define VERSION\+\_\+\+MINOR~0}
+
+\mbox{\Hypertarget{core_8h_a901edadf17488bb6be1ac9a1e3cfea7a}\label{core_8h_a901edadf17488bb6be1ac9a1e3cfea7a}} 
+\index{core.h@{core.h}!VERSION\_PATCH@{VERSION\_PATCH}}
+\index{VERSION\_PATCH@{VERSION\_PATCH}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{VERSION\_PATCH}{VERSION\_PATCH}}
+{\footnotesize\ttfamily \#define VERSION\+\_\+\+PATCH~0}
+
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{core_8h_ac512a6295b4666de8e4f415b569dcd4a}\label{core_8h_ac512a6295b4666de8e4f415b569dcd4a}} 
+\index{core.h@{core.h}!mmix\_ivt\_hdlr@{mmix\_ivt\_hdlr}}
+\index{mmix\_ivt\_hdlr@{mmix\_ivt\_hdlr}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{mmix\_ivt\_hdlr}{mmix\_ivt\_hdlr}}
+{\footnotesize\ttfamily typedef void($\ast$ mmix\+\_\+ivt\+\_\+hdlr) (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys, \mbox{\hyperlink{structinstr__t}{instr\+\_\+t}} $\ast$instr)}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{core_8h_a8931f8e393c62e7889a7a66ca7a4ea68}\label{core_8h_a8931f8e393c62e7889a7a66ca7a4ea68}} 
+\index{core.h@{core.h}!mmix\_alloc\_sim\_time@{mmix\_alloc\_sim\_time}}
+\index{mmix\_alloc\_sim\_time@{mmix\_alloc\_sim\_time}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{mmix\_alloc\_sim\_time()}{mmix\_alloc\_sim\_time()}}
+{\footnotesize\ttfamily void mmix\+\_\+alloc\+\_\+sim\+\_\+time (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{s,  }\item[{unsigned int}]{ms }\end{DoxyParamCaption})}
+
+
+
+Allocate a certain amount of simulation time to the system. 
+
+The system must go into SYS\+\_\+\+HALT state after the sim time has been fully consumed. \mbox{\Hypertarget{core_8h_aad09c930cd6b756c0c436a461f40758f}\label{core_8h_aad09c930cd6b756c0c436a461f40758f}} 
+\index{core.h@{core.h}!mmix\_create@{mmix\_create}}
+\index{mmix\_create@{mmix\_create}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{mmix\_create()}{mmix\_create()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$ mmix\+\_\+create (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator,  }\item[{\mbox{\hyperlink{structmmix__cfg__t}{mmix\+\_\+cfg\+\_\+t}} $\ast$}]{cfg }\end{DoxyParamCaption})}
+
+
+
+Create a MMIX-\/based system. 
+
+See \href{https://mmix.cs.hm.edu/}{\texttt{ https\+://mmix.\+cs.\+hm.\+edu/}} for more details about this RISC-\/based processor. \mbox{\Hypertarget{core_8h_a2b82e71a1df481f3a5db78f31f7cc001}\label{core_8h_a2b82e71a1df481f3a5db78f31f7cc001}} 
+\index{core.h@{core.h}!mmix\_restart@{mmix\_restart}}
+\index{mmix\_restart@{mmix\_restart}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{mmix\_restart()}{mmix\_restart()}}
+{\footnotesize\ttfamily void mmix\+\_\+restart (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys }\end{DoxyParamCaption})}
+
+
+
+Restart the system. 
+
+\mbox{\Hypertarget{core_8h_a9beb410332d2c6fa7a2af7ad347b4798}\label{core_8h_a9beb410332d2c6fa7a2af7ad347b4798}} 
+\index{core.h@{core.h}!mmix\_set\_interrupt\_handler@{mmix\_set\_interrupt\_handler}}
+\index{mmix\_set\_interrupt\_handler@{mmix\_set\_interrupt\_handler}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{mmix\_set\_interrupt\_handler()}{mmix\_set\_interrupt\_handler()}}
+{\footnotesize\ttfamily void mmix\+\_\+set\+\_\+interrupt\+\_\+handler (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys,  }\item[{\mbox{\hyperlink{types_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte}}}]{ircode,  }\item[{\mbox{\hyperlink{core_8h_ac512a6295b4666de8e4f415b569dcd4a}{mmix\+\_\+ivt\+\_\+hdlr}}}]{hdlr }\end{DoxyParamCaption})}
+
+
+
+Defines a TRAP interrupt handler. 
+
+\mbox{\Hypertarget{core_8h_aa1cdf61f3ecffe1c8f52c4e2a71e2e9d}\label{core_8h_aa1cdf61f3ecffe1c8f52c4e2a71e2e9d}} 
+\index{core.h@{core.h}!mmix\_step@{mmix\_step}}
+\index{mmix\_step@{mmix\_step}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{mmix\_step()}{mmix\_step()}}
+{\footnotesize\ttfamily void mmix\+\_\+step (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys }\end{DoxyParamCaption})}
+
+
+
+Execute a system step. 
+

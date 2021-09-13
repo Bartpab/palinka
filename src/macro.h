@@ -26,4 +26,9 @@
 #define MAP_16(F, A, ...) F(A); MAP_15(F, __VA_ARGS__)
 #define MAP_17(F, A, ...) F(A); MAP_16(F, __VA_ARGS__)
 #define MAP_18(F, A, ...) F(A); MAP_17(F, __VA_ARGS__)
+
+
+#define MAX(x, y) (((x) > (y)) ? (x) : (y))
+#define MIN(x, y) (((x) < (y)) ? (x) : (y))
+
 #endif

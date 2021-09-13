@@ -17,10 +17,33 @@
 
 typedef void(*mmix_ivt_hdlr)(system_t* sys, instr_t* instr);
 
+/**
+ * \brief Create a MMIX-based system
+ * 
+ * See https://mmix.cs.hm.edu/ for more details about this RISC-based processor.
+ */
 system_t* mmix_create(allocator_t* allocator, mmix_cfg_t* cfg);
+
+/**
+ * \brief Allocate a certain amount of simulation time to the system.
+ * 
+ * The system must go into SYS_HALT state after the sim time has been fully consumed.
+ */
 void mmix_alloc_sim_time(system_t* s, unsigned int ms);
+
+/**
+ * \brief Execute a system step
+ */
 void mmix_step(system_t* sys);
+
+/**
+ * \brief Restart the system.
+ */
 void mmix_restart(system_t* sys);
+
+/**
+ * \brief Defines a TRAP interrupt handler
+ */
 void mmix_set_interrupt_handler(system_t* sys, byte ircode, mmix_ivt_hdlr hdlr);
 
 static void __mmix_init(system_t* sys, mmix_cfg_t* cfg);
@@ -29,9 +52,28 @@ static inline void __fetch_next_instr(system_t* sys, mmix_processor_t* proc, ins
 static inline void __convert_rel_to_abs_addr(mmix_processor_t* proc, instr_t* instr);
 static inline void __install_operands(system_t* sys, mmix_processor_t* proc, instr_t* instr);
 
-////////////
-/// IMPL ///
-////////////
+system_t* mmix_create(allocator_t* allocator, mmix_cfg_t* cfg)
+{
+  assert(cfg->lsize % 2 == 0);
+
+  if(cfg->lsize < 256) cfg->lsize = 256;
+  cfg->lmask = cfg->lsize - 1;
+  
+  system_t* sys = pmalloc(
+    allocator, 
+    sizeof(system_t) 
+      + sizeof(mmix_processor_t) 
+      + sizeof(octa) * cfg->lsize
+  );
+  
+  if(!sys)
+    return NULL;
+
+  __sys_init(sys, allocator);
+  __mmix_init(sys, cfg);
+ 
+  return sys;
+}
 
 static void __mmix_init(system_t* sys, mmix_cfg_t* cfg)
 {
@@ -128,28 +170,7 @@ void mmix_restart(system_t* sys)
   proc->sclock = octa_zero;
 }
 
-system_t* mmix_create(allocator_t* allocator, mmix_cfg_t* cfg)
-{
-  assert(cfg->lsize % 2 == 0);
 
-  if(cfg->lsize < 256) cfg->lsize = 256;
-  cfg->lmask = cfg->lsize - 1;
-  
-  system_t* sys = pmalloc(
-    allocator, 
-    sizeof(system_t) 
-      + sizeof(mmix_processor_t) 
-      + sizeof(octa) * cfg->lsize
-  );
-  
-  if(!sys)
-    return NULL;
-
-  __sys_init(sys, allocator);
-  __mmix_init(sys, cfg);
- 
-  return sys;
-}
 
 static inline void __fetch_next_instr(system_t* sys, mmix_processor_t* proc, instr_t* instr) {
   tetra raw_instr;

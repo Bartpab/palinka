@@ -1,0 +1,120 @@
+\hypertarget{sys_8h}{}\doxysection{C\+:/\+Users/\+GP69\+E5\+EN/\+Documents/dev/palinka/src/sys.h File Reference}
+\label{sys_8h}\index{C:/Users/GP69E5EN/Documents/dev/palinka/src/sys.h@{C:/Users/GP69E5EN/Documents/dev/palinka/src/sys.h}}
+{\ttfamily \#include \char`\"{}allocator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}mem.\+h\char`\"{}}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structsystem__t}{system\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structsystem__t}{system\+\_\+t}} \mbox{\hyperlink{sys_8h_af8bfecf699c8967568c302385281a041}{system\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{sys_8h_aeaac97ef8a153a4e1abc636f535656eb}{system\+\_\+state\+\_\+t}} \{ \newline
+\mbox{\hyperlink{sys_8h_aeaac97ef8a153a4e1abc636f535656eba2d61b09202f1f1e2d300812496ced10c}{SYS\+\_\+\+READY}}
+, \mbox{\hyperlink{sys_8h_aeaac97ef8a153a4e1abc636f535656eba7afe1cec45e9fbeac6647a96626f1258}{SYS\+\_\+\+STOPPED}}
+, \mbox{\hyperlink{sys_8h_aeaac97ef8a153a4e1abc636f535656ebac9f9b9519c8142b83d37b08d794d6178}{SYS\+\_\+\+HALTED}}
+, \mbox{\hyperlink{sys_8h_aeaac97ef8a153a4e1abc636f535656eba87a8eb0f14c0146d538466925684cfe3}{SYS\+\_\+\+RUNNING}}
+, \newline
+\mbox{\hyperlink{sys_8h_aeaac97ef8a153a4e1abc636f535656eba845db23080d34477c539064871741be7}{SYS\+\_\+\+PANICKED}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{sys_8h_a86f89adffe7f5b57bd0aefb2217a53ce}{\+\_\+\+\_\+sys\+\_\+init}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
+\item 
+void \mbox{\hyperlink{sys_8h_a6c53757f4e138d183f1af8adac47ee26}{sys\+\_\+delete}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys)
+\item 
+void \mbox{\hyperlink{sys_8h_a5fb2d443e408ea7b49463b947ae1b6c9}{sys\+\_\+step}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys)
+\item 
+void \mbox{\hyperlink{sys_8h_ae4e42a00657c580bc1d02d2fcd08130b}{sys\+\_\+run}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys, unsigned int ms)
+\item 
+void \mbox{\hyperlink{sys_8h_afa1e408172076325932a40cb206fc4f0}{sys\+\_\+halt}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys)
+\item 
+void \mbox{\hyperlink{sys_8h_acd56daf4c8461190c38336724e5626b7}{sys\+\_\+panic}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{sys_8h_af8bfecf699c8967568c302385281a041}\label{sys_8h_af8bfecf699c8967568c302385281a041}} 
+\index{sys.h@{sys.h}!system\_t@{system\_t}}
+\index{system\_t@{system\_t}!sys.h@{sys.h}}
+\doxysubsubsection{\texorpdfstring{system\_t}{system\_t}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structsystem__t}{system\+\_\+t}} \mbox{\hyperlink{structsystem__t}{system\+\_\+t}}}
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{sys_8h_aeaac97ef8a153a4e1abc636f535656eb}\label{sys_8h_aeaac97ef8a153a4e1abc636f535656eb}} 
+\index{sys.h@{sys.h}!system\_state\_t@{system\_state\_t}}
+\index{system\_state\_t@{system\_state\_t}!sys.h@{sys.h}}
+\doxysubsubsection{\texorpdfstring{system\_state\_t}{system\_state\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{sys_8h_aeaac97ef8a153a4e1abc636f535656eb}{system\+\_\+state\+\_\+t}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SYS\_READY@{SYS\_READY}!sys.h@{sys.h}}\index{sys.h@{sys.h}!SYS\_READY@{SYS\_READY}}}\mbox{\Hypertarget{sys_8h_aeaac97ef8a153a4e1abc636f535656eba2d61b09202f1f1e2d300812496ced10c}\label{sys_8h_aeaac97ef8a153a4e1abc636f535656eba2d61b09202f1f1e2d300812496ced10c}} 
+SYS\+\_\+\+READY&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SYS\_STOPPED@{SYS\_STOPPED}!sys.h@{sys.h}}\index{sys.h@{sys.h}!SYS\_STOPPED@{SYS\_STOPPED}}}\mbox{\Hypertarget{sys_8h_aeaac97ef8a153a4e1abc636f535656eba7afe1cec45e9fbeac6647a96626f1258}\label{sys_8h_aeaac97ef8a153a4e1abc636f535656eba7afe1cec45e9fbeac6647a96626f1258}} 
+SYS\+\_\+\+STOPPED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SYS\_HALTED@{SYS\_HALTED}!sys.h@{sys.h}}\index{sys.h@{sys.h}!SYS\_HALTED@{SYS\_HALTED}}}\mbox{\Hypertarget{sys_8h_aeaac97ef8a153a4e1abc636f535656ebac9f9b9519c8142b83d37b08d794d6178}\label{sys_8h_aeaac97ef8a153a4e1abc636f535656ebac9f9b9519c8142b83d37b08d794d6178}} 
+SYS\+\_\+\+HALTED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SYS\_RUNNING@{SYS\_RUNNING}!sys.h@{sys.h}}\index{sys.h@{sys.h}!SYS\_RUNNING@{SYS\_RUNNING}}}\mbox{\Hypertarget{sys_8h_aeaac97ef8a153a4e1abc636f535656eba87a8eb0f14c0146d538466925684cfe3}\label{sys_8h_aeaac97ef8a153a4e1abc636f535656eba87a8eb0f14c0146d538466925684cfe3}} 
+SYS\+\_\+\+RUNNING&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SYS\_PANICKED@{SYS\_PANICKED}!sys.h@{sys.h}}\index{sys.h@{sys.h}!SYS\_PANICKED@{SYS\_PANICKED}}}\mbox{\Hypertarget{sys_8h_aeaac97ef8a153a4e1abc636f535656eba845db23080d34477c539064871741be7}\label{sys_8h_aeaac97ef8a153a4e1abc636f535656eba845db23080d34477c539064871741be7}} 
+SYS\+\_\+\+PANICKED&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{sys_8h_a86f89adffe7f5b57bd0aefb2217a53ce}\label{sys_8h_a86f89adffe7f5b57bd0aefb2217a53ce}} 
+\index{sys.h@{sys.h}!\_\_sys\_init@{\_\_sys\_init}}
+\index{\_\_sys\_init@{\_\_sys\_init}!sys.h@{sys.h}}
+\doxysubsubsection{\texorpdfstring{\_\_sys\_init()}{\_\_sys\_init()}}
+{\footnotesize\ttfamily void \+\_\+\+\_\+sys\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{sys_8h_a6c53757f4e138d183f1af8adac47ee26}\label{sys_8h_a6c53757f4e138d183f1af8adac47ee26}} 
+\index{sys.h@{sys.h}!sys\_delete@{sys\_delete}}
+\index{sys\_delete@{sys\_delete}!sys.h@{sys.h}}
+\doxysubsubsection{\texorpdfstring{sys\_delete()}{sys\_delete()}}
+{\footnotesize\ttfamily void sys\+\_\+delete (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{sys_8h_afa1e408172076325932a40cb206fc4f0}\label{sys_8h_afa1e408172076325932a40cb206fc4f0}} 
+\index{sys.h@{sys.h}!sys\_halt@{sys\_halt}}
+\index{sys\_halt@{sys\_halt}!sys.h@{sys.h}}
+\doxysubsubsection{\texorpdfstring{sys\_halt()}{sys\_halt()}}
+{\footnotesize\ttfamily void sys\+\_\+halt (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{sys_8h_acd56daf4c8461190c38336724e5626b7}\label{sys_8h_acd56daf4c8461190c38336724e5626b7}} 
+\index{sys.h@{sys.h}!sys\_panic@{sys\_panic}}
+\index{sys\_panic@{sys\_panic}!sys.h@{sys.h}}
+\doxysubsubsection{\texorpdfstring{sys\_panic()}{sys\_panic()}}
+{\footnotesize\ttfamily void sys\+\_\+panic (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{sys_8h_ae4e42a00657c580bc1d02d2fcd08130b}\label{sys_8h_ae4e42a00657c580bc1d02d2fcd08130b}} 
+\index{sys.h@{sys.h}!sys\_run@{sys\_run}}
+\index{sys\_run@{sys\_run}!sys.h@{sys.h}}
+\doxysubsubsection{\texorpdfstring{sys\_run()}{sys\_run()}}
+{\footnotesize\ttfamily void sys\+\_\+run (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys,  }\item[{unsigned int}]{ms }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{sys_8h_a5fb2d443e408ea7b49463b947ae1b6c9}\label{sys_8h_a5fb2d443e408ea7b49463b947ae1b6c9}} 
+\index{sys.h@{sys.h}!sys\_step@{sys\_step}}
+\index{sys\_step@{sys\_step}!sys.h@{sys.h}}
+\doxysubsubsection{\texorpdfstring{sys\_step()}{sys\_step()}}
+{\footnotesize\ttfamily void sys\+\_\+step (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys }\end{DoxyParamCaption})}
+
