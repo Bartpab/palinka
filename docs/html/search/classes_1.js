@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['hexadeca_856',['hexadeca',['../structhexadeca.html',1,'']]]
+  ['buffer_5ft_904',['buffer_t',['../structbuffer__t.html',1,'']]]
 ];

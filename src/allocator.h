@@ -17,6 +17,14 @@ typedef struct allocator_t{
   void (*del)(struct allocator_t* allocator);
 } allocator_t;
 
+void* prealloc(allocator_t* allocator, void* src, size_t new_size)
+{
+  if (allocator->type == DEFAULT) 
+    return realloc(src, new_size);
+
+  return NULL;
+}
+
 void* pmalloc(allocator_t* allocator, size_t len)
 {
   if (allocator->type == DEFAULT) 

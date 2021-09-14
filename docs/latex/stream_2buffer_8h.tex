@@ -1,0 +1,154 @@
+\hypertarget{stream_2buffer_8h}{}\doxysection{C\+:/\+Users/\+GP69\+E5\+EN/\+Documents/dev/palinka/src/stream/buffer.h File Reference}
+\label{stream_2buffer_8h}\index{C:/Users/GP69E5EN/Documents/dev/palinka/src/stream/buffer.h@{C:/Users/GP69E5EN/Documents/dev/palinka/src/stream/buffer.h}}
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}../types.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../allocator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../buffer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../string/core.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}core.\+h\char`\"{}}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structwbuffer__t}{wbuffer\+\_\+t}}
+\item 
+struct \mbox{\hyperlink{structrbuffer__t}{rbuffer\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{stream_2buffer_8h_a7380bcffa869c09534d383834548afda}{wbuffer\+\_\+create}} (\mbox{\hyperlink{structwbuffer__t}{wbuffer\+\_\+t}} $\ast$buffer, \mbox{\hyperlink{structstream__t}{stream\+\_\+t}} $\ast$stream, size\+\_\+t capacity, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
+\item 
+void \mbox{\hyperlink{stream_2buffer_8h_a18b334486aa912cb6d81974f820b86e6}{wbuffer\+\_\+delete}} (\mbox{\hyperlink{structwbuffer__t}{wbuffer\+\_\+t}} $\ast$buffer)
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{stream_2buffer_8h_afb5a109ad3f00ef71d141deed3884ffc}{wbuffer\+\_\+is\+\_\+full}} (\mbox{\hyperlink{structwbuffer__t}{wbuffer\+\_\+t}} $\ast$buffer)
+\item 
+size\+\_\+t \mbox{\hyperlink{stream_2buffer_8h_aabcae891bdde10616e8f6d07f707f1a8}{wbuffer\+\_\+write}} (\mbox{\hyperlink{structwbuffer__t}{wbuffer\+\_\+t}} $\ast$buffer, const void $\ast$src, size\+\_\+t len)
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{stream_2buffer_8h_acbbe1c330b49886cd4ca900538056594}{wbuffer\+\_\+flush}} (\mbox{\hyperlink{structwbuffer__t}{wbuffer\+\_\+t}} $\ast$buffer)
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{stream_2buffer_8h_aed7610dec4060c80b1dc32f3efc4ced1}{rbuffer\+\_\+create}} (\mbox{\hyperlink{structrbuffer__t}{rbuffer\+\_\+t}} $\ast$buffer, \mbox{\hyperlink{structstream__t}{stream\+\_\+t}} $\ast$stream, size\+\_\+t capacity, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{stream_2buffer_8h_a2998fc72966ad23237f93040973d1302}{rbuffer\+\_\+fetch}} (\mbox{\hyperlink{structrbuffer__t}{rbuffer\+\_\+t}} $\ast$buffer)
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{stream_2buffer_8h_ae4d58137bb1e28313b7ad40aac7b0702}{rbuffer\+\_\+is\+\_\+exhausted}} (\mbox{\hyperlink{structrbuffer__t}{rbuffer\+\_\+t}} $\ast$buffer)
+\item 
+void \mbox{\hyperlink{stream_2buffer_8h_a07cd903d8ddfc7bf9f06df11e6db0638}{rbuffer\+\_\+delete}} (\mbox{\hyperlink{structrbuffer__t}{rbuffer\+\_\+t}} $\ast$buffer)
+\item 
+\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} \mbox{\hyperlink{stream_2buffer_8h_acbaebf04f5a5146d61c00cb3ec925de2}{rbuffer\+\_\+read\+\_\+all}} (\mbox{\hyperlink{structrbuffer__t}{rbuffer\+\_\+t}} $\ast$buffer, size\+\_\+t capacity, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
+\begin{DoxyCompactList}\small\item\em Read the whole content of the stream and store it in a buffer. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstring__t}{string\+\_\+t}} \mbox{\hyperlink{stream_2buffer_8h_a399cb24f7a796fe3b96b204cc5b45d11}{rbuffer\+\_\+read\+\_\+all\+\_\+str}} (\mbox{\hyperlink{structrbuffer__t}{rbuffer\+\_\+t}} $\ast$rbuffer, size\+\_\+t initial, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
+\begin{DoxyCompactList}\small\item\em Same as buffer\+\_\+exhaust but add the \textquotesingle{}\textbackslash{}0\textquotesingle{} character at the end. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} \mbox{\hyperlink{stream_2buffer_8h_a6334af5da7a918304f5a758f3eebc3ea}{stream\+\_\+exhaust}} (\mbox{\hyperlink{structstream__t}{stream\+\_\+t}} $\ast$stream, size\+\_\+t capacity, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
+\begin{DoxyCompactList}\small\item\em Read the whole stream and store its content in a dynamic buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const \mbox{\hyperlink{structwbuffer__t}{wbuffer\+\_\+t}} \mbox{\hyperlink{stream_2buffer_8h_a0254d307f0c3646b050a1bd13a09e2e9}{wbuffer\+\_\+init}} = \{0, 0, 0, 0, \mbox{\hyperlink{allocator_8h_a20b30aa4d3a2edd214a2826521596e7d}{NO\+\_\+\+ALLOCATOR}}\}
+\item 
+const \mbox{\hyperlink{structrbuffer__t}{rbuffer\+\_\+t}} \mbox{\hyperlink{stream_2buffer_8h_af33a363e486c54e60308edd749790ce1}{rbuffer\+\_\+init}} = \{0, 0, 0, 0, 0, \mbox{\hyperlink{allocator_8h_a20b30aa4d3a2edd214a2826521596e7d}{NO\+\_\+\+ALLOCATOR}}\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{stream_2buffer_8h_aed7610dec4060c80b1dc32f3efc4ced1}\label{stream_2buffer_8h_aed7610dec4060c80b1dc32f3efc4ced1}} 
+\index{buffer.h@{buffer.h}!rbuffer\_create@{rbuffer\_create}}
+\index{rbuffer\_create@{rbuffer\_create}!buffer.h@{buffer.h}}
+\doxysubsubsection{\texorpdfstring{rbuffer\_create()}{rbuffer\_create()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} rbuffer\+\_\+create (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrbuffer__t}{rbuffer\+\_\+t}} $\ast$}]{buffer,  }\item[{\mbox{\hyperlink{structstream__t}{stream\+\_\+t}} $\ast$}]{stream,  }\item[{size\+\_\+t}]{capacity,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{stream_2buffer_8h_a07cd903d8ddfc7bf9f06df11e6db0638}\label{stream_2buffer_8h_a07cd903d8ddfc7bf9f06df11e6db0638}} 
+\index{buffer.h@{buffer.h}!rbuffer\_delete@{rbuffer\_delete}}
+\index{rbuffer\_delete@{rbuffer\_delete}!buffer.h@{buffer.h}}
+\doxysubsubsection{\texorpdfstring{rbuffer\_delete()}{rbuffer\_delete()}}
+{\footnotesize\ttfamily void rbuffer\+\_\+delete (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrbuffer__t}{rbuffer\+\_\+t}} $\ast$}]{buffer }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{stream_2buffer_8h_a2998fc72966ad23237f93040973d1302}\label{stream_2buffer_8h_a2998fc72966ad23237f93040973d1302}} 
+\index{buffer.h@{buffer.h}!rbuffer\_fetch@{rbuffer\_fetch}}
+\index{rbuffer\_fetch@{rbuffer\_fetch}!buffer.h@{buffer.h}}
+\doxysubsubsection{\texorpdfstring{rbuffer\_fetch()}{rbuffer\_fetch()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} rbuffer\+\_\+fetch (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrbuffer__t}{rbuffer\+\_\+t}} $\ast$}]{buffer }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{stream_2buffer_8h_ae4d58137bb1e28313b7ad40aac7b0702}\label{stream_2buffer_8h_ae4d58137bb1e28313b7ad40aac7b0702}} 
+\index{buffer.h@{buffer.h}!rbuffer\_is\_exhausted@{rbuffer\_is\_exhausted}}
+\index{rbuffer\_is\_exhausted@{rbuffer\_is\_exhausted}!buffer.h@{buffer.h}}
+\doxysubsubsection{\texorpdfstring{rbuffer\_is\_exhausted()}{rbuffer\_is\_exhausted()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} rbuffer\+\_\+is\+\_\+exhausted (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrbuffer__t}{rbuffer\+\_\+t}} $\ast$}]{buffer }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{stream_2buffer_8h_acbaebf04f5a5146d61c00cb3ec925de2}\label{stream_2buffer_8h_acbaebf04f5a5146d61c00cb3ec925de2}} 
+\index{buffer.h@{buffer.h}!rbuffer\_read\_all@{rbuffer\_read\_all}}
+\index{rbuffer\_read\_all@{rbuffer\_read\_all}!buffer.h@{buffer.h}}
+\doxysubsubsection{\texorpdfstring{rbuffer\_read\_all()}{rbuffer\_read\_all()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} rbuffer\+\_\+read\+\_\+all (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrbuffer__t}{rbuffer\+\_\+t}} $\ast$}]{buffer,  }\item[{size\+\_\+t}]{capacity,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
+
+
+
+Read the whole content of the stream and store it in a buffer. 
+
+\mbox{\Hypertarget{stream_2buffer_8h_a399cb24f7a796fe3b96b204cc5b45d11}\label{stream_2buffer_8h_a399cb24f7a796fe3b96b204cc5b45d11}} 
+\index{buffer.h@{buffer.h}!rbuffer\_read\_all\_str@{rbuffer\_read\_all\_str}}
+\index{rbuffer\_read\_all\_str@{rbuffer\_read\_all\_str}!buffer.h@{buffer.h}}
+\doxysubsubsection{\texorpdfstring{rbuffer\_read\_all\_str()}{rbuffer\_read\_all\_str()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstring__t}{string\+\_\+t}} rbuffer\+\_\+read\+\_\+all\+\_\+str (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrbuffer__t}{rbuffer\+\_\+t}} $\ast$}]{rbuffer,  }\item[{size\+\_\+t}]{initial,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
+
+
+
+Same as buffer\+\_\+exhaust but add the \textquotesingle{}\textbackslash{}0\textquotesingle{} character at the end. 
+
+\mbox{\Hypertarget{stream_2buffer_8h_a6334af5da7a918304f5a758f3eebc3ea}\label{stream_2buffer_8h_a6334af5da7a918304f5a758f3eebc3ea}} 
+\index{buffer.h@{buffer.h}!stream\_exhaust@{stream\_exhaust}}
+\index{stream\_exhaust@{stream\_exhaust}!buffer.h@{buffer.h}}
+\doxysubsubsection{\texorpdfstring{stream\_exhaust()}{stream\_exhaust()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} stream\+\_\+exhaust (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structstream__t}{stream\+\_\+t}} $\ast$}]{stream,  }\item[{size\+\_\+t}]{capacity,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
+
+
+
+Read the whole stream and store its content in a dynamic buffer. 
+
+\begin{DoxyReturn}{Returns}
+The buffer with all the content of the stream 
+\end{DoxyReturn}
+\mbox{\Hypertarget{stream_2buffer_8h_a7380bcffa869c09534d383834548afda}\label{stream_2buffer_8h_a7380bcffa869c09534d383834548afda}} 
+\index{buffer.h@{buffer.h}!wbuffer\_create@{wbuffer\_create}}
+\index{wbuffer\_create@{wbuffer\_create}!buffer.h@{buffer.h}}
+\doxysubsubsection{\texorpdfstring{wbuffer\_create()}{wbuffer\_create()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} wbuffer\+\_\+create (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structwbuffer__t}{wbuffer\+\_\+t}} $\ast$}]{buffer,  }\item[{\mbox{\hyperlink{structstream__t}{stream\+\_\+t}} $\ast$}]{stream,  }\item[{size\+\_\+t}]{capacity,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{stream_2buffer_8h_a18b334486aa912cb6d81974f820b86e6}\label{stream_2buffer_8h_a18b334486aa912cb6d81974f820b86e6}} 
+\index{buffer.h@{buffer.h}!wbuffer\_delete@{wbuffer\_delete}}
+\index{wbuffer\_delete@{wbuffer\_delete}!buffer.h@{buffer.h}}
+\doxysubsubsection{\texorpdfstring{wbuffer\_delete()}{wbuffer\_delete()}}
+{\footnotesize\ttfamily void wbuffer\+\_\+delete (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structwbuffer__t}{wbuffer\+\_\+t}} $\ast$}]{buffer }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{stream_2buffer_8h_acbbe1c330b49886cd4ca900538056594}\label{stream_2buffer_8h_acbbe1c330b49886cd4ca900538056594}} 
+\index{buffer.h@{buffer.h}!wbuffer\_flush@{wbuffer\_flush}}
+\index{wbuffer\_flush@{wbuffer\_flush}!buffer.h@{buffer.h}}
+\doxysubsubsection{\texorpdfstring{wbuffer\_flush()}{wbuffer\_flush()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} wbuffer\+\_\+flush (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structwbuffer__t}{wbuffer\+\_\+t}} $\ast$}]{buffer }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{stream_2buffer_8h_afb5a109ad3f00ef71d141deed3884ffc}\label{stream_2buffer_8h_afb5a109ad3f00ef71d141deed3884ffc}} 
+\index{buffer.h@{buffer.h}!wbuffer\_is\_full@{wbuffer\_is\_full}}
+\index{wbuffer\_is\_full@{wbuffer\_is\_full}!buffer.h@{buffer.h}}
+\doxysubsubsection{\texorpdfstring{wbuffer\_is\_full()}{wbuffer\_is\_full()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} wbuffer\+\_\+is\+\_\+full (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structwbuffer__t}{wbuffer\+\_\+t}} $\ast$}]{buffer }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{stream_2buffer_8h_aabcae891bdde10616e8f6d07f707f1a8}\label{stream_2buffer_8h_aabcae891bdde10616e8f6d07f707f1a8}} 
+\index{buffer.h@{buffer.h}!wbuffer\_write@{wbuffer\_write}}
+\index{wbuffer\_write@{wbuffer\_write}!buffer.h@{buffer.h}}
+\doxysubsubsection{\texorpdfstring{wbuffer\_write()}{wbuffer\_write()}}
+{\footnotesize\ttfamily size\+\_\+t wbuffer\+\_\+write (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structwbuffer__t}{wbuffer\+\_\+t}} $\ast$}]{buffer,  }\item[{const void $\ast$}]{src,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{stream_2buffer_8h_af33a363e486c54e60308edd749790ce1}\label{stream_2buffer_8h_af33a363e486c54e60308edd749790ce1}} 
+\index{buffer.h@{buffer.h}!rbuffer\_init@{rbuffer\_init}}
+\index{rbuffer\_init@{rbuffer\_init}!buffer.h@{buffer.h}}
+\doxysubsubsection{\texorpdfstring{rbuffer\_init}{rbuffer\_init}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{structrbuffer__t}{rbuffer\+\_\+t}} rbuffer\+\_\+init = \{0, 0, 0, 0, 0, \mbox{\hyperlink{allocator_8h_a20b30aa4d3a2edd214a2826521596e7d}{NO\+\_\+\+ALLOCATOR}}\}}
+
+\mbox{\Hypertarget{stream_2buffer_8h_a0254d307f0c3646b050a1bd13a09e2e9}\label{stream_2buffer_8h_a0254d307f0c3646b050a1bd13a09e2e9}} 
+\index{buffer.h@{buffer.h}!wbuffer\_init@{wbuffer\_init}}
+\index{wbuffer\_init@{wbuffer\_init}!buffer.h@{buffer.h}}
+\doxysubsubsection{\texorpdfstring{wbuffer\_init}{wbuffer\_init}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{structwbuffer__t}{wbuffer\+\_\+t}} wbuffer\+\_\+init = \{0, 0, 0, 0, \mbox{\hyperlink{allocator_8h_a20b30aa4d3a2edd214a2826521596e7d}{NO\+\_\+\+ALLOCATOR}}\}}
+

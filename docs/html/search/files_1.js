@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['core_2eh_870',['core.h',['../core_8h.html',1,'']]]
+  ['buffer_2eh_924',['buffer.h',['../buffer_8h.html',1,'(Global Namespace)'],['../stream_2buffer_8h.html',1,'(Global Namespace)'],['../string_2buffer_8h.html',1,'(Global Namespace)']]]
 ];

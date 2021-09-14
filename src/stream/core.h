@@ -40,7 +40,13 @@ bool stream_open_file(const char* fp, const char* mode, stream_t* stream)
 
 bool stream_is_opened(stream_t* stream) 
 {
-    return stream != NULL && stream->impl != NULL;
+    if(stream == NULL)
+        return false;
+    
+    if(stream->impl == NULL)
+        return false;
+
+    return true;
 }
 
 void stream_close(stream_t* stream)

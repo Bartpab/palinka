@@ -6,6 +6,8 @@
 
 #include "../types.h"
 #include "../allocator.h"
+#include "../buffer.h"
+#include "../string/core.h"
 
 #include "core.h"
 
@@ -113,6 +115,15 @@ typedef struct {
 
 const rbuffer_t rbuffer_init = {0, 0, 0, 0, 0, NO_ALLOCATOR};
 
+bool rbuffer_create(rbuffer_t* buffer, stream_t* stream, size_t capacity, allocator_t* allocator);
+bool rbuffer_fetch(rbuffer_t* buffer);
+bool rbuffer_is_exhausted(rbuffer_t* buffer);
+void rbuffer_delete(rbuffer_t* buffer);
+
+buffer_t rbuffer_read_all(rbuffer_t* buffer, size_t capacity, allocator_t* allocator);
+string_t rbuffer_read_all_str(rbuffer_t* rbuffer, size_t initial, allocator_t* allocator);
+buffer_t stream_exhaust(stream_t* stream, size_t capacity, allocator_t* allocator);
+
 bool rbuffer_is_exhausted(rbuffer_t* buffer) 
 {
     return buffer->exhausted;
@@ -122,7 +133,7 @@ bool rbuffer_create(rbuffer_t* buffer, stream_t* stream, size_t capacity, alloca
 {
     buffer->stream = stream;
     buffer->exhausted = false;
-    buffer->allocator = allocator->cpy(allocator);
+    buffer->allocator = allocator_copy(allocator);
     buffer->size = 0;
     buffer->capacity = capacity;
     buffer->raw = pmalloc(allocator, capacity);
@@ -164,12 +175,34 @@ void rbuffer_delete(rbuffer_t* buffer)
     }
 }
 
-typedef struct {
-    void* base;
-    size_t length;
-} buffer_t;
+/**
+ * \brief Read the whole content of the stream and store it in a buffer
+ */
+buffer_t rbuffer_read_all(rbuffer_t* buffer, size_t capacity, allocator_t* allocator) 
+{
+    buffer_t tmp;
 
-const buffer_t buffer_init = {0, 0};
+    tmp.allocator = allocator_copy(allocator);    
+    tmp.base = pmalloc(allocator, capacity);
+    tmp.length = 0;
+
+    while(rbuffer_fetch(buffer)) 
+    {
+        if(!buffer_write(&tmp,  buffer->raw, buffer->size))
+            return tmp;
+    }
+    
+    return tmp;
+}
+
+/**
+ * \brief Same as buffer_exhaust but add the '\0' character at the end.
+ */
+string_t rbuffer_read_all_str(rbuffer_t* rbuffer, size_t initial, allocator_t* allocator)
+{
+    buffer_t buffer = rbuffer_read_all(rbuffer, initial, allocator);
+    return  buffer_to_str(&buffer);
+}
 
 /**
  * \brief Read the whole stream and store its content in a dynamic buffer.
@@ -180,67 +213,9 @@ buffer_t stream_exhaust(stream_t* stream, size_t capacity, allocator_t* allocato
 {
     rbuffer_t rbuffer = rbuffer_init;
     rbuffer_create(&rbuffer, stream, capacity, allocator);
-    return buffer_exhaust(&rbuffer, capacity);
-}
-
-buffer_t stream_exhaust_str(stream_t* stream, size_t capacity, allocator_t* allocator)
-{
-    rbuffer_t rbuffer = rbuffer_init;
-    rbuffer_create(&rbuffer, stream, capacity, allocator);
-    return buffer_exhaust_str(&rbuffer, capacity);
-}
-
-/**
- * \brief Read the whole content of the stream and store it in a buffer
- */
-buffer_t buffer_exhaust(rbuffer_t* buffer, size_t capacity) 
-{
-    buffer_t tmp;
-    void *base, *curr;
-    size_t length, offset;
-    
-    base = malloc(capacity);
-    length = 0;
-
-    while(rbuffer_fetch(buffer)) 
-    {
-        offset = length;
-        length += buffer->size;
-        
-        if(length >= capacity) 
-        {
-            while(length >= capacity) capacity <<= 1;
-            base = realloc(base, capacity);
-        }
-
-        curr = (void*)(base + offset);
-        memcpy(curr, buffer->raw, buffer->size);
-    }
-
-    tmp.base = base;
-    tmp.length = length;
-    
-    return tmp;
-}
-
-/**
- * \brief Same as buffer_exhaust but add the '\0' character at the end.
- */
-buffer_t buffer_exhaust_str(rbuffer_t* rbuffer, size_t initial)
-{
-    buffer_t buffer = buffer_exhaust(rbuffer, initial);
-    buffer.base = realloc(buffer.base, buffer.length + 1);
-    *(char*)(buffer.base + buffer.length) = 0;
-    buffer.length++;
+    buffer_t buffer = rbuffer_read_all(&rbuffer, capacity, allocator);
+    rbuffer_delete(&rbuffer);
     return buffer;
-}
-
-void buffer_delete(buffer_t* buffer) 
-{
-    if(buffer->base != NULL)
-        free(buffer->base);
-    
-    buffer->base = NULL;
 }
 
 #endif
