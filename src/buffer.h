@@ -5,7 +5,6 @@
 #include <string.h>
 
 #include "allocator.h"
-#include "string/core.h"
 
 typedef struct {
     void* base;
@@ -18,8 +17,9 @@ const buffer_t buffer_init = {0, 0};
 
 void buffer_reset(buffer_t* buffer);
 bool buffer_pop_char(buffer_t* buffer);
-bool buffer_write(buffer_t* buffer, void* dest, size_t len);
-bool buffer_write_char(buffer_t* buffer, char c);
+bool buffer_copy(buffer_t* dest, const buffer_t* src, allocator_t* allocator);
+bool buffer_write(buffer_t* buffer, const void* dest, size_t len);
+bool buffer_write_char(buffer_t* buffer, const char c);
 void buffer_delete(buffer_t* buffer);
 
 static bool __buffer_inc_capacity(buffer_t* buffer, size_t new_capacity) {
@@ -58,7 +58,7 @@ bool buffer_pop_char(buffer_t* buffer)
     return true;
 }
 
-bool buffer_write(buffer_t* buffer, void* dest, size_t len)
+bool buffer_write(buffer_t* buffer, const void* dest, size_t len)
 {
     void* curr;
     size_t offset = buffer->length;
@@ -79,7 +79,7 @@ bool buffer_write(buffer_t* buffer, void* dest, size_t len)
     return true;
 }
 
-bool buffer_write_char(buffer_t* buffer, char c)
+bool buffer_write_char(buffer_t* buffer, const char c)
 {
     return buffer_write(buffer, &c, sizeof(char));
 }
@@ -92,14 +92,27 @@ void buffer_delete(buffer_t* buffer)
         buffer->base = NULL;
         allocator_delete(&buffer->allocator);
     }
+
+    *buffer = buffer_init;
 }
 
-string_t buffer_to_str(buffer_t* buffer) 
+bool buffer_copy(buffer_t* dest, const buffer_t* src, allocator_t* allocator)
 {
-    buffer_write_char(buffer, '\0');
-    string_t string = {buffer->base, buffer->length, buffer->allocator};
-    return string;
-}
+    buffer_delete(dest);
 
+    void* base = pmalloc(allocator, src->capacity);
+    
+    if(base == NULL)
+        return false;
+    
+    memcpy(base, src->base, src->capacity);
+
+    dest->base = base;
+    dest->length = src->length;
+    dest->capacity = src->capacity;
+    dest->allocator = allocator_copy(allocator);
+
+    return true;
+}
 
 #endif

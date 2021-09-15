@@ -38,7 +38,7 @@ var searchData=
   ['stoi_776',['STOI',['../op_8h.html#a5a40c1deb1a00d2c218a48e0e1b4a305a57d46a4f43adf9559ce85afaa5302514',1,'op.h']]],
   ['stou_777',['STOU',['../op_8h.html#a5a40c1deb1a00d2c218a48e0e1b4a305a7924236460e2ebe94cdc53c8c58af256',1,'op.h']]],
   ['stoui_778',['STOUI',['../op_8h.html#a5a40c1deb1a00d2c218a48e0e1b4a305a78163bc8e8f615c1d4b04687756d55d2',1,'op.h']]],
-  ['str_5finit_779',['str_init',['../string_2core_8h.html#a51c040d0d951a5d7f7a371712c4e91e3',1,'core.h']]],
+  ['str_5finit_779',['string_init',['../string_2core_8h.html#a51c040d0d951a5d7f7a371712c4e91e3',1,'core.h']]],
   ['stream_780',['stream',['../structwbuffer__t.html#a571fe0b4a0711f6391160d44fc42e469',1,'wbuffer_t::stream()'],['../structrbuffer__t.html#a0cee445da46fdef3f7233f30a864c5ad',1,'rbuffer_t::stream()']]],
   ['stream_5fclose_781',['stream_close',['../stream_2core_8h.html#af8ca7325a0a3a514a7f686e3eb4bd4f8',1,'core.h']]],
   ['stream_5fcreate_782',['stream_create',['../stream_2core_8h.html#aaf9b243293376707c155ac22fa94b827',1,'core.h']]],

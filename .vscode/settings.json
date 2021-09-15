@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "vector": "cpp",
-        "string": "c"
+        "string": "c",
+        "test_string.h": "c"
     }
 }

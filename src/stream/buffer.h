@@ -200,8 +200,10 @@ buffer_t rbuffer_read_all(rbuffer_t* buffer, size_t capacity, allocator_t* alloc
  */
 string_t rbuffer_read_all_str(rbuffer_t* rbuffer, size_t initial, allocator_t* allocator)
 {
+    string_t str = string_init;
     buffer_t buffer = rbuffer_read_all(rbuffer, initial, allocator);
-    return  buffer_to_str(&buffer);
+    buffer_move_to_string(&str, &buffer);
+    return str;
 }
 
 /**

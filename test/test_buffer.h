@@ -2,6 +2,7 @@
 
 #include "utils.h"
 #include "../src/buffer.h"
+#include "../src/string/core.h"
 #include "../src/allocator.h"
 
 define_test(basic_buffer, test_print("Basic buffer")) 
@@ -10,7 +11,7 @@ define_test(basic_buffer, test_print("Basic buffer"))
   
   allocator_t allocator = GLOBAL_ALLOCATOR;
   buffer_t buffer = buffer_init;
-  string_t content = str_init;
+  string_t content = string_init;
 
   test_check(
     test_print("Create a buffer"),
@@ -18,27 +19,22 @@ define_test(basic_buffer, test_print("Basic buffer"))
     test_failure("Failed to create a buffer...")
   );
   
-  buffer_write_char(&buffer, 't');
-  buffer_write_char(&buffer, 'h');
-  buffer_write_char(&buffer, 'i');
-  buffer_write_char(&buffer, 's');
-
-  content = buffer_to_str(&buffer);
+  string_move_from_const_char(&content, e, 0);
+  buffer_write_string(&buffer, &content);
+  buffer_move_to_string(&content, &buffer);
 
   test_check(
     test_print("Check the content of the buffer"),
-    strcmp(content.base, e) == 0,
-    test_failure("Expecting '%s', got '%s'", e, content.base)
+    strcmp(string_raw(&content), e) == 0,
+    test_failure("Expecting '%s', got '%s'", e, string_raw(&content))
   );  
 
   test_success;
   test_teardown {
     buffer_delete(&buffer);
+    string_delete(&content);
   }
   test_end;
 }
 
-define_test_chapter(
-  buffer, test_print("Buffer"), 
-  basic_buffer
-)
+define_test_chapter(buffer, test_print("Buffer"), basic_buffer)

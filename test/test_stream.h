@@ -86,7 +86,7 @@ define_test(rbuffer, test_print("Reading buffer")) {
   allocator_t allocator = GLOBAL_ALLOCATOR;
   stream_t stream = stream_init;
   rbuffer_t buffer = rbuffer_init;
-  string_t content = str_init;
+  string_t content = string_init;
 
   test_check(
     test_print("Open the stream"),
@@ -120,7 +120,7 @@ define_test(wbuffer, test_print("Writing buffer"))
 
   wbuffer_t wbuffer = wbuffer_init;
   rbuffer_t rbuffer = rbuffer_init;
-  string_t content = str_init;
+  string_t content = string_init;
 
   test_check(
     test_print("Open the stream"),
