@@ -1,5 +1,5 @@
-#include "utils.h"
-#include "../src/arith.h"
+#include "../include/testing/utils.h"
+#include "../include/alu.h"
 
 define_test(octa_count_bits, test_print("Octa Bits Count")) {
   char sx[32];

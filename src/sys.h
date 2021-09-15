@@ -1,8 +1,8 @@
 #ifndef __SYS_H__
 #define __SYS_H__
 
-#include "allocator.h"
-#include "mem.h"
+#include "../lib/common/include/allocator.h"
+#include "./mem/core.h"
 
 typedef enum {
   SYS_READY,
@@ -57,7 +57,9 @@ void sys_delete(system_t* sys)
 
 void sys_step(system_t* sys) 
 {
-  assert(sys->state != SYS_PANICKED);
+  if(sys->state == SYS_PANICKED)
+    return;
+
   sys->step(sys);
 }
 

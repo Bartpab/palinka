@@ -3,13 +3,15 @@
 
 #include <math.h>
 
-#include "instr.h"
-#include "mem.h"
-#include "processor.h"
+#include "../../lib/common/include/alu.h"
+#include "../../lib/common/include/types.h"
 
-#include "../arith.h"
+#include "../mem/core.h"
 #include "../sys.h"
-#include "../types.h"
+
+#include "./processor.h"
+#include "./instr.h"
+#include "./mem.h"
 
 typedef void (*mmix_exec_t)(system_t* sys, mmix_processor_t* proc, instr_t* instr);
 #define MEX_ARGS sys, proc, instr

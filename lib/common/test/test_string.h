@@ -1,8 +1,9 @@
 #include <string.h>
 
-#include "utils.h"
-#include "../src/buffer.h"
-#include "../src/allocator.h"
+#include "../include/testing/utils.h"
+#include "../include/buffer.h"
+#include "../include/allocator.h"
+#include "../include/string/core.h"
 
 define_test(basic_string, test_print("Basic string")) 
 {

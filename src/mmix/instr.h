@@ -2,7 +2,7 @@
 #define __INSTR_H__
 
 #include <stdint.h>
-#include "../types.h"
+#include "../../lib/common/include/types.h"
 #include "op.h"
 
 typedef struct  

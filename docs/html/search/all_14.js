@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['v_5fbit_845',['V_BIT',['../arith_8h.html#a6629b32860a0225017c9c131c5be028f',1,'arith.h']]],
+  ['v_5fbit_845',['V_BIT',['../arith_8h.html#a6629b32860a0225017c9c131c5be028f',1,'alu.h']]],
   ['vaddr_846',['vaddr',['../structmanaged__memory__t.html#ae92ce0a7003200676704526dbc7cccf7',1,'managed_memory_t']]],
   ['value_847',['value',['../structtoken__t.html#ad40696584e7b0a60798479e3e883c17b',1,'token_t']]],
   ['version_5fmajor_848',['VERSION_MAJOR',['../mmix_2core_8h.html#a1a53b724b6de666faa8a9e0d06d1055f',1,'core.h']]],

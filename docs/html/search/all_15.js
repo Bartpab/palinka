@@ -1,7 +1,7 @@
 var searchData=
 [
   ['w_854',['w',['../structinstr__t.html#a18d33e061178f7ad6df0a623efdfc13d',1,'instr_t']]],
-  ['w_5fbit_855',['W_BIT',['../arith_8h.html#a3e76cd1165bfc216f2999326e7702cff',1,'arith.h']]],
+  ['w_5fbit_855',['W_BIT',['../arith_8h.html#a3e76cd1165bfc216f2999326e7702cff',1,'alu.h']]],
   ['wbuffer_5fcreate_856',['wbuffer_create',['../stream_2buffer_8h.html#a7380bcffa869c09534d383834548afda',1,'buffer.h']]],
   ['wbuffer_5fdelete_857',['wbuffer_delete',['../stream_2buffer_8h.html#a18b334486aa912cb6d81974f820b86e6',1,'buffer.h']]],
   ['wbuffer_5fflush_858',['wbuffer_flush',['../stream_2buffer_8h.html#acbbe1c330b49886cd4ca900538056594',1,'buffer.h']]],

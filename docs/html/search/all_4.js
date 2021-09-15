@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['d_5fbit_106',['D_BIT',['../arith_8h.html#a19868606782aa93bd33d491a178aefb5',1,'arith.h']]],
+  ['d_5fbit_106',['D_BIT',['../arith_8h.html#a19868606782aa93bd33d491a178aefb5',1,'alu.h']]],
   ['default_107',['DEFAULT',['../allocator_8h.html#a31b0dc128e62f63103909566ac5567e0a88ec7d5086d2469ba843c7fcceade8a6',1,'allocator.h']]],
   ['default_5fallocator_5fcpy_108',['default_allocator_cpy',['../allocator_8h.html#a847eb4a588ff631aa4dafd3a68012dea',1,'allocator.h']]],
   ['del_109',['del',['../structallocator__t.html#a5be414c21514cb312fa57122bd0fc838',1,'allocator_t']]],

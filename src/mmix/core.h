@@ -3,13 +3,14 @@
 
 #include <time.h>
 
-#include "../sys.h"
-#include "../utils.h"
+#include "../../lib/common/include/macro.h"
 
-#include "mem.h"
-#include "processor.h"
-#include "instr.h"
-#include "dispatch.h"
+#include "../sys.h"
+#include "../mem/core.h"
+
+#include "./processor.h"
+#include "./instr.h"
+#include "./dispatch.h"
 
 #define VERSION_MAJOR 1
 #define VERSION_MINOR 0

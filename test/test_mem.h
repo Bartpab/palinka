@@ -1,6 +1,7 @@
-#include "utils.h"
-#include "../src/mem.h"
-#include "../src/allocator.h"
+#include "../lib/common/include/testing/utils.h"
+#include "../lib/common/include/allocator.h"
+
+#include "../src/mem/core.h"
 
 memory_t mem_boostrap()
 {

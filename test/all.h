@@ -1,11 +1,11 @@
-#include "utils.h"
+#include "../lib/common/include/testing/utils.h"
 
-#include "test_arith.h"
+#include "../lib/common/test/test_alu.h"
+#include "../lib/common/test/test_buffer.h"
+#include "../lib/common/test/test_string.h"
+
 #include "test_mmix.h"
 #include "test_mem.h"
-#include "test_buffer.h"
-//#include "test_stream.h"
-#include "test_string.h"
 
 set_tests(
   string, buffer,

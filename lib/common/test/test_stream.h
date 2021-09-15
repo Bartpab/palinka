@@ -1,6 +1,6 @@
-#include "utils.h"
-#include "../src/stream/buffer.h"
-#include "../src/allocator.h"
+#include "../include/testing/utils.h"
+#include "../include/stream/buffer.h"
+#include "../include/allocator.h"
 
 define_test(stream_read, test_print("Read buffer")) 
 {

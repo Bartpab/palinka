@@ -1,8 +1,10 @@
 #ifndef __AVL_PAGE_H__
 #define __AVL_PAGE_H__
 
-#include "page.h"
-#include "allocator.h"
+#include "../../lib/common/include/macro.h"
+#include "../../lib/common/include/allocator.h"
+
+#include "./page.h"
 
 typedef struct page_node_t {
   struct page_node_t* child[2];

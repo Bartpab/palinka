@@ -13,7 +13,7 @@ var searchData=
   ['sfloti_751',['SFLOTI',['../op_8h.html#a5a40c1deb1a00d2c218a48e0e1b4a305af29c7424e6609f6f15efb3cfe7529d68',1,'op.h']]],
   ['sflotu_752',['SFLOTU',['../op_8h.html#a5a40c1deb1a00d2c218a48e0e1b4a305a317fbf82f1ceefca21af8bc48afd52ce',1,'op.h']]],
   ['sflotui_753',['SFLOTUI',['../op_8h.html#a5a40c1deb1a00d2c218a48e0e1b4a305ac22b414c56e8bd1738e0e90d5ce31d29',1,'op.h']]],
-  ['sign_5fbit_754',['sign_bit',['../arith_8h.html#a701c5f2dd2cdd96499b94a2806c0028b',1,'arith.h']]],
+  ['sign_5fbit_754',['sign_bit',['../arith_8h.html#a701c5f2dd2cdd96499b94a2806c0028b',1,'alu.h']]],
   ['size_755',['size',['../structwbuffer__t.html#a7387b91c022ac492a31d729ec403ea86',1,'wbuffer_t::size()'],['../structrbuffer__t.html#a98d6d2c16c82be36defd0097add6d7f6',1,'rbuffer_t::size()']]],
   ['sl_756',['SL',['../op_8h.html#a5a40c1deb1a00d2c218a48e0e1b4a305ac4c83bba97ff1d2e6eeed95b312e04a3',1,'op.h']]],
   ['sli_757',['SLI',['../op_8h.html#a5a40c1deb1a00d2c218a48e0e1b4a305a2965998c3cc59bd768bbe7c87b41bce5',1,'op.h']]],

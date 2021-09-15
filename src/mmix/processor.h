@@ -1,12 +1,12 @@
 #ifndef __MMIX_PROC_H__
 #define __MMIX_PROC_H__
 
-#include "../types.h"
+#include "../../lib/common/include/types.h"
 #include "../sys.h"
 
-#include "instr.h"
-#include "reg.h"
-#include "op.h"
+#include "./instr.h"
+#include "./reg.h"
+#include "./op.h"
 
 #define MMIX_START_ADDR 0x8000000000000000
 #define MMIX_STACK_BASE 0x6000000000000000

@@ -1,7 +1,7 @@
 #ifndef __ARITH_H__
 #define __ARITH_H__
 
-#include "types.h"
+#include "./types.h"
 #include <math.h>
 #include <assert.h>
 

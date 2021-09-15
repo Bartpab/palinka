@@ -1,11 +1,12 @@
 #ifndef __MMIX_MEM_H__
 #define __MMIX_MEM_H__
 
-#include "../types.h"
-#include "../sys.h"
-#include "../mem.h"
+#include "../../lib/common/include/types.h"
 
-#include "processor.h"
+#include "../sys.h"
+#include "../mem/core.h"
+
+#include "./processor.h"
 
 #define PAGE_NOT_PRESENT_BIT (1 << 19);
 

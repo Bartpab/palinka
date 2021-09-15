@@ -4,7 +4,7 @@
 #include <assert.h>
 #include <stdio.h>
 
-#include "../src/macro.h"
+#include "../macro.h"
 
 typedef enum {
   IDLE,

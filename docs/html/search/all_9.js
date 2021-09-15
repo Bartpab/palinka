@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['i_5fbit_161',['I_BIT',['../arith_8h.html#aee2152981b17e0fd7752a41c038f42ad',1,'arith.h']]],
+  ['i_5fbit_161',['I_BIT',['../arith_8h.html#aee2152981b17e0fd7752a41c038f42ad',1,'alu.h']]],
   ['iiaddu_162',['IIADDU',['../op_8h.html#a5a40c1deb1a00d2c218a48e0e1b4a305a0ee8a759205243446679409620d86428',1,'op.h']]],
   ['iiaddui_163',['IIADDUI',['../op_8h.html#a5a40c1deb1a00d2c218a48e0e1b4a305a8c72fb230d7b56b76f1f2433f541d364',1,'op.h']]],
   ['impl_164',['impl',['../structstream__t.html#a0de49892113ffc01fb0037599a75cce1',1,'stream_t']]],
@@ -12,7 +12,7 @@ var searchData=
   ['instr_2eh_170',['instr.h',['../instr_8h.html',1,'']]],
   ['instr_5fptr_171',['instr_ptr',['../structmmix__processor__t.html#a73a3ca0bb8f5a669efb0047778fe65f5',1,'mmix_processor_t']]],
   ['instr_5ft_172',['instr_t',['../structinstr__t.html',1,'']]],
-  ['int64_5fmax_5fvalue_173',['INT64_MAX_VALUE',['../arith_8h.html#a24418afb3e4cd2a5190d1b35adfcd586',1,'arith.h']]],
+  ['int64_5fmax_5fvalue_173',['INT64_MAX_VALUE',['../arith_8h.html#a24418afb3e4cd2a5190d1b35adfcd586',1,'alu.h']]],
   ['int_5fto_5focta_174',['int_to_octa',['../types_8h.html#a0306c07638b66c02075767dcf4312160',1,'types.h']]],
   ['ivaddu_175',['IVADDU',['../op_8h.html#a5a40c1deb1a00d2c218a48e0e1b4a305abaa1db9582d2fd67db0db9a517a8c733',1,'op.h']]],
   ['ivaddui_176',['IVADDUI',['../op_8h.html#a5a40c1deb1a00d2c218a48e0e1b4a305a9c6ff0ee8309d6de04f1ce449366d50f',1,'op.h']]],

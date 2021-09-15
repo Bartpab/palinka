@@ -3,10 +3,11 @@
 
 #include <math.h>
 
-#include "allocator.h"
-#include "macro.h"
-#include "types.h"
-#include "avl_page.h"
+#include "../../lib/common/include/allocator.h"
+#include "../../lib/common/include/macro.h"
+#include "../../lib/common/include/types.h"
+
+#include "./avl_page.h"
 
 #define PAGE_SIZE 4096
 

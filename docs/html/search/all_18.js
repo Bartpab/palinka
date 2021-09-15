@@ -1,7 +1,7 @@
 var searchData=
 [
   ['z_882',['z',['../structinstr__t.html#ab97aa50e4db490d2e089e53e522b8555',1,'instr_t']]],
-  ['z_5fbit_883',['Z_BIT',['../arith_8h.html#a32666ee6e6eac67c501085d830389b35',1,'arith.h']]],
+  ['z_5fbit_883',['Z_BIT',['../arith_8h.html#a32666ee6e6eac67c501085d830389b35',1,'alu.h']]],
   ['z_5fis_5fimmed_5fbit_884',['Z_is_immed_bit',['../op_8h.html#aabf8d238686d9628a670cb339396a9eb',1,'op.h']]],
   ['z_5fis_5fsource_5fbit_885',['Z_is_source_bit',['../op_8h.html#a67ecc3f4b5a20c0b3e637332adfa78d8',1,'op.h']]],
   ['zsev_886',['ZSEV',['../op_8h.html#a5a40c1deb1a00d2c218a48e0e1b4a305ae60654e9de0763c975277afde79afa0b',1,'op.h']]],
