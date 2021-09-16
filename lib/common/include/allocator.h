@@ -9,7 +9,7 @@ typedef enum {
   DEFAULT
 } allocator_type_t;
 
-typedef struct allocator_t{
+typedef struct allocator_t {
   char type;
 
   // vTable
@@ -49,7 +49,7 @@ const allocator_t NO_ALLOCATOR = { NOP, 0, 0 };
 
 allocator_t allocator_copy(allocator_t* allocator)
 {
-  if(allocator->cpy)
+  if(allocator->cpy != NULL)
     return allocator->cpy(allocator);
 
   return NO_ALLOCATOR;
@@ -58,8 +58,8 @@ allocator_t allocator_copy(allocator_t* allocator)
 
 void allocator_delete(allocator_t* allocator)
 {
-  if(allocator->del) 
-    allocator->del(allocator);
+  if(allocator == NULL) return;
+  if(allocator->del != NULL) allocator->del(allocator);
 }
 
 
