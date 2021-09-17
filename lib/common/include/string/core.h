@@ -22,6 +22,7 @@ typedef struct string_t {
 const string_t string_init = {0, .base = 0, 0, NO_ALLOCATOR, NO_ALLOCATOR};
 
 string_t* string_new(allocator_t* allocator);
+string_t string();
 /**
  * \brief Return an access to the raw pointer of char
  */
@@ -64,7 +65,10 @@ const string_desc_t string_desc = {
     )
 };
 // IMPL //
-
+string_t string()
+{
+    return string_init;
+}
 string_t* string_new(allocator_t* allocator)
 {
     string_t* tmp = (string_t*) pmalloc(allocator, sizeof(string_t));

@@ -15,6 +15,8 @@ typedef struct {
 
 const buffer_t buffer_init = {0, 0};
 
+buffer_t buffer(size_t capacity, allocator_t* allocator);
+bool buffer_create(buffer_t* buffer, size_t capacity, allocator_t* allocator);
 void buffer_reset(buffer_t* buffer);
 bool buffer_pop_char(buffer_t* buffer);
 bool buffer_copy(buffer_t* dest, const buffer_t* src, allocator_t* allocator);
@@ -32,6 +34,13 @@ static bool __buffer_inc_capacity(buffer_t* buffer, size_t new_capacity) {
     buffer->capacity = new_capacity;
 
     return true;
+}
+
+buffer_t buffer(size_t capacity, allocator_t* allocator)
+{
+    buffer_t tmp;
+    buffer_create(&tmp, capacity, allocator);
+    return tmp;
 }
 
 bool buffer_create(buffer_t* buffer, size_t capacity, allocator_t* allocator)

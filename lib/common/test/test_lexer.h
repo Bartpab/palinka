@@ -22,22 +22,25 @@ define_test(basic_lexer, test_print("Basic lexer"))
   
   lexer_transition_t transitions[2] = {
     lexer_transition_const_chars(letter, &states[1]), 
-    lexer_transition_const_chars(number, &states[2]), 
+    lexer_transition_const_chars(number, &states[2])
   };
   
   token_t tokens[4] = {
     token_const_chars(0, "this", 0, 0),
     token_const_chars(0, "is", 0, 0),
     token_const_chars(1, "90", 0, 0),
-    token_const_chars(1, "1234", 0, 0),
+    token_const_chars(1, "1234", 0, 0)
   };
 
   token_vector_t toks = token_vector(6, &allocator), etoks = token_vector(4, &allocator);
+
+  return;
 
   token_vector_copy_add(&etoks, &tokens[1], &allocator);
   token_vector_copy_add(&etoks, &tokens[2], &allocator);
   token_vector_copy_add(&etoks, &tokens[3], &allocator);
   token_vector_copy_add(&etoks, &tokens[4], &allocator);
+
 
   lexer_state_copy_add_transition(&states[0], &transitions[0], &allocator);
   lexer_state_copy_add_transition(&states[0], &transitions[1], &allocator);
