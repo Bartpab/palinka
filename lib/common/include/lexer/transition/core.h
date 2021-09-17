@@ -16,6 +16,7 @@ struct lexer_transition_t {
 const lexer_transition_t lexer_transition_init = {0, 0, NO_ALLOCATOR};
 
 lexer_transition_t* lexer_transition_new(const char* chars, lexer_state_t* next, allocator_t* allocator);
+lexer_transition_t lexer_transition_const_chars(const char* chars, lexer_state_t* next);
 void lexer_transition_create_const_chars(lexer_transition_t* transition, const char* chars, struct lexer_state_t* next);
 bool lexer_is_valid_transition(const char c, lexer_transition_t* transition);
 
@@ -49,6 +50,12 @@ lexer_transition_t* lexer_transition_new(const char* chars, lexer_state_t* next,
     return ts;
 }
 
+lexer_transition_t lexer_transition_const_chars(const char* chars, lexer_state_t* next)
+{
+    lexer_transition_t t = lexer_transition_init;
+    lexer_transition_create_const_chars(&t, chars, next);
+    return t;   
+}
 
 void lexer_transition_create_const_chars(lexer_transition_t* transition, const char* chars, struct lexer_state_t* next)
 {

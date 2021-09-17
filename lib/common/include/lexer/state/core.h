@@ -20,6 +20,7 @@ struct lexer_state_t
 
 const lexer_state_t lexer_state_init = {lexer_transition_vector_init, 0, NO_ALLOCATOR};
 
+lexer_state_t lexer_state(size_t capacity, int type, allocator_t* allocator);
 bool lexer_state_create(lexer_state_t* state, size_t capacity, int type, allocator_t* allocator);
 void lexer_state_create_move(lexer_state_t* state, lexer_transition_vector_t* vec, int type);
 bool lexer_state_move_add_transition(lexer_state_t* state, lexer_transition_t* transition);
@@ -93,6 +94,13 @@ static lexer_state_t* __lexer_step(lexer_state_t* init, buffer_t* buffer, const 
     
     *c = it;
     return state;
+}
+
+lexer_state_t lexer_state(size_t capacity, int type, allocator_t* allocator)
+{
+    lexer_state_t tmp = lexer_state_init;
+    lexer_state_create(&tmp, capacity, type, allocator);
+    return tmp;
 }
 
 bool lexer_state_create(lexer_state_t* state, size_t capacity, int type, allocator_t* allocator)

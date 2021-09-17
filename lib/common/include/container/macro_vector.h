@@ -16,6 +16,7 @@ struct typealias ## _vector_iterator_t {\
     vector_iterator_t impl;\
 };\
 \
+typealias ## _vector_t typealias ## _vector(size_t capacity, allocator_t* elements_allocator);\
 bool typealias ## _vector_create(typealias ## _vector_t* vec, size_t capacity, allocator_t* allocator);\
 void typealias ## _vector_delete(typealias ## _vector_t* vec);\
 bool typealias ## _vector_get(typealias ## _vector_t* vec, type_t** out, unsigned int index);\
@@ -31,13 +32,19 @@ type_t* typealias ## _vector_iterator_get(typealias ## _vector_iterator_t* it);\
 \
 const typealias ## _vector_iterator_t typealias ## _vector_iterator_init = {typealias ## _vector_iterator_next, typealias ## _vector_iterator_get, vector_it_init};\
 \
-bool typealias ## _vector_create(typealias ## _vector_t* vec, size_t capacity, allocator_t* allocator)\
+typealias ## _vector_t typealias ## _vector(size_t capacity, allocator_t* elements_allocator)\
+{\
+    typealias ## _vector_t tmp;\
+    typealias ## _vector_create(&tmp, capacity, elements_allocator);\
+    return tmp;\
+}\
+bool typealias ## _vector_create(typealias ## _vector_t* vec, size_t capacity, allocator_t* elements_allocator)\
 {\
     return vector_create(\
         &vec->impl, \
         (type_desc_t*)(&typealias ## _desc), \
         capacity, \
-        allocator\
+        elements_allocator\
     );\
 }\
 \

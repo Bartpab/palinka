@@ -8,31 +8,36 @@ lexer_state_t s1;
 
 define_test(basic_lexer, test_print("Basic lexer"))
 {
-  allocator_t         allocator = GLOBAL_ALLOCATOR;
-  lexer_state_t       states[3] = {lexer_state_init, lexer_state_init, lexer_state_init};
-  lexer_transition_t  transitions[2] = {lexer_transition_init, lexer_transition_init};
-  token_t             tokens[6] = {token_init, token_init, token_init, token_init, token_init, token_init};
-  token_vector_t      toks = token_vector_init, etoks = token_vector_init;
-
-  const char* phrase = "this is a word 90 1234";
+  const char* phrase = "this is 90 1234";
   const char* letter = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const char* number = "0123456789";
 
-  token_create_const_chars(&tokens[0], 0, "this", 0, 0);
-  token_create_const_chars(&tokens[1], 0, "is", 0, 0);
-  token_create_const_chars(&tokens[2], 0, "a", 0, 0);
-  token_create_const_chars(&tokens[3], 0, "word", 0, 0);
-  token_create_const_chars(&tokens[4], 0, "90", 0, 0);
-  token_create_const_chars(&tokens[5], 0, "1234", 0, 0);
+  allocator_t allocator = GLOBAL_ALLOCATOR;
+  
+  lexer_state_t states[3] = {
+    lexer_state(2, -1, &allocator), 
+    lexer_state(1, 0, &allocator), 
+    lexer_state(1, 1, &allocator)
+  };
+  
+  lexer_transition_t transitions[2] = {
+    lexer_transition_const_chars(letter, &states[1]), 
+    lexer_transition_const_chars(number, &states[2]), 
+  };
+  
+  token_t tokens[4] = {
+    token_const_chars(0, "this", 0, 0),
+    token_const_chars(0, "is", 0, 0),
+    token_const_chars(1, "90", 0, 0),
+    token_const_chars(1, "1234", 0, 0),
+  };
 
-  token_vector_create(&etoks, 6, &allocator);
+  token_vector_t toks = token_vector(6, &allocator), etoks = token_vector(4, &allocator);
 
-  lexer_state_create(&states[0], 10, -1, &allocator); // Init
-  lexer_state_create(&states[1], 10, 0, &allocator); // Word [a-zA-Z]+
-  lexer_state_create(&states[2], 10, 1, &allocator); // Number [0-9]+
-
-  lexer_transition_create_const_chars(&transitions[0], number, &states[1]); // -[a-zA-Z]-> sWord
-  lexer_transition_create_const_chars(&transitions[1], letter, &states[2]); // -[0-9]-> sNumber
+  token_vector_copy_add(&etoks, &tokens[1], &allocator);
+  token_vector_copy_add(&etoks, &tokens[2], &allocator);
+  token_vector_copy_add(&etoks, &tokens[3], &allocator);
+  token_vector_copy_add(&etoks, &tokens[4], &allocator);
 
   lexer_state_copy_add_transition(&states[0], &transitions[0], &allocator);
   lexer_state_copy_add_transition(&states[0], &transitions[1], &allocator);

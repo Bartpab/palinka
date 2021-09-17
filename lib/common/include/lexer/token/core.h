@@ -13,6 +13,7 @@ typedef struct token_t {
 
 const token_t token_init = {0, string_init, 0, 0};
 
+token_t token_const_chars(int type, const char* value, unsigned int line, unsigned int col);
 void token_create_const_chars(token_t* tok, int type, const char* value, unsigned int line, unsigned int col);
 void token_move(token_t* dest, token_t* src);
 bool token_copy(token_t* dest, const token_t* src, allocator_t* allocator);
@@ -32,6 +33,14 @@ const token_desc_t token_desc = {
         sizeof(token_t)
     )
 };
+
+
+token_t token_const_chars(int type, const char* value, unsigned int line, unsigned int col)
+{
+    token_t tmp = token_init;
+    token_create_const_chars(&tmp, type, value, line, col);
+    return tmp;
+}
 
 void token_create_const_chars(token_t* tok, int type, const char* value, unsigned int line, unsigned int col)
 {
