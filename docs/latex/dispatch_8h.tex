@@ -1,12 +1,13 @@
 \hypertarget{dispatch_8h}{}\doxysection{C\+:/\+Users/\+GP69\+E5\+EN/\+Documents/dev/palinka/src/mmix/dispatch.h File Reference}
 \label{dispatch_8h}\index{C:/Users/GP69E5EN/Documents/dev/palinka/src/mmix/dispatch.h@{C:/Users/GP69E5EN/Documents/dev/palinka/src/mmix/dispatch.h}}
 {\ttfamily \#include $<$math.\+h$>$}\newline
-{\ttfamily \#include \char`\"{}instr.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}mem.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}processor.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}../arith.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../lib/common/include/alu.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../lib/common/include/types.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../mem/core.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}../sys.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}../types.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}./processor.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}./instr.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}./mem.\+h\char`\"{}}\newline
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
@@ -18,9 +19,9 @@
 \item 
 \#define \mbox{\hyperlink{dispatch_8h_af9a5db0588203247c069691e81110b96}{MEXN}}(op\+\_\+name)~mmix\+\_\+\#\#op\+\_\+name
 \item 
-\#define \mbox{\hyperlink{dispatch_8h_a7ba1180be1afb727a946efbfee547822}{MMEMR}}(addr,  type,  out)~\mbox{\hyperlink{mmix_2mem_8h_a7fe4297316d4cbac2da705462658b57d}{MMIX\+\_\+\+MEM\+\_\+\+READ}}(sys, addr, type, out)
+\#define \mbox{\hyperlink{dispatch_8h_a7ba1180be1afb727a946efbfee547822}{MMEMR}}(addr,  type,  out)~\mbox{\hyperlink{mem_8h_a7fe4297316d4cbac2da705462658b57d}{MMIX\+\_\+\+MEM\+\_\+\+READ}}(sys, addr, type, out)
 \item 
-\#define \mbox{\hyperlink{dispatch_8h_a2d5a333c82ccec15050aa27f14dadd50}{MMEMW}}(addr,  type,  val)~\mbox{\hyperlink{mmix_2mem_8h_a9c056c950b04959e9d3990a727b39b74}{MMIX\+\_\+\+MEM\+\_\+\+WRITE}}(sys, addr, type, val)
+\#define \mbox{\hyperlink{dispatch_8h_a2d5a333c82ccec15050aa27f14dadd50}{MMEMW}}(addr,  type,  val)~\mbox{\hyperlink{mem_8h_a9c056c950b04959e9d3990a727b39b74}{MMIX\+\_\+\+MEM\+\_\+\+WRITE}}(sys, addr, type, val)
 \item 
 \#define \mbox{\hyperlink{dispatch_8h_a03b0b851f72b4a85f543af3254a1c18f}{MMIX\+\_\+\+SREG}}(REG)~proc-\/$>$g\mbox{[}REG\mbox{]}
 \item 
@@ -612,13 +613,13 @@ void \mbox{\hyperlink{dispatch_8h_ab871d20de2b20400a567f03fb6da4bc9}{mmix\+\_\+d
 \index{dispatch.h@{dispatch.h}!MMEMR@{MMEMR}}
 \index{MMEMR@{MMEMR}!dispatch.h@{dispatch.h}}
 \doxysubsubsection{\texorpdfstring{MMEMR}{MMEMR}}
-{\footnotesize\ttfamily \#define MMEMR(\begin{DoxyParamCaption}\item[{}]{addr,  }\item[{}]{type,  }\item[{}]{out }\end{DoxyParamCaption})~\mbox{\hyperlink{mmix_2mem_8h_a7fe4297316d4cbac2da705462658b57d}{MMIX\+\_\+\+MEM\+\_\+\+READ}}(sys, addr, type, out)}
+{\footnotesize\ttfamily \#define MMEMR(\begin{DoxyParamCaption}\item[{}]{addr,  }\item[{}]{type,  }\item[{}]{out }\end{DoxyParamCaption})~\mbox{\hyperlink{mem_8h_a7fe4297316d4cbac2da705462658b57d}{MMIX\+\_\+\+MEM\+\_\+\+READ}}(sys, addr, type, out)}
 
 \mbox{\Hypertarget{dispatch_8h_a2d5a333c82ccec15050aa27f14dadd50}\label{dispatch_8h_a2d5a333c82ccec15050aa27f14dadd50}} 
 \index{dispatch.h@{dispatch.h}!MMEMW@{MMEMW}}
 \index{MMEMW@{MMEMW}!dispatch.h@{dispatch.h}}
 \doxysubsubsection{\texorpdfstring{MMEMW}{MMEMW}}
-{\footnotesize\ttfamily \#define MMEMW(\begin{DoxyParamCaption}\item[{}]{addr,  }\item[{}]{type,  }\item[{}]{val }\end{DoxyParamCaption})~\mbox{\hyperlink{mmix_2mem_8h_a9c056c950b04959e9d3990a727b39b74}{MMIX\+\_\+\+MEM\+\_\+\+WRITE}}(sys, addr, type, val)}
+{\footnotesize\ttfamily \#define MMEMW(\begin{DoxyParamCaption}\item[{}]{addr,  }\item[{}]{type,  }\item[{}]{val }\end{DoxyParamCaption})~\mbox{\hyperlink{mem_8h_a9c056c950b04959e9d3990a727b39b74}{MMIX\+\_\+\+MEM\+\_\+\+WRITE}}(sys, addr, type, val)}
 
 \mbox{\Hypertarget{dispatch_8h_a03b0b851f72b4a85f543af3254a1c18f}\label{dispatch_8h_a03b0b851f72b4a85f543af3254a1c18f}} 
 \index{dispatch.h@{dispatch.h}!MMIX\_SREG@{MMIX\_SREG}}

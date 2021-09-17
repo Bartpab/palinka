@@ -1,173 +1,115 @@
-\hypertarget{mem_8h}{}\doxysection{C\+:/\+Users/\+GP69\+E5\+EN/\+Documents/dev/palinka/src/mem.h File Reference}
-\label{mem_8h}\index{C:/Users/GP69E5EN/Documents/dev/palinka/src/mem.h@{C:/Users/GP69E5EN/Documents/dev/palinka/src/mem.h}}
-{\ttfamily \#include $<$math.\+h$>$}\newline
-{\ttfamily \#include \char`\"{}allocator.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}macro.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}types.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}avl\+\_\+page.\+h\char`\"{}}\newline
-\doxysubsection*{Classes}
-\begin{DoxyCompactItemize}
-\item 
-struct \mbox{\hyperlink{structmanaged__memory__t}{managed\+\_\+memory\+\_\+t}}
-\begin{DoxyCompactList}\small\item\em Managed real memory. \end{DoxyCompactList}\item 
-struct \mbox{\hyperlink{structmemory__t}{memory\+\_\+t}}
-\end{DoxyCompactItemize}
+\hypertarget{mem_8h}{}\doxysection{C\+:/\+Users/\+GP69\+E5\+EN/\+Documents/dev/palinka/src/mmix/mem.h File Reference}
+\label{mem_8h}\index{C:/Users/GP69E5EN/Documents/dev/palinka/src/mmix/mem.h@{C:/Users/GP69E5EN/Documents/dev/palinka/src/mmix/mem.h}}
+{\ttfamily \#include \char`\"{}../../lib/common/include/types.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../sys.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../mem/core.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}./processor.\+h\char`\"{}}\newline
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{mem_8h_a7d467c1d283fdfa1f2081ba1e0d01b6e}{PAGE\+\_\+\+SIZE}}~4096
+\#define \mbox{\hyperlink{mem_8h_a87d4822f1cfde2862a9bed8a7909f434}{PAGE\+\_\+\+NOT\+\_\+\+PRESENT\+\_\+\+BIT}}~(1 $<$$<$ 19);
 \item 
-\#define \mbox{\hyperlink{mem_8h_a5f41a0ffa876640f958f316d85d54f96}{DIR\+\_\+\+ID}}(vaddr)~((uintptr\+\_\+t)(vaddr) $>$$>$ 38)
+\#define \mbox{\hyperlink{mem_8h_adc1353af49737b1192ef42cdba56a7ea}{MMIX\+\_\+\+MEM\+\_\+\+ACCESS\+\_\+\+FAILBACK}}(sys,  addr,  type,  out,  on\+\_\+failure)
 \item 
-\#define \mbox{\hyperlink{mem_8h_a12970b956ca386cd140ffe5ebd47527a}{PAGE\+\_\+\+ID}}(vaddr)~((uintptr\+\_\+t )(vaddr) $>$$>$ 12)
+\#define \mbox{\hyperlink{mem_8h_a047198be0de1fabe5dd295bd36c45a80}{MMIX\+\_\+\+MEM\+\_\+\+READ\+\_\+\+FAILBACK}}(sys,  addr,  type,  out,  on\+\_\+failure)
 \item 
-\#define \mbox{\hyperlink{mem_8h_aa508e238ecd57872e85b3ea3616c5117}{PAGE\+\_\+\+OFFSET}}(vaddr)~((uintptr\+\_\+t)(vaddr) \& 0x\+FFF)
+\#define \mbox{\hyperlink{mem_8h_a6b0f92472b6374d6783fc15f982e8032}{MMIX\+\_\+\+MEM\+\_\+\+WRITE\+\_\+\+FAILBACK}}(sys,  addr,  type,  val,  on\+\_\+failure)
 \item 
-\#define \mbox{\hyperlink{mem_8h_ad23ca33f5a626794d58562fcf41e6f6d}{PAGE\+\_\+\+NOT\+\_\+\+PRESENT}}~1;
+\#define \mbox{\hyperlink{mem_8h_a462027e804b0e89c13ebc0983c88f65a}{MMIX\+\_\+\+MEM\+\_\+\+ACCESS}}(sys,  addr,  out)~\mbox{\hyperlink{mem_8h_adc1353af49737b1192ef42cdba56a7ea}{MMIX\+\_\+\+MEM\+\_\+\+ACCESS\+\_\+\+FAILBACK}}(sys, addr, type, out, return)
+\item 
+\#define \mbox{\hyperlink{mem_8h_a7fe4297316d4cbac2da705462658b57d}{MMIX\+\_\+\+MEM\+\_\+\+READ}}(sys,  addr,  type,  out)~\mbox{\hyperlink{mem_8h_a047198be0de1fabe5dd295bd36c45a80}{MMIX\+\_\+\+MEM\+\_\+\+READ\+\_\+\+FAILBACK}}(sys, addr, type, out, return)
+\item 
+\#define \mbox{\hyperlink{mem_8h_a9c056c950b04959e9d3990a727b39b74}{MMIX\+\_\+\+MEM\+\_\+\+WRITE}}(sys,  addr,  type,  val)~\mbox{\hyperlink{mem_8h_a6b0f92472b6374d6783fc15f982e8032}{MMIX\+\_\+\+MEM\+\_\+\+WRITE\+\_\+\+FAILBACK}}(sys, addr, type, val, return)
 \end{DoxyCompactItemize}
-\doxysubsection*{Typedefs}
-\begin{DoxyCompactItemize}
-\item 
-typedef struct \mbox{\hyperlink{structmanaged__memory__t}{managed\+\_\+memory\+\_\+t}} \mbox{\hyperlink{mem_8h_a985a489a53ed50b15f86abae751d21f9}{managed\+\_\+memory\+\_\+t}}
-\begin{DoxyCompactList}\small\item\em Managed real memory. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{structmemory__t}{memory\+\_\+t}} $\ast$ \mbox{\hyperlink{mem_8h_aa4bfa76a96ce5b69adfdde0aa014a565}{mem\+\_\+create}} (\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
-\begin{DoxyCompactList}\small\item\em Create a memory device. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{mem_8h_acd8ddf2c3025b8f7ddbd8331c02294b2}{\+\_\+\+\_\+mem\+\_\+init}} (\mbox{\hyperlink{structmemory__t}{memory\+\_\+t}} $\ast$mem, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$page\+\_\+node\+\_\+allocator)
-\begin{DoxyCompactList}\small\item\em Init the memory device. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{mem_8h_a150935e65e0c4eda46ba3470e833f5a4}{mem\+\_\+delete}} (\mbox{\hyperlink{structmemory__t}{memory\+\_\+t}} $\ast$mem)
-\begin{DoxyCompactList}\small\item\em Delete the memory device. \end{DoxyCompactList}\item 
-size\+\_\+t \mbox{\hyperlink{mem_8h_ab89c93c1021862dfb5f2cdc4ce195164}{mem\+\_\+align}} (size\+\_\+t len)
-\begin{DoxyCompactList}\small\item\em Returns a memory-\/aligned length. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{mem_8h_aafe48e68b830b0e8a97f60963f778733}{mem\+\_\+tl}} (\mbox{\hyperlink{structmemory__t}{memory\+\_\+t}} $\ast$mem, void $\ast$vaddr, void $\ast$$\ast$out, char $\ast$exceptions)
-\begin{DoxyCompactList}\small\item\em Memory translation from virtual to real addresses. \end{DoxyCompactList}\item 
-void $\ast$ \mbox{\hyperlink{mem_8h_a87e560be5c43d12570f4069f357cb87a}{mem\+\_\+map}} (\mbox{\hyperlink{structmemory__t}{memory\+\_\+t}} $\ast$mem, void $\ast$vaddr, void $\ast$paddr, size\+\_\+t len)
-\begin{DoxyCompactList}\small\item\em Map virtual memory to a real memory block. \end{DoxyCompactList}\item 
-void $\ast$ \mbox{\hyperlink{mem_8h_a22a29055f6fe47e7784419fab59871c9}{mem\+\_\+alloc\+\_\+managed}} (\mbox{\hyperlink{structmemory__t}{memory\+\_\+t}} $\ast$mem, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator, void $\ast$vaddr, size\+\_\+t len)
-\begin{DoxyCompactList}\small\item\em Allocate real memory block and map it to a virtual memory block. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{mem_8h_a487bf9d644f6d4d1c9d82d23b12169ef}{mmix\+\_\+memtl}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys, void $\ast$addr, void $\ast$$\ast$out)
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{mem_8h_a5f41a0ffa876640f958f316d85d54f96}\label{mem_8h_a5f41a0ffa876640f958f316d85d54f96}} 
-\index{mem.h@{mem.h}!DIR\_ID@{DIR\_ID}}
-\index{DIR\_ID@{DIR\_ID}!mem.h@{mem.h}}
-\doxysubsubsection{\texorpdfstring{DIR\_ID}{DIR\_ID}}
-{\footnotesize\ttfamily \#define DIR\+\_\+\+ID(\begin{DoxyParamCaption}\item[{}]{vaddr }\end{DoxyParamCaption})~((uintptr\+\_\+t)(vaddr) $>$$>$ 38)}
+\mbox{\Hypertarget{mem_8h_a462027e804b0e89c13ebc0983c88f65a}\label{mem_8h_a462027e804b0e89c13ebc0983c88f65a}} 
+\index{mem.h@{mem.h}!MMIX\_MEM\_ACCESS@{MMIX\_MEM\_ACCESS}}
+\index{MMIX\_MEM\_ACCESS@{MMIX\_MEM\_ACCESS}!mem.h@{mem.h}}
+\doxysubsubsection{\texorpdfstring{MMIX\_MEM\_ACCESS}{MMIX\_MEM\_ACCESS}}
+{\footnotesize\ttfamily \#define MMIX\+\_\+\+MEM\+\_\+\+ACCESS(\begin{DoxyParamCaption}\item[{}]{sys,  }\item[{}]{addr,  }\item[{}]{out }\end{DoxyParamCaption})~\mbox{\hyperlink{mem_8h_adc1353af49737b1192ef42cdba56a7ea}{MMIX\+\_\+\+MEM\+\_\+\+ACCESS\+\_\+\+FAILBACK}}(sys, addr, type, out, return)}
 
-\mbox{\Hypertarget{mem_8h_a12970b956ca386cd140ffe5ebd47527a}\label{mem_8h_a12970b956ca386cd140ffe5ebd47527a}} 
-\index{mem.h@{mem.h}!PAGE\_ID@{PAGE\_ID}}
-\index{PAGE\_ID@{PAGE\_ID}!mem.h@{mem.h}}
-\doxysubsubsection{\texorpdfstring{PAGE\_ID}{PAGE\_ID}}
-{\footnotesize\ttfamily \#define PAGE\+\_\+\+ID(\begin{DoxyParamCaption}\item[{}]{vaddr }\end{DoxyParamCaption})~((uintptr\+\_\+t )(vaddr) $>$$>$ 12)}
+\mbox{\Hypertarget{mem_8h_adc1353af49737b1192ef42cdba56a7ea}\label{mem_8h_adc1353af49737b1192ef42cdba56a7ea}} 
+\index{mem.h@{mem.h}!MMIX\_MEM\_ACCESS\_FAILBACK@{MMIX\_MEM\_ACCESS\_FAILBACK}}
+\index{MMIX\_MEM\_ACCESS\_FAILBACK@{MMIX\_MEM\_ACCESS\_FAILBACK}!mem.h@{mem.h}}
+\doxysubsubsection{\texorpdfstring{MMIX\_MEM\_ACCESS\_FAILBACK}{MMIX\_MEM\_ACCESS\_FAILBACK}}
+{\footnotesize\ttfamily \#define MMIX\+\_\+\+MEM\+\_\+\+ACCESS\+\_\+\+FAILBACK(\begin{DoxyParamCaption}\item[{}]{sys,  }\item[{}]{addr,  }\item[{}]{type,  }\item[{}]{out,  }\item[{}]{on\+\_\+failure }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{mem_8h_ad23ca33f5a626794d58562fcf41e6f6d}\label{mem_8h_ad23ca33f5a626794d58562fcf41e6f6d}} 
-\index{mem.h@{mem.h}!PAGE\_NOT\_PRESENT@{PAGE\_NOT\_PRESENT}}
-\index{PAGE\_NOT\_PRESENT@{PAGE\_NOT\_PRESENT}!mem.h@{mem.h}}
-\doxysubsubsection{\texorpdfstring{PAGE\_NOT\_PRESENT}{PAGE\_NOT\_PRESENT}}
-{\footnotesize\ttfamily \#define PAGE\+\_\+\+NOT\+\_\+\+PRESENT~1;}
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \{\(\backslash\)}
+\DoxyCodeLine{  void* \_\_out;\(\backslash\)}
+\DoxyCodeLine{  if(!\mbox{\hyperlink{mem_8h_a487bf9d644f6d4d1c9d82d23b12169ef}{mmix\_memtl}}(sys, addr, \&\_\_out)) \{\(\backslash\)}
+\DoxyCodeLine{    sys\_panic(sys);\(\backslash\)}
+\DoxyCodeLine{    on\_failure;\(\backslash\)}
+\DoxyCodeLine{  \}\(\backslash\)}
+\DoxyCodeLine{  out = (type*) \_\_out;\(\backslash\)}
+\DoxyCodeLine{\}}
 
-\mbox{\Hypertarget{mem_8h_aa508e238ecd57872e85b3ea3616c5117}\label{mem_8h_aa508e238ecd57872e85b3ea3616c5117}} 
-\index{mem.h@{mem.h}!PAGE\_OFFSET@{PAGE\_OFFSET}}
-\index{PAGE\_OFFSET@{PAGE\_OFFSET}!mem.h@{mem.h}}
-\doxysubsubsection{\texorpdfstring{PAGE\_OFFSET}{PAGE\_OFFSET}}
-{\footnotesize\ttfamily \#define PAGE\+\_\+\+OFFSET(\begin{DoxyParamCaption}\item[{}]{vaddr }\end{DoxyParamCaption})~((uintptr\+\_\+t)(vaddr) \& 0x\+FFF)}
+\end{DoxyCode}
+\mbox{\Hypertarget{mem_8h_a7fe4297316d4cbac2da705462658b57d}\label{mem_8h_a7fe4297316d4cbac2da705462658b57d}} 
+\index{mem.h@{mem.h}!MMIX\_MEM\_READ@{MMIX\_MEM\_READ}}
+\index{MMIX\_MEM\_READ@{MMIX\_MEM\_READ}!mem.h@{mem.h}}
+\doxysubsubsection{\texorpdfstring{MMIX\_MEM\_READ}{MMIX\_MEM\_READ}}
+{\footnotesize\ttfamily \#define MMIX\+\_\+\+MEM\+\_\+\+READ(\begin{DoxyParamCaption}\item[{}]{sys,  }\item[{}]{addr,  }\item[{}]{type,  }\item[{}]{out }\end{DoxyParamCaption})~\mbox{\hyperlink{mem_8h_a047198be0de1fabe5dd295bd36c45a80}{MMIX\+\_\+\+MEM\+\_\+\+READ\+\_\+\+FAILBACK}}(sys, addr, type, out, return)}
 
-\mbox{\Hypertarget{mem_8h_a7d467c1d283fdfa1f2081ba1e0d01b6e}\label{mem_8h_a7d467c1d283fdfa1f2081ba1e0d01b6e}} 
-\index{mem.h@{mem.h}!PAGE\_SIZE@{PAGE\_SIZE}}
-\index{PAGE\_SIZE@{PAGE\_SIZE}!mem.h@{mem.h}}
-\doxysubsubsection{\texorpdfstring{PAGE\_SIZE}{PAGE\_SIZE}}
-{\footnotesize\ttfamily \#define PAGE\+\_\+\+SIZE~4096}
+\mbox{\Hypertarget{mem_8h_a047198be0de1fabe5dd295bd36c45a80}\label{mem_8h_a047198be0de1fabe5dd295bd36c45a80}} 
+\index{mem.h@{mem.h}!MMIX\_MEM\_READ\_FAILBACK@{MMIX\_MEM\_READ\_FAILBACK}}
+\index{MMIX\_MEM\_READ\_FAILBACK@{MMIX\_MEM\_READ\_FAILBACK}!mem.h@{mem.h}}
+\doxysubsubsection{\texorpdfstring{MMIX\_MEM\_READ\_FAILBACK}{MMIX\_MEM\_READ\_FAILBACK}}
+{\footnotesize\ttfamily \#define MMIX\+\_\+\+MEM\+\_\+\+READ\+\_\+\+FAILBACK(\begin{DoxyParamCaption}\item[{}]{sys,  }\item[{}]{addr,  }\item[{}]{type,  }\item[{}]{out,  }\item[{}]{on\+\_\+failure }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \{\(\backslash\)}
+\DoxyCodeLine{  type* \_\_out2; \(\backslash\)}
+\DoxyCodeLine{  MMIX\_MEM\_ACCESS\_FAILBACK(sys, addr, type, \_\_out2, on\_failure);\(\backslash\)}
+\DoxyCodeLine{  out = *(type*) \_\_out2; \(\backslash\)}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{mem_8h_a9c056c950b04959e9d3990a727b39b74}\label{mem_8h_a9c056c950b04959e9d3990a727b39b74}} 
+\index{mem.h@{mem.h}!MMIX\_MEM\_WRITE@{MMIX\_MEM\_WRITE}}
+\index{MMIX\_MEM\_WRITE@{MMIX\_MEM\_WRITE}!mem.h@{mem.h}}
+\doxysubsubsection{\texorpdfstring{MMIX\_MEM\_WRITE}{MMIX\_MEM\_WRITE}}
+{\footnotesize\ttfamily \#define MMIX\+\_\+\+MEM\+\_\+\+WRITE(\begin{DoxyParamCaption}\item[{}]{sys,  }\item[{}]{addr,  }\item[{}]{type,  }\item[{}]{val }\end{DoxyParamCaption})~\mbox{\hyperlink{mem_8h_a6b0f92472b6374d6783fc15f982e8032}{MMIX\+\_\+\+MEM\+\_\+\+WRITE\+\_\+\+FAILBACK}}(sys, addr, type, val, return)}
+
+\mbox{\Hypertarget{mem_8h_a6b0f92472b6374d6783fc15f982e8032}\label{mem_8h_a6b0f92472b6374d6783fc15f982e8032}} 
+\index{mem.h@{mem.h}!MMIX\_MEM\_WRITE\_FAILBACK@{MMIX\_MEM\_WRITE\_FAILBACK}}
+\index{MMIX\_MEM\_WRITE\_FAILBACK@{MMIX\_MEM\_WRITE\_FAILBACK}!mem.h@{mem.h}}
+\doxysubsubsection{\texorpdfstring{MMIX\_MEM\_WRITE\_FAILBACK}{MMIX\_MEM\_WRITE\_FAILBACK}}
+{\footnotesize\ttfamily \#define MMIX\+\_\+\+MEM\+\_\+\+WRITE\+\_\+\+FAILBACK(\begin{DoxyParamCaption}\item[{}]{sys,  }\item[{}]{addr,  }\item[{}]{type,  }\item[{}]{val,  }\item[{}]{on\+\_\+failure }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \{\(\backslash\)}
+\DoxyCodeLine{  void* \_\_out;\(\backslash\)}
+\DoxyCodeLine{  if(!\mbox{\hyperlink{mem_8h_a487bf9d644f6d4d1c9d82d23b12169ef}{mmix\_memtl}}(sys, addr, \&\_\_out)) \{\(\backslash\)}
+\DoxyCodeLine{    sys\_panic(sys); \(\backslash\)}
+\DoxyCodeLine{    on\_failure; \(\backslash\)}
+\DoxyCodeLine{  \} \(\backslash\)}
+\DoxyCodeLine{  *(type*) \_\_out = val;\(\backslash\)}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{mem_8h_a87d4822f1cfde2862a9bed8a7909f434}\label{mem_8h_a87d4822f1cfde2862a9bed8a7909f434}} 
+\index{mem.h@{mem.h}!PAGE\_NOT\_PRESENT\_BIT@{PAGE\_NOT\_PRESENT\_BIT}}
+\index{PAGE\_NOT\_PRESENT\_BIT@{PAGE\_NOT\_PRESENT\_BIT}!mem.h@{mem.h}}
+\doxysubsubsection{\texorpdfstring{PAGE\_NOT\_PRESENT\_BIT}{PAGE\_NOT\_PRESENT\_BIT}}
+{\footnotesize\ttfamily \#define PAGE\+\_\+\+NOT\+\_\+\+PRESENT\+\_\+\+BIT~(1 $<$$<$ 19);}
 
 
-
-\doxysubsection{Typedef Documentation}
-\mbox{\Hypertarget{mem_8h_a985a489a53ed50b15f86abae751d21f9}\label{mem_8h_a985a489a53ed50b15f86abae751d21f9}} 
-\index{mem.h@{mem.h}!managed\_memory\_t@{managed\_memory\_t}}
-\index{managed\_memory\_t@{managed\_memory\_t}!mem.h@{mem.h}}
-\doxysubsubsection{\texorpdfstring{managed\_memory\_t}{managed\_memory\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structmanaged__memory__t}{managed\+\_\+memory\+\_\+t}} \mbox{\hyperlink{structmanaged__memory__t}{managed\+\_\+memory\+\_\+t}}}
-
-
-
-Managed real memory. 
-
-Paging works \textbackslash{}w 64-\/bits address
-
-20 bits for directory id (1MiB) 20 bits for table id (1MiB) 12 bits for offset (page\+\_\+size = 4KiB) 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{mem_8h_acd8ddf2c3025b8f7ddbd8331c02294b2}\label{mem_8h_acd8ddf2c3025b8f7ddbd8331c02294b2}} 
-\index{mem.h@{mem.h}!\_\_mem\_init@{\_\_mem\_init}}
-\index{\_\_mem\_init@{\_\_mem\_init}!mem.h@{mem.h}}
-\doxysubsubsection{\texorpdfstring{\_\_mem\_init()}{\_\_mem\_init()}}
-{\footnotesize\ttfamily void \+\_\+\+\_\+mem\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmemory__t}{memory\+\_\+t}} $\ast$}]{mem,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{page\+\_\+node\+\_\+allocator }\end{DoxyParamCaption})}
-
-
-
-Init the memory device. 
-
-\mbox{\Hypertarget{mem_8h_ab89c93c1021862dfb5f2cdc4ce195164}\label{mem_8h_ab89c93c1021862dfb5f2cdc4ce195164}} 
-\index{mem.h@{mem.h}!mem\_align@{mem\_align}}
-\index{mem\_align@{mem\_align}!mem.h@{mem.h}}
-\doxysubsubsection{\texorpdfstring{mem\_align()}{mem\_align()}}
-{\footnotesize\ttfamily size\+\_\+t mem\+\_\+align (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
-
-
-
-Returns a memory-\/aligned length. 
-
-\mbox{\Hypertarget{mem_8h_a22a29055f6fe47e7784419fab59871c9}\label{mem_8h_a22a29055f6fe47e7784419fab59871c9}} 
-\index{mem.h@{mem.h}!mem\_alloc\_managed@{mem\_alloc\_managed}}
-\index{mem\_alloc\_managed@{mem\_alloc\_managed}!mem.h@{mem.h}}
-\doxysubsubsection{\texorpdfstring{mem\_alloc\_managed()}{mem\_alloc\_managed()}}
-{\footnotesize\ttfamily void $\ast$ mem\+\_\+alloc\+\_\+managed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmemory__t}{memory\+\_\+t}} $\ast$}]{mem,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator,  }\item[{void $\ast$}]{vaddr,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
-
-
-
-Allocate real memory block and map it to a virtual memory block. 
-
-The allocated memory is fully managed by the memory device. \mbox{\Hypertarget{mem_8h_aa4bfa76a96ce5b69adfdde0aa014a565}\label{mem_8h_aa4bfa76a96ce5b69adfdde0aa014a565}} 
-\index{mem.h@{mem.h}!mem\_create@{mem\_create}}
-\index{mem\_create@{mem\_create}!mem.h@{mem.h}}
-\doxysubsubsection{\texorpdfstring{mem\_create()}{mem\_create()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structmemory__t}{memory\+\_\+t}} $\ast$ mem\+\_\+create (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
-
-
-
-Create a memory device. 
-
-\begin{DoxyReturn}{Returns}
-A new memory device 
-\end{DoxyReturn}
-\mbox{\Hypertarget{mem_8h_a150935e65e0c4eda46ba3470e833f5a4}\label{mem_8h_a150935e65e0c4eda46ba3470e833f5a4}} 
-\index{mem.h@{mem.h}!mem\_delete@{mem\_delete}}
-\index{mem\_delete@{mem\_delete}!mem.h@{mem.h}}
-\doxysubsubsection{\texorpdfstring{mem\_delete()}{mem\_delete()}}
-{\footnotesize\ttfamily void mem\+\_\+delete (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmemory__t}{memory\+\_\+t}} $\ast$}]{mem }\end{DoxyParamCaption})}
-
-
-
-Delete the memory device. 
-
-\mbox{\Hypertarget{mem_8h_a87e560be5c43d12570f4069f357cb87a}\label{mem_8h_a87e560be5c43d12570f4069f357cb87a}} 
-\index{mem.h@{mem.h}!mem\_map@{mem\_map}}
-\index{mem\_map@{mem\_map}!mem.h@{mem.h}}
-\doxysubsubsection{\texorpdfstring{mem\_map()}{mem\_map()}}
-{\footnotesize\ttfamily void $\ast$ mem\+\_\+map (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmemory__t}{memory\+\_\+t}} $\ast$}]{mem,  }\item[{void $\ast$}]{vaddr,  }\item[{void $\ast$}]{paddr,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
-
-
-
-Map virtual memory to a real memory block. 
-
-\mbox{\Hypertarget{mem_8h_aafe48e68b830b0e8a97f60963f778733}\label{mem_8h_aafe48e68b830b0e8a97f60963f778733}} 
-\index{mem.h@{mem.h}!mem\_tl@{mem\_tl}}
-\index{mem\_tl@{mem\_tl}!mem.h@{mem.h}}
-\doxysubsubsection{\texorpdfstring{mem\_tl()}{mem\_tl()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} mem\+\_\+tl (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmemory__t}{memory\+\_\+t}} $\ast$}]{mem,  }\item[{void $\ast$}]{vaddr,  }\item[{void $\ast$$\ast$}]{out,  }\item[{char $\ast$}]{exceptions }\end{DoxyParamCaption})}
-
-
-
-Memory translation from virtual to real addresses. 
+\mbox{\Hypertarget{mem_8h_a487bf9d644f6d4d1c9d82d23b12169ef}\label{mem_8h_a487bf9d644f6d4d1c9d82d23b12169ef}} 
+\index{mem.h@{mem.h}!mmix\_memtl@{mmix\_memtl}}
+\index{mmix\_memtl@{mmix\_memtl}!mem.h@{mem.h}}
+\doxysubsubsection{\texorpdfstring{mmix\_memtl()}{mmix\_memtl()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} mmix\+\_\+memtl (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys,  }\item[{void $\ast$}]{addr,  }\item[{void $\ast$$\ast$}]{out }\end{DoxyParamCaption})}
 

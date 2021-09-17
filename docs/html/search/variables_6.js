@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['g_1344',['G',['../structmmix__processor__t.html#af159c4ae34f93b717256c89be3db9732',1,'mmix_processor_t']]],
-  ['g_1345',['g',['../structmmix__processor__t.html#a4ad523aa4c4391f3d277954ce4ae8c0c',1,'mmix_processor_t']]],
-  ['global_5fallocator_1346',['GLOBAL_ALLOCATOR',['../allocator_8h.html#a437666e250372b5af9afd2f1ec2e6c44',1,'allocator.h']]]
+  ['f_1793',['f',['../structinstr__t.html#a69e84d399638baa864a129913958b9bc',1,'instr_t']]],
+  ['failed_1794',['failed',['../structtest__context__t.html#a01223d2e226b9ec5df354339fd502c92',1,'test_context_t']]],
+  ['flags_1795',['flags',['../structmmix__op__info.html#ae24856163c6f250731482e750b7ce6d7',1,'mmix_op_info']]],
+  ['frequency_1796',['frequency',['../structmmix__cfg__t.html#ad4a8ccfb726a56879597c9083c2916f2',1,'mmix_cfg_t::frequency()'],['../structmmix__processor__t.html#a7f6790284ee35c1c034b5a534e0c8bf1',1,'mmix_processor_t::frequency()']]]
 ];

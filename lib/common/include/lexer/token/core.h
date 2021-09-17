@@ -11,8 +11,11 @@ typedef struct token_t {
     unsigned int line, col;
 } token_t;
 
+const token_t token_init = {0, string_init, 0, 0};
+
+void token_create_const_chars(token_t* tok, int type, const char* value, unsigned int line, unsigned int col);
 void token_move(token_t* dest, token_t* src);
-void token_copy(token_t* dest, const token_t* src, allocator_t* allocator);
+bool token_copy(token_t* dest, const token_t* src, allocator_t* allocator);
 bool token_eq(const token_t* t1, const token_t* t2);
 void token_delete(token_t* token);
 
@@ -30,6 +33,15 @@ const token_desc_t token_desc = {
     )
 };
 
+void token_create_const_chars(token_t* tok, int type, const char* value, unsigned int line, unsigned int col)
+{
+    string_t tmp = string_init;
+    string_move_from_const_char(&tmp, value, 0);
+    tok->type = type;
+    tok->line = line;
+    tok->col = col;
+}
+
 void token_move(token_t* dest, token_t* src)
 {
     dest->type = src->type;
@@ -37,15 +49,20 @@ void token_move(token_t* dest, token_t* src)
     dest->col = src->col;
     dest->line = src->line;
 }
-void token_copy(token_t* dest, token_t* src, allocator_t* allocator)
+
+bool token_copy(token_t* dest, const token_t* src, allocator_t* allocator)
 {
+    if(!string_copy(&dest->value, &src->value, allocator))
+        return false;
+
     dest->type = src->type;
-    string_copy(&dest->value, &src->value, allocator);
     dest->col = src->col;
-    dest->line = src->line;   
+    dest->line = src->line;  
+
+    return true; 
 }
 
-bool token_eq(token_t* t1, token_t* t2)
+bool token_eq(const token_t* t1, const token_t* t2)
 {
     bool r;
 

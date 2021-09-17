@@ -1,5 +1,5 @@
-#ifndef __COMMON_STRING_IT_H__
-#define __COMMON_STRING_IT_H__
+#ifndef __COMMON_LEXER_TOKEN_IT_H__
+#define __COMMON_LEXER_TOKEN_IT_H__
 
 #include "../../container/iterator.h"
 #include "../../buffer.h"

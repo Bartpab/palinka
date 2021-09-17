@@ -63,6 +63,19 @@ $(function() {
 <div class="contents">
 <div class="textblock">Here is a list of all class members with links to the classes they belong to:</div>
 
+<h3><a id="index__5F"></a>- _ -</h3><ul>
+<li>__allocator
+: <a class="el" href="structlexer__state__t.html#a7b87f330a1fc8f0793bc99655c3d00e7">lexer_state_t</a>
+, <a class="el" href="structlexer__transition__t.html#a0274eb016fc60c5627959beb7b263bc2">lexer_transition_t</a>
+, <a class="el" href="structstring__t.html#a1be4a18938c2e38eb4b3b08d28b58e2f">string_t</a>
+, <a class="el" href="structvector__t.html#add5c23fac6b89975165356f69bf7ae13">vector_t</a>
+</li>
+<li>__elements_allocator
+: <a class="el" href="structvector__t.html#ae69372c58bdf8bf9e21d5742e4edc6f0">vector_t</a>
+</li>
+</ul>
+
+
 <h3><a id="index_a"></a>- a -</h3><ul>
 <li>a
 : <a class="el" href="structinstr__t.html#ad91d16c0668cca384060ec56e2ef677f">instr_t</a>
@@ -76,7 +89,6 @@ $(function() {
 , <a class="el" href="structmemory__t.html#a4ae72819c2ffbc9698fd95b47d058ce0">memory_t</a>
 , <a class="el" href="structpage__node__t.html#a750afeacceeb589a46d9a9f049df71ba">page_node_t</a>
 , <a class="el" href="structrbuffer__t.html#a5dcf7601c6e9ee93ad10a6a40d6c0295">rbuffer_t</a>
-, <a class="el" href="structstring__t.html#a7c470c71885ef0f08a4b892dea5b493b">string_t</a>
 , <a class="el" href="structsystem__t.html#a202598faa31de4d016702e83878ea64d">system_t</a>
 , <a class="el" href="structwbuffer__t.html#a8216d82ecc121b45cbebe88ca4aac5ce">wbuffer_t</a>
 </li>
@@ -90,9 +102,14 @@ $(function() {
 <li>base
 : <a class="el" href="structbuffer__t.html#a6ad000aeeaa8b0715fcd72914cb92574">buffer_t</a>
 , <a class="el" href="structstring__t.html#a9c3c72a90ff8167da39bd804255aef6c">string_t</a>
+, <a class="el" href="structvector__iterator__t.html#a37112ae1ad7bab34f1303dce9e95578d">vector_iterator_t</a>
+, <a class="el" href="structvector__t.html#ab3a6878879103bab6c80a032cd17b64b">vector_t</a>
 </li>
 <li>bin
 : <a class="el" href="structinstr__t.html#aeb64f784a6eab15292d2c8e42545ad34">instr_t</a>
+</li>
+<li>buffer
+: <a class="el" href="structtest__context__t.html#aa44c49b9b7c8a7c9560203b1b426c8fd">test_context_t</a>
 </li>
 </ul>
 
@@ -101,28 +118,66 @@ $(function() {
 <li>capacity
 : <a class="el" href="structbuffer__t.html#aa85149c4e681e05a83070ae4afb121f2">buffer_t</a>
 , <a class="el" href="structrbuffer__t.html#aa5b02cc8338d2262023b22e044aa0fac">rbuffer_t</a>
+, <a class="el" href="structvector__t.html#a81e18fd00e94087a8f04b657ffc34c04">vector_t</a>
 , <a class="el" href="structwbuffer__t.html#ad09f9b53c3b7980063f4dbdb58f6b74d">wbuffer_t</a>
+</li>
+<li>cbase
+: <a class="el" href="structstring__t.html#ae7d2726ab3907bf75bebe947ede16ab3">string_t</a>
+</li>
+<li>char_allocator
+: <a class="el" href="structstring__t.html#a2b978dd6c26a5647f87a7a3eb66cae98">string_t</a>
+</li>
+<li>chars
+: <a class="el" href="structlexer__transition__t.html#a3b86e514c554c2805defb5f6a480762a">lexer_transition_t</a>
 </li>
 <li>child
 : <a class="el" href="structpage__node__t.html#a56ffddb040802e75ea7a33f620a5ab04">page_node_t</a>
 </li>
 <li>col
-: <a class="el" href="structtoken__t.html#a6d9ae19c5845c675b3322d80b99de99a">token_t</a>
+: <a class="el" href="structtoken__t.html#a6389651501ef1cbaabf70c352635e044">token_t</a>
+</li>
+<li>copy
+: <a class="el" href="structlexer__state__desc__t.html#ad7b38a5d4014af7670ca70040e5b99f7">lexer_state_desc_t</a>
+, <a class="el" href="structlexer__transition__desc__t.html#a749694f755aef3bb23d631a0dfe514bc">lexer_transition_desc_t</a>
+, <a class="el" href="structstring__desc__t.html#a4b63fdd8176bb0715bcdd5cad66cc555">string_desc_t</a>
+, <a class="el" href="structtoken__desc__t.html#ab364273d4dbd84e316d83517418f8f1b">token_desc_t</a>
+, <a class="el" href="structtype__desc__t.html#a0746ec94865b6973ba714ab65f4888f1">type_desc_t</a>
 </li>
 <li>cpy
 : <a class="el" href="structallocator__t.html#a5c56af746dc4a396513f08c1c6aa4991">allocator_t</a>
+</li>
+<li>current
+: <a class="el" href="structvector__iterator__t.html#ae995389df12e530013c15a8ab853a58c">vector_iterator_t</a>
+</li>
+<li>cursor
+: <a class="el" href="structtest__context__t.html#a3c5207f09277f462dd1b911b05636053">test_context_t</a>
 </li>
 </ul>
 
 
 <h3><a id="index_d"></a>- d -</h3><ul>
+<li>DECL_ITERATOR()
+: <a class="el" href="structtypealias__vector__iterator__t.html#a1bbbc9848099bf5d95a252a6230c80b4">typealias_vector_iterator_t</a>
+</li>
 <li>del
 : <a class="el" href="structallocator__t.html#a5be414c21514cb312fa57122bd0fc838">allocator_t</a>
+, <a class="el" href="structlexer__state__desc__t.html#a621280d6c50ce2b15ecb406786c236ff">lexer_state_desc_t</a>
+, <a class="el" href="structlexer__transition__desc__t.html#a00c827cb6aa85ee9d3e303815d0f53ac">lexer_transition_desc_t</a>
+, <a class="el" href="structstring__desc__t.html#a6c5e874a0f2bd4098287cb074069782f">string_desc_t</a>
+, <a class="el" href="structtoken__desc__t.html#ad34fe660094704ffc4bbed1fdde8e438">token_desc_t</a>
+, <a class="el" href="structtype__desc__t.html#a833bcee8cdb4da982975eb3e7e8ef5fa">type_desc_t</a>
 </li>
 </ul>
 
 
 <h3><a id="index_e"></a>- e -</h3><ul>
+<li>eq
+: <a class="el" href="structlexer__state__desc__t.html#ab799c2589bdd078271af9c8a07ff4df9">lexer_state_desc_t</a>
+, <a class="el" href="structlexer__transition__desc__t.html#a9269e0ad15515537bf2715f98469f693">lexer_transition_desc_t</a>
+, <a class="el" href="structstring__desc__t.html#a2ef00bdc2a70d73749bfad78bb61403d">string_desc_t</a>
+, <a class="el" href="structtoken__desc__t.html#a7ab456b85a5c0abecc77c67ffc92065b">token_desc_t</a>
+, <a class="el" href="structtype__desc__t.html#a988dddef90946fb3dffbc0b4835d0477">type_desc_t</a>
+</li>
 <li>exc
 : <a class="el" href="structinstr__t.html#a17c63cf97939775b31ad03ae01dfb809">instr_t</a>
 </li>
@@ -136,6 +191,9 @@ $(function() {
 <li>f
 : <a class="el" href="structinstr__t.html#a69e84d399638baa864a129913958b9bc">instr_t</a>
 </li>
+<li>failed
+: <a class="el" href="structtest__context__t.html#a01223d2e226b9ec5df354339fd502c92">test_context_t</a>
+</li>
 <li>flags
 : <a class="el" href="structmmix__op__info.html#ae24856163c6f250731482e750b7ce6d7">mmix_op_info</a>
 </li>
@@ -147,11 +205,19 @@ $(function() {
 
 
 <h3><a id="index_g"></a>- g -</h3><ul>
+<li>g
+: <a class="el" href="structmmix__processor__t.html#a4ad523aa4c4391f3d277954ce4ae8c0c">mmix_processor_t</a>
+</li>
 <li>G
 : <a class="el" href="structmmix__processor__t.html#af159c4ae34f93b717256c89be3db9732">mmix_processor_t</a>
 </li>
-<li>g
-: <a class="el" href="structmmix__processor__t.html#a4ad523aa4c4391f3d277954ce4ae8c0c">mmix_processor_t</a>
+<li>get
+: <a class="el" href="structlexer__state__iterator__t.html#a428890b6321dd7d1c1acdd4dbe8d9ef2">lexer_state_iterator_t</a>
+, <a class="el" href="structlexer__transition__iterator__t.html#ade9f06cb2bd5fd554c9d98d03e2a3378">lexer_transition_iterator_t</a>
+, <a class="el" href="structstring__iterator__t.html#ada66ed68e35d2fee06b5c3b5673dd629">string_iterator_t</a>
+, <a class="el" href="structstring__vector__iterator__t.html#afd960ec6639a3ae00c567e67b50550a9">string_vector_iterator_t</a>
+, <a class="el" href="structtoken__iterator__t.html#aa332c47174cae40a35fd8896d514845d">token_iterator_t</a>
+, <a class="el" href="structvector__iterator__t.html#af3d02d714b1a43f35ed33de9900ff28a">vector_iterator_t</a>
 </li>
 </ul>
 
@@ -172,12 +238,19 @@ $(function() {
 <h3><a id="index_i"></a>- i -</h3><ul>
 <li>impl
 : <a class="el" href="structstream__t.html#a0de49892113ffc01fb0037599a75cce1">stream_t</a>
+, <a class="el" href="structstring__vector__iterator__t.html#a1c26c04cba987b8f5bb9a0e2006fb754">string_vector_iterator_t</a>
+, <a class="el" href="structstring__vector__t.html#a4b0802e56d6f6d1a388963aac0927836">string_vector_t</a>
+, <a class="el" href="structtypealias__vector__iterator__t.html#a80e146746d1f88f0f1ea9468b849badd">typealias_vector_iterator_t</a>
+, <a class="el" href="structtypealias__vector__t.html#a218db03e3baa2692f64fecb4ecc9ae7b">typealias_vector_t</a>
 </li>
 <li>info
 : <a class="el" href="structinstr__t.html#a164a12da208b12c9eb382f5990615c7f">instr_t</a>
 </li>
 <li>instr_ptr
 : <a class="el" href="structmmix__processor__t.html#a73a3ca0bb8f5a669efb0047778fe65f5">mmix_processor_t</a>
+</li>
+<li>is_const
+: <a class="el" href="structstring__t.html#a6f81f14055f744384f4dbb72c5d065f5">string_t</a>
 </li>
 <li>ivt
 : <a class="el" href="structmmix__processor__t.html#a6d6d423093e8de16228ecd7aac8c7ece">mmix_processor_t</a>
@@ -188,12 +261,10 @@ $(function() {
 <h3><a id="index_l"></a>- l -</h3><ul>
 <li>l
 : <a class="el" href="structhexadeca.html#a4276aa12cd58880ad8bbb9a9cd941e97">hexadeca</a>
+, <a class="el" href="structmmix__processor__t.html#ad70cc3b30201c4d60365f0212d114039">mmix_processor_t</a>
 </li>
 <li>L
 : <a class="el" href="structmmix__processor__t.html#ae62867013e60531e2f2867b95c3c2cce">mmix_processor_t</a>
-</li>
-<li>l
-: <a class="el" href="structmmix__processor__t.html#ad70cc3b30201c4d60365f0212d114039">mmix_processor_t</a>
 </li>
 <li>len
 : <a class="el" href="structmanaged__memory__t.html#a5a3fdaaa5f9ef7bdaee529c68e42d6a7">managed_memory_t</a>
@@ -202,8 +273,11 @@ $(function() {
 : <a class="el" href="structbuffer__t.html#aecc37241c87417c448012dc332bd52b1">buffer_t</a>
 , <a class="el" href="structstring__t.html#a881bbf733aff9e3f8f015a5d80d8559a">string_t</a>
 </li>
+<li>limit
+: <a class="el" href="structvector__iterator__t.html#ac9d9ae2dddf268b36fc8d42ef61b578a">vector_iterator_t</a>
+</li>
 <li>line
-: <a class="el" href="structtoken__t.html#a11f31d790df78898dd177c92dc1bfd81">token_t</a>
+: <a class="el" href="structtoken__t.html#ae3aeef6bb0d5b37b7dae42f89b5cbaff">token_t</a>
 </li>
 <li>lmask
 : <a class="el" href="structmmix__cfg__t.html#afcaa643012b52cc0362d09559b2974ff">mmix_cfg_t</a>
@@ -235,6 +309,13 @@ $(function() {
 <li>mems
 : <a class="el" href="structmmix__op__info.html#a9b498aec0adcff680a46566b40beaf9e">mmix_op_info</a>
 </li>
+<li>move
+: <a class="el" href="structlexer__state__desc__t.html#a3bb31f5b53bc365f4a0b69414b5f9dfa">lexer_state_desc_t</a>
+, <a class="el" href="structlexer__transition__desc__t.html#aee09402c9d3c8dcddd99d163809188fa">lexer_transition_desc_t</a>
+, <a class="el" href="structstring__desc__t.html#a8bbf18f06a543649863ae2888ce66140">string_desc_t</a>
+, <a class="el" href="structtoken__desc__t.html#a70654fb3e94939bdf3505dccbccc4baf">token_desc_t</a>
+, <a class="el" href="structtype__desc__t.html#a9bc540e1b60be516576871aaead14763">type_desc_t</a>
+</li>
 </ul>
 
 
@@ -243,7 +324,14 @@ $(function() {
 : <a class="el" href="structmmix__op__info.html#a38102a09ae7219d07fd1d62133595097">mmix_op_info</a>
 </li>
 <li>next
-: <a class="el" href="structmanaged__memory__t.html#ade90bff33d06ac86a9f65367ceb21f48">managed_memory_t</a>
+: <a class="el" href="structlexer__state__iterator__t.html#a016875b79967a3fa09dcb54d6c434392">lexer_state_iterator_t</a>
+, <a class="el" href="structlexer__transition__iterator__t.html#afadc13f5d587a597a52b5bb63dae2416">lexer_transition_iterator_t</a>
+, <a class="el" href="structlexer__transition__t.html#a1df123fe85195f69401ad0e65d18b262">lexer_transition_t</a>
+, <a class="el" href="structmanaged__memory__t.html#ade90bff33d06ac86a9f65367ceb21f48">managed_memory_t</a>
+, <a class="el" href="structstring__iterator__t.html#ab3de9e1390c42288503268cf2c9ad24c">string_iterator_t</a>
+, <a class="el" href="structstring__vector__iterator__t.html#a8ffc5fce15968c59d45ca99242b24e69">string_vector_iterator_t</a>
+, <a class="el" href="structtoken__iterator__t.html#ab8f734ea3fc20d67f4aa13d8f062b7ba">token_iterator_t</a>
+, <a class="el" href="structvector__iterator__t.html#a25aaaaa83a33cd7f2726f24423490e62">vector_iterator_t</a>
 </li>
 </ul>
 
@@ -305,12 +393,19 @@ $(function() {
 : <a class="el" href="structmmix__processor__t.html#af5c33c7deceb3121e72c3220ad1be06c">mmix_processor_t</a>
 </li>
 <li>size
-: <a class="el" href="structrbuffer__t.html#a98d6d2c16c82be36defd0097add6d7f6">rbuffer_t</a>
+: <a class="el" href="structlexer__state__desc__t.html#a6b4d5d543e4f81c5a9806d5da0ed80d0">lexer_state_desc_t</a>
+, <a class="el" href="structlexer__transition__desc__t.html#a64e893d1742ea0ea1c0f84389a169845">lexer_transition_desc_t</a>
+, <a class="el" href="structrbuffer__t.html#a98d6d2c16c82be36defd0097add6d7f6">rbuffer_t</a>
+, <a class="el" href="structstring__desc__t.html#a84e59846c694dfb8bec8e615bfc2a732">string_desc_t</a>
+, <a class="el" href="structtoken__desc__t.html#afb1023e88f41859b4e98d12adac29205">token_desc_t</a>
+, <a class="el" href="structtype__desc__t.html#a49a64e431a107b8d26a0a04e05fc3610">type_desc_t</a>
+, <a class="el" href="structvector__t.html#a7ec97862387465722f8f08f8f8f69371">vector_t</a>
 , <a class="el" href="structwbuffer__t.html#a7387b91c022ac492a31d729ec403ea86">wbuffer_t</a>
 </li>
 <li>state
 : <a class="el" href="structmmix__processor__t.html#a7ccd61778a4ff77656cb87e77a6cb3e7">mmix_processor_t</a>
 , <a class="el" href="structsystem__t.html#a6702f1d6574411b44f41b145354b55b6">system_t</a>
+, <a class="el" href="structtest__context__t.html#a1d4fa2a9b2d8bca87a83d03dd2ba165e">test_context_t</a>
 </li>
 <li>step
 : <a class="el" href="structsystem__t.html#a3d3ccae9758bc73c289d085b62af3879">system_t</a>
@@ -319,6 +414,9 @@ $(function() {
 : <a class="el" href="structrbuffer__t.html#a0cee445da46fdef3f7233f30a864c5ad">rbuffer_t</a>
 , <a class="el" href="structwbuffer__t.html#a571fe0b4a0711f6391160d44fc42e469">wbuffer_t</a>
 </li>
+<li>success
+: <a class="el" href="structtest__context__t.html#ae213d6a01646bcd6a9f100d427fb6d8d">test_context_t</a>
+</li>
 </ul>
 
 
@@ -326,12 +424,20 @@ $(function() {
 <li>third_operand
 : <a class="el" href="structmmix__op__info.html#afa38fe0676f0d4d5ce47d7c37c4061d6">mmix_op_info</a>
 </li>
+<li>total
+: <a class="el" href="structtest__context__t.html#a05cb666f3b5a0f9991d4961f8b2ff561">test_context_t</a>
+</li>
 <li>trace_format
 : <a class="el" href="structmmix__op__info.html#aea644d32b342aac6eb512f2901436b49">mmix_op_info</a>
 </li>
 <li>type
 : <a class="el" href="structallocator__t.html#aac915a02afc5018f02eed19a4cc21e49">allocator_t</a>
+, <a class="el" href="structlexer__state__t.html#a5b5a16d380f40815b5d77697b486c6d3">lexer_state_t</a>
 , <a class="el" href="structtoken__t.html#a8d5b97e2ce25e1951d36429f7f4039f1">token_t</a>
+</li>
+<li>type_desc
+: <a class="el" href="structvector__iterator__t.html#a2a6bd206cbe729a3fadd64410f742cfd">vector_iterator_t</a>
+, <a class="el" href="structvector__t.html#a7e581e362c5fd00f2aa6f5e150dc4ce4">vector_t</a>
 </li>
 </ul>
 
@@ -341,7 +447,10 @@ $(function() {
 : <a class="el" href="structmanaged__memory__t.html#ae92ce0a7003200676704526dbc7cccf7">managed_memory_t</a>
 </li>
 <li>value
-: <a class="el" href="structtoken__t.html#ad40696584e7b0a60798479e3e883c17b">token_t</a>
+: <a class="el" href="structtoken__t.html#a8c0d993644a1d6a17a2c13713c85438d">token_t</a>
+</li>
+<li>vec
+: <a class="el" href="structlexer__state__t.html#a8f51fd192a07062891905a2ce5120fdb">lexer_state_t</a>
 </li>
 </ul>
 

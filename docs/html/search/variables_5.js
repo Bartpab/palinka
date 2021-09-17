@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['f_1341',['f',['../structinstr__t.html#a69e84d399638baa864a129913958b9bc',1,'instr_t']]],
-  ['flags_1342',['flags',['../structmmix__op__info.html#ae24856163c6f250731482e750b7ce6d7',1,'mmix_op_info']]],
-  ['frequency_1343',['frequency',['../structmmix__cfg__t.html#ad4a8ccfb726a56879597c9083c2916f2',1,'mmix_cfg_t::frequency()'],['../structmmix__processor__t.html#a7f6790284ee35c1c034b5a534e0c8bf1',1,'mmix_processor_t::frequency()']]]
+  ['eq_1790',['eq',['../structlexer__state__desc__t.html#ab799c2589bdd078271af9c8a07ff4df9',1,'lexer_state_desc_t::eq()'],['../structtoken__desc__t.html#a7ab456b85a5c0abecc77c67ffc92065b',1,'token_desc_t::eq()'],['../structlexer__transition__desc__t.html#a9269e0ad15515537bf2715f98469f693',1,'lexer_transition_desc_t::eq()'],['../structstring__desc__t.html#a2ef00bdc2a70d73749bfad78bb61403d',1,'string_desc_t::eq()'],['../structtype__desc__t.html#a988dddef90946fb3dffbc0b4835d0477',1,'type_desc_t::eq()']]],
+  ['exc_1791',['exc',['../structinstr__t.html#a17c63cf97939775b31ad03ae01dfb809',1,'instr_t']]],
+  ['exhausted_1792',['exhausted',['../structrbuffer__t.html#add95b645107877e75f8d7e406bc4be2f',1,'rbuffer_t']]]
 ];

@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['b_1330',['b',['../structinstr__t.html#a7390d5a4ffb4b374327681b67d707a43',1,'instr_t']]],
-  ['base_1331',['base',['../structbuffer__t.html#a6ad000aeeaa8b0715fcd72914cb92574',1,'buffer_t::base()'],['../structstring__t.html#a9c3c72a90ff8167da39bd804255aef6c',1,'string_t::base()']]],
-  ['bin_1332',['bin',['../structinstr__t.html#aeb64f784a6eab15292d2c8e42545ad34',1,'instr_t']]],
-  ['buffer_5finit_1333',['buffer_init',['../buffer_8h.html#a128a34dedfca748daed346645231ef8f',1,'buffer.h']]]
+  ['a_1771',['a',['../structinstr__t.html#ad91d16c0668cca384060ec56e2ef677f',1,'instr_t']]],
+  ['alloc_5fsim_5ftime_1772',['alloc_sim_time',['../structsystem__t.html#a5e34b9c8994e857efecc06d657231906',1,'system_t']]],
+  ['allocator_1773',['allocator',['../structpage__node__t.html#a750afeacceeb589a46d9a9f049df71ba',1,'page_node_t::allocator()'],['../structmanaged__memory__t.html#ab1e1718e3f8c3e2b13c38d8c3273bbdf',1,'managed_memory_t::allocator()'],['../structmemory__t.html#a4ae72819c2ffbc9698fd95b47d058ce0',1,'memory_t::allocator()'],['../structsystem__t.html#a202598faa31de4d016702e83878ea64d',1,'system_t::allocator()'],['../structbuffer__t.html#a556e94fd05a8032cd85b1850d2302908',1,'buffer_t::allocator()'],['../structwbuffer__t.html#a8216d82ecc121b45cbebe88ca4aac5ce',1,'wbuffer_t::allocator()'],['../structrbuffer__t.html#a5dcf7601c6e9ee93ad10a6a40d6c0295',1,'rbuffer_t::allocator()']]]
 ];

@@ -1,10 +1,6 @@
 var searchData=
 [
-  ['o_1372',['O',['../structmmix__processor__t.html#a80285a05a16d91dffa1227a735ee27a6',1,'mmix_processor_t']]],
-  ['octa_5fint_5fmax_1373',['octa_int_max',['../types_8h.html#a03ad968ae2c1fc9788e78d7fc14add1e',1,'types.h']]],
-  ['octa_5fsign_5fbit_1374',['octa_sign_bit',['../types_8h.html#aa47f444efb23babfd1db723cdb177469',1,'types.h']]],
-  ['octa_5fuint_5fmax_1375',['octa_uint_max',['../types_8h.html#a1edee2b692d5cc78f93e2d006392dea5',1,'types.h']]],
-  ['octa_5fzero_1376',['octa_zero',['../types_8h.html#ad5054d06a1c676171a1a098fc3cb8cde',1,'types.h']]],
-  ['oops_1377',['oops',['../structmmix__op__info.html#a280e04143da851f3ce30b1fd210defa4',1,'mmix_op_info']]],
-  ['op_1378',['op',['../structinstr__t.html#a5dd7773149faa7b8f888a93635c88b49',1,'instr_t']]]
+  ['name_1829',['name',['../structmmix__op__info.html#a38102a09ae7219d07fd1d62133595097',1,'mmix_op_info']]],
+  ['next_1830',['next',['../structmanaged__memory__t.html#ade90bff33d06ac86a9f65367ceb21f48',1,'managed_memory_t::next()'],['../structvector__iterator__t.html#a25aaaaa83a33cd7f2726f24423490e62',1,'vector_iterator_t::next()'],['../structlexer__state__iterator__t.html#a016875b79967a3fa09dcb54d6c434392',1,'lexer_state_iterator_t::next()'],['../structtoken__iterator__t.html#ab8f734ea3fc20d67f4aa13d8f062b7ba',1,'token_iterator_t::next()'],['../structlexer__transition__t.html#a1df123fe85195f69401ad0e65d18b262',1,'lexer_transition_t::next()'],['../structlexer__transition__iterator__t.html#afadc13f5d587a597a52b5bb63dae2416',1,'lexer_transition_iterator_t::next()'],['../structstring__iterator__t.html#ab3de9e1390c42288503268cf2c9ad24c',1,'string_iterator_t::next()'],['../structstring__vector__iterator__t.html#a8ffc5fce15968c59d45ca99242b24e69',1,'string_vector_iterator_t::next()']]],
+  ['no_5fallocator_1831',['NO_ALLOCATOR',['../allocator_8h.html#a20b30aa4d3a2edd214a2826521596e7d',1,'allocator.h']]]
 ];

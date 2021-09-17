@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Palinka - Core: C:/Users/GP69E5EN/Documents/dev/palinka/src/allocator.h Source File</title>
+<title>Palinka - Core: C:/Users/GP69E5EN/Documents/dev/palinka/lib/common/include/allocator.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_97aefd0d527b934f1d99a682da8fe6a9.html">lib</a></li><li class="navelem"><a class="el" href="dir_1ea122f7b94457c2332c194612c8b8fe.html">common</a></li><li class="navelem"><a class="el" href="dir_cf20e4ed489bead92c2e88e243778b5a.html">include</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -80,7 +80,7 @@ $(function() {
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;  <a class="code" href="allocator_8h.html#a31b0dc128e62f63103909566ac5567e0a88ec7d5086d2469ba843c7fcceade8a6">DEFAULT</a></div>
 <div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="allocator_8h.html#a31b0dc128e62f63103909566ac5567e0a88ec7d5086d2469ba843c7fcceade8a6">   10</a></span>&#160;} <a class="code" href="allocator_8h.html#a31b0dc128e62f63103909566ac5567e0">allocator_type_t</a>;</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="structallocator__t.html">   12</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structallocator__t.html">allocator_t</a>{</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="structallocator__t.html">   12</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structallocator__t.html">allocator_t</a> {</div>
 <div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="structallocator__t.html#a5c56af746dc4a396513f08c1c6aa4991">   13</a></span>&#160;  <span class="keywordtype">char</span> <a class="code" href="structallocator__t.html#aac915a02afc5018f02eed19a4cc21e49">type</a>;</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  <span class="comment">// vTable</span></div>
@@ -120,7 +120,7 @@ $(function() {
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
 <div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="allocator_8h.html#a7c0843ff6254235f9f19deef0eabcccb">   50</a></span>&#160;<a class="code" href="structallocator__t.html">allocator_t</a> <a class="code" href="allocator_8h.html#a7c0843ff6254235f9f19deef0eabcccb">allocator_copy</a>(<a class="code" href="structallocator__t.html">allocator_t</a>* allocator)</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;{</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordflow">if</span>(allocator-&gt;<a class="code" href="structallocator__t.html#a5c56af746dc4a396513f08c1c6aa4991">cpy</a>)</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordflow">if</span>(allocator-&gt;<a class="code" href="structallocator__t.html#a5c56af746dc4a396513f08c1c6aa4991">cpy</a> != NULL)</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">return</span> allocator-&gt;<a class="code" href="structallocator__t.html#a5c56af746dc4a396513f08c1c6aa4991">cpy</a>(allocator);</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="allocator_8h.html#a20b30aa4d3a2edd214a2826521596e7d">NO_ALLOCATOR</a>;</div>
@@ -129,8 +129,8 @@ $(function() {
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
 <div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="allocator_8h.html#aeb73923ccc640e79cd303e2d4af7254e">   59</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="allocator_8h.html#aeb73923ccc640e79cd303e2d4af7254e">allocator_delete</a>(<a class="code" href="structallocator__t.html">allocator_t</a>* allocator)</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;{</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keywordflow">if</span>(allocator-&gt;<a class="code" href="structallocator__t.html#a5be414c21514cb312fa57122bd0fc838">del</a>) </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    allocator-&gt;<a class="code" href="structallocator__t.html#a5be414c21514cb312fa57122bd0fc838">del</a>(allocator);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keywordflow">if</span>(allocator == NULL) <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="keywordflow">if</span>(allocator-&gt;<a class="code" href="structallocator__t.html#a5be414c21514cb312fa57122bd0fc838">del</a> != NULL) allocator-&gt;<a class="code" href="structallocator__t.html#a5be414c21514cb312fa57122bd0fc838">del</a>(allocator);</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;}</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>

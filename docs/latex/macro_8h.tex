@@ -1,5 +1,5 @@
-\hypertarget{macro_8h}{}\doxysection{C\+:/\+Users/\+GP69\+E5\+EN/\+Documents/dev/palinka/src/macro.h File Reference}
-\label{macro_8h}\index{C:/Users/GP69E5EN/Documents/dev/palinka/src/macro.h@{C:/Users/GP69E5EN/Documents/dev/palinka/src/macro.h}}
+\hypertarget{macro_8h}{}\doxysection{C\+:/\+Users/\+GP69\+E5\+EN/\+Documents/dev/palinka/lib/common/include/macro.h File Reference}
+\label{macro_8h}\index{C:/Users/GP69E5EN/Documents/dev/palinka/lib/common/include/macro.h@{C:/Users/GP69E5EN/Documents/dev/palinka/lib/common/include/macro.h}}
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
@@ -52,6 +52,12 @@
 \#define \mbox{\hyperlink{macro_8h_aacc3ee1a7f283f8ef65cea31f4436a95}{MAX}}(x,  y)~(((x) $>$ (y)) ? (x) \+: (y))
 \item 
 \#define \mbox{\hyperlink{macro_8h_a74e75242132eaabbc1c512488a135926}{MIN}}(x,  y)~(((x) $<$ (y)) ? (x) \+: (y))
+\item 
+\#define \mbox{\hyperlink{macro_8h_a03c91a40ac149893ee643dbd90c20204}{HAS\+\_\+\+FLAG}}(MASK,  VAL)~VAL \& MASK
+\item 
+\#define \mbox{\hyperlink{macro_8h_a6ba5eba974b20769e875eae7671dc63d}{FLAG\+\_\+\+ON}}(MASK,  VAL)~VAL = VAL $\vert$ MASK
+\item 
+\#define \mbox{\hyperlink{macro_8h_a4509fbd6b575d0dd5e729419640abff8}{FLAG\+\_\+\+OFF}}(MASK,  VAL)~VAL = VAL \& $\sim$MASK
 \end{DoxyCompactItemize}
 
 
@@ -73,6 +79,24 @@
 \index{\_\_VA\_VALS\_\_@{\_\_VA\_VALS\_\_}!macro.h@{macro.h}}
 \doxysubsubsection{\texorpdfstring{\_\_VA\_VALS\_\_}{\_\_VA\_VALS\_\_}}
 {\footnotesize\ttfamily \#define \+\_\+\+\_\+\+VA\+\_\+\+VALS\+\_\+\+\_\+(\begin{DoxyParamCaption}\item[{}]{N1,  }\item[{}]{N2,  }\item[{}]{N3,  }\item[{}]{N4,  }\item[{}]{N5,  }\item[{}]{N6,  }\item[{}]{N7,  }\item[{}]{N8,  }\item[{}]{N9,  }\item[{}]{N10,  }\item[{}]{N11,  }\item[{}]{N12,  }\item[{}]{N13,  }\item[{}]{N14,  }\item[{}]{N15,  }\item[{}]{N16,  }\item[{}]{N17,  }\item[{}]{N18,  }\item[{}]{N,  }\item[{}]{... }\end{DoxyParamCaption})~N}
+
+\mbox{\Hypertarget{macro_8h_a4509fbd6b575d0dd5e729419640abff8}\label{macro_8h_a4509fbd6b575d0dd5e729419640abff8}} 
+\index{macro.h@{macro.h}!FLAG\_OFF@{FLAG\_OFF}}
+\index{FLAG\_OFF@{FLAG\_OFF}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{FLAG\_OFF}{FLAG\_OFF}}
+{\footnotesize\ttfamily \#define FLAG\+\_\+\+OFF(\begin{DoxyParamCaption}\item[{}]{MASK,  }\item[{}]{VAL }\end{DoxyParamCaption})~VAL = VAL \& $\sim$MASK}
+
+\mbox{\Hypertarget{macro_8h_a6ba5eba974b20769e875eae7671dc63d}\label{macro_8h_a6ba5eba974b20769e875eae7671dc63d}} 
+\index{macro.h@{macro.h}!FLAG\_ON@{FLAG\_ON}}
+\index{FLAG\_ON@{FLAG\_ON}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{FLAG\_ON}{FLAG\_ON}}
+{\footnotesize\ttfamily \#define FLAG\+\_\+\+ON(\begin{DoxyParamCaption}\item[{}]{MASK,  }\item[{}]{VAL }\end{DoxyParamCaption})~VAL = VAL $\vert$ MASK}
+
+\mbox{\Hypertarget{macro_8h_a03c91a40ac149893ee643dbd90c20204}\label{macro_8h_a03c91a40ac149893ee643dbd90c20204}} 
+\index{macro.h@{macro.h}!HAS\_FLAG@{HAS\_FLAG}}
+\index{HAS\_FLAG@{HAS\_FLAG}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{HAS\_FLAG}{HAS\_FLAG}}
+{\footnotesize\ttfamily \#define HAS\+\_\+\+FLAG(\begin{DoxyParamCaption}\item[{}]{MASK,  }\item[{}]{VAL }\end{DoxyParamCaption})~VAL \& MASK}
 
 \mbox{\Hypertarget{macro_8h_a1bac015d1182a089df50750f8779c7be}\label{macro_8h_a1bac015d1182a089df50750f8779c7be}} 
 \index{macro.h@{macro.h}!MAP@{MAP}}

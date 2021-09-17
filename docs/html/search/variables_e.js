@@ -1,7 +1,9 @@
 var searchData=
 [
-  ['raw_1385',['raw',['../structwbuffer__t.html#a6093338aedc01e1a767dbb8125f8f0ae',1,'wbuffer_t::raw()'],['../structrbuffer__t.html#a3f10d7b0462e1b42d97cbdf959ced676',1,'rbuffer_t::raw()']]],
-  ['rbuffer_5finit_1386',['rbuffer_init',['../stream_2buffer_8h.html#af33a363e486c54e60308edd749790ce1',1,'buffer.h']]],
-  ['rop_1387',['rop',['../structmmix__processor__t.html#a4924a51917ba4a43852409b30c00ea7a',1,'mmix_processor_t']]],
-  ['rounding_5fmode_1388',['rounding_mode',['../structmmix__processor__t.html#aebcac71b88ade26c2d94a06c5e0963d7',1,'mmix_processor_t']]]
+  ['paddr_1839',['paddr',['../structpage__t.html#adeec86a7488dbbb5bd30731558242635',1,'page_t']]],
+  ['page_1840',['page',['../structpage__node__t.html#a6fe3129483e2da9788a6bb2ef8433c69',1,'page_node_t']]],
+  ['page_5fnode_5fallocator_1841',['page_node_allocator',['../structmemory__t.html#a12d2993df4367eeb1d8eafef356636cd',1,'memory_t']]],
+  ['pages_1842',['pages',['../structmemory__t.html#a5fc2a02ecc29e2ab4804de3f65aee890',1,'memory_t']]],
+  ['pid_1843',['pid',['../structpage__node__t.html#ad5d6ab406140b7dfe43645f1a9826253',1,'page_node_t']]],
+  ['present_1844',['present',['../structpage__t.html#a5544db31f2a4ba80a9506118387f98d4',1,'page_t']]]
 ];

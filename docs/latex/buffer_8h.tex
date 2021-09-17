@@ -1,5 +1,5 @@
-\hypertarget{buffer_8h}{}\doxysection{C\+:/\+Users/\+GP69\+E5\+EN/\+Documents/dev/palinka/src/buffer.h File Reference}
-\label{buffer_8h}\index{C:/Users/GP69E5EN/Documents/dev/palinka/src/buffer.h@{C:/Users/GP69E5EN/Documents/dev/palinka/src/buffer.h}}
+\hypertarget{buffer_8h}{}\doxysection{C\+:/\+Users/\+GP69\+E5\+EN/\+Documents/dev/palinka/lib/common/include/buffer.h File Reference}
+\label{buffer_8h}\index{C:/Users/GP69E5EN/Documents/dev/palinka/lib/common/include/buffer.h@{C:/Users/GP69E5EN/Documents/dev/palinka/lib/common/include/buffer.h}}
 {\ttfamily \#include $<$stddef.\+h$>$}\newline
 {\ttfamily \#include $<$string.\+h$>$}\newline
 {\ttfamily \#include \char`\"{}allocator.\+h\char`\"{}}\newline
@@ -15,11 +15,15 @@ void \mbox{\hyperlink{buffer_8h_a42f7c6fa3bb74095372fe13053126516}{buffer\+\_\+r
 \item 
 \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{buffer_8h_a6baa8e0e5939a20a5e68655a3cfcfee0}{buffer\+\_\+pop\+\_\+char}} (\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$buffer)
 \item 
-\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{buffer_8h_a196a207613b1be452c4753f56da0e52a}{buffer\+\_\+write}} (\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$buffer, void $\ast$dest, size\+\_\+t len)
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{buffer_8h_a31d03b61b2e121d4f4243e72ed623f22}{buffer\+\_\+copy}} (\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$dest, const \mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$src, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
 \item 
-\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{buffer_8h_a1bf778e4c3d1483c61a046ffed4aa77c}{buffer\+\_\+write\+\_\+char}} (\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$buffer, char c)
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{buffer_8h_affb0f32c3627b40c74c23864fcc3bc0a}{buffer\+\_\+write}} (\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$buffer, const void $\ast$dest, size\+\_\+t len)
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{buffer_8h_a22a58727d76c7bbf51f08c4127e935b3}{buffer\+\_\+write\+\_\+char}} (\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$buffer, const char c)
 \item 
 void \mbox{\hyperlink{buffer_8h_ac68da3bf9a2706e43e6c5ac71225fb6a}{buffer\+\_\+delete}} (\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$buffer)
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{buffer_8h_aef5b7d62264018b50058af08c5b9bbc5}{buffer\+\_\+create}} (\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$buffer, size\+\_\+t capacity, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
 \end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
@@ -29,6 +33,18 @@ const \mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} \mbox{\hyperlink{buffer_
 
 
 \doxysubsection{Function Documentation}
+\mbox{\Hypertarget{buffer_8h_a31d03b61b2e121d4f4243e72ed623f22}\label{buffer_8h_a31d03b61b2e121d4f4243e72ed623f22}} 
+\index{buffer.h@{buffer.h}!buffer\_copy@{buffer\_copy}}
+\index{buffer\_copy@{buffer\_copy}!buffer.h@{buffer.h}}
+\doxysubsubsection{\texorpdfstring{buffer\_copy()}{buffer\_copy()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} buffer\+\_\+copy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$}]{dest,  }\item[{const \mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$}]{src,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{buffer_8h_aef5b7d62264018b50058af08c5b9bbc5}\label{buffer_8h_aef5b7d62264018b50058af08c5b9bbc5}} 
+\index{buffer.h@{buffer.h}!buffer\_create@{buffer\_create}}
+\index{buffer\_create@{buffer\_create}!buffer.h@{buffer.h}}
+\doxysubsubsection{\texorpdfstring{buffer\_create()}{buffer\_create()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} buffer\+\_\+create (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$}]{buffer,  }\item[{size\+\_\+t}]{capacity,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{buffer_8h_ac68da3bf9a2706e43e6c5ac71225fb6a}\label{buffer_8h_ac68da3bf9a2706e43e6c5ac71225fb6a}} 
 \index{buffer.h@{buffer.h}!buffer\_delete@{buffer\_delete}}
 \index{buffer\_delete@{buffer\_delete}!buffer.h@{buffer.h}}
@@ -47,17 +63,17 @@ const \mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} \mbox{\hyperlink{buffer_
 \doxysubsubsection{\texorpdfstring{buffer\_reset()}{buffer\_reset()}}
 {\footnotesize\ttfamily void buffer\+\_\+reset (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$}]{buffer }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{buffer_8h_a196a207613b1be452c4753f56da0e52a}\label{buffer_8h_a196a207613b1be452c4753f56da0e52a}} 
+\mbox{\Hypertarget{buffer_8h_affb0f32c3627b40c74c23864fcc3bc0a}\label{buffer_8h_affb0f32c3627b40c74c23864fcc3bc0a}} 
 \index{buffer.h@{buffer.h}!buffer\_write@{buffer\_write}}
 \index{buffer\_write@{buffer\_write}!buffer.h@{buffer.h}}
 \doxysubsubsection{\texorpdfstring{buffer\_write()}{buffer\_write()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} buffer\+\_\+write (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$}]{buffer,  }\item[{void $\ast$}]{dest,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} buffer\+\_\+write (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$}]{buffer,  }\item[{const void $\ast$}]{dest,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{buffer_8h_a1bf778e4c3d1483c61a046ffed4aa77c}\label{buffer_8h_a1bf778e4c3d1483c61a046ffed4aa77c}} 
+\mbox{\Hypertarget{buffer_8h_a22a58727d76c7bbf51f08c4127e935b3}\label{buffer_8h_a22a58727d76c7bbf51f08c4127e935b3}} 
 \index{buffer.h@{buffer.h}!buffer\_write\_char@{buffer\_write\_char}}
 \index{buffer\_write\_char@{buffer\_write\_char}!buffer.h@{buffer.h}}
 \doxysubsubsection{\texorpdfstring{buffer\_write\_char()}{buffer\_write\_char()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} buffer\+\_\+write\+\_\+char (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$}]{buffer,  }\item[{char}]{c }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} buffer\+\_\+write\+\_\+char (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$}]{buffer,  }\item[{const char}]{c }\end{DoxyParamCaption})}
 
 
 

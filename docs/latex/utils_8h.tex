@@ -1,32 +1,262 @@
-\hypertarget{utils_8h}{}\doxysection{C\+:/\+Users/\+GP69\+E5\+EN/\+Documents/dev/palinka/src/utils.h File Reference}
-\label{utils_8h}\index{C:/Users/GP69E5EN/Documents/dev/palinka/src/utils.h@{C:/Users/GP69E5EN/Documents/dev/palinka/src/utils.h}}
+\hypertarget{utils_8h}{}\doxysection{C\+:/\+Users/\+GP69\+E5\+EN/\+Documents/dev/palinka/lib/common/include/testing/utils.h File Reference}
+\label{utils_8h}\index{C:/Users/GP69E5EN/Documents/dev/palinka/lib/common/include/testing/utils.h@{C:/Users/GP69E5EN/Documents/dev/palinka/lib/common/include/testing/utils.h}}
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}../macro.\+h\char`\"{}}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structtest__context__t}{test\+\_\+context\+\_\+t}}
+\end{DoxyCompactItemize}
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{utils_8h_a03c91a40ac149893ee643dbd90c20204}{HAS\+\_\+\+FLAG}}(MASK,  VAL)~VAL \& MASK
+\#define \mbox{\hyperlink{utils_8h_a8bd595c3ec272d83217251a1fbacc2fc}{passert}}(x)~for ( ; !(x) ; assert(x) )
 \item 
-\#define \mbox{\hyperlink{utils_8h_a6ba5eba974b20769e875eae7671dc63d}{FLAG\+\_\+\+ON}}(MASK,  VAL)~VAL = VAL $\vert$ MASK
+\#define \mbox{\hyperlink{utils_8h_acc9afb60b7b11c1919813ffefcb00875}{test\+\_\+print}}(fmt, ...)~tctx-\/$>$cursor++; snprintf(tctx-\/$>$buffer\mbox{[}tctx-\/$>$cursor\mbox{]}, 0x\+FF, fmt, \#\# \+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+);
 \item 
-\#define \mbox{\hyperlink{utils_8h_a4509fbd6b575d0dd5e729419640abff8}{FLAG\+\_\+\+OFF}}(MASK,  VAL)~VAL = VAL \& $\sim$MASK
+\#define \mbox{\hyperlink{utils_8h_ab8eacde5050789fef931034f1973b763}{test\+\_\+check}}(msg\+\_\+stmt,  test,  failure)~\mbox{\hyperlink{utils_8h_acc9afb60b7b11c1919813ffefcb00875}{test\+\_\+print}}(\char`\"{}\mbox{[}CHECK L\%i\mbox{]}\+: \char`\"{}, \+\_\+\+\_\+\+LINE\+\_\+\+\_\+); msg\+\_\+stmt; \mbox{\hyperlink{utils_8h_acc9afb60b7b11c1919813ffefcb00875}{test\+\_\+print}}(\char`\"{}\textbackslash{}n\char`\"{}); passert(test) \{ failure; \}  \mbox{\hyperlink{utils_8h_acc9afb60b7b11c1919813ffefcb00875}{test\+\_\+print}}(\char`\"{}\mbox{[}CHECK OK\mbox{]}.\textbackslash{}n\char`\"{});
+\item 
+\#define \mbox{\hyperlink{utils_8h_a3ab0dd845b94730736c712892f89a9ff}{test\+\_\+begin}}(msg\+\_\+stmt)~\mbox{\hyperlink{utils_8h_aa490585cccaf3aa782f0541d6628a73c}{test\+\_\+transition}}(tctx, \mbox{\hyperlink{utils_8h_a3c2489e5479125d3ce9210f2e41cc814aac9d96afce61e273cb3b054a834f5444}{BEGIN\+\_\+\+TEST}}); \mbox{\hyperlink{utils_8h_acc9afb60b7b11c1919813ffefcb00875}{test\+\_\+print}}(\char`\"{}\textbackslash{}n\mbox{[}TEST \%s\mbox{]} \char`\"{}, \+\_\+\+\_\+\+FILE\+\_\+\+\_\+); msg\+\_\+stmt; \mbox{\hyperlink{utils_8h_acc9afb60b7b11c1919813ffefcb00875}{test\+\_\+print}}(\char`\"{}\textbackslash{}n\char`\"{});
+\item 
+\#define \mbox{\hyperlink{utils_8h_a41bc25e57de82c8d95b03726a6db9371}{test\+\_\+failure}}(msg, ...)
+\item 
+\#define \mbox{\hyperlink{utils_8h_a4c8a7d98a03fd4c24e0fc761ec10c0fa}{test\+\_\+success}}~\mbox{\hyperlink{utils_8h_aa490585cccaf3aa782f0541d6628a73c}{test\+\_\+transition}}(tctx, \mbox{\hyperlink{utils_8h_a3c2489e5479125d3ce9210f2e41cc814a2738e826803c3d73912456117a807e2c}{SUCCEEDED\+\_\+\+TEST}});
+\item 
+\#define \mbox{\hyperlink{utils_8h_ae219197cb6d29ee2884179123009091a}{test\+\_\+end}}~return;
+\item 
+\#define \mbox{\hyperlink{utils_8h_acea888c62920ec1ecc409843c270e981}{define\+\_\+test}}(id,  msg\+\_\+stmt)
+\item 
+\#define \mbox{\hyperlink{utils_8h_a6e7faf2b98c311133aeb6ac3d9c11415}{test\+\_\+teardown}}~lbl\+\_\+teardown\+\_\+test\+:
+\item 
+\#define \mbox{\hyperlink{utils_8h_aa3514e74494e8138fcb06943ee4652e2}{exec\+\_\+test}}(id)~\mbox{\hyperlink{utils_8h_a5c1ce7d1edf7aef10019f38c75d3be7f}{\+\_\+\+\_\+exec\+\_\+test\+\_\+\+\_\+}}(id)
+\item 
+\#define \mbox{\hyperlink{utils_8h_a5c1ce7d1edf7aef10019f38c75d3be7f}{\+\_\+\+\_\+exec\+\_\+test\+\_\+\+\_\+}}(id)~test\+\_\+ \#\#id (tctx);
+\item 
+\#define \mbox{\hyperlink{utils_8h_af12dad8c8e34e8cb53f7dfa3d5820ee4}{exec\+\_\+tests}}(...)~\mbox{\hyperlink{macro_8h_a1bac015d1182a089df50750f8779c7be}{MAP}}(\mbox{\hyperlink{utils_8h_aa3514e74494e8138fcb06943ee4652e2}{exec\+\_\+test}}, \+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)
+\item 
+\#define \mbox{\hyperlink{utils_8h_a3c226bc79377223aa2d61e0b84890e11}{exec\+\_\+test\+\_\+chapter}}(id)~test\+\_\+\#\#id(tctx);
+\item 
+\#define \mbox{\hyperlink{utils_8h_a4ae744fbd9f01cb2aa9c103e79f8ab2b}{exec\+\_\+test\+\_\+chapters}}(...)~\mbox{\hyperlink{macro_8h_a1bac015d1182a089df50750f8779c7be}{MAP}}(\mbox{\hyperlink{utils_8h_a3c226bc79377223aa2d61e0b84890e11}{exec\+\_\+test\+\_\+chapter}}, \+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)
+\item 
+\#define \mbox{\hyperlink{utils_8h_ac9875e687c1668de001eb780eab21b10}{define\+\_\+test\+\_\+chapter}}(id,  msg\+\_\+stmt, ...)
+\item 
+\#define \mbox{\hyperlink{utils_8h_a2b8a3096bba333f6a06b6f1cd10d60c4}{set\+\_\+tests}}(...)
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{utils_8h_a771b98f001ed3e41e779472ee7cedc33}{test\+\_\+state\+\_\+t}} \{ \mbox{\hyperlink{utils_8h_a771b98f001ed3e41e779472ee7cedc33afd6a0e4343048b10646dd2976cc5ad18}{IDLE}}
+, \mbox{\hyperlink{utils_8h_a771b98f001ed3e41e779472ee7cedc33aca6c0848647c55068d1de35320dc1d11}{TESTING}}
+ \}
+\item 
+enum \mbox{\hyperlink{utils_8h_a3c2489e5479125d3ce9210f2e41cc814}{test\+\_\+transition\+\_\+t}} \{ \mbox{\hyperlink{utils_8h_a3c2489e5479125d3ce9210f2e41cc814aac9d96afce61e273cb3b054a834f5444}{BEGIN\+\_\+\+TEST}}
+, \mbox{\hyperlink{utils_8h_a3c2489e5479125d3ce9210f2e41cc814a98f2d909d60e68562954d796b6b68b45}{FAILED\+\_\+\+TEST}}
+, \mbox{\hyperlink{utils_8h_a3c2489e5479125d3ce9210f2e41cc814a2738e826803c3d73912456117a807e2c}{SUCCEEDED\+\_\+\+TEST}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{utils_8h_ad42e3ada1ba1869a120fb3b83d98ac31}{test\+\_\+display\+\_\+buffer}} (\mbox{\hyperlink{structtest__context__t}{test\+\_\+context\+\_\+t}} $\ast$ctx)
+\item 
+void \mbox{\hyperlink{utils_8h_aa490585cccaf3aa782f0541d6628a73c}{test\+\_\+transition}} (\mbox{\hyperlink{structtest__context__t}{test\+\_\+context\+\_\+t}} $\ast$ctx, int transition)
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{utils_8h_a4509fbd6b575d0dd5e729419640abff8}\label{utils_8h_a4509fbd6b575d0dd5e729419640abff8}} 
-\index{utils.h@{utils.h}!FLAG\_OFF@{FLAG\_OFF}}
-\index{FLAG\_OFF@{FLAG\_OFF}!utils.h@{utils.h}}
-\doxysubsubsection{\texorpdfstring{FLAG\_OFF}{FLAG\_OFF}}
-{\footnotesize\ttfamily \#define FLAG\+\_\+\+OFF(\begin{DoxyParamCaption}\item[{}]{MASK,  }\item[{}]{VAL }\end{DoxyParamCaption})~VAL = VAL \& $\sim$MASK}
+\mbox{\Hypertarget{utils_8h_a5c1ce7d1edf7aef10019f38c75d3be7f}\label{utils_8h_a5c1ce7d1edf7aef10019f38c75d3be7f}} 
+\index{utils.h@{utils.h}!\_\_exec\_test\_\_@{\_\_exec\_test\_\_}}
+\index{\_\_exec\_test\_\_@{\_\_exec\_test\_\_}!utils.h@{utils.h}}
+\doxysubsubsection{\texorpdfstring{\_\_exec\_test\_\_}{\_\_exec\_test\_\_}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+exec\+\_\+test\+\_\+\+\_\+(\begin{DoxyParamCaption}\item[{}]{id }\end{DoxyParamCaption})~test\+\_\+ \#\#id (tctx);}
 
-\mbox{\Hypertarget{utils_8h_a6ba5eba974b20769e875eae7671dc63d}\label{utils_8h_a6ba5eba974b20769e875eae7671dc63d}} 
-\index{utils.h@{utils.h}!FLAG\_ON@{FLAG\_ON}}
-\index{FLAG\_ON@{FLAG\_ON}!utils.h@{utils.h}}
-\doxysubsubsection{\texorpdfstring{FLAG\_ON}{FLAG\_ON}}
-{\footnotesize\ttfamily \#define FLAG\+\_\+\+ON(\begin{DoxyParamCaption}\item[{}]{MASK,  }\item[{}]{VAL }\end{DoxyParamCaption})~VAL = VAL $\vert$ MASK}
+\mbox{\Hypertarget{utils_8h_acea888c62920ec1ecc409843c270e981}\label{utils_8h_acea888c62920ec1ecc409843c270e981}} 
+\index{utils.h@{utils.h}!define\_test@{define\_test}}
+\index{define\_test@{define\_test}!utils.h@{utils.h}}
+\doxysubsubsection{\texorpdfstring{define\_test}{define\_test}}
+{\footnotesize\ttfamily \#define define\+\_\+test(\begin{DoxyParamCaption}\item[{}]{id,  }\item[{}]{msg\+\_\+stmt }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{utils_8h_a03c91a40ac149893ee643dbd90c20204}\label{utils_8h_a03c91a40ac149893ee643dbd90c20204}} 
-\index{utils.h@{utils.h}!HAS\_FLAG@{HAS\_FLAG}}
-\index{HAS\_FLAG@{HAS\_FLAG}!utils.h@{utils.h}}
-\doxysubsubsection{\texorpdfstring{HAS\_FLAG}{HAS\_FLAG}}
-{\footnotesize\ttfamily \#define HAS\+\_\+\+FLAG(\begin{DoxyParamCaption}\item[{}]{MASK,  }\item[{}]{VAL }\end{DoxyParamCaption})~VAL \& MASK}
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void} \_\_test\_ \#\# id (\mbox{\hyperlink{structtest__context__t}{test\_context\_t}}* tctx); \(\backslash\)}
+\DoxyCodeLine{void test\_ \#\# id (\mbox{\hyperlink{structtest__context__t}{test\_context\_t}}* tctx) \{ \(\backslash\)}
+\DoxyCodeLine{  test\_begin(msg\_stmt);\(\backslash\)}
+\DoxyCodeLine{  \_\_test\_ \#\#id (tctx); \(\backslash\)}
+\DoxyCodeLine{\} \(\backslash\)}
+\DoxyCodeLine{void \_\_test\_ \#\#id (\mbox{\hyperlink{structtest__context__t}{test\_context\_t}}* tctx)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{utils_8h_ac9875e687c1668de001eb780eab21b10}\label{utils_8h_ac9875e687c1668de001eb780eab21b10}} 
+\index{utils.h@{utils.h}!define\_test\_chapter@{define\_test\_chapter}}
+\index{define\_test\_chapter@{define\_test\_chapter}!utils.h@{utils.h}}
+\doxysubsubsection{\texorpdfstring{define\_test\_chapter}{define\_test\_chapter}}
+{\footnotesize\ttfamily \#define define\+\_\+test\+\_\+chapter(\begin{DoxyParamCaption}\item[{}]{id,  }\item[{}]{msg\+\_\+stmt,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void} test\_ \#\#id(\mbox{\hyperlink{structtest__context__t}{test\_context\_t}}* tctx) \{\(\backslash\)}
+\DoxyCodeLine{   exec\_tests(\_\_VA\_ARGS\_\_)\(\backslash\)}
+\DoxyCodeLine{\};}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{utils_8h_aa3514e74494e8138fcb06943ee4652e2}\label{utils_8h_aa3514e74494e8138fcb06943ee4652e2}} 
+\index{utils.h@{utils.h}!exec\_test@{exec\_test}}
+\index{exec\_test@{exec\_test}!utils.h@{utils.h}}
+\doxysubsubsection{\texorpdfstring{exec\_test}{exec\_test}}
+{\footnotesize\ttfamily \#define exec\+\_\+test(\begin{DoxyParamCaption}\item[{}]{id }\end{DoxyParamCaption})~\mbox{\hyperlink{utils_8h_a5c1ce7d1edf7aef10019f38c75d3be7f}{\+\_\+\+\_\+exec\+\_\+test\+\_\+\+\_\+}}(id)}
+
+\mbox{\Hypertarget{utils_8h_a3c226bc79377223aa2d61e0b84890e11}\label{utils_8h_a3c226bc79377223aa2d61e0b84890e11}} 
+\index{utils.h@{utils.h}!exec\_test\_chapter@{exec\_test\_chapter}}
+\index{exec\_test\_chapter@{exec\_test\_chapter}!utils.h@{utils.h}}
+\doxysubsubsection{\texorpdfstring{exec\_test\_chapter}{exec\_test\_chapter}}
+{\footnotesize\ttfamily \#define exec\+\_\+test\+\_\+chapter(\begin{DoxyParamCaption}\item[{}]{id }\end{DoxyParamCaption})~test\+\_\+\#\#id(tctx);}
+
+\mbox{\Hypertarget{utils_8h_a4ae744fbd9f01cb2aa9c103e79f8ab2b}\label{utils_8h_a4ae744fbd9f01cb2aa9c103e79f8ab2b}} 
+\index{utils.h@{utils.h}!exec\_test\_chapters@{exec\_test\_chapters}}
+\index{exec\_test\_chapters@{exec\_test\_chapters}!utils.h@{utils.h}}
+\doxysubsubsection{\texorpdfstring{exec\_test\_chapters}{exec\_test\_chapters}}
+{\footnotesize\ttfamily \#define exec\+\_\+test\+\_\+chapters(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})~\mbox{\hyperlink{macro_8h_a1bac015d1182a089df50750f8779c7be}{MAP}}(\mbox{\hyperlink{utils_8h_a3c226bc79377223aa2d61e0b84890e11}{exec\+\_\+test\+\_\+chapter}}, \+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)}
+
+\mbox{\Hypertarget{utils_8h_af12dad8c8e34e8cb53f7dfa3d5820ee4}\label{utils_8h_af12dad8c8e34e8cb53f7dfa3d5820ee4}} 
+\index{utils.h@{utils.h}!exec\_tests@{exec\_tests}}
+\index{exec\_tests@{exec\_tests}!utils.h@{utils.h}}
+\doxysubsubsection{\texorpdfstring{exec\_tests}{exec\_tests}}
+{\footnotesize\ttfamily \#define exec\+\_\+tests(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})~\mbox{\hyperlink{macro_8h_a1bac015d1182a089df50750f8779c7be}{MAP}}(\mbox{\hyperlink{utils_8h_aa3514e74494e8138fcb06943ee4652e2}{exec\+\_\+test}}, \+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)}
+
+\mbox{\Hypertarget{utils_8h_a8bd595c3ec272d83217251a1fbacc2fc}\label{utils_8h_a8bd595c3ec272d83217251a1fbacc2fc}} 
+\index{utils.h@{utils.h}!passert@{passert}}
+\index{passert@{passert}!utils.h@{utils.h}}
+\doxysubsubsection{\texorpdfstring{passert}{passert}}
+{\footnotesize\ttfamily \#define passert(\begin{DoxyParamCaption}\item[{}]{x }\end{DoxyParamCaption})~for ( ; !(x) ; assert(x) )}
+
+\mbox{\Hypertarget{utils_8h_a2b8a3096bba333f6a06b6f1cd10d60c4}\label{utils_8h_a2b8a3096bba333f6a06b6f1cd10d60c4}} 
+\index{utils.h@{utils.h}!set\_tests@{set\_tests}}
+\index{set\_tests@{set\_tests}!utils.h@{utils.h}}
+\doxysubsubsection{\texorpdfstring{set\_tests}{set\_tests}}
+{\footnotesize\ttfamily \#define set\+\_\+tests(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{int} test() \{\(\backslash\)}
+\DoxyCodeLine{  printf(\textcolor{stringliteral}{"{}TEST\(\backslash\)n"{}});\(\backslash\)}
+\DoxyCodeLine{  test\_context\_t ctx;\(\backslash\)}
+\DoxyCodeLine{  ctx.total = 0, ctx.success = 0, ctx.failed = 0;\(\backslash\)}
+\DoxyCodeLine{  ctx.cursor = 0;\(\backslash\)}
+\DoxyCodeLine{  ctx.state = \mbox{\hyperlink{utils_8h_a771b98f001ed3e41e779472ee7cedc33afd6a0e4343048b10646dd2976cc5ad18}{IDLE}};\(\backslash\)}
+\DoxyCodeLine{\(\backslash\)}
+\DoxyCodeLine{  test\_context\_t* tctx = \&ctx;\(\backslash\)}
+\DoxyCodeLine{  test\_print(\textcolor{stringliteral}{"{} "{}});\mbox{\hyperlink{utils_8h_a4ae744fbd9f01cb2aa9c103e79f8ab2b}{\(\backslash\)}}}
+\DoxyCodeLine{\mbox{\hyperlink{utils_8h_a4ae744fbd9f01cb2aa9c103e79f8ab2b}{\(\backslash\)}}}
+\DoxyCodeLine{\mbox{\hyperlink{utils_8h_a4ae744fbd9f01cb2aa9c103e79f8ab2b}{  exec\_test\_chapters}}(\_\_VA\_ARGS\_\_); \(\backslash\)}
+\DoxyCodeLine{  printf(\textcolor{stringliteral}{"{}\(\backslash\)n"{}});\(\backslash\)}
+\DoxyCodeLine{  printf(\textcolor{stringliteral}{"{}PASSED: \%d / \%d.\(\backslash\)n"{}}, ctx.success, ctx.total);\(\backslash\)}
+\DoxyCodeLine{  return ctx.failed > 0 ? 1 : 0;\(\backslash\)}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{utils_8h_a3ab0dd845b94730736c712892f89a9ff}\label{utils_8h_a3ab0dd845b94730736c712892f89a9ff}} 
+\index{utils.h@{utils.h}!test\_begin@{test\_begin}}
+\index{test\_begin@{test\_begin}!utils.h@{utils.h}}
+\doxysubsubsection{\texorpdfstring{test\_begin}{test\_begin}}
+{\footnotesize\ttfamily \#define test\+\_\+begin(\begin{DoxyParamCaption}\item[{}]{msg\+\_\+stmt }\end{DoxyParamCaption})~\mbox{\hyperlink{utils_8h_aa490585cccaf3aa782f0541d6628a73c}{test\+\_\+transition}}(tctx, \mbox{\hyperlink{utils_8h_a3c2489e5479125d3ce9210f2e41cc814aac9d96afce61e273cb3b054a834f5444}{BEGIN\+\_\+\+TEST}}); \mbox{\hyperlink{utils_8h_acc9afb60b7b11c1919813ffefcb00875}{test\+\_\+print}}(\char`\"{}\textbackslash{}n\mbox{[}TEST \%s\mbox{]} \char`\"{}, \+\_\+\+\_\+\+FILE\+\_\+\+\_\+); msg\+\_\+stmt; \mbox{\hyperlink{utils_8h_acc9afb60b7b11c1919813ffefcb00875}{test\+\_\+print}}(\char`\"{}\textbackslash{}n\char`\"{});}
+
+\mbox{\Hypertarget{utils_8h_ab8eacde5050789fef931034f1973b763}\label{utils_8h_ab8eacde5050789fef931034f1973b763}} 
+\index{utils.h@{utils.h}!test\_check@{test\_check}}
+\index{test\_check@{test\_check}!utils.h@{utils.h}}
+\doxysubsubsection{\texorpdfstring{test\_check}{test\_check}}
+{\footnotesize\ttfamily \#define test\+\_\+check(\begin{DoxyParamCaption}\item[{}]{msg\+\_\+stmt,  }\item[{}]{test,  }\item[{}]{failure }\end{DoxyParamCaption})~\mbox{\hyperlink{utils_8h_acc9afb60b7b11c1919813ffefcb00875}{test\+\_\+print}}(\char`\"{}\mbox{[}CHECK L\%i\mbox{]}\+: \char`\"{}, \+\_\+\+\_\+\+LINE\+\_\+\+\_\+); msg\+\_\+stmt; \mbox{\hyperlink{utils_8h_acc9afb60b7b11c1919813ffefcb00875}{test\+\_\+print}}(\char`\"{}\textbackslash{}n\char`\"{}); passert(test) \{ failure; \}  \mbox{\hyperlink{utils_8h_acc9afb60b7b11c1919813ffefcb00875}{test\+\_\+print}}(\char`\"{}\mbox{[}CHECK OK\mbox{]}.\textbackslash{}n\char`\"{});}
+
+\mbox{\Hypertarget{utils_8h_ae219197cb6d29ee2884179123009091a}\label{utils_8h_ae219197cb6d29ee2884179123009091a}} 
+\index{utils.h@{utils.h}!test\_end@{test\_end}}
+\index{test\_end@{test\_end}!utils.h@{utils.h}}
+\doxysubsubsection{\texorpdfstring{test\_end}{test\_end}}
+{\footnotesize\ttfamily \#define test\+\_\+end~return;}
+
+\mbox{\Hypertarget{utils_8h_a41bc25e57de82c8d95b03726a6db9371}\label{utils_8h_a41bc25e57de82c8d95b03726a6db9371}} 
+\index{utils.h@{utils.h}!test\_failure@{test\_failure}}
+\index{test\_failure@{test\_failure}!utils.h@{utils.h}}
+\doxysubsubsection{\texorpdfstring{test\_failure}{test\_failure}}
+{\footnotesize\ttfamily \#define test\+\_\+failure(\begin{DoxyParamCaption}\item[{}]{msg,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{  \mbox{\hyperlink{utils_8h_acc9afb60b7b11c1919813ffefcb00875}{test\_print}}(\textcolor{stringliteral}{"{}[CHECK FAILURE]: "{}});  \mbox{\hyperlink{utils_8h_acc9afb60b7b11c1919813ffefcb00875}{test\_print}}(msg, \#\#\_\_VA\_ARGS\_\_); \(\backslash\)}
+\DoxyCodeLine{  test\_print(\textcolor{stringliteral}{"{}\(\backslash\)n"{}});\(\backslash\)}
+\DoxyCodeLine{  test\_print(\textcolor{stringliteral}{"{}[TEST FAILED]\(\backslash\)n"{}});\(\backslash\)}
+\DoxyCodeLine{  test\_transition(tctx, \mbox{\hyperlink{utils_8h_a3c2489e5479125d3ce9210f2e41cc814a98f2d909d60e68562954d796b6b68b45}{FAILED\_TEST}});\(\backslash\)}
+\DoxyCodeLine{  goto lbl\_teardown\_test;}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{utils_8h_acc9afb60b7b11c1919813ffefcb00875}\label{utils_8h_acc9afb60b7b11c1919813ffefcb00875}} 
+\index{utils.h@{utils.h}!test\_print@{test\_print}}
+\index{test\_print@{test\_print}!utils.h@{utils.h}}
+\doxysubsubsection{\texorpdfstring{test\_print}{test\_print}}
+{\footnotesize\ttfamily \#define test\+\_\+print(\begin{DoxyParamCaption}\item[{}]{fmt,  }\item[{}]{... }\end{DoxyParamCaption})~tctx-\/$>$cursor++; snprintf(tctx-\/$>$buffer\mbox{[}tctx-\/$>$cursor\mbox{]}, 0x\+FF, fmt, \#\# \+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+);}
+
+\mbox{\Hypertarget{utils_8h_a4c8a7d98a03fd4c24e0fc761ec10c0fa}\label{utils_8h_a4c8a7d98a03fd4c24e0fc761ec10c0fa}} 
+\index{utils.h@{utils.h}!test\_success@{test\_success}}
+\index{test\_success@{test\_success}!utils.h@{utils.h}}
+\doxysubsubsection{\texorpdfstring{test\_success}{test\_success}}
+{\footnotesize\ttfamily \#define test\+\_\+success~\mbox{\hyperlink{utils_8h_aa490585cccaf3aa782f0541d6628a73c}{test\+\_\+transition}}(tctx, \mbox{\hyperlink{utils_8h_a3c2489e5479125d3ce9210f2e41cc814a2738e826803c3d73912456117a807e2c}{SUCCEEDED\+\_\+\+TEST}});}
+
+\mbox{\Hypertarget{utils_8h_a6e7faf2b98c311133aeb6ac3d9c11415}\label{utils_8h_a6e7faf2b98c311133aeb6ac3d9c11415}} 
+\index{utils.h@{utils.h}!test\_teardown@{test\_teardown}}
+\index{test\_teardown@{test\_teardown}!utils.h@{utils.h}}
+\doxysubsubsection{\texorpdfstring{test\_teardown}{test\_teardown}}
+{\footnotesize\ttfamily \#define test\+\_\+teardown~lbl\+\_\+teardown\+\_\+test\+:}
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{utils_8h_a771b98f001ed3e41e779472ee7cedc33}\label{utils_8h_a771b98f001ed3e41e779472ee7cedc33}} 
+\index{utils.h@{utils.h}!test\_state\_t@{test\_state\_t}}
+\index{test\_state\_t@{test\_state\_t}!utils.h@{utils.h}}
+\doxysubsubsection{\texorpdfstring{test\_state\_t}{test\_state\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{utils_8h_a771b98f001ed3e41e779472ee7cedc33}{test\+\_\+state\+\_\+t}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{IDLE@{IDLE}!utils.h@{utils.h}}\index{utils.h@{utils.h}!IDLE@{IDLE}}}\mbox{\Hypertarget{utils_8h_a771b98f001ed3e41e779472ee7cedc33afd6a0e4343048b10646dd2976cc5ad18}\label{utils_8h_a771b98f001ed3e41e779472ee7cedc33afd6a0e4343048b10646dd2976cc5ad18}} 
+IDLE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TESTING@{TESTING}!utils.h@{utils.h}}\index{utils.h@{utils.h}!TESTING@{TESTING}}}\mbox{\Hypertarget{utils_8h_a771b98f001ed3e41e779472ee7cedc33aca6c0848647c55068d1de35320dc1d11}\label{utils_8h_a771b98f001ed3e41e779472ee7cedc33aca6c0848647c55068d1de35320dc1d11}} 
+TESTING&\\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{utils_8h_a3c2489e5479125d3ce9210f2e41cc814}\label{utils_8h_a3c2489e5479125d3ce9210f2e41cc814}} 
+\index{utils.h@{utils.h}!test\_transition\_t@{test\_transition\_t}}
+\index{test\_transition\_t@{test\_transition\_t}!utils.h@{utils.h}}
+\doxysubsubsection{\texorpdfstring{test\_transition\_t}{test\_transition\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{utils_8h_a3c2489e5479125d3ce9210f2e41cc814}{test\+\_\+transition\+\_\+t}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BEGIN\_TEST@{BEGIN\_TEST}!utils.h@{utils.h}}\index{utils.h@{utils.h}!BEGIN\_TEST@{BEGIN\_TEST}}}\mbox{\Hypertarget{utils_8h_a3c2489e5479125d3ce9210f2e41cc814aac9d96afce61e273cb3b054a834f5444}\label{utils_8h_a3c2489e5479125d3ce9210f2e41cc814aac9d96afce61e273cb3b054a834f5444}} 
+BEGIN\+\_\+\+TEST&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FAILED\_TEST@{FAILED\_TEST}!utils.h@{utils.h}}\index{utils.h@{utils.h}!FAILED\_TEST@{FAILED\_TEST}}}\mbox{\Hypertarget{utils_8h_a3c2489e5479125d3ce9210f2e41cc814a98f2d909d60e68562954d796b6b68b45}\label{utils_8h_a3c2489e5479125d3ce9210f2e41cc814a98f2d909d60e68562954d796b6b68b45}} 
+FAILED\+\_\+\+TEST&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SUCCEEDED\_TEST@{SUCCEEDED\_TEST}!utils.h@{utils.h}}\index{utils.h@{utils.h}!SUCCEEDED\_TEST@{SUCCEEDED\_TEST}}}\mbox{\Hypertarget{utils_8h_a3c2489e5479125d3ce9210f2e41cc814a2738e826803c3d73912456117a807e2c}\label{utils_8h_a3c2489e5479125d3ce9210f2e41cc814a2738e826803c3d73912456117a807e2c}} 
+SUCCEEDED\+\_\+\+TEST&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{utils_8h_ad42e3ada1ba1869a120fb3b83d98ac31}\label{utils_8h_ad42e3ada1ba1869a120fb3b83d98ac31}} 
+\index{utils.h@{utils.h}!test\_display\_buffer@{test\_display\_buffer}}
+\index{test\_display\_buffer@{test\_display\_buffer}!utils.h@{utils.h}}
+\doxysubsubsection{\texorpdfstring{test\_display\_buffer()}{test\_display\_buffer()}}
+{\footnotesize\ttfamily void test\+\_\+display\+\_\+buffer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtest__context__t}{test\+\_\+context\+\_\+t}} $\ast$}]{ctx }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{utils_8h_aa490585cccaf3aa782f0541d6628a73c}\label{utils_8h_aa490585cccaf3aa782f0541d6628a73c}} 
+\index{utils.h@{utils.h}!test\_transition@{test\_transition}}
+\index{test\_transition@{test\_transition}!utils.h@{utils.h}}
+\doxysubsubsection{\texorpdfstring{test\_transition()}{test\_transition()}}
+{\footnotesize\ttfamily void test\+\_\+transition (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtest__context__t}{test\+\_\+context\+\_\+t}} $\ast$}]{ctx,  }\item[{int}]{transition }\end{DoxyParamCaption})}
 

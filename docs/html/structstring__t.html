@@ -69,26 +69,49 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="string_2core_8h_source.html">core.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="lib_2common_2include_2string_2core_8h_source.html">core.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a9c3c72a90ff8167da39bd804255aef6c"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstring__t.html#a9c3c72a90ff8167da39bd804255aef6c">base</a></td></tr>
-<tr class="separator:a9c3c72a90ff8167da39bd804255aef6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f81f14055f744384f4dbb72c5d065f5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstring__t.html#a6f81f14055f744384f4dbb72c5d065f5">is_const</a></td></tr>
+<tr class="separator:a6f81f14055f744384f4dbb72c5d065f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6a484187993b2e3df80359c064aae6a"><td class="memItemLeft" >union {</td></tr>
+<tr class="memitem:a30e65db9b95f56d169f4d469a47676a6"><td class="memItemLeft" >&#160;&#160;&#160;char *&#160;&#160;&#160;<a class="el" href="structstring__t.html#a9c3c72a90ff8167da39bd804255aef6c">base</a></td></tr>
+<tr class="separator:a30e65db9b95f56d169f4d469a47676a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67964edbc07e270d677a85983ab3bf89"><td class="memItemLeft" >&#160;&#160;&#160;const char *&#160;&#160;&#160;<a class="el" href="structstring__t.html#ae7d2726ab3907bf75bebe947ede16ab3">cbase</a></td></tr>
+<tr class="separator:a67964edbc07e270d677a85983ab3bf89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6a484187993b2e3df80359c064aae6a"><td class="memItemLeft" valign="top">};&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:af6a484187993b2e3df80359c064aae6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a881bbf733aff9e3f8f015a5d80d8559a"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstring__t.html#a881bbf733aff9e3f8f015a5d80d8559a">length</a></td></tr>
 <tr class="separator:a881bbf733aff9e3f8f015a5d80d8559a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c470c71885ef0f08a4b892dea5b493b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structallocator__t.html">allocator_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstring__t.html#a7c470c71885ef0f08a4b892dea5b493b">allocator</a></td></tr>
-<tr class="separator:a7c470c71885ef0f08a4b892dea5b493b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b978dd6c26a5647f87a7a3eb66cae98"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structallocator__t.html">allocator_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstring__t.html#a2b978dd6c26a5647f87a7a3eb66cae98">char_allocator</a></td></tr>
+<tr class="separator:a2b978dd6c26a5647f87a7a3eb66cae98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1be4a18938c2e38eb4b3b08d28b58e2f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structallocator__t.html">allocator_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstring__t.html#a1be4a18938c2e38eb4b3b08d28b58e2f">__allocator</a></td></tr>
+<tr class="separator:a1be4a18938c2e38eb4b3b08d28b58e2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a7c470c71885ef0f08a4b892dea5b493b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c470c71885ef0f08a4b892dea5b493b">&#9670;&nbsp;</a></span>allocator</h2>
+<a id="af6a484187993b2e3df80359c064aae6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6a484187993b2e3df80359c064aae6a">&#9670;&nbsp;</a></span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structallocator__t.html">allocator_t</a> string_t::allocator</td>
+          <td class="memname">union { ... } </td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1be4a18938c2e38eb4b3b08d28b58e2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1be4a18938c2e38eb4b3b08d28b58e2f">&#9670;&nbsp;</a></span>__allocator</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structallocator__t.html">allocator_t</a> string_t::__allocator</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -103,6 +126,48 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">char* string_t::base</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae7d2726ab3907bf75bebe947ede16ab3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7d2726ab3907bf75bebe947ede16ab3">&#9670;&nbsp;</a></span>cbase</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* string_t::cbase</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2b978dd6c26a5647f87a7a3eb66cae98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b978dd6c26a5647f87a7a3eb66cae98">&#9670;&nbsp;</a></span>char_allocator</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structallocator__t.html">allocator_t</a> string_t::char_allocator</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6f81f14055f744384f4dbb72c5d065f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f81f14055f744384f4dbb72c5d065f5">&#9670;&nbsp;</a></span>is_const</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a> string_t::is_const</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -124,7 +189,7 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>C:/Users/GP69E5EN/Documents/dev/palinka/src/string/<a class="el" href="string_2core_8h_source.html">core.h</a></li>
+<li>C:/Users/GP69E5EN/Documents/dev/palinka/lib/common/include/string/<a class="el" href="lib_2common_2include_2string_2core_8h_source.html">core.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

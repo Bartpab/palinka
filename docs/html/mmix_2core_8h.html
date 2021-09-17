@@ -74,12 +74,12 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;time.h&gt;</code><br />
+<code>#include &quot;../../lib/common/include/macro.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="sys_8h_source.html">../sys.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="utils_8h_source.html">../utils.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="mmix_2mem_8h_source.html">mem.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="processor_8h_source.html">processor.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="instr_8h_source.html">instr.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="dispatch_8h_source.html">dispatch.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="mem_2core_8h_source.html">../mem/core.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="processor_8h_source.html">./processor.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="instr_8h_source.html">./instr.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="dispatch_8h_source.html">./dispatch.h</a>&quot;</code><br />
 </div>
 <p><a href="mmix_2core_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -99,7 +99,7 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aad09c930cd6b756c0c436a461f40758f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structsystem__t.html">system_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mmix_2core_8h.html#aad09c930cd6b756c0c436a461f40758f">mmix_create</a> (<a class="el" href="structallocator__t.html">allocator_t</a> *allocator, <a class="el" href="structmmix__cfg__t.html">mmix_cfg_t</a> *cfg)</td></tr>
+<tr class="memitem:aad09c930cd6b756c0c436a461f40758f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structsystem__t.html">system_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mmix_2core_8h.html#aad09c930cd6b756c0c436a461f40758f">mmix_create</a> (allocator_t *allocator, <a class="el" href="structmmix__cfg__t.html">mmix_cfg_t</a> *cfg)</td></tr>
 <tr class="memdesc:aad09c930cd6b756c0c436a461f40758f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a MMIX-based system.  <a href="mmix_2core_8h.html#aad09c930cd6b756c0c436a461f40758f">More...</a><br /></td></tr>
 <tr class="separator:aad09c930cd6b756c0c436a461f40758f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8931f8e393c62e7889a7a66ca7a4ea68"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mmix_2core_8h.html#a8931f8e393c62e7889a7a66ca7a4ea68">mmix_alloc_sim_time</a> (<a class="el" href="structsystem__t.html">system_t</a> *s, unsigned int ms)</td></tr>
@@ -111,7 +111,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a2b82e71a1df481f3a5db78f31f7cc001"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mmix_2core_8h.html#a2b82e71a1df481f3a5db78f31f7cc001">mmix_restart</a> (<a class="el" href="structsystem__t.html">system_t</a> *sys)</td></tr>
 <tr class="memdesc:a2b82e71a1df481f3a5db78f31f7cc001"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restart the system.  <a href="mmix_2core_8h.html#a2b82e71a1df481f3a5db78f31f7cc001">More...</a><br /></td></tr>
 <tr class="separator:a2b82e71a1df481f3a5db78f31f7cc001"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9beb410332d2c6fa7a2af7ad347b4798"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mmix_2core_8h.html#a9beb410332d2c6fa7a2af7ad347b4798">mmix_set_interrupt_handler</a> (<a class="el" href="structsystem__t.html">system_t</a> *sys, <a class="el" href="types_8h.html#a0c8186d9b9b7880309c27230bbb5e69d">byte</a> ircode, <a class="el" href="mmix_2core_8h.html#ac512a6295b4666de8e4f415b569dcd4a">mmix_ivt_hdlr</a> hdlr)</td></tr>
+<tr class="memitem:a9beb410332d2c6fa7a2af7ad347b4798"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mmix_2core_8h.html#a9beb410332d2c6fa7a2af7ad347b4798">mmix_set_interrupt_handler</a> (<a class="el" href="structsystem__t.html">system_t</a> *sys, byte ircode, <a class="el" href="mmix_2core_8h.html#ac512a6295b4666de8e4f415b569dcd4a">mmix_ivt_hdlr</a> hdlr)</td></tr>
 <tr class="memdesc:a9beb410332d2c6fa7a2af7ad347b4798"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines a TRAP interrupt handler.  <a href="mmix_2core_8h.html#a9beb410332d2c6fa7a2af7ad347b4798">More...</a><br /></td></tr>
 <tr class="separator:a9beb410332d2c6fa7a2af7ad347b4798"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -214,7 +214,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="structsystem__t.html">system_t</a> * mmix_create </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structallocator__t.html">allocator_t</a> *&#160;</td>
+          <td class="paramtype">allocator_t *&#160;</td>
           <td class="paramname"><em>allocator</em>, </td>
         </tr>
         <tr>
@@ -271,7 +271,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="types_8h.html#a0c8186d9b9b7880309c27230bbb5e69d">byte</a>&#160;</td>
+          <td class="paramtype">byte&#160;</td>
           <td class="paramname"><em>ircode</em>, </td>
         </tr>
         <tr>

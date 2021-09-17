@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Palinka - Core: C:/Users/GP69E5EN/Documents/dev/palinka/src/utils.h File Reference</title>
+<title>Palinka - Core: C:/Users/GP69E5EN/Documents/dev/palinka/lib/common/include/testing/utils.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,107 +61,536 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_97aefd0d527b934f1d99a682da8fe6a9.html">lib</a></li><li class="navelem"><a class="el" href="dir_1ea122f7b94457c2332c194612c8b8fe.html">common</a></li><li class="navelem"><a class="el" href="dir_cf20e4ed489bead92c2e88e243778b5a.html">include</a></li><li class="navelem"><a class="el" href="dir_b26f1cca50073e00be5134aba42ca404.html">testing</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#define-members">Macros</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">utils.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
+<div class="textblock"><code>#include &lt;assert.h&gt;</code><br />
+<code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="macro_8h_source.html">../macro.h</a>&quot;</code><br />
+</div>
 <p><a href="utils_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtest__context__t.html">test_context_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a03c91a40ac149893ee643dbd90c20204"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a03c91a40ac149893ee643dbd90c20204">HAS_FLAG</a>(MASK,  VAL)&#160;&#160;&#160;VAL &amp; MASK</td></tr>
-<tr class="separator:a03c91a40ac149893ee643dbd90c20204"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ba5eba974b20769e875eae7671dc63d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a6ba5eba974b20769e875eae7671dc63d">FLAG_ON</a>(MASK,  VAL)&#160;&#160;&#160;VAL = VAL | MASK</td></tr>
-<tr class="separator:a6ba5eba974b20769e875eae7671dc63d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4509fbd6b575d0dd5e729419640abff8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a4509fbd6b575d0dd5e729419640abff8">FLAG_OFF</a>(MASK,  VAL)&#160;&#160;&#160;VAL = VAL &amp; ~MASK</td></tr>
-<tr class="separator:a4509fbd6b575d0dd5e729419640abff8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bd595c3ec272d83217251a1fbacc2fc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a8bd595c3ec272d83217251a1fbacc2fc">passert</a>(x)&#160;&#160;&#160;for ( ; !(x) ; assert(x) )</td></tr>
+<tr class="separator:a8bd595c3ec272d83217251a1fbacc2fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc9afb60b7b11c1919813ffefcb00875"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#acc9afb60b7b11c1919813ffefcb00875">test_print</a>(fmt, ...)&#160;&#160;&#160;tctx-&gt;cursor++; snprintf(tctx-&gt;buffer[tctx-&gt;cursor], 0xFF, fmt, ## __VA_ARGS__);</td></tr>
+<tr class="separator:acc9afb60b7b11c1919813ffefcb00875"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8eacde5050789fef931034f1973b763"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#ab8eacde5050789fef931034f1973b763">test_check</a>(msg_stmt,  test,  failure)&#160;&#160;&#160;<a class="el" href="utils_8h.html#acc9afb60b7b11c1919813ffefcb00875">test_print</a>(&quot;[CHECK L%i]: &quot;, __LINE__); msg_stmt; <a class="el" href="utils_8h.html#acc9afb60b7b11c1919813ffefcb00875">test_print</a>(&quot;\n&quot;); passert(test) { failure; }  <a class="el" href="utils_8h.html#acc9afb60b7b11c1919813ffefcb00875">test_print</a>(&quot;[CHECK OK].\n&quot;);</td></tr>
+<tr class="separator:ab8eacde5050789fef931034f1973b763"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ab0dd845b94730736c712892f89a9ff"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a3ab0dd845b94730736c712892f89a9ff">test_begin</a>(msg_stmt)&#160;&#160;&#160;<a class="el" href="utils_8h.html#aa490585cccaf3aa782f0541d6628a73c">test_transition</a>(tctx, <a class="el" href="utils_8h.html#a3c2489e5479125d3ce9210f2e41cc814aac9d96afce61e273cb3b054a834f5444">BEGIN_TEST</a>); <a class="el" href="utils_8h.html#acc9afb60b7b11c1919813ffefcb00875">test_print</a>(&quot;\n[TEST %s] &quot;, __FILE__); msg_stmt; <a class="el" href="utils_8h.html#acc9afb60b7b11c1919813ffefcb00875">test_print</a>(&quot;\n&quot;);</td></tr>
+<tr class="separator:a3ab0dd845b94730736c712892f89a9ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41bc25e57de82c8d95b03726a6db9371"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a41bc25e57de82c8d95b03726a6db9371">test_failure</a>(msg, ...)</td></tr>
+<tr class="separator:a41bc25e57de82c8d95b03726a6db9371"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c8a7d98a03fd4c24e0fc761ec10c0fa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a4c8a7d98a03fd4c24e0fc761ec10c0fa">test_success</a>&#160;&#160;&#160;<a class="el" href="utils_8h.html#aa490585cccaf3aa782f0541d6628a73c">test_transition</a>(tctx, <a class="el" href="utils_8h.html#a3c2489e5479125d3ce9210f2e41cc814a2738e826803c3d73912456117a807e2c">SUCCEEDED_TEST</a>);</td></tr>
+<tr class="separator:a4c8a7d98a03fd4c24e0fc761ec10c0fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae219197cb6d29ee2884179123009091a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#ae219197cb6d29ee2884179123009091a">test_end</a>&#160;&#160;&#160;return;</td></tr>
+<tr class="separator:ae219197cb6d29ee2884179123009091a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acea888c62920ec1ecc409843c270e981"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#acea888c62920ec1ecc409843c270e981">define_test</a>(id,  msg_stmt)</td></tr>
+<tr class="separator:acea888c62920ec1ecc409843c270e981"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e7faf2b98c311133aeb6ac3d9c11415"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a6e7faf2b98c311133aeb6ac3d9c11415">test_teardown</a>&#160;&#160;&#160;lbl_teardown_test:</td></tr>
+<tr class="separator:a6e7faf2b98c311133aeb6ac3d9c11415"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3514e74494e8138fcb06943ee4652e2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#aa3514e74494e8138fcb06943ee4652e2">exec_test</a>(id)&#160;&#160;&#160;<a class="el" href="utils_8h.html#a5c1ce7d1edf7aef10019f38c75d3be7f">__exec_test__</a>(id)</td></tr>
+<tr class="separator:aa3514e74494e8138fcb06943ee4652e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c1ce7d1edf7aef10019f38c75d3be7f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a5c1ce7d1edf7aef10019f38c75d3be7f">__exec_test__</a>(id)&#160;&#160;&#160;test_ ##id (tctx);</td></tr>
+<tr class="separator:a5c1ce7d1edf7aef10019f38c75d3be7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af12dad8c8e34e8cb53f7dfa3d5820ee4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#af12dad8c8e34e8cb53f7dfa3d5820ee4">exec_tests</a>(...)&#160;&#160;&#160;<a class="el" href="macro_8h.html#a1bac015d1182a089df50750f8779c7be">MAP</a>(<a class="el" href="utils_8h.html#aa3514e74494e8138fcb06943ee4652e2">exec_test</a>, __VA_ARGS__)</td></tr>
+<tr class="separator:af12dad8c8e34e8cb53f7dfa3d5820ee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c226bc79377223aa2d61e0b84890e11"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a3c226bc79377223aa2d61e0b84890e11">exec_test_chapter</a>(id)&#160;&#160;&#160;test_##id(tctx);</td></tr>
+<tr class="separator:a3c226bc79377223aa2d61e0b84890e11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ae744fbd9f01cb2aa9c103e79f8ab2b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a4ae744fbd9f01cb2aa9c103e79f8ab2b">exec_test_chapters</a>(...)&#160;&#160;&#160;<a class="el" href="macro_8h.html#a1bac015d1182a089df50750f8779c7be">MAP</a>(<a class="el" href="utils_8h.html#a3c226bc79377223aa2d61e0b84890e11">exec_test_chapter</a>, __VA_ARGS__)</td></tr>
+<tr class="separator:a4ae744fbd9f01cb2aa9c103e79f8ab2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9875e687c1668de001eb780eab21b10"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#ac9875e687c1668de001eb780eab21b10">define_test_chapter</a>(id,  msg_stmt, ...)</td></tr>
+<tr class="separator:ac9875e687c1668de001eb780eab21b10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b8a3096bba333f6a06b6f1cd10d60c4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a2b8a3096bba333f6a06b6f1cd10d60c4">set_tests</a>(...)</td></tr>
+<tr class="separator:a2b8a3096bba333f6a06b6f1cd10d60c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a771b98f001ed3e41e779472ee7cedc33"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a771b98f001ed3e41e779472ee7cedc33">test_state_t</a> { <a class="el" href="utils_8h.html#a771b98f001ed3e41e779472ee7cedc33afd6a0e4343048b10646dd2976cc5ad18">IDLE</a>
+, <a class="el" href="utils_8h.html#a771b98f001ed3e41e779472ee7cedc33aca6c0848647c55068d1de35320dc1d11">TESTING</a>
+ }</td></tr>
+<tr class="separator:a771b98f001ed3e41e779472ee7cedc33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c2489e5479125d3ce9210f2e41cc814"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a3c2489e5479125d3ce9210f2e41cc814">test_transition_t</a> { <a class="el" href="utils_8h.html#a3c2489e5479125d3ce9210f2e41cc814aac9d96afce61e273cb3b054a834f5444">BEGIN_TEST</a>
+, <a class="el" href="utils_8h.html#a3c2489e5479125d3ce9210f2e41cc814a98f2d909d60e68562954d796b6b68b45">FAILED_TEST</a>
+, <a class="el" href="utils_8h.html#a3c2489e5479125d3ce9210f2e41cc814a2738e826803c3d73912456117a807e2c">SUCCEEDED_TEST</a>
+ }</td></tr>
+<tr class="separator:a3c2489e5479125d3ce9210f2e41cc814"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ad42e3ada1ba1869a120fb3b83d98ac31"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#ad42e3ada1ba1869a120fb3b83d98ac31">test_display_buffer</a> (<a class="el" href="structtest__context__t.html">test_context_t</a> *ctx)</td></tr>
+<tr class="separator:ad42e3ada1ba1869a120fb3b83d98ac31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa490585cccaf3aa782f0541d6628a73c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#aa490585cccaf3aa782f0541d6628a73c">test_transition</a> (<a class="el" href="structtest__context__t.html">test_context_t</a> *ctx, int transition)</td></tr>
+<tr class="separator:aa490585cccaf3aa782f0541d6628a73c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a4509fbd6b575d0dd5e729419640abff8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4509fbd6b575d0dd5e729419640abff8">&#9670;&nbsp;</a></span>FLAG_OFF</h2>
+<a id="a5c1ce7d1edf7aef10019f38c75d3be7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c1ce7d1edf7aef10019f38c75d3be7f">&#9670;&nbsp;</a></span>__exec_test__</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define FLAG_OFF</td>
+          <td class="memname">#define __exec_test__</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">MASK, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">VAL&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td>&#160;&#160;&#160;VAL = VAL &amp; ~MASK</td>
+          <td class="paramname">id</td><td>)</td>
+          <td>&#160;&#160;&#160;test_ ##id (tctx);</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a6ba5eba974b20769e875eae7671dc63d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ba5eba974b20769e875eae7671dc63d">&#9670;&nbsp;</a></span>FLAG_ON</h2>
+<a id="acea888c62920ec1ecc409843c270e981"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acea888c62920ec1ecc409843c270e981">&#9670;&nbsp;</a></span>define_test</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define FLAG_ON</td>
+          <td class="memname">#define define_test</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">MASK, </td>
+          <td class="paramname">id, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">VAL&#160;</td>
+          <td class="paramname">msg_stmt&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;VAL = VAL | MASK</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordtype">void</span> __test_ ## id (<a class="code" href="structtest__context__t.html">test_context_t</a>* tctx); \</div>
+<div class="line">void test_ ## id (<a class="code" href="structtest__context__t.html">test_context_t</a>* tctx) { \</div>
+<div class="line">  test_begin(msg_stmt);\</div>
+<div class="line">  __test_ ##id (tctx); \</div>
+<div class="line">} \</div>
+<div class="line">void __test_ ##id (<a class="code" href="structtest__context__t.html">test_context_t</a>* tctx)</div>
+<div class="ttc" id="astructtest__context__t_html"><div class="ttname"><a href="structtest__context__t.html">test_context_t</a></div><div class="ttdef"><b>Definition:</b> utils.h:21</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ac9875e687c1668de001eb780eab21b10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9875e687c1668de001eb780eab21b10">&#9670;&nbsp;</a></span>define_test_chapter</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define define_test_chapter</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">id, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">msg_stmt, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordtype">void</span> test_ ##id(<a class="code" href="structtest__context__t.html">test_context_t</a>* tctx) {\</div>
+<div class="line">   exec_tests(__VA_ARGS__)\</div>
+<div class="line">};</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aa3514e74494e8138fcb06943ee4652e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3514e74494e8138fcb06943ee4652e2">&#9670;&nbsp;</a></span>exec_test</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define exec_test</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">id</td><td>)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="utils_8h.html#a5c1ce7d1edf7aef10019f38c75d3be7f">__exec_test__</a>(id)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a03c91a40ac149893ee643dbd90c20204"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03c91a40ac149893ee643dbd90c20204">&#9670;&nbsp;</a></span>HAS_FLAG</h2>
+<a id="a3c226bc79377223aa2d61e0b84890e11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c226bc79377223aa2d61e0b84890e11">&#9670;&nbsp;</a></span>exec_test_chapter</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define HAS_FLAG</td>
+          <td class="memname">#define exec_test_chapter</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">MASK, </td>
+          <td class="paramname">id</td><td>)</td>
+          <td>&#160;&#160;&#160;test_##id(tctx);</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4ae744fbd9f01cb2aa9c103e79f8ab2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ae744fbd9f01cb2aa9c103e79f8ab2b">&#9670;&nbsp;</a></span>exec_test_chapters</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define exec_test_chapters</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="macro_8h.html#a1bac015d1182a089df50750f8779c7be">MAP</a>(<a class="el" href="utils_8h.html#a3c226bc79377223aa2d61e0b84890e11">exec_test_chapter</a>, __VA_ARGS__)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af12dad8c8e34e8cb53f7dfa3d5820ee4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af12dad8c8e34e8cb53f7dfa3d5820ee4">&#9670;&nbsp;</a></span>exec_tests</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define exec_tests</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="macro_8h.html#a1bac015d1182a089df50750f8779c7be">MAP</a>(<a class="el" href="utils_8h.html#aa3514e74494e8138fcb06943ee4652e2">exec_test</a>, __VA_ARGS__)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8bd595c3ec272d83217251a1fbacc2fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bd595c3ec272d83217251a1fbacc2fc">&#9670;&nbsp;</a></span>passert</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define passert</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x</td><td>)</td>
+          <td>&#160;&#160;&#160;for ( ; !(x) ; assert(x) )</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2b8a3096bba333f6a06b6f1cd10d60c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b8a3096bba333f6a06b6f1cd10d60c4">&#9670;&nbsp;</a></span>set_tests</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define set_tests</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordtype">int</span> test() {\</div>
+<div class="line">  printf(<span class="stringliteral">&quot;TEST\n&quot;</span>);\</div>
+<div class="line">  test_context_t ctx;\</div>
+<div class="line">  ctx.total = 0, ctx.success = 0, ctx.failed = 0;\</div>
+<div class="line">  ctx.cursor = 0;\</div>
+<div class="line">  ctx.state = <a class="code" href="utils_8h.html#a771b98f001ed3e41e779472ee7cedc33afd6a0e4343048b10646dd2976cc5ad18">IDLE</a>;\</div>
+<div class="line">\</div>
+<div class="line">  test_context_t* tctx = &amp;ctx;\</div>
+<div class="line">  test_print(<span class="stringliteral">&quot; &quot;</span>);<a class="code" href="utils_8h.html#a4ae744fbd9f01cb2aa9c103e79f8ab2b">\</a></div>
+<div class="line"><a class="code" href="utils_8h.html#a4ae744fbd9f01cb2aa9c103e79f8ab2b">\</a></div>
+<div class="line"><a class="code" href="utils_8h.html#a4ae744fbd9f01cb2aa9c103e79f8ab2b">  exec_test_chapters</a>(__VA_ARGS__); \</div>
+<div class="line">  printf(<span class="stringliteral">&quot;\n&quot;</span>);\</div>
+<div class="line">  printf(<span class="stringliteral">&quot;PASSED: %d / %d.\n&quot;</span>, ctx.success, ctx.total);\</div>
+<div class="line">  return ctx.failed &gt; 0 ? 1 : 0;\</div>
+<div class="line">}</div>
+<div class="ttc" id="autils_8h_html_a4ae744fbd9f01cb2aa9c103e79f8ab2b"><div class="ttname"><a href="utils_8h.html#a4ae744fbd9f01cb2aa9c103e79f8ab2b">exec_test_chapters</a></div><div class="ttdeci">#define exec_test_chapters(...)</div><div class="ttdef"><b>Definition:</b> utils.h:89</div></div>
+<div class="ttc" id="autils_8h_html_a771b98f001ed3e41e779472ee7cedc33afd6a0e4343048b10646dd2976cc5ad18"><div class="ttname"><a href="utils_8h.html#a771b98f001ed3e41e779472ee7cedc33afd6a0e4343048b10646dd2976cc5ad18">IDLE</a></div><div class="ttdeci">@ IDLE</div><div class="ttdef"><b>Definition:</b> utils.h:10</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a3ab0dd845b94730736c712892f89a9ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ab0dd845b94730736c712892f89a9ff">&#9670;&nbsp;</a></span>test_begin</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define test_begin</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">msg_stmt</td><td>)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="utils_8h.html#aa490585cccaf3aa782f0541d6628a73c">test_transition</a>(tctx, <a class="el" href="utils_8h.html#a3c2489e5479125d3ce9210f2e41cc814aac9d96afce61e273cb3b054a834f5444">BEGIN_TEST</a>); <a class="el" href="utils_8h.html#acc9afb60b7b11c1919813ffefcb00875">test_print</a>(&quot;\n[TEST %s] &quot;, __FILE__); msg_stmt; <a class="el" href="utils_8h.html#acc9afb60b7b11c1919813ffefcb00875">test_print</a>(&quot;\n&quot;);</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab8eacde5050789fef931034f1973b763"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8eacde5050789fef931034f1973b763">&#9670;&nbsp;</a></span>test_check</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define test_check</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">msg_stmt, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">VAL&#160;</td>
+          <td class="paramname">test, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">failure&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;VAL &amp; MASK</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="utils_8h.html#acc9afb60b7b11c1919813ffefcb00875">test_print</a>(&quot;[CHECK L%i]: &quot;, __LINE__); msg_stmt; <a class="el" href="utils_8h.html#acc9afb60b7b11c1919813ffefcb00875">test_print</a>(&quot;\n&quot;); passert(test) { failure; }  <a class="el" href="utils_8h.html#acc9afb60b7b11c1919813ffefcb00875">test_print</a>(&quot;[CHECK OK].\n&quot;);</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae219197cb6d29ee2884179123009091a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae219197cb6d29ee2884179123009091a">&#9670;&nbsp;</a></span>test_end</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define test_end&#160;&#160;&#160;return;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a41bc25e57de82c8d95b03726a6db9371"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41bc25e57de82c8d95b03726a6db9371">&#9670;&nbsp;</a></span>test_failure</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define test_failure</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">msg, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">  <a class="code" href="utils_8h.html#acc9afb60b7b11c1919813ffefcb00875">test_print</a>(<span class="stringliteral">&quot;[CHECK FAILURE]: &quot;</span>);  <a class="code" href="utils_8h.html#acc9afb60b7b11c1919813ffefcb00875">test_print</a>(msg, ##__VA_ARGS__); \</div>
+<div class="line">  test_print(<span class="stringliteral">&quot;\n&quot;</span>);\</div>
+<div class="line">  test_print(<span class="stringliteral">&quot;[TEST FAILED]\n&quot;</span>);\</div>
+<div class="line">  test_transition(tctx, <a class="code" href="utils_8h.html#a3c2489e5479125d3ce9210f2e41cc814a98f2d909d60e68562954d796b6b68b45">FAILED_TEST</a>);\</div>
+<div class="line">  goto lbl_teardown_test;</div>
+<div class="ttc" id="autils_8h_html_a3c2489e5479125d3ce9210f2e41cc814a98f2d909d60e68562954d796b6b68b45"><div class="ttname"><a href="utils_8h.html#a3c2489e5479125d3ce9210f2e41cc814a98f2d909d60e68562954d796b6b68b45">FAILED_TEST</a></div><div class="ttdeci">@ FAILED_TEST</div><div class="ttdef"><b>Definition:</b> utils.h:16</div></div>
+<div class="ttc" id="autils_8h_html_acc9afb60b7b11c1919813ffefcb00875"><div class="ttname"><a href="utils_8h.html#acc9afb60b7b11c1919813ffefcb00875">test_print</a></div><div class="ttdeci">#define test_print(fmt,...)</div><div class="ttdef"><b>Definition:</b> utils.h:61</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="acc9afb60b7b11c1919813ffefcb00875"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc9afb60b7b11c1919813ffefcb00875">&#9670;&nbsp;</a></span>test_print</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define test_print</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">fmt, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;tctx-&gt;cursor++; snprintf(tctx-&gt;buffer[tctx-&gt;cursor], 0xFF, fmt, ## __VA_ARGS__);</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4c8a7d98a03fd4c24e0fc761ec10c0fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c8a7d98a03fd4c24e0fc761ec10c0fa">&#9670;&nbsp;</a></span>test_success</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define test_success&#160;&#160;&#160;<a class="el" href="utils_8h.html#aa490585cccaf3aa782f0541d6628a73c">test_transition</a>(tctx, <a class="el" href="utils_8h.html#a3c2489e5479125d3ce9210f2e41cc814a2738e826803c3d73912456117a807e2c">SUCCEEDED_TEST</a>);</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6e7faf2b98c311133aeb6ac3d9c11415"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e7faf2b98c311133aeb6ac3d9c11415">&#9670;&nbsp;</a></span>test_teardown</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define test_teardown&#160;&#160;&#160;lbl_teardown_test:</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a771b98f001ed3e41e779472ee7cedc33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a771b98f001ed3e41e779472ee7cedc33">&#9670;&nbsp;</a></span>test_state_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="utils_8h.html#a771b98f001ed3e41e779472ee7cedc33">test_state_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a771b98f001ed3e41e779472ee7cedc33afd6a0e4343048b10646dd2976cc5ad18"></a>IDLE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a771b98f001ed3e41e779472ee7cedc33aca6c0848647c55068d1de35320dc1d11"></a>TESTING&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a3c2489e5479125d3ce9210f2e41cc814"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c2489e5479125d3ce9210f2e41cc814">&#9670;&nbsp;</a></span>test_transition_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="utils_8h.html#a3c2489e5479125d3ce9210f2e41cc814">test_transition_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a3c2489e5479125d3ce9210f2e41cc814aac9d96afce61e273cb3b054a834f5444"></a>BEGIN_TEST&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a3c2489e5479125d3ce9210f2e41cc814a98f2d909d60e68562954d796b6b68b45"></a>FAILED_TEST&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a3c2489e5479125d3ce9210f2e41cc814a2738e826803c3d73912456117a807e2c"></a>SUCCEEDED_TEST&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ad42e3ada1ba1869a120fb3b83d98ac31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad42e3ada1ba1869a120fb3b83d98ac31">&#9670;&nbsp;</a></span>test_display_buffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void test_display_buffer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structtest__context__t.html">test_context_t</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa490585cccaf3aa782f0541d6628a73c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa490585cccaf3aa782f0541d6628a73c">&#9670;&nbsp;</a></span>test_transition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void test_transition </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structtest__context__t.html">test_context_t</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>transition</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">

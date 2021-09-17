@@ -1,0 +1,77 @@
+\hypertarget{lib_2common_2include_2stream_2core_8h}{}\doxysection{C\+:/\+Users/\+GP69\+E5\+EN/\+Documents/dev/palinka/lib/common/include/stream/core.h File Reference}
+\label{lib_2common_2include_2stream_2core_8h}\index{C:/Users/GP69E5EN/Documents/dev/palinka/lib/common/include/stream/core.h@{C:/Users/GP69E5EN/Documents/dev/palinka/lib/common/include/stream/core.h}}
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structstream__t}{stream\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structstream__t}{stream\+\_\+t}} \mbox{\hyperlink{lib_2common_2include_2stream_2core_8h_aaf9b243293376707c155ac22fa94b827}{stream\+\_\+create}} ()
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lib_2common_2include_2stream_2core_8h_a9f5450671ed5a933f1b8c81498ae0a9b}{stream\+\_\+open\+\_\+file}} (const char $\ast$fp, const char $\ast$mode, \mbox{\hyperlink{structstream__t}{stream\+\_\+t}} $\ast$stream)
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lib_2common_2include_2stream_2core_8h_abf41386b42caa97ec2c35bde0e8f9cf1}{stream\+\_\+is\+\_\+opened}} (\mbox{\hyperlink{structstream__t}{stream\+\_\+t}} $\ast$stream)
+\item 
+void \mbox{\hyperlink{lib_2common_2include_2stream_2core_8h_af8ca7325a0a3a514a7f686e3eb4bd4f8}{stream\+\_\+close}} (\mbox{\hyperlink{structstream__t}{stream\+\_\+t}} $\ast$stream)
+\item 
+size\+\_\+t \mbox{\hyperlink{lib_2common_2include_2stream_2core_8h_a9c29bed40ce8e40f69fc2a805cb2027b}{stream\+\_\+read}} (\mbox{\hyperlink{structstream__t}{stream\+\_\+t}} $\ast$stream, void $\ast$dest, size\+\_\+t capacity)
+\item 
+size\+\_\+t \mbox{\hyperlink{lib_2common_2include_2stream_2core_8h_a3b29fa94e81be0865d75af5137bbba46}{stream\+\_\+write}} (\mbox{\hyperlink{structstream__t}{stream\+\_\+t}} $\ast$stream, const void $\ast$src, size\+\_\+t size)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structstream__t}{stream\+\_\+t}} \mbox{\hyperlink{lib_2common_2include_2stream_2core_8h_a39e14445a81d32322da53b37009aadb9}{stream\+\_\+init}} = \{0\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{lib_2common_2include_2stream_2core_8h_af8ca7325a0a3a514a7f686e3eb4bd4f8}\label{lib_2common_2include_2stream_2core_8h_af8ca7325a0a3a514a7f686e3eb4bd4f8}} 
+\index{core.h@{core.h}!stream\_close@{stream\_close}}
+\index{stream\_close@{stream\_close}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{stream\_close()}{stream\_close()}}
+{\footnotesize\ttfamily void stream\+\_\+close (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structstream__t}{stream\+\_\+t}} $\ast$}]{stream }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lib_2common_2include_2stream_2core_8h_aaf9b243293376707c155ac22fa94b827}\label{lib_2common_2include_2stream_2core_8h_aaf9b243293376707c155ac22fa94b827}} 
+\index{core.h@{core.h}!stream\_create@{stream\_create}}
+\index{stream\_create@{stream\_create}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{stream\_create()}{stream\_create()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstream__t}{stream\+\_\+t}} stream\+\_\+create (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lib_2common_2include_2stream_2core_8h_abf41386b42caa97ec2c35bde0e8f9cf1}\label{lib_2common_2include_2stream_2core_8h_abf41386b42caa97ec2c35bde0e8f9cf1}} 
+\index{core.h@{core.h}!stream\_is\_opened@{stream\_is\_opened}}
+\index{stream\_is\_opened@{stream\_is\_opened}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{stream\_is\_opened()}{stream\_is\_opened()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} stream\+\_\+is\+\_\+opened (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structstream__t}{stream\+\_\+t}} $\ast$}]{stream }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lib_2common_2include_2stream_2core_8h_a9f5450671ed5a933f1b8c81498ae0a9b}\label{lib_2common_2include_2stream_2core_8h_a9f5450671ed5a933f1b8c81498ae0a9b}} 
+\index{core.h@{core.h}!stream\_open\_file@{stream\_open\_file}}
+\index{stream\_open\_file@{stream\_open\_file}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{stream\_open\_file()}{stream\_open\_file()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} stream\+\_\+open\+\_\+file (\begin{DoxyParamCaption}\item[{const char $\ast$}]{fp,  }\item[{const char $\ast$}]{mode,  }\item[{\mbox{\hyperlink{structstream__t}{stream\+\_\+t}} $\ast$}]{stream }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lib_2common_2include_2stream_2core_8h_a9c29bed40ce8e40f69fc2a805cb2027b}\label{lib_2common_2include_2stream_2core_8h_a9c29bed40ce8e40f69fc2a805cb2027b}} 
+\index{core.h@{core.h}!stream\_read@{stream\_read}}
+\index{stream\_read@{stream\_read}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{stream\_read()}{stream\_read()}}
+{\footnotesize\ttfamily size\+\_\+t stream\+\_\+read (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structstream__t}{stream\+\_\+t}} $\ast$}]{stream,  }\item[{void $\ast$}]{dest,  }\item[{size\+\_\+t}]{capacity }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lib_2common_2include_2stream_2core_8h_a3b29fa94e81be0865d75af5137bbba46}\label{lib_2common_2include_2stream_2core_8h_a3b29fa94e81be0865d75af5137bbba46}} 
+\index{core.h@{core.h}!stream\_write@{stream\_write}}
+\index{stream\_write@{stream\_write}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{stream\_write()}{stream\_write()}}
+{\footnotesize\ttfamily size\+\_\+t stream\+\_\+write (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structstream__t}{stream\+\_\+t}} $\ast$}]{stream,  }\item[{const void $\ast$}]{src,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{lib_2common_2include_2stream_2core_8h_a39e14445a81d32322da53b37009aadb9}\label{lib_2common_2include_2stream_2core_8h_a39e14445a81d32322da53b37009aadb9}} 
+\index{core.h@{core.h}!stream\_init@{stream\_init}}
+\index{stream\_init@{stream\_init}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{stream\_init}{stream\_init}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstream__t}{stream\+\_\+t}} stream\+\_\+init = \{0\}}
+

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Palinka - Core: C:/Users/GP69E5EN/Documents/dev/palinka/src/mem.h File Reference</title>
+<title>Palinka - Core: C:/Users/GP69E5EN/Documents/dev/palinka/src/mmix/mem.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,392 +61,359 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_02b5425893fcb72d585927e39a9b282c.html">mmix</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#define-members">Macros</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">mem.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;math.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="allocator_8h_source.html">allocator.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="macro_8h_source.html">macro.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="types_8h_source.html">types.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="avl__page_8h_source.html">avl_page.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="types_8h_source.html">../../lib/common/include/types.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="sys_8h_source.html">../sys.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="src_2mem_2core_8h_source.html">../mem/core.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="processor_8h_source.html">./processor.h</a>&quot;</code><br />
 </div>
 <p><a href="mem_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmanaged__memory__t.html">managed_memory_t</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Managed real memory.  <a href="structmanaged__memory__t.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmemory__t.html">memory_t</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a7d467c1d283fdfa1f2081ba1e0d01b6e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mem_8h.html#a7d467c1d283fdfa1f2081ba1e0d01b6e">PAGE_SIZE</a>&#160;&#160;&#160;4096</td></tr>
-<tr class="separator:a7d467c1d283fdfa1f2081ba1e0d01b6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f41a0ffa876640f958f316d85d54f96"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mem_8h.html#a5f41a0ffa876640f958f316d85d54f96">DIR_ID</a>(vaddr)&#160;&#160;&#160;((uintptr_t)(vaddr) &gt;&gt; 38)</td></tr>
-<tr class="separator:a5f41a0ffa876640f958f316d85d54f96"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a12970b956ca386cd140ffe5ebd47527a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mem_8h.html#a12970b956ca386cd140ffe5ebd47527a">PAGE_ID</a>(vaddr)&#160;&#160;&#160;((uintptr_t )(vaddr) &gt;&gt; 12)</td></tr>
-<tr class="separator:a12970b956ca386cd140ffe5ebd47527a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa508e238ecd57872e85b3ea3616c5117"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mem_8h.html#aa508e238ecd57872e85b3ea3616c5117">PAGE_OFFSET</a>(vaddr)&#160;&#160;&#160;((uintptr_t)(vaddr) &amp; 0xFFF)</td></tr>
-<tr class="separator:aa508e238ecd57872e85b3ea3616c5117"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad23ca33f5a626794d58562fcf41e6f6d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mem_8h.html#ad23ca33f5a626794d58562fcf41e6f6d">PAGE_NOT_PRESENT</a>&#160;&#160;&#160;1;</td></tr>
-<tr class="separator:ad23ca33f5a626794d58562fcf41e6f6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a985a489a53ed50b15f86abae751d21f9"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structmanaged__memory__t.html">managed_memory_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mem_8h.html#a985a489a53ed50b15f86abae751d21f9">managed_memory_t</a></td></tr>
-<tr class="memdesc:a985a489a53ed50b15f86abae751d21f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Managed real memory.  <a href="mem_8h.html#a985a489a53ed50b15f86abae751d21f9">More...</a><br /></td></tr>
-<tr class="separator:a985a489a53ed50b15f86abae751d21f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87d4822f1cfde2862a9bed8a7909f434"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mem_8h.html#a87d4822f1cfde2862a9bed8a7909f434">PAGE_NOT_PRESENT_BIT</a>&#160;&#160;&#160;(1 &lt;&lt; 19);</td></tr>
+<tr class="separator:a87d4822f1cfde2862a9bed8a7909f434"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc1353af49737b1192ef42cdba56a7ea"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mem_8h.html#adc1353af49737b1192ef42cdba56a7ea">MMIX_MEM_ACCESS_FAILBACK</a>(sys,  addr,  type,  out,  on_failure)</td></tr>
+<tr class="separator:adc1353af49737b1192ef42cdba56a7ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a047198be0de1fabe5dd295bd36c45a80"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mem_8h.html#a047198be0de1fabe5dd295bd36c45a80">MMIX_MEM_READ_FAILBACK</a>(sys,  addr,  type,  out,  on_failure)</td></tr>
+<tr class="separator:a047198be0de1fabe5dd295bd36c45a80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b0f92472b6374d6783fc15f982e8032"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mem_8h.html#a6b0f92472b6374d6783fc15f982e8032">MMIX_MEM_WRITE_FAILBACK</a>(sys,  addr,  type,  val,  on_failure)</td></tr>
+<tr class="separator:a6b0f92472b6374d6783fc15f982e8032"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a462027e804b0e89c13ebc0983c88f65a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mem_8h.html#a462027e804b0e89c13ebc0983c88f65a">MMIX_MEM_ACCESS</a>(sys,  addr,  out)&#160;&#160;&#160;<a class="el" href="mem_8h.html#adc1353af49737b1192ef42cdba56a7ea">MMIX_MEM_ACCESS_FAILBACK</a>(sys, addr, type, out, return)</td></tr>
+<tr class="separator:a462027e804b0e89c13ebc0983c88f65a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fe4297316d4cbac2da705462658b57d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mem_8h.html#a7fe4297316d4cbac2da705462658b57d">MMIX_MEM_READ</a>(sys,  addr,  type,  out)&#160;&#160;&#160;<a class="el" href="mem_8h.html#a047198be0de1fabe5dd295bd36c45a80">MMIX_MEM_READ_FAILBACK</a>(sys, addr, type, out, return)</td></tr>
+<tr class="separator:a7fe4297316d4cbac2da705462658b57d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c056c950b04959e9d3990a727b39b74"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mem_8h.html#a9c056c950b04959e9d3990a727b39b74">MMIX_MEM_WRITE</a>(sys,  addr,  type,  val)&#160;&#160;&#160;<a class="el" href="mem_8h.html#a6b0f92472b6374d6783fc15f982e8032">MMIX_MEM_WRITE_FAILBACK</a>(sys, addr, type, val, return)</td></tr>
+<tr class="separator:a9c056c950b04959e9d3990a727b39b74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aa4bfa76a96ce5b69adfdde0aa014a565"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structmemory__t.html">memory_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mem_8h.html#aa4bfa76a96ce5b69adfdde0aa014a565">mem_create</a> (<a class="el" href="structallocator__t.html">allocator_t</a> *allocator)</td></tr>
-<tr class="memdesc:aa4bfa76a96ce5b69adfdde0aa014a565"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a memory device.  <a href="mem_8h.html#aa4bfa76a96ce5b69adfdde0aa014a565">More...</a><br /></td></tr>
-<tr class="separator:aa4bfa76a96ce5b69adfdde0aa014a565"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd8ddf2c3025b8f7ddbd8331c02294b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mem_8h.html#acd8ddf2c3025b8f7ddbd8331c02294b2">__mem_init</a> (<a class="el" href="structmemory__t.html">memory_t</a> *mem, <a class="el" href="structallocator__t.html">allocator_t</a> *allocator, <a class="el" href="structallocator__t.html">allocator_t</a> *page_node_allocator)</td></tr>
-<tr class="memdesc:acd8ddf2c3025b8f7ddbd8331c02294b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init the memory device.  <a href="mem_8h.html#acd8ddf2c3025b8f7ddbd8331c02294b2">More...</a><br /></td></tr>
-<tr class="separator:acd8ddf2c3025b8f7ddbd8331c02294b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a150935e65e0c4eda46ba3470e833f5a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mem_8h.html#a150935e65e0c4eda46ba3470e833f5a4">mem_delete</a> (<a class="el" href="structmemory__t.html">memory_t</a> *mem)</td></tr>
-<tr class="memdesc:a150935e65e0c4eda46ba3470e833f5a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete the memory device.  <a href="mem_8h.html#a150935e65e0c4eda46ba3470e833f5a4">More...</a><br /></td></tr>
-<tr class="separator:a150935e65e0c4eda46ba3470e833f5a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab89c93c1021862dfb5f2cdc4ce195164"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mem_8h.html#ab89c93c1021862dfb5f2cdc4ce195164">mem_align</a> (size_t len)</td></tr>
-<tr class="memdesc:ab89c93c1021862dfb5f2cdc4ce195164"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a memory-aligned length.  <a href="mem_8h.html#ab89c93c1021862dfb5f2cdc4ce195164">More...</a><br /></td></tr>
-<tr class="separator:ab89c93c1021862dfb5f2cdc4ce195164"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aafe48e68b830b0e8a97f60963f778733"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mem_8h.html#aafe48e68b830b0e8a97f60963f778733">mem_tl</a> (<a class="el" href="structmemory__t.html">memory_t</a> *mem, void *vaddr, void **out, char *exceptions)</td></tr>
-<tr class="memdesc:aafe48e68b830b0e8a97f60963f778733"><td class="mdescLeft">&#160;</td><td class="mdescRight">Memory translation from virtual to real addresses.  <a href="mem_8h.html#aafe48e68b830b0e8a97f60963f778733">More...</a><br /></td></tr>
-<tr class="separator:aafe48e68b830b0e8a97f60963f778733"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87e560be5c43d12570f4069f357cb87a"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mem_8h.html#a87e560be5c43d12570f4069f357cb87a">mem_map</a> (<a class="el" href="structmemory__t.html">memory_t</a> *mem, void *vaddr, void *paddr, size_t len)</td></tr>
-<tr class="memdesc:a87e560be5c43d12570f4069f357cb87a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map virtual memory to a real memory block.  <a href="mem_8h.html#a87e560be5c43d12570f4069f357cb87a">More...</a><br /></td></tr>
-<tr class="separator:a87e560be5c43d12570f4069f357cb87a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22a29055f6fe47e7784419fab59871c9"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mem_8h.html#a22a29055f6fe47e7784419fab59871c9">mem_alloc_managed</a> (<a class="el" href="structmemory__t.html">memory_t</a> *mem, <a class="el" href="structallocator__t.html">allocator_t</a> *allocator, void *vaddr, size_t len)</td></tr>
-<tr class="memdesc:a22a29055f6fe47e7784419fab59871c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate real memory block and map it to a virtual memory block.  <a href="mem_8h.html#a22a29055f6fe47e7784419fab59871c9">More...</a><br /></td></tr>
-<tr class="separator:a22a29055f6fe47e7784419fab59871c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a487bf9d644f6d4d1c9d82d23b12169ef"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mem_8h.html#a487bf9d644f6d4d1c9d82d23b12169ef">mmix_memtl</a> (<a class="el" href="structsystem__t.html">system_t</a> *sys, void *addr, void **out)</td></tr>
+<tr class="separator:a487bf9d644f6d4d1c9d82d23b12169ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a5f41a0ffa876640f958f316d85d54f96"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f41a0ffa876640f958f316d85d54f96">&#9670;&nbsp;</a></span>DIR_ID</h2>
+<a id="a462027e804b0e89c13ebc0983c88f65a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a462027e804b0e89c13ebc0983c88f65a">&#9670;&nbsp;</a></span>MMIX_MEM_ACCESS</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define DIR_ID</td>
+          <td class="memname">#define MMIX_MEM_ACCESS</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">vaddr</td><td>)</td>
-          <td>&#160;&#160;&#160;((uintptr_t)(vaddr) &gt;&gt; 38)</td>
+          <td class="paramname">sys, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">addr, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">out&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="mem_8h.html#adc1353af49737b1192ef42cdba56a7ea">MMIX_MEM_ACCESS_FAILBACK</a>(sys, addr, type, out, return)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a12970b956ca386cd140ffe5ebd47527a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a12970b956ca386cd140ffe5ebd47527a">&#9670;&nbsp;</a></span>PAGE_ID</h2>
+<a id="adc1353af49737b1192ef42cdba56a7ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc1353af49737b1192ef42cdba56a7ea">&#9670;&nbsp;</a></span>MMIX_MEM_ACCESS_FAILBACK</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define PAGE_ID</td>
+          <td class="memname">#define MMIX_MEM_ACCESS_FAILBACK</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">vaddr</td><td>)</td>
-          <td>&#160;&#160;&#160;((uintptr_t )(vaddr) &gt;&gt; 12)</td>
+          <td class="paramname">sys, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">addr, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">type, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">out, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">  {\</div>
+<div class="line">  void* __out;\</div>
+<div class="line">  if(!<a class="code" href="mem_8h.html#a487bf9d644f6d4d1c9d82d23b12169ef">mmix_memtl</a>(sys, addr, &amp;__out)) {\</div>
+<div class="line">    sys_panic(sys);\</div>
+<div class="line">    on_failure;\</div>
+<div class="line">  }\</div>
+<div class="line">  out = (type*) __out;\</div>
+<div class="line">}</div>
+<div class="ttc" id="amem_8h_html_a487bf9d644f6d4d1c9d82d23b12169ef"><div class="ttname"><a href="mem_8h.html#a487bf9d644f6d4d1c9d82d23b12169ef">mmix_memtl</a></div><div class="ttdeci">bool mmix_memtl(system_t *sys, void *addr, void **out)</div><div class="ttdef"><b>Definition:</b> mem.h:44</div></div>
+</div><!-- fragment -->
 </div>
 </div>
-<a id="ad23ca33f5a626794d58562fcf41e6f6d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad23ca33f5a626794d58562fcf41e6f6d">&#9670;&nbsp;</a></span>PAGE_NOT_PRESENT</h2>
+<a id="a7fe4297316d4cbac2da705462658b57d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fe4297316d4cbac2da705462658b57d">&#9670;&nbsp;</a></span>MMIX_MEM_READ</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define PAGE_NOT_PRESENT&#160;&#160;&#160;1;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aa508e238ecd57872e85b3ea3616c5117"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa508e238ecd57872e85b3ea3616c5117">&#9670;&nbsp;</a></span>PAGE_OFFSET</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define PAGE_OFFSET</td>
+          <td class="memname">#define MMIX_MEM_READ</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">vaddr</td><td>)</td>
-          <td>&#160;&#160;&#160;((uintptr_t)(vaddr) &amp; 0xFFF)</td>
+          <td class="paramname">sys, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">addr, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">type, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">out&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="mem_8h.html#a047198be0de1fabe5dd295bd36c45a80">MMIX_MEM_READ_FAILBACK</a>(sys, addr, type, out, return)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a7d467c1d283fdfa1f2081ba1e0d01b6e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d467c1d283fdfa1f2081ba1e0d01b6e">&#9670;&nbsp;</a></span>PAGE_SIZE</h2>
+<a id="a047198be0de1fabe5dd295bd36c45a80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a047198be0de1fabe5dd295bd36c45a80">&#9670;&nbsp;</a></span>MMIX_MEM_READ_FAILBACK</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define PAGE_SIZE&#160;&#160;&#160;4096</td>
+          <td class="memname">#define MMIX_MEM_READ_FAILBACK</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">sys, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">addr, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">type, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">out, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">  {\</div>
+<div class="line">  type* __out2; \</div>
+<div class="line">  MMIX_MEM_ACCESS_FAILBACK(sys, addr, type, __out2, on_failure);\</div>
+<div class="line">  out = *(type*) __out2; \</div>
+<div class="line">}</div>
+</div><!-- fragment -->
 </div>
 </div>
-<h2 class="groupheader">Typedef Documentation</h2>
-<a id="a985a489a53ed50b15f86abae751d21f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a985a489a53ed50b15f86abae751d21f9">&#9670;&nbsp;</a></span>managed_memory_t</h2>
+<a id="a9c056c950b04959e9d3990a727b39b74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c056c950b04959e9d3990a727b39b74">&#9670;&nbsp;</a></span>MMIX_MEM_WRITE</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef struct <a class="el" href="structmanaged__memory__t.html">managed_memory_t</a> <a class="el" href="structmanaged__memory__t.html">managed_memory_t</a></td>
+          <td class="memname">#define MMIX_MEM_WRITE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">sys, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">addr, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">type, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">val&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="mem_8h.html#a6b0f92472b6374d6783fc15f982e8032">MMIX_MEM_WRITE_FAILBACK</a>(sys, addr, type, val, return)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Managed real memory. </p>
-<p>Paging works \w 64-bits address</p>
-<p>20 bits for directory id (1MiB) 20 bits for table id (1MiB) 12 bits for offset (page_size = 4KiB) </p>
+</div>
+</div>
+<a id="a6b0f92472b6374d6783fc15f982e8032"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b0f92472b6374d6783fc15f982e8032">&#9670;&nbsp;</a></span>MMIX_MEM_WRITE_FAILBACK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MMIX_MEM_WRITE_FAILBACK</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">sys, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">addr, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">type, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">val, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">  {\</div>
+<div class="line">  void* __out;\</div>
+<div class="line">  if(!<a class="code" href="mem_8h.html#a487bf9d644f6d4d1c9d82d23b12169ef">mmix_memtl</a>(sys, addr, &amp;__out)) {\</div>
+<div class="line">    sys_panic(sys); \</div>
+<div class="line">    on_failure; \</div>
+<div class="line">  } \</div>
+<div class="line">  *(type*) __out = val;\</div>
+<div class="line">}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a87d4822f1cfde2862a9bed8a7909f434"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87d4822f1cfde2862a9bed8a7909f434">&#9670;&nbsp;</a></span>PAGE_NOT_PRESENT_BIT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PAGE_NOT_PRESENT_BIT&#160;&#160;&#160;(1 &lt;&lt; 19);</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="acd8ddf2c3025b8f7ddbd8331c02294b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acd8ddf2c3025b8f7ddbd8331c02294b2">&#9670;&nbsp;</a></span>__mem_init()</h2>
+<a id="a487bf9d644f6d4d1c9d82d23b12169ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a487bf9d644f6d4d1c9d82d23b12169ef">&#9670;&nbsp;</a></span>mmix_memtl()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void __mem_init </td>
+          <td class="memname"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a> mmix_memtl </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structmemory__t.html">memory_t</a> *&#160;</td>
-          <td class="paramname"><em>mem</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structallocator__t.html">allocator_t</a> *&#160;</td>
-          <td class="paramname"><em>allocator</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structallocator__t.html">allocator_t</a> *&#160;</td>
-          <td class="paramname"><em>page_node_allocator</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Init the memory device. </p>
-
-</div>
-</div>
-<a id="ab89c93c1021862dfb5f2cdc4ce195164"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab89c93c1021862dfb5f2cdc4ce195164">&#9670;&nbsp;</a></span>mem_align()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">size_t mem_align </td>
-          <td>(</td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>len</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns a memory-aligned length. </p>
-
-</div>
-</div>
-<a id="a22a29055f6fe47e7784419fab59871c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a22a29055f6fe47e7784419fab59871c9">&#9670;&nbsp;</a></span>mem_alloc_managed()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void * mem_alloc_managed </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structmemory__t.html">memory_t</a> *&#160;</td>
-          <td class="paramname"><em>mem</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structallocator__t.html">allocator_t</a> *&#160;</td>
-          <td class="paramname"><em>allocator</em>, </td>
+          <td class="paramtype"><a class="el" href="structsystem__t.html">system_t</a> *&#160;</td>
+          <td class="paramname"><em>sys</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>vaddr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>len</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Allocate real memory block and map it to a virtual memory block. </p>
-<p>The allocated memory is fully managed by the memory device. </p>
-
-</div>
-</div>
-<a id="aa4bfa76a96ce5b69adfdde0aa014a565"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4bfa76a96ce5b69adfdde0aa014a565">&#9670;&nbsp;</a></span>mem_create()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structmemory__t.html">memory_t</a> * mem_create </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structallocator__t.html">allocator_t</a> *&#160;</td>
-          <td class="paramname"><em>allocator</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Create a memory device. </p>
-<dl class="section return"><dt>Returns</dt><dd>A new memory device </dd></dl>
-
-</div>
-</div>
-<a id="a150935e65e0c4eda46ba3470e833f5a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a150935e65e0c4eda46ba3470e833f5a4">&#9670;&nbsp;</a></span>mem_delete()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void mem_delete </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structmemory__t.html">memory_t</a> *&#160;</td>
-          <td class="paramname"><em>mem</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Delete the memory device. </p>
-
-</div>
-</div>
-<a id="a87e560be5c43d12570f4069f357cb87a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a87e560be5c43d12570f4069f357cb87a">&#9670;&nbsp;</a></span>mem_map()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void * mem_map </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structmemory__t.html">memory_t</a> *&#160;</td>
-          <td class="paramname"><em>mem</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>vaddr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>paddr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>len</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Map virtual memory to a real memory block. </p>
-
-</div>
-</div>
-<a id="aafe48e68b830b0e8a97f60963f778733"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aafe48e68b830b0e8a97f60963f778733">&#9670;&nbsp;</a></span>mem_tl()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a> mem_tl </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structmemory__t.html">memory_t</a> *&#160;</td>
-          <td class="paramname"><em>mem</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>vaddr</em>, </td>
+          <td class="paramname"><em>addr</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">void **&#160;</td>
-          <td class="paramname"><em>out</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>exceptions</em>&#160;</td>
+          <td class="paramname"><em>out</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -455,8 +422,6 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Memory translation from virtual to real addresses. </p>
 
 </div>
 </div>

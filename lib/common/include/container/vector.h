@@ -15,7 +15,7 @@ typedef struct vector_t {
     size_t capacity;
     size_t size;
 
-    allocator_t elements_allocator;
+    allocator_t __elements_allocator;
     allocator_t __allocator;
 } vector_t;
 
@@ -53,6 +53,16 @@ bool vector_create(vector_t* vec, type_desc_t* type_desc, size_t capacity, alloc
  * \brief Delete the vector of string
  */
 void vector_clear(vector_t* vec);
+
+/**
+ * \brief Move the vector
+ */
+void vector_move(vector_t* dest, vector_t* src);
+
+/**
+ * \brief Copy the vector
+ */
+bool vector_copy(vector_t* dest, const vector_t* src, allocator_t* allocator);
 
 /**
  * \brief Vector eq
@@ -93,7 +103,7 @@ bool vector_create(vector_t* vec, type_desc_t* type_desc, size_t capacity, alloc
     vec->base = base;
     vec->type_desc = type_desc;
     vec->capacity = capacity;
-    vec->elements_allocator = allocator_copy(allocator);
+    vec->__elements_allocator = allocator_copy(allocator);
     vec->size = 0;
 
 
@@ -107,7 +117,7 @@ static bool __vector_check_capacity(vector_t* vec, size_t size)
         size_t new_capacity = vec->capacity << 1;
         
         void* base = prealloc(
-            &vec->elements_allocator, 
+            &vec->__elements_allocator, 
             vec->base, 
             vec->type_desc->size * new_capacity
         );
@@ -141,14 +151,48 @@ void vector_clear(vector_t* vec)
         }
     }
 
-    pfree(&vec->elements_allocator, vec->base);
+    pfree(&vec->__elements_allocator, vec->base);
     vec->base = NULL;
-    allocator_delete(&vec->elements_allocator);
+    allocator_delete(&vec->__elements_allocator);
+}
+
+void vector_move(vector_t* dest, vector_t* src)
+{
+    dest->base = src->base;
+    dest->capacity = src->capacity;
+    dest->size = src->size;
+    dest->type_desc = src->type_desc;
+    dest->__elements_allocator = src->__elements_allocator;
+}
+
+bool vector_copy(vector_t* dest, const vector_t* src, allocator_t* allocator)
+{
+    vector_clear(dest);
+
+    if(src->base == NULL)
+        return false;
+    
+    if(src->type_desc->copy == NULL)
+        return false;
+
+    vector_create(dest, src->type_desc, src->capacity, allocator);
+
+    void* it_src, *it_dest;
+    
+    for(size_t i; i < src->size; i++) 
+    {
+        it_src = src->base + i * src->type_desc->size;
+        it_dest = dest->base + i * src->type_desc->size;
+        src->type_desc->copy(it_dest, it_src, allocator);
+    }
+
+    return true;
 }
 
 void vector_delete(vector_t* vec)
 {
     vector_clear(vec);
+    
     allocator_t allocator = allocator_copy(&vec->__allocator);
     allocator_delete(&vec->__allocator);
     pfree(&allocator, vec);

@@ -75,12 +75,13 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;math.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="instr_8h_source.html">instr.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="mmix_2mem_8h_source.html">mem.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="processor_8h_source.html">processor.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="arith_8h_source.html">../alu.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="alu_8h_source.html">../../lib/common/include/alu.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="types_8h_source.html">../../lib/common/include/types.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="src_2mem_2core_8h_source.html">../mem/core.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="sys_8h_source.html">../sys.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="types_8h_source.html">../types.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="processor_8h_source.html">./processor.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="instr_8h_source.html">./instr.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="mem_8h_source.html">./mem.h</a>&quot;</code><br />
 </div>
 <p><a href="dispatch_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -94,9 +95,9 @@ Macros</h2></td></tr>
 <tr class="separator:af0f10bdd17c37c45a96922200845e7b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af9a5db0588203247c069691e81110b96"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dispatch_8h.html#af9a5db0588203247c069691e81110b96">MEXN</a>(op_name)&#160;&#160;&#160;mmix_##op_name</td></tr>
 <tr class="separator:af9a5db0588203247c069691e81110b96"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ba1180be1afb727a946efbfee547822"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dispatch_8h.html#a7ba1180be1afb727a946efbfee547822">MMEMR</a>(addr,  type,  out)&#160;&#160;&#160;<a class="el" href="mmix_2mem_8h.html#a7fe4297316d4cbac2da705462658b57d">MMIX_MEM_READ</a>(sys, addr, type, out)</td></tr>
+<tr class="memitem:a7ba1180be1afb727a946efbfee547822"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dispatch_8h.html#a7ba1180be1afb727a946efbfee547822">MMEMR</a>(addr,  type,  out)&#160;&#160;&#160;<a class="el" href="mem_8h.html#a7fe4297316d4cbac2da705462658b57d">MMIX_MEM_READ</a>(sys, addr, type, out)</td></tr>
 <tr class="separator:a7ba1180be1afb727a946efbfee547822"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d5a333c82ccec15050aa27f14dadd50"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dispatch_8h.html#a2d5a333c82ccec15050aa27f14dadd50">MMEMW</a>(addr,  type,  val)&#160;&#160;&#160;<a class="el" href="mmix_2mem_8h.html#a9c056c950b04959e9d3990a727b39b74">MMIX_MEM_WRITE</a>(sys, addr, type, val)</td></tr>
+<tr class="memitem:a2d5a333c82ccec15050aa27f14dadd50"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dispatch_8h.html#a2d5a333c82ccec15050aa27f14dadd50">MMEMW</a>(addr,  type,  val)&#160;&#160;&#160;<a class="el" href="mem_8h.html#a9c056c950b04959e9d3990a727b39b74">MMIX_MEM_WRITE</a>(sys, addr, type, val)</td></tr>
 <tr class="separator:a2d5a333c82ccec15050aa27f14dadd50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a03b0b851f72b4a85f543af3254a1c18f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="dispatch_8h.html#a03b0b851f72b4a85f543af3254a1c18f">MMIX_SREG</a>(REG)&#160;&#160;&#160;proc-&gt;g[REG]</td></tr>
 <tr class="separator:a03b0b851f72b4a85f543af3254a1c18f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -781,7 +782,7 @@ Variables</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="mmix_2mem_8h.html#a7fe4297316d4cbac2da705462658b57d">MMIX_MEM_READ</a>(sys, addr, type, out)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="mem_8h.html#a7fe4297316d4cbac2da705462658b57d">MMIX_MEM_READ</a>(sys, addr, type, out)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -815,7 +816,7 @@ Variables</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="mmix_2mem_8h.html#a9c056c950b04959e9d3990a727b39b74">MMIX_MEM_WRITE</a>(sys, addr, type, val)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="mem_8h.html#a9c056c950b04959e9d3990a727b39b74">MMIX_MEM_WRITE</a>(sys, addr, type, val)</td>
         </tr>
       </table>
 </div><div class="memdoc">
