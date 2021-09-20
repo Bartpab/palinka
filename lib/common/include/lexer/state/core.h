@@ -28,7 +28,7 @@ bool lexer_state_copy(lexer_state_t* dest, const lexer_state_t* src);
 bool lexer_state_eq(const lexer_state_t* t1, const lexer_state_t* t2);
 void lexer_state_destruct(lexer_state_t* token);
 
-token_vector_t lexer_run(lexer_state_t* init, const char* stream, allocator_t* allocator);
+void lexer_run(token_vector_t* toks, lexer_state_t* init, const char* stream, allocator_t* allocator);
 
 typedef struct {
     DECL_TYPE_DESC(lexer_state_t)
@@ -65,18 +65,16 @@ bool lexer_next_transition(lexer_state_t* current, const char c, lexer_state_t**
     return false;
 }
 
-lexer_state_t* __lexer_step(lexer_state_t* init, buffer_t* buffer, const char** c) 
+lexer_state_t* lexer_step(lexer_state_t* init, buffer_t* buffer, const char** c) 
 {
     const char* it = *c;
     lexer_state_t* state = init;
+    lexer_state_t* next;
 
     while(*it != '\0') 
     {
-        lexer_state_t* next;
-
-        if(!lexer_next_transition(state, *it, &next)) 
+        if(false == lexer_next_transition(state, *it, &next)) 
         {
-            it--;
             *c = it;
             return state;
         }
@@ -84,7 +82,7 @@ lexer_state_t* __lexer_step(lexer_state_t* init, buffer_t* buffer, const char** 
         buffer_write_char(buffer, *it);
 
         it++;
-        next = state;
+        state = next;
     }
     
     *c = it;
@@ -148,12 +146,11 @@ void lexer_state_destruct(lexer_state_t* state)
     lexer_transition_vector_destruct(&state->vec);
 }
 
-token_vector_t lexer_run(lexer_state_t* init, const char* stream, allocator_t* allocator) 
+void lexer_run(token_vector_t* toks, lexer_state_t* init, const char* stream, allocator_t* allocator) 
 {
     const char* it = stream;   
     unsigned int col = 0, row = 0;
 
-    token_vector_t toks = token_vector(32, allocator);
     buffer_t buff       = buffer(32, allocator);
     string_t str        = string();
     
@@ -161,24 +158,22 @@ token_vector_t lexer_run(lexer_state_t* init, const char* stream, allocator_t* a
 
     while(*it != '\0') 
     {
-        while(*it == '\0' && (*it == '\n' || *it == ' ')) it++;
+        while(*it != '\0' && (*it == '\n' || *it == ' ')) it++;
 
         if(*it == '\0')
             break;
 
-        st_end = __lexer_step(init, &buff, &it);
+        st_end = lexer_step(init, &buff, &it);
         buffer_copy_to_string(&str, &buff);
 
         token_t tok = token_move_value(st_end->type, &str, row, col);
-        token_vector_move_add(&toks, &tok);
+        token_vector_move_add(toks, &tok);
         
         buffer_reset(&buff);
     }
 
     buffer_destruct(&buff);
     string_destruct(&str);
-
-    return toks;
 }
 
 
