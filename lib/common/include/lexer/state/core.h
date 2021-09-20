@@ -14,21 +14,19 @@ struct lexer_state_t
 { 
     lexer_transition_vector_t vec;
     int type;
-
-    allocator_t __allocator;
 };
 
-const lexer_state_t lexer_state_init = {lexer_transition_vector_init, 0, NO_ALLOCATOR};
+const lexer_state_t lexer_state_init = {lexer_transition_vector_init, 0};
 
 lexer_state_t lexer_state(size_t capacity, int type, allocator_t* allocator);
-bool lexer_state_create(lexer_state_t* state, size_t capacity, int type, allocator_t* allocator);
+bool lexer_state_create(lexer_state_t* state, size_t capacity, int type, allocator_t* transition_vector_allocator);
 void lexer_state_create_move(lexer_state_t* state, lexer_transition_vector_t* vec, int type);
 bool lexer_state_move_add_transition(lexer_state_t* state, lexer_transition_t* transition);
-bool lexer_state_copy_add_transition(lexer_state_t* state, const lexer_transition_t* transition, allocator_t* allocator);
+bool lexer_state_copy_add_transition(lexer_state_t* state, const lexer_transition_t* transition);
 void lexer_state_move(lexer_state_t* dest, lexer_state_t* src);
-bool lexer_state_copy(lexer_state_t* dest, const lexer_state_t* src, allocator_t* allocator);
+bool lexer_state_copy(lexer_state_t* dest, const lexer_state_t* src);
 bool lexer_state_eq(const lexer_state_t* t1, const lexer_state_t* t2);
-void lexer_state_delete(lexer_state_t* token);
+void lexer_state_destruct(lexer_state_t* token);
 
 token_vector_t lexer_run(lexer_state_t* init, const char* stream, allocator_t* allocator);
 
@@ -41,13 +39,12 @@ const lexer_state_desc_t lexer_state_desc = {
         lexer_state_copy,
         lexer_state_move, 
         lexer_state_eq,
-        lexer_state_delete, 
+        lexer_state_destruct, 
         sizeof(lexer_state_t)
     )
 };
 
-
-static bool __next_transition(lexer_state_t* current, const char c, lexer_state_t** out) 
+bool lexer_next_transition(lexer_state_t* current, const char c, lexer_state_t** out) 
 {
     lexer_transition_vector_iterator_t it;
     lexer_transition_vector_iter(&current->vec, &it);
@@ -68,22 +65,18 @@ static bool __next_transition(lexer_state_t* current, const char c, lexer_state_
     return false;
 }
 
-static lexer_state_t* __lexer_step(lexer_state_t* init, buffer_t* buffer, const char** c) 
+lexer_state_t* __lexer_step(lexer_state_t* init, buffer_t* buffer, const char** c) 
 {
     const char* it = *c;
     lexer_state_t* state = init;
 
     while(*it != '\0') 
     {
-        while(*it != '\0' && (*it == '\n' || *it == ' ')) it++;
-
-        if(*it == '\0')
-            break;
-
         lexer_state_t* next;
 
-        if(!__next_transition(state, *it, &next)) 
+        if(!lexer_next_transition(state, *it, &next)) 
         {
+            it--;
             *c = it;
             return state;
         }
@@ -105,9 +98,9 @@ lexer_state_t lexer_state(size_t capacity, int type, allocator_t* allocator)
     return tmp;
 }
 
-bool lexer_state_create(lexer_state_t* state, size_t capacity, int type, allocator_t* allocator)
+bool lexer_state_create(lexer_state_t* state, size_t capacity, int type, allocator_t* transitions_allocator)
 {   
-    if(!lexer_transition_vector_create(&state->vec, capacity, allocator))
+    if(!lexer_transition_vector_create(&state->vec, capacity, transitions_allocator))
         return false;
     
     state->type = type;
@@ -125,11 +118,10 @@ bool lexer_state_move_add_transition(lexer_state_t* state, lexer_transition_t* t
     return lexer_transition_vector_move_add(&state->vec, transition);
 }
 
-bool lexer_state_copy_add_transition(lexer_state_t* state, const lexer_transition_t* transition, allocator_t* allocator)
+bool lexer_state_copy_add_transition(lexer_state_t* state, const lexer_transition_t* transition)
 {
-    return lexer_transition_vector_copy_add(&state->vec, transition, allocator);
+    return lexer_transition_vector_copy_add(&state->vec, transition);
 }
-
 
 void lexer_state_move(lexer_state_t* dest, lexer_state_t* src)
 {
@@ -137,9 +129,9 @@ void lexer_state_move(lexer_state_t* dest, lexer_state_t* src)
     dest->type = src->type;
 }
 
-bool lexer_state_copy(lexer_state_t* dest, const lexer_state_t* src, allocator_t* allocator)
+bool lexer_state_copy(lexer_state_t* dest, const lexer_state_t* src)
 {
-    if(!lexer_transition_vector_copy(&dest->vec, &src->vec, allocator))
+    if(!lexer_transition_vector_copy(&dest->vec, &src->vec))
         return false;
 
     dest->type = src->type;  
@@ -151,12 +143,9 @@ bool lexer_state_eq(const lexer_state_t* t1, const lexer_state_t* t2)
     return lexer_transition_vector_eq(&t1->vec, &t2->vec) && t1->type == t2->type;
 }
 
-void lexer_state_delete(lexer_state_t* state)
+void lexer_state_destruct(lexer_state_t* state)
 {
-    lexer_transition_vector_delete(&state->vec);
-    allocator_t allocator = allocator_copy(&state->__allocator);
-    pfree(&allocator, state);
-    allocator_delete(&allocator);
+    lexer_transition_vector_destruct(&state->vec);
 }
 
 token_vector_t lexer_run(lexer_state_t* init, const char* stream, allocator_t* allocator) 
@@ -167,24 +156,27 @@ token_vector_t lexer_run(lexer_state_t* init, const char* stream, allocator_t* a
     token_vector_t toks = token_vector(32, allocator);
     buffer_t buff       = buffer(32, allocator);
     string_t str        = string();
+    
+    lexer_state_t* st_end;
 
     while(*it != '\0') 
     {
         while(*it == '\0' && (*it == '\n' || *it == ' ')) it++;
 
-        lexer_state_t* st = __lexer_step(init, &buff, &it);
-        buffer_copy_to_string(&str, &buff, allocator);
+        if(*it == '\0')
+            break;
 
-        token_t tok = {st->type, str, row, col};
+        st_end = __lexer_step(init, &buff, &it);
+        buffer_copy_to_string(&str, &buff);
+
+        token_t tok = token_move_value(st_end->type, &str, row, col);
         token_vector_move_add(&toks, &tok);
         
         buffer_reset(&buff);
-        
-        str = string_init;
     }
 
-    buffer_delete(&buff);
-    string_delete(&str);
+    buffer_destruct(&buff);
+    string_destruct(&str);
 
     return toks;
 }

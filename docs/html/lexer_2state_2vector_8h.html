@@ -66,7 +66,10 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">vector.h File Reference</div>  </div>
 </div><!--header-->
@@ -77,12 +80,69 @@ $(function() {
 </div>
 <p><a href="lexer_2state_2vector_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlexer__state__vector__t.html">lexer_state_vector_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlexer__state__vector__iterator__t.html">lexer_state_vector_iterator_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a870a0248fdcee03e6c91dca07b645181"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="lexer_2state_2vector_8h.html#a870a0248fdcee03e6c91dca07b645181">lexer_state_vector_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2state_2vector_8h.html#a870a0248fdcee03e6c91dca07b645181">lexer_state_vector_t</a></td></tr>
+<tr class="memitem:a870a0248fdcee03e6c91dca07b645181"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structlexer__state__vector__t.html">lexer_state_vector_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2state_2vector_8h.html#a870a0248fdcee03e6c91dca07b645181">lexer_state_vector_t</a></td></tr>
 <tr class="separator:a870a0248fdcee03e6c91dca07b645181"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1003d8aa2384bfa2f4dc2d4e213fe96"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structlexer__state__vector__iterator__t.html">lexer_state_vector_iterator_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2state_2vector_8h.html#aa1003d8aa2384bfa2f4dc2d4e213fe96">lexer_state_vector_iterator_t</a></td></tr>
+<tr class="separator:aa1003d8aa2384bfa2f4dc2d4e213fe96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a85812d847e1f0246bc1f619cacfd2a5b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structlexer__state__vector__t.html">lexer_state_vector_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2state_2vector_8h.html#a85812d847e1f0246bc1f619cacfd2a5b">lexer_state_vector</a> (size_t capacity, <a class="el" href="structallocator__t.html">allocator_t</a> *elements_allocator)</td></tr>
+<tr class="separator:a85812d847e1f0246bc1f619cacfd2a5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c7a6a066cea8d9708e24da0605f1202"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2state_2vector_8h.html#a0c7a6a066cea8d9708e24da0605f1202">lexer_state_vector_create</a> (<a class="el" href="structlexer__state__vector__t.html">lexer_state_vector_t</a> *vec, size_t capacity, <a class="el" href="structallocator__t.html">allocator_t</a> *allocator)</td></tr>
+<tr class="separator:a0c7a6a066cea8d9708e24da0605f1202"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c7c8d0fefdb70151d03805310137ba8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2state_2vector_8h.html#a8c7c8d0fefdb70151d03805310137ba8">lexer_state_vector_destruct</a> (<a class="el" href="structlexer__state__vector__t.html">lexer_state_vector_t</a> *vec)</td></tr>
+<tr class="separator:a8c7c8d0fefdb70151d03805310137ba8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a961b962df9951375d1e3d2461de689cb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2state_2vector_8h.html#a961b962df9951375d1e3d2461de689cb">lexer_state_vector_get</a> (<a class="el" href="structlexer__state__vector__t.html">lexer_state_vector_t</a> *vec, <a class="el" href="structlexer__state__t.html">lexer_state_t</a> **out, unsigned int index)</td></tr>
+<tr class="separator:a961b962df9951375d1e3d2461de689cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87a2142b84dc5a2ecd7648d5dcafb9eb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2state_2vector_8h.html#a87a2142b84dc5a2ecd7648d5dcafb9eb">lexer_state_vector_move</a> (<a class="el" href="structlexer__state__vector__t.html">lexer_state_vector_t</a> *dest, <a class="el" href="structlexer__state__vector__t.html">lexer_state_vector_t</a> *src)</td></tr>
+<tr class="separator:a87a2142b84dc5a2ecd7648d5dcafb9eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62340397f4be3407f2a33e7d19a15cff"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2state_2vector_8h.html#a62340397f4be3407f2a33e7d19a15cff">lexer_state_vector_copy</a> (<a class="el" href="structlexer__state__vector__t.html">lexer_state_vector_t</a> *dest, const <a class="el" href="structlexer__state__vector__t.html">lexer_state_vector_t</a> *src)</td></tr>
+<tr class="separator:a62340397f4be3407f2a33e7d19a15cff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ba1a5eb9c50179f270e358bb50f5873"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2state_2vector_8h.html#a7ba1a5eb9c50179f270e358bb50f5873">lexer_state_vector_eq</a> (const <a class="el" href="structlexer__state__vector__t.html">lexer_state_vector_t</a> *v1, const <a class="el" href="structlexer__state__vector__t.html">lexer_state_vector_t</a> *v2)</td></tr>
+<tr class="separator:a7ba1a5eb9c50179f270e358bb50f5873"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c4fd10888081ef737f71da323f1491e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2state_2vector_8h.html#a6c4fd10888081ef737f71da323f1491e">lexer_state_vector_move_add</a> (<a class="el" href="structlexer__state__vector__t.html">lexer_state_vector_t</a> *vec, <a class="el" href="structlexer__state__t.html">lexer_state_t</a> *element)</td></tr>
+<tr class="separator:a6c4fd10888081ef737f71da323f1491e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab42d76a69d84a4d731ecf26853928e61"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2state_2vector_8h.html#ab42d76a69d84a4d731ecf26853928e61">lexer_state_vector_copy_add</a> (<a class="el" href="structlexer__state__vector__t.html">lexer_state_vector_t</a> *vec, const <a class="el" href="structlexer__state__t.html">lexer_state_t</a> *element)</td></tr>
+<tr class="separator:ab42d76a69d84a4d731ecf26853928e61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2aaf4de4bd9f90338c2a0d16695a0bde"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2state_2vector_8h.html#a2aaf4de4bd9f90338c2a0d16695a0bde">lexer_state_vector_iter</a> (<a class="el" href="structlexer__state__vector__t.html">lexer_state_vector_t</a> *vec, <a class="el" href="structlexer__state__vector__iterator__t.html">lexer_state_vector_iterator_t</a> *it)</td></tr>
+<tr class="separator:a2aaf4de4bd9f90338c2a0d16695a0bde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62d6a14c64e12f3f8f6d47b77fc65b65"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2state_2vector_8h.html#a62d6a14c64e12f3f8f6d47b77fc65b65">lexer_state_vector_iterator_next</a> (<a class="el" href="structlexer__state__vector__iterator__t.html">lexer_state_vector_iterator_t</a> *it)</td></tr>
+<tr class="separator:a62d6a14c64e12f3f8f6d47b77fc65b65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00dfa28e88fbf9bda568bc5ddba3e70a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structlexer__state__t.html">lexer_state_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2state_2vector_8h.html#a00dfa28e88fbf9bda568bc5ddba3e70a">lexer_state_vector_iterator_get</a> (<a class="el" href="structlexer__state__vector__iterator__t.html">lexer_state_vector_iterator_t</a> *it)</td></tr>
+<tr class="separator:a00dfa28e88fbf9bda568bc5ddba3e70a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a7c69cb91594b982c8291fa807606c8f0"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structlexer__state__vector__t.html">lexer_state_vector_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2state_2vector_8h.html#a7c69cb91594b982c8291fa807606c8f0">lexer_state_vector_init</a> = {<a class="el" href="container_2vector_8h.html#a0421292d0008d9183d5c0bf3f281e210">vector_init</a>}</td></tr>
+<tr class="separator:a7c69cb91594b982c8291fa807606c8f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd938929a164d5032ecdc9a1d386ce24"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structlexer__state__vector__iterator__t.html">lexer_state_vector_iterator_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2state_2vector_8h.html#acd938929a164d5032ecdc9a1d386ce24">lexer_state_vector_iterator_init</a> = { <a class="el" href="lexer_2state_2vector_8h.html#a62d6a14c64e12f3f8f6d47b77fc65b65">lexer_state_vector_iterator_next</a>, <a class="el" href="lexer_2state_2vector_8h.html#a00dfa28e88fbf9bda568bc5ddba3e70a">lexer_state_vector_iterator_get</a>, <a class="el" href="container_2vector_8h.html#a0e1e12b40785e43ebe5b7403f6ff6156">vector_it_init</a>}</td></tr>
+<tr class="separator:acd938929a164d5032ecdc9a1d386ce24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
+<a id="aa1003d8aa2384bfa2f4dc2d4e213fe96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1003d8aa2384bfa2f4dc2d4e213fe96">&#9670;&nbsp;</a></span>lexer_state_vector_iterator_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structlexer__state__vector__iterator__t.html">lexer_state_vector_iterator_t</a> <a class="el" href="structlexer__state__vector__iterator__t.html">lexer_state_vector_iterator_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a870a0248fdcee03e6c91dca07b645181"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a870a0248fdcee03e6c91dca07b645181">&#9670;&nbsp;</a></span>lexer_state_vector_t</h2>
 
@@ -90,7 +150,355 @@ Typedefs</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef struct <a class="el" href="lexer_2state_2vector_8h.html#a870a0248fdcee03e6c91dca07b645181">lexer_state_vector_t</a> <a class="el" href="lexer_2state_2vector_8h.html#a870a0248fdcee03e6c91dca07b645181">lexer_state_vector_t</a></td>
+          <td class="memname">typedef struct <a class="el" href="structlexer__state__vector__t.html">lexer_state_vector_t</a> <a class="el" href="structlexer__state__vector__t.html">lexer_state_vector_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a85812d847e1f0246bc1f619cacfd2a5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85812d847e1f0246bc1f619cacfd2a5b">&#9670;&nbsp;</a></span>lexer_state_vector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structlexer__state__vector__t.html">lexer_state_vector_t</a> lexer_state_vector </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>capacity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structallocator__t.html">allocator_t</a> *&#160;</td>
+          <td class="paramname"><em>elements_allocator</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a62340397f4be3407f2a33e7d19a15cff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62340397f4be3407f2a33e7d19a15cff">&#9670;&nbsp;</a></span>lexer_state_vector_copy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a> lexer_state_vector_copy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structlexer__state__vector__t.html">lexer_state_vector_t</a> *&#160;</td>
+          <td class="paramname"><em>dest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structlexer__state__vector__t.html">lexer_state_vector_t</a> *&#160;</td>
+          <td class="paramname"><em>src</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab42d76a69d84a4d731ecf26853928e61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab42d76a69d84a4d731ecf26853928e61">&#9670;&nbsp;</a></span>lexer_state_vector_copy_add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a> lexer_state_vector_copy_add </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structlexer__state__vector__t.html">lexer_state_vector_t</a> *&#160;</td>
+          <td class="paramname"><em>vec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structlexer__state__t.html">lexer_state_t</a> *&#160;</td>
+          <td class="paramname"><em>element</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0c7a6a066cea8d9708e24da0605f1202"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c7a6a066cea8d9708e24da0605f1202">&#9670;&nbsp;</a></span>lexer_state_vector_create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a> lexer_state_vector_create </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structlexer__state__vector__t.html">lexer_state_vector_t</a> *&#160;</td>
+          <td class="paramname"><em>vec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>capacity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structallocator__t.html">allocator_t</a> *&#160;</td>
+          <td class="paramname"><em>allocator</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8c7c8d0fefdb70151d03805310137ba8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c7c8d0fefdb70151d03805310137ba8">&#9670;&nbsp;</a></span>lexer_state_vector_destruct()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lexer_state_vector_destruct </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structlexer__state__vector__t.html">lexer_state_vector_t</a> *&#160;</td>
+          <td class="paramname"><em>vec</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7ba1a5eb9c50179f270e358bb50f5873"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ba1a5eb9c50179f270e358bb50f5873">&#9670;&nbsp;</a></span>lexer_state_vector_eq()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a> lexer_state_vector_eq </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structlexer__state__vector__t.html">lexer_state_vector_t</a> *&#160;</td>
+          <td class="paramname"><em>v1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structlexer__state__vector__t.html">lexer_state_vector_t</a> *&#160;</td>
+          <td class="paramname"><em>v2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a961b962df9951375d1e3d2461de689cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a961b962df9951375d1e3d2461de689cb">&#9670;&nbsp;</a></span>lexer_state_vector_get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a> lexer_state_vector_get </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structlexer__state__vector__t.html">lexer_state_vector_t</a> *&#160;</td>
+          <td class="paramname"><em>vec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structlexer__state__t.html">lexer_state_t</a> **&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2aaf4de4bd9f90338c2a0d16695a0bde"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2aaf4de4bd9f90338c2a0d16695a0bde">&#9670;&nbsp;</a></span>lexer_state_vector_iter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lexer_state_vector_iter </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structlexer__state__vector__t.html">lexer_state_vector_t</a> *&#160;</td>
+          <td class="paramname"><em>vec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structlexer__state__vector__iterator__t.html">lexer_state_vector_iterator_t</a> *&#160;</td>
+          <td class="paramname"><em>it</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a00dfa28e88fbf9bda568bc5ddba3e70a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00dfa28e88fbf9bda568bc5ddba3e70a">&#9670;&nbsp;</a></span>lexer_state_vector_iterator_get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structlexer__state__t.html">lexer_state_t</a> * lexer_state_vector_iterator_get </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structlexer__state__vector__iterator__t.html">lexer_state_vector_iterator_t</a> *&#160;</td>
+          <td class="paramname"><em>it</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a62d6a14c64e12f3f8f6d47b77fc65b65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62d6a14c64e12f3f8f6d47b77fc65b65">&#9670;&nbsp;</a></span>lexer_state_vector_iterator_next()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a> lexer_state_vector_iterator_next </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structlexer__state__vector__iterator__t.html">lexer_state_vector_iterator_t</a> *&#160;</td>
+          <td class="paramname"><em>it</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a87a2142b84dc5a2ecd7648d5dcafb9eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87a2142b84dc5a2ecd7648d5dcafb9eb">&#9670;&nbsp;</a></span>lexer_state_vector_move()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lexer_state_vector_move </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structlexer__state__vector__t.html">lexer_state_vector_t</a> *&#160;</td>
+          <td class="paramname"><em>dest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structlexer__state__vector__t.html">lexer_state_vector_t</a> *&#160;</td>
+          <td class="paramname"><em>src</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6c4fd10888081ef737f71da323f1491e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c4fd10888081ef737f71da323f1491e">&#9670;&nbsp;</a></span>lexer_state_vector_move_add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a> lexer_state_vector_move_add </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structlexer__state__vector__t.html">lexer_state_vector_t</a> *&#160;</td>
+          <td class="paramname"><em>vec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structlexer__state__t.html">lexer_state_t</a> *&#160;</td>
+          <td class="paramname"><em>element</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a7c69cb91594b982c8291fa807606c8f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c69cb91594b982c8291fa807606c8f0">&#9670;&nbsp;</a></span>lexer_state_vector_init</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structlexer__state__vector__t.html">lexer_state_vector_t</a> lexer_state_vector_init = {<a class="el" href="container_2vector_8h.html#a0421292d0008d9183d5c0bf3f281e210">vector_init</a>}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acd938929a164d5032ecdc9a1d386ce24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd938929a164d5032ecdc9a1d386ce24">&#9670;&nbsp;</a></span>lexer_state_vector_iterator_init</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structlexer__state__vector__iterator__t.html">lexer_state_vector_iterator_t</a> lexer_state_vector_iterator_init = { <a class="el" href="lexer_2state_2vector_8h.html#a62d6a14c64e12f3f8f6d47b77fc65b65">lexer_state_vector_iterator_next</a>, <a class="el" href="lexer_2state_2vector_8h.html#a00dfa28e88fbf9bda568bc5ddba3e70a">lexer_state_vector_iterator_get</a>, <a class="el" href="container_2vector_8h.html#a0e1e12b40785e43ebe5b7403f6ff6156">vector_it_init</a>}</td>
         </tr>
       </table>
 </div><div class="memdoc">

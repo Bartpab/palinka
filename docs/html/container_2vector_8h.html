@@ -75,6 +75,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;string.h&gt;</code><br />
+<code>#include &lt;assert.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="allocator_8h_source.html">../allocator.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="desc_8h_source.html">../types/desc.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="container_2iterator_8h_source.html">./iterator.h</a>&quot;</code><br />
@@ -102,18 +103,18 @@ Functions</h2></td></tr>
 <tr class="separator:a50c44eb2e874f89c557e6d35fca8f0da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95aabd4494c4b10ad2e13d48fc5df20d"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="container_2vector_8h.html#a95aabd4494c4b10ad2e13d48fc5df20d">vector_iterator_get</a> (<a class="el" href="structvector__iterator__t.html">vector_iterator_t</a> *it)</td></tr>
 <tr class="separator:a95aabd4494c4b10ad2e13d48fc5df20d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a563da7fb4e860fe980cf0b9321ece207"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="container_2vector_8h.html#a563da7fb4e860fe980cf0b9321ece207">vector_create</a> (<a class="el" href="structvector__t.html">vector_t</a> *vec, <a class="el" href="structtype__desc__t.html">type_desc_t</a> *type_desc, size_t capacity, <a class="el" href="structallocator__t.html">allocator_t</a> *allocator)</td></tr>
-<tr class="memdesc:a563da7fb4e860fe980cf0b9321ece207"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a vector of string.  <a href="container_2vector_8h.html#a563da7fb4e860fe980cf0b9321ece207">More...</a><br /></td></tr>
-<tr class="separator:a563da7fb4e860fe980cf0b9321ece207"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a261fd234e4cc6a444209543c1c9a2621"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="container_2vector_8h.html#a261fd234e4cc6a444209543c1c9a2621">vector_create</a> (<a class="el" href="structvector__t.html">vector_t</a> *vec, <a class="el" href="structtype__desc__t.html">type_desc_t</a> *type_desc, size_t capacity, const <a class="el" href="structallocator__t.html">allocator_t</a> *elements_allocator)</td></tr>
+<tr class="memdesc:a261fd234e4cc6a444209543c1c9a2621"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a vector of string.  <a href="container_2vector_8h.html#a261fd234e4cc6a444209543c1c9a2621">More...</a><br /></td></tr>
+<tr class="separator:a261fd234e4cc6a444209543c1c9a2621"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad4315550c5d182d115552fa8c05c5eab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="container_2vector_8h.html#ad4315550c5d182d115552fa8c05c5eab">vector_clear</a> (<a class="el" href="structvector__t.html">vector_t</a> *vec)</td></tr>
 <tr class="memdesc:ad4315550c5d182d115552fa8c05c5eab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete the vector of string.  <a href="container_2vector_8h.html#ad4315550c5d182d115552fa8c05c5eab">More...</a><br /></td></tr>
 <tr class="separator:ad4315550c5d182d115552fa8c05c5eab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab765cbf159304a2762ab317996259162"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="container_2vector_8h.html#ab765cbf159304a2762ab317996259162">vector_move</a> (<a class="el" href="structvector__t.html">vector_t</a> *dest, <a class="el" href="structvector__t.html">vector_t</a> *src)</td></tr>
 <tr class="memdesc:ab765cbf159304a2762ab317996259162"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move the vector.  <a href="container_2vector_8h.html#ab765cbf159304a2762ab317996259162">More...</a><br /></td></tr>
 <tr class="separator:ab765cbf159304a2762ab317996259162"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a328c73378846254ffced0624dc18c895"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="container_2vector_8h.html#a328c73378846254ffced0624dc18c895">vector_copy</a> (<a class="el" href="structvector__t.html">vector_t</a> *dest, <a class="el" href="structvector__t.html">vector_t</a> *src, <a class="el" href="structallocator__t.html">allocator_t</a> *allocator)</td></tr>
-<tr class="memdesc:a328c73378846254ffced0624dc18c895"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy the vector.  <a href="container_2vector_8h.html#a328c73378846254ffced0624dc18c895">More...</a><br /></td></tr>
-<tr class="separator:a328c73378846254ffced0624dc18c895"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d176058e503015509028f3a3712068e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="container_2vector_8h.html#a1d176058e503015509028f3a3712068e">vector_copy</a> (<a class="el" href="structvector__t.html">vector_t</a> *dest, const <a class="el" href="structvector__t.html">vector_t</a> *src)</td></tr>
+<tr class="memdesc:a1d176058e503015509028f3a3712068e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy the vector.  <a href="container_2vector_8h.html#a1d176058e503015509028f3a3712068e">More...</a><br /></td></tr>
+<tr class="separator:a1d176058e503015509028f3a3712068e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b0c4cc7539e366fb15a247dd5f82349"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="container_2vector_8h.html#a8b0c4cc7539e366fb15a247dd5f82349">vector_eq</a> (const <a class="el" href="structvector__t.html">vector_t</a> *v1, const <a class="el" href="structvector__t.html">vector_t</a> *v2)</td></tr>
 <tr class="memdesc:a8b0c4cc7539e366fb15a247dd5f82349"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector eq.  <a href="container_2vector_8h.html#a8b0c4cc7539e366fb15a247dd5f82349">More...</a><br /></td></tr>
 <tr class="separator:a8b0c4cc7539e366fb15a247dd5f82349"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -126,15 +127,15 @@ Functions</h2></td></tr>
 <tr class="memitem:acc459f997533729afc6f720e995ce433"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="container_2vector_8h.html#acc459f997533729afc6f720e995ce433">vector_move_add</a> (<a class="el" href="structvector__t.html">vector_t</a> *vec, void *element)</td></tr>
 <tr class="memdesc:acc459f997533729afc6f720e995ce433"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add the element to the vector.  <a href="container_2vector_8h.html#acc459f997533729afc6f720e995ce433">More...</a><br /></td></tr>
 <tr class="separator:acc459f997533729afc6f720e995ce433"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf3200ecb88f2bcd76a3a36d02f10573"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="container_2vector_8h.html#acf3200ecb88f2bcd76a3a36d02f10573">vector_copy_add</a> (<a class="el" href="structvector__t.html">vector_t</a> *vec, const void *element, <a class="el" href="structallocator__t.html">allocator_t</a> *allocator)</td></tr>
-<tr class="memdesc:acf3200ecb88f2bcd76a3a36d02f10573"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add the element to the vector.  <a href="container_2vector_8h.html#acf3200ecb88f2bcd76a3a36d02f10573">More...</a><br /></td></tr>
-<tr class="separator:acf3200ecb88f2bcd76a3a36d02f10573"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0d9920ac88d261baf4d04823327f6d5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="container_2vector_8h.html#ab0d9920ac88d261baf4d04823327f6d5">vector_delete</a> (<a class="el" href="structvector__t.html">vector_t</a> *vec)</td></tr>
-<tr class="separator:ab0d9920ac88d261baf4d04823327f6d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a656811f358bbd311c7827c0360e468fb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="container_2vector_8h.html#a656811f358bbd311c7827c0360e468fb">vector_copy_add</a> (<a class="el" href="structvector__t.html">vector_t</a> *vec, const void *element)</td></tr>
+<tr class="memdesc:a656811f358bbd311c7827c0360e468fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add the element to the vector.  <a href="container_2vector_8h.html#a656811f358bbd311c7827c0360e468fb">More...</a><br /></td></tr>
+<tr class="separator:a656811f358bbd311c7827c0360e468fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03653e0b1e6cea9a43523fdceb46f1da"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="container_2vector_8h.html#a03653e0b1e6cea9a43523fdceb46f1da">vector_destruct</a> (<a class="el" href="structvector__t.html">vector_t</a> *vec)</td></tr>
+<tr class="separator:a03653e0b1e6cea9a43523fdceb46f1da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a0421292d0008d9183d5c0bf3f281e210"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structvector__t.html">vector_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="container_2vector_8h.html#a0421292d0008d9183d5c0bf3f281e210">vector_init</a> = {0, 0, 0, 0, <a class="el" href="allocator_8h.html#a20b30aa4d3a2edd214a2826521596e7d">NO_ALLOCATOR</a>, <a class="el" href="allocator_8h.html#a20b30aa4d3a2edd214a2826521596e7d">NO_ALLOCATOR</a>}</td></tr>
+<tr class="memitem:a0421292d0008d9183d5c0bf3f281e210"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structvector__t.html">vector_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="container_2vector_8h.html#a0421292d0008d9183d5c0bf3f281e210">vector_init</a> = {0, 0, 0, 0, <a class="el" href="allocator_8h.html#a20b30aa4d3a2edd214a2826521596e7d">NO_ALLOCATOR</a>}</td></tr>
 <tr class="separator:a0421292d0008d9183d5c0bf3f281e210"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e1e12b40785e43ebe5b7403f6ff6156"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structvector__iterator__t.html">vector_iterator_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="container_2vector_8h.html#a0e1e12b40785e43ebe5b7403f6ff6156">vector_it_init</a> = {<a class="el" href="container_2vector_8h.html#a50c44eb2e874f89c557e6d35fca8f0da">vector_iterator_next</a>, <a class="el" href="container_2vector_8h.html#a95aabd4494c4b10ad2e13d48fc5df20d">vector_iterator_get</a>, 0, 0, 0, 0}</td></tr>
 <tr class="separator:a0e1e12b40785e43ebe5b7403f6ff6156"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -189,8 +190,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a328c73378846254ffced0624dc18c895"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a328c73378846254ffced0624dc18c895">&#9670;&nbsp;</a></span>vector_copy()</h2>
+<a id="a1d176058e503015509028f3a3712068e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d176058e503015509028f3a3712068e">&#9670;&nbsp;</a></span>vector_copy()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -204,14 +205,8 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structvector__t.html">vector_t</a> *&#160;</td>
-          <td class="paramname"><em>src</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structallocator__t.html">allocator_t</a> *&#160;</td>
-          <td class="paramname"><em>allocator</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="structvector__t.html">vector_t</a> *&#160;</td>
+          <td class="paramname"><em>src</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -225,8 +220,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="acf3200ecb88f2bcd76a3a36d02f10573"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf3200ecb88f2bcd76a3a36d02f10573">&#9670;&nbsp;</a></span>vector_copy_add()</h2>
+<a id="a656811f358bbd311c7827c0360e468fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a656811f358bbd311c7827c0360e468fb">&#9670;&nbsp;</a></span>vector_copy_add()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -241,13 +236,7 @@ Variables</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const void *&#160;</td>
-          <td class="paramname"><em>element</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structallocator__t.html">allocator_t</a> *&#160;</td>
-          <td class="paramname"><em>allocator</em>&#160;</td>
+          <td class="paramname"><em>element</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -261,8 +250,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a563da7fb4e860fe980cf0b9321ece207"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a563da7fb4e860fe980cf0b9321ece207">&#9670;&nbsp;</a></span>vector_create()</h2>
+<a id="a261fd234e4cc6a444209543c1c9a2621"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a261fd234e4cc6a444209543c1c9a2621">&#9670;&nbsp;</a></span>vector_create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -288,8 +277,8 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structallocator__t.html">allocator_t</a> *&#160;</td>
-          <td class="paramname"><em>allocator</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="structallocator__t.html">allocator_t</a> *&#160;</td>
+          <td class="paramname"><em>elements_allocator</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -303,14 +292,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="ab0d9920ac88d261baf4d04823327f6d5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab0d9920ac88d261baf4d04823327f6d5">&#9670;&nbsp;</a></span>vector_delete()</h2>
+<a id="a03653e0b1e6cea9a43523fdceb46f1da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03653e0b1e6cea9a43523fdceb46f1da">&#9670;&nbsp;</a></span>vector_destruct()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void vector_delete </td>
+          <td class="memname">void vector_destruct </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structvector__t.html">vector_t</a> *&#160;</td>
           <td class="paramname"><em>vec</em></td><td>)</td>
@@ -524,7 +513,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="structvector__t.html">vector_t</a> vector_init = {0, 0, 0, 0, <a class="el" href="allocator_8h.html#a20b30aa4d3a2edd214a2826521596e7d">NO_ALLOCATOR</a>, <a class="el" href="allocator_8h.html#a20b30aa4d3a2edd214a2826521596e7d">NO_ALLOCATOR</a>}</td>
+          <td class="memname">const <a class="el" href="structvector__t.html">vector_t</a> vector_init = {0, 0, 0, 0, <a class="el" href="allocator_8h.html#a20b30aa4d3a2edd214a2826521596e7d">NO_ALLOCATOR</a>}</td>
         </tr>
       </table>
 </div><div class="memdoc">

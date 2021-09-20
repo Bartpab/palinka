@@ -103,8 +103,8 @@ define_test(rbuffer, test_print("Reading buffer")) {
 
   test_success;
   test_teardown {
-    string_delete(&content);
-    rbuffer_delete(&buffer);
+    string_destruct(&content);
+    rbuffer_destruct(&buffer);
     stream_close(&stream);
   }
   test_end;
@@ -147,7 +147,7 @@ define_test(wbuffer, test_print("Writing buffer"))
   );
   
   wbuffer_flush(&wbuffer);
-  wbuffer_delete(&wbuffer);
+  wbuffer_destruct(&wbuffer);
   stream_close(&stream);
 
   test_check(
@@ -173,9 +173,9 @@ define_test(wbuffer, test_print("Writing buffer"))
 
   test_success;
   test_teardown {
-    string_delete(&content);
-    wbuffer_delete(&wbuffer);
-    rbuffer_delete(&rbuffer);
+    string_destruct(&content);
+    wbuffer_destruct(&wbuffer);
+    rbuffer_destruct(&rbuffer);
     stream_close(&stream);
   }
   test_end;

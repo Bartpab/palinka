@@ -66,34 +66,28 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">test_lexer.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="utils_8h_source.html">../include/testing/utils.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="lib_2common_2include_2lexer_2core_8h_source.html">../include/lexer/core.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="lib_2common_2include_2lexer_2state_2core_8h_source.html">../include/lexer/state/core.h</a>&quot;</code><br />
 </div>
 <p><a href="test__lexer_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:afaecaa3138647df9d0e0986a1ee3f5f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__lexer_8h.html#afaecaa3138647df9d0e0986a1ee3f5f1">__test_lexer_transition</a> (<a class="el" href="structtest__context__t.html">test_context_t</a> *tctx)</td></tr>
+<tr class="separator:afaecaa3138647df9d0e0986a1ee3f5f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad01a843ba22e95b5763d7e7bcbb0433c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__lexer_8h.html#ad01a843ba22e95b5763d7e7bcbb0433c">test_lexer_transition</a> (<a class="el" href="structtest__context__t.html">test_context_t</a> *tctx)</td></tr>
+<tr class="separator:ad01a843ba22e95b5763d7e7bcbb0433c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc32dda3964fb79540d56746f5f248bb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__lexer_8h.html#acc32dda3964fb79540d56746f5f248bb">__test_basic_lexer</a> (<a class="el" href="structtest__context__t.html">test_context_t</a> *tctx)</td></tr>
 <tr class="separator:acc32dda3964fb79540d56746f5f248bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ebb30f24d1eb3ac470b85163caa5528"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__lexer_8h.html#a9ebb30f24d1eb3ac470b85163caa5528">test_basic_lexer</a> (<a class="el" href="structtest__context__t.html">test_context_t</a> *tctx)</td></tr>
 <tr class="separator:a9ebb30f24d1eb3ac470b85163caa5528"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a0427e3bab6f0ebe412f288c0327959"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__lexer_8h.html#a0a0427e3bab6f0ebe412f288c0327959">test_lexer</a> (<a class="el" href="structtest__context__t.html">test_context_t</a> *tctx)</td></tr>
 <tr class="separator:a0a0427e3bab6f0ebe412f288c0327959"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a1f93aea39eafc91027100a394f1676c0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structlexer__state__t.html">lexer_state_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__lexer_8h.html#a1f93aea39eafc91027100a394f1676c0">s0</a></td></tr>
-<tr class="separator:a1f93aea39eafc91027100a394f1676c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1bf7c7c6352e6dbd623ed3d60936be9e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structlexer__state__t.html">lexer_state_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__lexer_8h.html#a1bf7c7c6352e6dbd623ed3d60936be9e">s1</a></td></tr>
-<tr class="separator:a1bf7c7c6352e6dbd623ed3d60936be9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6de3bc07d76e381470917029d42c11b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structlexer__transition__t.html">lexer_transition_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__lexer_8h.html#ad6de3bc07d76e381470917029d42c11b">t_s0</a> []</td></tr>
-<tr class="separator:ad6de3bc07d76e381470917029d42c11b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="acc32dda3964fb79540d56746f5f248bb"></a>
@@ -104,6 +98,24 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">void __test_basic_lexer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structtest__context__t.html">test_context_t</a> *&#160;</td>
+          <td class="paramname"><em>tctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afaecaa3138647df9d0e0986a1ee3f5f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afaecaa3138647df9d0e0986a1ee3f5f1">&#9670;&nbsp;</a></span>__test_lexer_transition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void __test_lexer_transition </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structtest__context__t.html">test_context_t</a> *&#160;</td>
           <td class="paramname"><em>tctx</em></td><td>)</td>
@@ -150,50 +162,22 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<h2 class="groupheader">Variable Documentation</h2>
-<a id="a1f93aea39eafc91027100a394f1676c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1f93aea39eafc91027100a394f1676c0">&#9670;&nbsp;</a></span>s0</h2>
+<a id="ad01a843ba22e95b5763d7e7bcbb0433c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad01a843ba22e95b5763d7e7bcbb0433c">&#9670;&nbsp;</a></span>test_lexer_transition()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structlexer__state__t.html">lexer_state_t</a> s0</td>
+          <td class="memname">void test_lexer_transition </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structtest__context__t.html">test_context_t</a> *&#160;</td>
+          <td class="paramname"><em>tctx</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="a1bf7c7c6352e6dbd623ed3d60936be9e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1bf7c7c6352e6dbd623ed3d60936be9e">&#9670;&nbsp;</a></span>s1</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structlexer__state__t.html">lexer_state_t</a> s1</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad6de3bc07d76e381470917029d42c11b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad6de3bc07d76e381470917029d42c11b">&#9670;&nbsp;</a></span>t_s0</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structlexer__transition__t.html">lexer_transition_t</a> t_s0[]</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    </div>
-<div class="line">}</div>
-</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->

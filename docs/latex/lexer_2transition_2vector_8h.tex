@@ -1,5 +1,158 @@
 \hypertarget{lexer_2transition_2vector_8h}{}\doxysection{C\+:/\+Users/\+GP69\+E5\+EN/\+Documents/dev/palinka/lib/common/include/lexer/transition/vector.h File Reference}
 \label{lexer_2transition_2vector_8h}\index{C:/Users/GP69E5EN/Documents/dev/palinka/lib/common/include/lexer/transition/vector.h@{C:/Users/GP69E5EN/Documents/dev/palinka/lib/common/include/lexer/transition/vector.h}}
-{\ttfamily \#include \char`\"{}../container/vector.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}../container/macro\+\_\+vector.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../container/vector.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../container/macro\+\_\+vector.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}./core.\+h\char`\"{}}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}}
+\item 
+struct \mbox{\hyperlink{structlexer__transition__vector__iterator__t}{lexer\+\_\+transition\+\_\+vector\+\_\+iterator\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}} \mbox{\hyperlink{lexer_2transition_2vector_8h_a939c4b11c0d0f5c71ca0be41962d2e9b}{lexer\+\_\+transition\+\_\+vector\+\_\+t}}
+\item 
+typedef struct \mbox{\hyperlink{structlexer__transition__vector__iterator__t}{lexer\+\_\+transition\+\_\+vector\+\_\+iterator\+\_\+t}} \mbox{\hyperlink{lexer_2transition_2vector_8h_a3a4aed371102494e3250fd244e4d85a5}{lexer\+\_\+transition\+\_\+vector\+\_\+iterator\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}} \mbox{\hyperlink{lexer_2transition_2vector_8h_a7c18e1b599e72cc2f8ff31ea6364aa99}{lexer\+\_\+transition\+\_\+vector}} (size\+\_\+t capacity, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$elements\+\_\+allocator)
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lexer_2transition_2vector_8h_a4d3155a54edb805b0bc680a4078981ea}{lexer\+\_\+transition\+\_\+vector\+\_\+create}} (\mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}} $\ast$vec, size\+\_\+t capacity, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
+\item 
+void \mbox{\hyperlink{lexer_2transition_2vector_8h_acf5b1528ec4707359893a62c297450e1}{lexer\+\_\+transition\+\_\+vector\+\_\+destruct}} (\mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}} $\ast$vec)
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lexer_2transition_2vector_8h_a53859265b875efb3e77273e5418d255b}{lexer\+\_\+transition\+\_\+vector\+\_\+get}} (\mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}} $\ast$vec, \mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} $\ast$$\ast$out, unsigned int index)
+\item 
+void \mbox{\hyperlink{lexer_2transition_2vector_8h_a7d217f4a4cc0c467d90d2b9d3bd7b87c}{lexer\+\_\+transition\+\_\+vector\+\_\+move}} (\mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}} $\ast$dest, \mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}} $\ast$src)
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lexer_2transition_2vector_8h_a271d5f9615ab2e88f52fb9592c8f8ff3}{lexer\+\_\+transition\+\_\+vector\+\_\+copy}} (\mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}} $\ast$dest, const \mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}} $\ast$src)
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lexer_2transition_2vector_8h_aade879a3f71ae9a016c6fa4e2f3c26c3}{lexer\+\_\+transition\+\_\+vector\+\_\+eq}} (const \mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}} $\ast$v1, const \mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}} $\ast$v2)
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lexer_2transition_2vector_8h_a50e6acf122926cf30517ba5ed6a121da}{lexer\+\_\+transition\+\_\+vector\+\_\+move\+\_\+add}} (\mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}} $\ast$vec, \mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} $\ast$element)
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lexer_2transition_2vector_8h_a4e64b8acf36c1141bc136ad8b256cdb8}{lexer\+\_\+transition\+\_\+vector\+\_\+copy\+\_\+add}} (\mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}} $\ast$vec, const \mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} $\ast$element)
+\item 
+void \mbox{\hyperlink{lexer_2transition_2vector_8h_adfb1c5ac8637fd14be85dbb242b1e732}{lexer\+\_\+transition\+\_\+vector\+\_\+iter}} (\mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}} $\ast$vec, \mbox{\hyperlink{structlexer__transition__vector__iterator__t}{lexer\+\_\+transition\+\_\+vector\+\_\+iterator\+\_\+t}} $\ast$it)
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lexer_2transition_2vector_8h_ae23e49e2d9ce1cc3bc6d1c11d274f94d}{lexer\+\_\+transition\+\_\+vector\+\_\+iterator\+\_\+next}} (\mbox{\hyperlink{structlexer__transition__vector__iterator__t}{lexer\+\_\+transition\+\_\+vector\+\_\+iterator\+\_\+t}} $\ast$it)
+\item 
+\mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} $\ast$ \mbox{\hyperlink{lexer_2transition_2vector_8h_a445ef43547691fbf2569caac8ec28e9d}{lexer\+\_\+transition\+\_\+vector\+\_\+iterator\+\_\+get}} (\mbox{\hyperlink{structlexer__transition__vector__iterator__t}{lexer\+\_\+transition\+\_\+vector\+\_\+iterator\+\_\+t}} $\ast$it)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const \mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}} \mbox{\hyperlink{lexer_2transition_2vector_8h_abfc80ff3a366e6273d39cab4a097e6a7}{lexer\+\_\+transition\+\_\+vector\+\_\+init}} = \{\mbox{\hyperlink{container_2vector_8h_a0421292d0008d9183d5c0bf3f281e210}{vector\+\_\+init}}\}
+\item 
+const \mbox{\hyperlink{structlexer__transition__vector__iterator__t}{lexer\+\_\+transition\+\_\+vector\+\_\+iterator\+\_\+t}} \mbox{\hyperlink{lexer_2transition_2vector_8h_abd1ba02ba885a71603abfb6e54c02c51}{lexer\+\_\+transition\+\_\+vector\+\_\+iterator\+\_\+init}} = \{ \mbox{\hyperlink{lexer_2transition_2vector_8h_ae23e49e2d9ce1cc3bc6d1c11d274f94d}{lexer\+\_\+transition\+\_\+vector\+\_\+iterator\+\_\+next}}, \mbox{\hyperlink{lexer_2transition_2vector_8h_a445ef43547691fbf2569caac8ec28e9d}{lexer\+\_\+transition\+\_\+vector\+\_\+iterator\+\_\+get}}, \mbox{\hyperlink{container_2vector_8h_a0e1e12b40785e43ebe5b7403f6ff6156}{vector\+\_\+it\+\_\+init}}\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{lexer_2transition_2vector_8h_a3a4aed371102494e3250fd244e4d85a5}\label{lexer_2transition_2vector_8h_a3a4aed371102494e3250fd244e4d85a5}} 
+\index{vector.h@{vector.h}!lexer\_transition\_vector\_iterator\_t@{lexer\_transition\_vector\_iterator\_t}}
+\index{lexer\_transition\_vector\_iterator\_t@{lexer\_transition\_vector\_iterator\_t}!vector.h@{vector.h}}
+\doxysubsubsection{\texorpdfstring{lexer\_transition\_vector\_iterator\_t}{lexer\_transition\_vector\_iterator\_t}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structlexer__transition__vector__iterator__t}{lexer\+\_\+transition\+\_\+vector\+\_\+iterator\+\_\+t}} \mbox{\hyperlink{structlexer__transition__vector__iterator__t}{lexer\+\_\+transition\+\_\+vector\+\_\+iterator\+\_\+t}}}
+
+\mbox{\Hypertarget{lexer_2transition_2vector_8h_a939c4b11c0d0f5c71ca0be41962d2e9b}\label{lexer_2transition_2vector_8h_a939c4b11c0d0f5c71ca0be41962d2e9b}} 
+\index{vector.h@{vector.h}!lexer\_transition\_vector\_t@{lexer\_transition\_vector\_t}}
+\index{lexer\_transition\_vector\_t@{lexer\_transition\_vector\_t}!vector.h@{vector.h}}
+\doxysubsubsection{\texorpdfstring{lexer\_transition\_vector\_t}{lexer\_transition\_vector\_t}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}} \mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}}}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{lexer_2transition_2vector_8h_a7c18e1b599e72cc2f8ff31ea6364aa99}\label{lexer_2transition_2vector_8h_a7c18e1b599e72cc2f8ff31ea6364aa99}} 
+\index{vector.h@{vector.h}!lexer\_transition\_vector@{lexer\_transition\_vector}}
+\index{lexer\_transition\_vector@{lexer\_transition\_vector}!vector.h@{vector.h}}
+\doxysubsubsection{\texorpdfstring{lexer\_transition\_vector()}{lexer\_transition\_vector()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}} lexer\+\_\+transition\+\_\+vector (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{capacity,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{elements\+\_\+allocator }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lexer_2transition_2vector_8h_a271d5f9615ab2e88f52fb9592c8f8ff3}\label{lexer_2transition_2vector_8h_a271d5f9615ab2e88f52fb9592c8f8ff3}} 
+\index{vector.h@{vector.h}!lexer\_transition\_vector\_copy@{lexer\_transition\_vector\_copy}}
+\index{lexer\_transition\_vector\_copy@{lexer\_transition\_vector\_copy}!vector.h@{vector.h}}
+\doxysubsubsection{\texorpdfstring{lexer\_transition\_vector\_copy()}{lexer\_transition\_vector\_copy()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} lexer\+\_\+transition\+\_\+vector\+\_\+copy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}} $\ast$}]{dest,  }\item[{const \mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}} $\ast$}]{src }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lexer_2transition_2vector_8h_a4e64b8acf36c1141bc136ad8b256cdb8}\label{lexer_2transition_2vector_8h_a4e64b8acf36c1141bc136ad8b256cdb8}} 
+\index{vector.h@{vector.h}!lexer\_transition\_vector\_copy\_add@{lexer\_transition\_vector\_copy\_add}}
+\index{lexer\_transition\_vector\_copy\_add@{lexer\_transition\_vector\_copy\_add}!vector.h@{vector.h}}
+\doxysubsubsection{\texorpdfstring{lexer\_transition\_vector\_copy\_add()}{lexer\_transition\_vector\_copy\_add()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} lexer\+\_\+transition\+\_\+vector\+\_\+copy\+\_\+add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}} $\ast$}]{vec,  }\item[{const \mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} $\ast$}]{element }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lexer_2transition_2vector_8h_a4d3155a54edb805b0bc680a4078981ea}\label{lexer_2transition_2vector_8h_a4d3155a54edb805b0bc680a4078981ea}} 
+\index{vector.h@{vector.h}!lexer\_transition\_vector\_create@{lexer\_transition\_vector\_create}}
+\index{lexer\_transition\_vector\_create@{lexer\_transition\_vector\_create}!vector.h@{vector.h}}
+\doxysubsubsection{\texorpdfstring{lexer\_transition\_vector\_create()}{lexer\_transition\_vector\_create()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} lexer\+\_\+transition\+\_\+vector\+\_\+create (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}} $\ast$}]{vec,  }\item[{size\+\_\+t}]{capacity,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lexer_2transition_2vector_8h_acf5b1528ec4707359893a62c297450e1}\label{lexer_2transition_2vector_8h_acf5b1528ec4707359893a62c297450e1}} 
+\index{vector.h@{vector.h}!lexer\_transition\_vector\_destruct@{lexer\_transition\_vector\_destruct}}
+\index{lexer\_transition\_vector\_destruct@{lexer\_transition\_vector\_destruct}!vector.h@{vector.h}}
+\doxysubsubsection{\texorpdfstring{lexer\_transition\_vector\_destruct()}{lexer\_transition\_vector\_destruct()}}
+{\footnotesize\ttfamily void lexer\+\_\+transition\+\_\+vector\+\_\+destruct (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}} $\ast$}]{vec }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lexer_2transition_2vector_8h_aade879a3f71ae9a016c6fa4e2f3c26c3}\label{lexer_2transition_2vector_8h_aade879a3f71ae9a016c6fa4e2f3c26c3}} 
+\index{vector.h@{vector.h}!lexer\_transition\_vector\_eq@{lexer\_transition\_vector\_eq}}
+\index{lexer\_transition\_vector\_eq@{lexer\_transition\_vector\_eq}!vector.h@{vector.h}}
+\doxysubsubsection{\texorpdfstring{lexer\_transition\_vector\_eq()}{lexer\_transition\_vector\_eq()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} lexer\+\_\+transition\+\_\+vector\+\_\+eq (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}} $\ast$}]{v1,  }\item[{const \mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}} $\ast$}]{v2 }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lexer_2transition_2vector_8h_a53859265b875efb3e77273e5418d255b}\label{lexer_2transition_2vector_8h_a53859265b875efb3e77273e5418d255b}} 
+\index{vector.h@{vector.h}!lexer\_transition\_vector\_get@{lexer\_transition\_vector\_get}}
+\index{lexer\_transition\_vector\_get@{lexer\_transition\_vector\_get}!vector.h@{vector.h}}
+\doxysubsubsection{\texorpdfstring{lexer\_transition\_vector\_get()}{lexer\_transition\_vector\_get()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} lexer\+\_\+transition\+\_\+vector\+\_\+get (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}} $\ast$}]{vec,  }\item[{\mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} $\ast$$\ast$}]{out,  }\item[{unsigned int}]{index }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lexer_2transition_2vector_8h_adfb1c5ac8637fd14be85dbb242b1e732}\label{lexer_2transition_2vector_8h_adfb1c5ac8637fd14be85dbb242b1e732}} 
+\index{vector.h@{vector.h}!lexer\_transition\_vector\_iter@{lexer\_transition\_vector\_iter}}
+\index{lexer\_transition\_vector\_iter@{lexer\_transition\_vector\_iter}!vector.h@{vector.h}}
+\doxysubsubsection{\texorpdfstring{lexer\_transition\_vector\_iter()}{lexer\_transition\_vector\_iter()}}
+{\footnotesize\ttfamily void lexer\+\_\+transition\+\_\+vector\+\_\+iter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}} $\ast$}]{vec,  }\item[{\mbox{\hyperlink{structlexer__transition__vector__iterator__t}{lexer\+\_\+transition\+\_\+vector\+\_\+iterator\+\_\+t}} $\ast$}]{it }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lexer_2transition_2vector_8h_a445ef43547691fbf2569caac8ec28e9d}\label{lexer_2transition_2vector_8h_a445ef43547691fbf2569caac8ec28e9d}} 
+\index{vector.h@{vector.h}!lexer\_transition\_vector\_iterator\_get@{lexer\_transition\_vector\_iterator\_get}}
+\index{lexer\_transition\_vector\_iterator\_get@{lexer\_transition\_vector\_iterator\_get}!vector.h@{vector.h}}
+\doxysubsubsection{\texorpdfstring{lexer\_transition\_vector\_iterator\_get()}{lexer\_transition\_vector\_iterator\_get()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} $\ast$ lexer\+\_\+transition\+\_\+vector\+\_\+iterator\+\_\+get (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlexer__transition__vector__iterator__t}{lexer\+\_\+transition\+\_\+vector\+\_\+iterator\+\_\+t}} $\ast$}]{it }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lexer_2transition_2vector_8h_ae23e49e2d9ce1cc3bc6d1c11d274f94d}\label{lexer_2transition_2vector_8h_ae23e49e2d9ce1cc3bc6d1c11d274f94d}} 
+\index{vector.h@{vector.h}!lexer\_transition\_vector\_iterator\_next@{lexer\_transition\_vector\_iterator\_next}}
+\index{lexer\_transition\_vector\_iterator\_next@{lexer\_transition\_vector\_iterator\_next}!vector.h@{vector.h}}
+\doxysubsubsection{\texorpdfstring{lexer\_transition\_vector\_iterator\_next()}{lexer\_transition\_vector\_iterator\_next()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} lexer\+\_\+transition\+\_\+vector\+\_\+iterator\+\_\+next (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlexer__transition__vector__iterator__t}{lexer\+\_\+transition\+\_\+vector\+\_\+iterator\+\_\+t}} $\ast$}]{it }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lexer_2transition_2vector_8h_a7d217f4a4cc0c467d90d2b9d3bd7b87c}\label{lexer_2transition_2vector_8h_a7d217f4a4cc0c467d90d2b9d3bd7b87c}} 
+\index{vector.h@{vector.h}!lexer\_transition\_vector\_move@{lexer\_transition\_vector\_move}}
+\index{lexer\_transition\_vector\_move@{lexer\_transition\_vector\_move}!vector.h@{vector.h}}
+\doxysubsubsection{\texorpdfstring{lexer\_transition\_vector\_move()}{lexer\_transition\_vector\_move()}}
+{\footnotesize\ttfamily void lexer\+\_\+transition\+\_\+vector\+\_\+move (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}} $\ast$}]{dest,  }\item[{\mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}} $\ast$}]{src }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lexer_2transition_2vector_8h_a50e6acf122926cf30517ba5ed6a121da}\label{lexer_2transition_2vector_8h_a50e6acf122926cf30517ba5ed6a121da}} 
+\index{vector.h@{vector.h}!lexer\_transition\_vector\_move\_add@{lexer\_transition\_vector\_move\_add}}
+\index{lexer\_transition\_vector\_move\_add@{lexer\_transition\_vector\_move\_add}!vector.h@{vector.h}}
+\doxysubsubsection{\texorpdfstring{lexer\_transition\_vector\_move\_add()}{lexer\_transition\_vector\_move\_add()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} lexer\+\_\+transition\+\_\+vector\+\_\+move\+\_\+add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}} $\ast$}]{vec,  }\item[{\mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} $\ast$}]{element }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{lexer_2transition_2vector_8h_abfc80ff3a366e6273d39cab4a097e6a7}\label{lexer_2transition_2vector_8h_abfc80ff3a366e6273d39cab4a097e6a7}} 
+\index{vector.h@{vector.h}!lexer\_transition\_vector\_init@{lexer\_transition\_vector\_init}}
+\index{lexer\_transition\_vector\_init@{lexer\_transition\_vector\_init}!vector.h@{vector.h}}
+\doxysubsubsection{\texorpdfstring{lexer\_transition\_vector\_init}{lexer\_transition\_vector\_init}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}} lexer\+\_\+transition\+\_\+vector\+\_\+init = \{\mbox{\hyperlink{container_2vector_8h_a0421292d0008d9183d5c0bf3f281e210}{vector\+\_\+init}}\}}
+
+\mbox{\Hypertarget{lexer_2transition_2vector_8h_abd1ba02ba885a71603abfb6e54c02c51}\label{lexer_2transition_2vector_8h_abd1ba02ba885a71603abfb6e54c02c51}} 
+\index{vector.h@{vector.h}!lexer\_transition\_vector\_iterator\_init@{lexer\_transition\_vector\_iterator\_init}}
+\index{lexer\_transition\_vector\_iterator\_init@{lexer\_transition\_vector\_iterator\_init}!vector.h@{vector.h}}
+\doxysubsubsection{\texorpdfstring{lexer\_transition\_vector\_iterator\_init}{lexer\_transition\_vector\_iterator\_init}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{structlexer__transition__vector__iterator__t}{lexer\+\_\+transition\+\_\+vector\+\_\+iterator\+\_\+t}} lexer\+\_\+transition\+\_\+vector\+\_\+iterator\+\_\+init = \{ \mbox{\hyperlink{lexer_2transition_2vector_8h_ae23e49e2d9ce1cc3bc6d1c11d274f94d}{lexer\+\_\+transition\+\_\+vector\+\_\+iterator\+\_\+next}}, \mbox{\hyperlink{lexer_2transition_2vector_8h_a445ef43547691fbf2569caac8ec28e9d}{lexer\+\_\+transition\+\_\+vector\+\_\+iterator\+\_\+get}}, \mbox{\hyperlink{container_2vector_8h_a0e1e12b40785e43ebe5b7403f6ff6156}{vector\+\_\+it\+\_\+init}}\}}
+

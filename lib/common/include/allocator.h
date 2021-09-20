@@ -13,7 +13,7 @@ typedef struct allocator_t {
   char type;
 
   // vTable
-  struct allocator_t (*cpy)(struct allocator_t* allocator);
+  struct allocator_t (*cpy)(const struct allocator_t* allocator);
   void (*del)(struct allocator_t* allocator);
 } allocator_t;
 
@@ -39,7 +39,7 @@ void pfree(allocator_t* allocator, void* block)
     free(block);
 }
 
-allocator_t default_allocator_cpy(allocator_t* allocator)
+allocator_t default_allocator_cpy(const allocator_t* allocator)
 {
   return *allocator;
 }
@@ -47,7 +47,7 @@ allocator_t default_allocator_cpy(allocator_t* allocator)
 const allocator_t GLOBAL_ALLOCATOR = { DEFAULT, default_allocator_cpy, 0};
 const allocator_t NO_ALLOCATOR = { NOP, 0, 0 };
 
-allocator_t allocator_copy(allocator_t* allocator)
+allocator_t allocator_copy(const allocator_t* allocator)
 {
   if(allocator->cpy != NULL)
     return allocator->cpy(allocator);

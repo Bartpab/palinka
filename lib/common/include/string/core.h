@@ -16,12 +16,13 @@ typedef struct string_t {
     size_t length;
 
     allocator_t char_allocator;  // Raw char array allocator
-    allocator_t __allocator;       // Instance allocator
 } string_t;
 
-const string_t string_init = {0, .base = 0, 0, NO_ALLOCATOR, NO_ALLOCATOR};
+const string_t string_init = {0, .base = 0, 0, NO_ALLOCATOR};
 
 string_t* string_new(allocator_t* allocator);
+void string_delete(string_t* str, allocator_t* allocator);
+
 string_t string();
 /**
  * \brief Return an access to the raw pointer of char
@@ -32,14 +33,14 @@ bool string_eq(const string_t* s1, const string_t* s2);
 bool string_concat(string_t* dest, const string_t* s1, const string_t* s2, allocator_t* allocator);
 
 void string_move(string_t* dest, string_t* src);
-bool string_copy(string_t* dest, const string_t* src, allocator_t* allocator);
+bool string_copy(string_t* dest, const string_t* src);
 const size_t string_length(const string_t* pstr);
 void string_clear(string_t* str); 
-void string_delete(string_t * str);
+void string_destruct(string_t * str);
 
 bool buffer_write_string(buffer_t* buffer, string_t* str);
 bool buffer_move_to_string(string_t *pstr, buffer_t* buffer);
-bool buffer_copy_to_string(string_t *pstr, buffer_t* buffer, allocator_t* allocator);
+bool buffer_copy_to_string(string_t *pstr, buffer_t* buffer);
 
 /**
  * \brief Move the content to the string_t
@@ -60,7 +61,7 @@ const string_desc_t string_desc = {
         string_copy,
         string_move, 
         string_eq,
-        string_delete, 
+        string_destruct, 
         sizeof(string_t)
     )
 };
@@ -73,7 +74,6 @@ string_t* string_new(allocator_t* allocator)
 {
     string_t* tmp = (string_t*) pmalloc(allocator, sizeof(string_t));
     *tmp = string_init;
-    tmp->__allocator = allocator_copy(allocator);
     return tmp;
 }
 
@@ -129,13 +129,15 @@ bool string_copy_from_const_char(string_t* pstr, const char* cstr, allocator_t* 
     return true;
 }
 
-void string_delete(string_t* str)
+void string_destruct(string_t* str)
 {
     string_clear(str);
+}
 
-    allocator_t allocator = allocator_copy(&str->__allocator);
-    allocator_delete(&str->__allocator);
-    pfree(&allocator, str);
+void string_delete(string_t* str, allocator_t* allocator)
+{
+    string_destruct(str);
+    pfree(allocator, str);
 }
 
 void string_clear(string_t * str) 
@@ -190,7 +192,8 @@ const size_t string_length(const string_t* pstr) {
     return pstr->length;
 }
 
-const char* string_raw(const string_t* pstr) {
+const char* string_raw(const string_t* pstr) 
+{
     return pstr->is_const ? pstr->cbase : pstr->base;
 }
 
@@ -210,23 +213,36 @@ void string_move(string_t* dest, string_t* src)
     *src = string_init;
 }
 
-bool string_copy(string_t* dest, const string_t* src, allocator_t* allocator)
+bool string_copy(string_t* dest, const string_t* src)
 {
     string_clear(dest);
 
-    char* base = (char*) pmalloc(allocator, string_length(src) + 1);
+    dest->char_allocator = allocator_copy(&src->char_allocator);
     
-    if(base == NULL)
+    // Special case with global const char wrapper
+    if(dest->char_allocator.type == NO_ALLOCATOR.type && src->is_const) {
+        dest->cbase = src->cbase;
+        dest->is_const = true;
+        dest->length = src->length;
+        dest->char_allocator = allocator_copy(&src->char_allocator);
+        
+        return true;
+    } else if(dest->char_allocator.type == NO_ALLOCATOR.type) {
         return false;
-    
-    memcpy(base, string_raw(src), string_length(src) + 1);
+    } else {
+        char* base = (char*) pmalloc(&dest->char_allocator, string_length(src) + 1);
+        
+        if(base == NULL)
+            return false;
+        
+        memcpy(base, string_raw(src), string_length(src) + 1);
 
-    dest->base = base;
-    dest->char_allocator = allocator_copy(allocator);
-    dest->is_const = 0;
-    dest->length = string_length(src);
-    
-    return true;
+        dest->base = base;
+        dest->is_const = false;
+        dest->length = string_length(src);
+        
+        return true;
+    }
 }
 
 /**
@@ -248,14 +264,14 @@ bool buffer_move_to_string(string_t *pstr, buffer_t* buffer)
     return true;
 }
 
-bool buffer_copy_to_string(string_t* str, buffer_t* buffer, allocator_t* allocator)
+bool buffer_copy_to_string(string_t* str, buffer_t* buff)
 {
-    if(buffer->base == NULL)
+    if(buff->base == NULL)
         return false;
     
-    buffer_t tmp;
+    buffer_t tmp = buffer(buff->capacity, &buff->allocator);
 
-    if(!buffer_copy(&tmp, buffer, allocator))
+    if(!buffer_copy(&tmp, buff))
         return false;
 
     return buffer_move_to_string(str, &tmp);

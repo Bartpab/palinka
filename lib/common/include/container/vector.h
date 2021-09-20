@@ -2,6 +2,7 @@
 #define __CONTAINER_VECTOR_H__
 
 #include <string.h>
+#include <assert.h>
 
 #include "../allocator.h"
 #include "../types/desc.h"
@@ -16,10 +17,9 @@ typedef struct vector_t {
     size_t size;
 
     allocator_t __elements_allocator;
-    allocator_t __allocator;
 } vector_t;
 
-const vector_t vector_init = {0, 0, 0, 0, NO_ALLOCATOR, NO_ALLOCATOR};
+const vector_t vector_init = {0, 0, 0, 0, NO_ALLOCATOR};
 
 typedef struct vector_iterator_t
 {
@@ -47,7 +47,7 @@ const vector_iterator_t vector_it_init = {vector_iterator_next, vector_iterator_
 /**
  * \brief Create a vector of string
  */
-bool vector_create(vector_t* vec, type_desc_t* type_desc, size_t capacity, allocator_t* allocator);
+bool vector_create(vector_t* vec, type_desc_t* type_desc, size_t capacity, const allocator_t* elements_allocator);
 
 /**
  * \brief Delete the vector of string
@@ -62,7 +62,7 @@ void vector_move(vector_t* dest, vector_t* src);
 /**
  * \brief Copy the vector
  */
-bool vector_copy(vector_t* dest, const vector_t* src, allocator_t* allocator);
+bool vector_copy(vector_t* dest, const vector_t* src);
 
 /**
  * \brief Vector eq
@@ -87,15 +87,15 @@ bool vector_move_add(vector_t* vec, void* element);
 /**
  * \brief Add the element to the vector
  */
-bool vector_copy_add(vector_t* vec, const void* element, allocator_t* allocator);
+bool vector_copy_add(vector_t* vec, const void* element);
 
 // IMPL //
 
-bool vector_create(vector_t* vec, type_desc_t* type_desc, size_t capacity, allocator_t* allocator)
+bool vector_create(vector_t* vec, type_desc_t* type_desc, size_t capacity, const allocator_t* elements_allocator)
 {
-    vector_clear(vec);
+    allocator_t __el_allocator = allocator_copy(elements_allocator);
 
-    void* base = pmalloc(allocator, type_desc->size * capacity);
+    void* base = pmalloc(&__el_allocator, type_desc->size * capacity);
     
     if(!base)
         return false;
@@ -103,9 +103,8 @@ bool vector_create(vector_t* vec, type_desc_t* type_desc, size_t capacity, alloc
     vec->base = base;
     vec->type_desc = type_desc;
     vec->capacity = capacity;
-    vec->__elements_allocator = allocator_copy(allocator);
+    vec->__elements_allocator = __el_allocator;
     vec->size = 0;
-
 
     return true;
 }
@@ -132,22 +131,19 @@ static bool __vector_check_capacity(vector_t* vec, size_t size)
     return true;
 }
 
-void vector_clear(vector_t* vec) 
+void vector_destruct(vector_t* vec) 
 {
     if(vec->base == NULL)
         return;
-    
-    if(vec->type_desc->del != NULL) 
+
+    if(vec->size > 0) 
     {
-        if(vec->size > 0) 
+        void* it;
+        
+        for(size_t i; i < vec->size; i++) 
         {
-            void* it;
-            
-            for(size_t i; i < vec->size; i++) 
-            {
-                it = vec->base + i * vec->type_desc->size;
-                vec->type_desc->del(it);
-            }
+            it = vec->base + i * vec->type_desc->size;
+            type_destruct(vec->type_desc, it);
         }
     }
 
@@ -158,24 +154,29 @@ void vector_clear(vector_t* vec)
 
 void vector_move(vector_t* dest, vector_t* src)
 {
-    dest->base = src->base;
+    dest->base  = src->base;
     dest->capacity = src->capacity;
     dest->size = src->size;
     dest->type_desc = src->type_desc;
     dest->__elements_allocator = src->__elements_allocator;
+
+    src->base = 0;
+    src->capacity = 0;
+    src->size = 0;
+    src->type_desc = 0;
+    src->__elements_allocator = NO_ALLOCATOR;
 }
 
-bool vector_copy(vector_t* dest, const vector_t* src, allocator_t* allocator)
+bool vector_copy(vector_t* dest, const vector_t* src)
 {
-    vector_clear(dest);
-
     if(src->base == NULL)
         return false;
     
-    if(src->type_desc->copy == NULL)
+    if(type_is_copiable(src->type_desc))
         return false;
 
-    vector_create(dest, src->type_desc, src->capacity, allocator);
+    if(!vector_create(dest, src->type_desc, src->capacity, &src->__elements_allocator))
+        return false;
 
     void* it_src, *it_dest;
     
@@ -183,19 +184,10 @@ bool vector_copy(vector_t* dest, const vector_t* src, allocator_t* allocator)
     {
         it_src = src->base + i * src->type_desc->size;
         it_dest = dest->base + i * src->type_desc->size;
-        src->type_desc->copy(it_dest, it_src, allocator);
+        type_copy(src->type_desc, it_dest, it_src);
     }
 
     return true;
-}
-
-void vector_delete(vector_t* vec)
-{
-    vector_clear(vec);
-    
-    allocator_t allocator = allocator_copy(&vec->__allocator);
-    allocator_delete(&vec->__allocator);
-    pfree(&allocator, vec);
 }
 
 bool vector_get(vector_t* vec, void** out, unsigned int index)
@@ -245,29 +237,39 @@ bool vector_eq(const vector_t* v1, const vector_t* v2)
 
 bool vector_move_add(vector_t* vec, void* element)
 {
-    if(vec->type_desc->move == NULL)
+    if(vec->base == NULL)
+        return false;
+        
+    if(!type_is_movable(vec->type_desc))
         return false;
 
     if(!__vector_check_capacity(vec, vec->size + 1))
         return false;
 
     void* curr = vec->base + (vec->size * vec->type_desc->size);
-    vec->type_desc->move(curr, element); // Move the element
+    type_move(vec->type_desc, curr, element);
     vec->size++;
     return true;
 }
 
-bool vector_copy_add(vector_t* vec, const void* element, allocator_t* allocator)
+bool vector_copy_add(vector_t* vec, const void* element)
 {
-    if(vec->type_desc->copy == NULL)
+    if(vec->base == NULL)
+        return false;
+
+    if(!type_is_copiable(vec->type_desc))
         return false;
 
     if(!__vector_check_capacity(vec, vec->size + 1))
         return false;
 
     void* curr = vec->base + (vec->size * vec->type_desc->size);
-    vec->type_desc->copy(curr, element, allocator); // Copy the element
+    
+    if(!type_copy(vec->type_desc, curr, element))
+        return false;
+    
     vec->size++;
+    
     return true;
 }
 

@@ -67,7 +67,8 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#define-members">Macros</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">desc.h File Reference</div>  </div>
 </div><!--header-->
@@ -86,6 +87,23 @@ Macros</h2></td></tr>
 <tr class="separator:a9c27042d71ba38d9fd9d9a4d9f49ef02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb5a8cbaebc8345c767f6e97d9ac6caa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="desc_8h.html#abb5a8cbaebc8345c767f6e97d9ac6caa">DEF_TYPE_DESC</a>(copy,  move,  eq,  del,  size)&#160;&#160;&#160;copy, move, eq, del, size</td></tr>
 <tr class="separator:abb5a8cbaebc8345c767f6e97d9ac6caa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a665ccd04929008ad68e728ba9d69c077"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="desc_8h.html#a665ccd04929008ad68e728ba9d69c077">type_is_deletable</a> (const <a class="el" href="structtype__desc__t.html">type_desc_t</a> *desc)</td></tr>
+<tr class="separator:a665ccd04929008ad68e728ba9d69c077"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa282e303f36cdeebf5eb0074f82a2181"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="desc_8h.html#aa282e303f36cdeebf5eb0074f82a2181">type_is_movable</a> (const <a class="el" href="structtype__desc__t.html">type_desc_t</a> *desc)</td></tr>
+<tr class="separator:aa282e303f36cdeebf5eb0074f82a2181"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41320fb902cf00ea395f22750ac35e9a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="desc_8h.html#a41320fb902cf00ea395f22750ac35e9a">type_is_copiable</a> (const <a class="el" href="structtype__desc__t.html">type_desc_t</a> *desc)</td></tr>
+<tr class="separator:a41320fb902cf00ea395f22750ac35e9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af16bcca3f68677c6c077e0f612d5969a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="desc_8h.html#af16bcca3f68677c6c077e0f612d5969a">type_eq</a> (const <a class="el" href="structtype__desc__t.html">type_desc_t</a> *desc, void *self, void *other)</td></tr>
+<tr class="separator:af16bcca3f68677c6c077e0f612d5969a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a451e41f207ee1e16b3eb14cca413d0ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="desc_8h.html#a451e41f207ee1e16b3eb14cca413d0ea">type_move</a> (const <a class="el" href="structtype__desc__t.html">type_desc_t</a> *desc, void *dest, void *src)</td></tr>
+<tr class="separator:a451e41f207ee1e16b3eb14cca413d0ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6b11ce58c5e2a85ae54ad350d63f944"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="desc_8h.html#af6b11ce58c5e2a85ae54ad350d63f944">type_copy</a> (const <a class="el" href="structtype__desc__t.html">type_desc_t</a> *desc, void *dest, const void *src)</td></tr>
+<tr class="separator:af6b11ce58c5e2a85ae54ad350d63f944"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e110d971b88b75a5fbc8b79a7ab5bf7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="desc_8h.html#a6e110d971b88b75a5fbc8b79a7ab5bf7">type_destruct</a> (const <a class="el" href="structtype__desc__t.html">type_desc_t</a> *desc, void *element)</td></tr>
+<tr class="separator:a6e110d971b88b75a5fbc8b79a7ab5bf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a9c27042d71ba38d9fd9d9a4d9f49ef02"></a>
@@ -103,12 +121,11 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <a class="code" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a> (*copy) (type* dest, <span class="keyword">const</span> type* src, <a class="code" href="structallocator__t.html">allocator_t</a>* allocator);\</div>
+<b>Value:</b><div class="fragment"><div class="line">    <a class="code" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a> (*copy) (type* dest, <span class="keyword">const</span> type* src);\</div>
 <div class="line">    void (*move)(type* dest, type* src);\</div>
 <div class="line">    bool (*eq)(<span class="keyword">const</span> type* e1, <span class="keyword">const</span> type* e2);\</div>
-<div class="line">    void (*del)(type* <span class="keyword">this</span>);\</div>
+<div class="line">    void (*destruct)(type* <span class="keyword">this</span>);\</div>
 <div class="line">    const <span class="keywordtype">size_t</span> size;</div>
-<div class="ttc" id="astructallocator__t_html"><div class="ttname"><a href="structallocator__t.html">allocator_t</a></div><div class="ttdef"><b>Definition:</b> allocator.h:12</div></div>
 <div class="ttc" id="atypes_8h_html_af6a258d8f3ee5206d682d799316314b1"><div class="ttname"><a href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a></div><div class="ttdeci">bool</div><div class="ttdef"><b>Definition:</b> types.h:7</div></div>
 </div><!-- fragment -->
 </div>
@@ -153,6 +170,191 @@ Macros</h2></td></tr>
           <td></td>
           <td>)</td>
           <td></td><td>&#160;&#160;&#160;copy, move, eq, del, size</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="af6b11ce58c5e2a85ae54ad350d63f944"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6b11ce58c5e2a85ae54ad350d63f944">&#9670;&nbsp;</a></span>type_copy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a> type_copy </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structtype__desc__t.html">type_desc_t</a> *&#160;</td>
+          <td class="paramname"><em>desc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>dest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>src</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6e110d971b88b75a5fbc8b79a7ab5bf7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e110d971b88b75a5fbc8b79a7ab5bf7">&#9670;&nbsp;</a></span>type_destruct()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void type_destruct </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structtype__desc__t.html">type_desc_t</a> *&#160;</td>
+          <td class="paramname"><em>desc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>element</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af16bcca3f68677c6c077e0f612d5969a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af16bcca3f68677c6c077e0f612d5969a">&#9670;&nbsp;</a></span>type_eq()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a> type_eq </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structtype__desc__t.html">type_desc_t</a> *&#160;</td>
+          <td class="paramname"><em>desc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>other</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a41320fb902cf00ea395f22750ac35e9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41320fb902cf00ea395f22750ac35e9a">&#9670;&nbsp;</a></span>type_is_copiable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a> type_is_copiable </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structtype__desc__t.html">type_desc_t</a> *&#160;</td>
+          <td class="paramname"><em>desc</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a665ccd04929008ad68e728ba9d69c077"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a665ccd04929008ad68e728ba9d69c077">&#9670;&nbsp;</a></span>type_is_deletable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a> type_is_deletable </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structtype__desc__t.html">type_desc_t</a> *&#160;</td>
+          <td class="paramname"><em>desc</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa282e303f36cdeebf5eb0074f82a2181"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa282e303f36cdeebf5eb0074f82a2181">&#9670;&nbsp;</a></span>type_is_movable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a> type_is_movable </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structtype__desc__t.html">type_desc_t</a> *&#160;</td>
+          <td class="paramname"><em>desc</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a451e41f207ee1e16b3eb14cca413d0ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a451e41f207ee1e16b3eb14cca413d0ea">&#9670;&nbsp;</a></span>type_move()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void type_move </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structtype__desc__t.html">type_desc_t</a> *&#160;</td>
+          <td class="paramname"><em>desc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>dest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>src</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">

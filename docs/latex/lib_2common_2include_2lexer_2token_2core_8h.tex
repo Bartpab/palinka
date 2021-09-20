@@ -18,16 +18,26 @@ typedef struct \mbox{\hyperlink{structtoken__t}{token\+\_\+t}} \mbox{\hyperlink{
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\hyperlink{structtoken__t}{token\+\_\+t}} \mbox{\hyperlink{lib_2common_2include_2lexer_2token_2core_8h_a3024d210f362d9a1a21417b5bcb47808}{token\+\_\+const\+\_\+chars}} (int type, const char $\ast$value, unsigned int line, unsigned int col)
+\item 
+void \mbox{\hyperlink{lib_2common_2include_2lexer_2token_2core_8h_a94e2767fabf741d4107ea7d36c9542ae}{token\+\_\+create\+\_\+move\+\_\+value}} (\mbox{\hyperlink{structtoken__t}{token\+\_\+t}} $\ast$tok, int type, \mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$value, unsigned int line, unsigned int col)
+\item 
+void \mbox{\hyperlink{lib_2common_2include_2lexer_2token_2core_8h_adc93b0c95d87d04e9a5bcdc7c2d343aa}{token\+\_\+create\+\_\+const\+\_\+chars}} (\mbox{\hyperlink{structtoken__t}{token\+\_\+t}} $\ast$tok, int type, const char $\ast$value, unsigned int line, unsigned int col)
+\item 
 void \mbox{\hyperlink{lib_2common_2include_2lexer_2token_2core_8h_af43c29bedb1e2fb45688a6164b1014c3}{token\+\_\+move}} (\mbox{\hyperlink{structtoken__t}{token\+\_\+t}} $\ast$dest, \mbox{\hyperlink{structtoken__t}{token\+\_\+t}} $\ast$src)
 \item 
-\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lib_2common_2include_2lexer_2token_2core_8h_a44396ddf47d23066bab39e22716b42de}{token\+\_\+copy}} (\mbox{\hyperlink{structtoken__t}{token\+\_\+t}} $\ast$dest, const \mbox{\hyperlink{structtoken__t}{token\+\_\+t}} $\ast$src, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lib_2common_2include_2lexer_2token_2core_8h_aa79b01772cec9d09b39e35985dad18c8}{token\+\_\+copy}} (\mbox{\hyperlink{structtoken__t}{token\+\_\+t}} $\ast$dest, const \mbox{\hyperlink{structtoken__t}{token\+\_\+t}} $\ast$src)
 \item 
 \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lib_2common_2include_2lexer_2token_2core_8h_a34dc8e9410b96116615021c10a4a91d9}{token\+\_\+eq}} (const \mbox{\hyperlink{structtoken__t}{token\+\_\+t}} $\ast$t1, const \mbox{\hyperlink{structtoken__t}{token\+\_\+t}} $\ast$t2)
 \item 
 void \mbox{\hyperlink{lib_2common_2include_2lexer_2token_2core_8h_a5c961eb92f544c018260f375ac1c3048}{token\+\_\+delete}} (\mbox{\hyperlink{structtoken__t}{token\+\_\+t}} $\ast$token)
+\item 
+\mbox{\hyperlink{structtoken__t}{token\+\_\+t}} \mbox{\hyperlink{lib_2common_2include_2lexer_2token_2core_8h_a6ace40f08094e6d6ee3a434e7dccfc10}{token\+\_\+move\+\_\+value}} (int type, \mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$value, unsigned int line, unsigned int col)
 \end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
+\item 
+const \mbox{\hyperlink{structtoken__t}{token\+\_\+t}} \mbox{\hyperlink{lib_2common_2include_2lexer_2token_2core_8h_ae40d9ff6f4559a50e2d59bbb70e64128}{token\+\_\+init}} = \{0, \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_a73dc631729e1787062db971e601a1bbe}{string\+\_\+init}}, 0, 0\}
 \item 
 const \mbox{\hyperlink{structtoken__desc__t}{token\+\_\+desc\+\_\+t}} \mbox{\hyperlink{lib_2common_2include_2lexer_2token_2core_8h_aa3bc559d6d07d43f8f2fe700fe82f7d5}{token\+\_\+desc}}
 \end{DoxyCompactItemize}
@@ -43,11 +53,29 @@ const \mbox{\hyperlink{structtoken__desc__t}{token\+\_\+desc\+\_\+t}} \mbox{\hyp
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{lib_2common_2include_2lexer_2token_2core_8h_a44396ddf47d23066bab39e22716b42de}\label{lib_2common_2include_2lexer_2token_2core_8h_a44396ddf47d23066bab39e22716b42de}} 
+\mbox{\Hypertarget{lib_2common_2include_2lexer_2token_2core_8h_a3024d210f362d9a1a21417b5bcb47808}\label{lib_2common_2include_2lexer_2token_2core_8h_a3024d210f362d9a1a21417b5bcb47808}} 
+\index{core.h@{core.h}!token\_const\_chars@{token\_const\_chars}}
+\index{token\_const\_chars@{token\_const\_chars}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{token\_const\_chars()}{token\_const\_chars()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtoken__t}{token\+\_\+t}} token\+\_\+const\+\_\+chars (\begin{DoxyParamCaption}\item[{int}]{type,  }\item[{const char $\ast$}]{value,  }\item[{unsigned int}]{line,  }\item[{unsigned int}]{col }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lib_2common_2include_2lexer_2token_2core_8h_aa79b01772cec9d09b39e35985dad18c8}\label{lib_2common_2include_2lexer_2token_2core_8h_aa79b01772cec9d09b39e35985dad18c8}} 
 \index{core.h@{core.h}!token\_copy@{token\_copy}}
 \index{token\_copy@{token\_copy}!core.h@{core.h}}
 \doxysubsubsection{\texorpdfstring{token\_copy()}{token\_copy()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} token\+\_\+copy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtoken__t}{token\+\_\+t}} $\ast$}]{dest,  }\item[{const \mbox{\hyperlink{structtoken__t}{token\+\_\+t}} $\ast$}]{src,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} token\+\_\+copy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtoken__t}{token\+\_\+t}} $\ast$}]{dest,  }\item[{const \mbox{\hyperlink{structtoken__t}{token\+\_\+t}} $\ast$}]{src }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lib_2common_2include_2lexer_2token_2core_8h_adc93b0c95d87d04e9a5bcdc7c2d343aa}\label{lib_2common_2include_2lexer_2token_2core_8h_adc93b0c95d87d04e9a5bcdc7c2d343aa}} 
+\index{core.h@{core.h}!token\_create\_const\_chars@{token\_create\_const\_chars}}
+\index{token\_create\_const\_chars@{token\_create\_const\_chars}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{token\_create\_const\_chars()}{token\_create\_const\_chars()}}
+{\footnotesize\ttfamily void token\+\_\+create\+\_\+const\+\_\+chars (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtoken__t}{token\+\_\+t}} $\ast$}]{tok,  }\item[{int}]{type,  }\item[{const char $\ast$}]{value,  }\item[{unsigned int}]{line,  }\item[{unsigned int}]{col }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lib_2common_2include_2lexer_2token_2core_8h_a94e2767fabf741d4107ea7d36c9542ae}\label{lib_2common_2include_2lexer_2token_2core_8h_a94e2767fabf741d4107ea7d36c9542ae}} 
+\index{core.h@{core.h}!token\_create\_move\_value@{token\_create\_move\_value}}
+\index{token\_create\_move\_value@{token\_create\_move\_value}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{token\_create\_move\_value()}{token\_create\_move\_value()}}
+{\footnotesize\ttfamily void token\+\_\+create\+\_\+move\+\_\+value (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtoken__t}{token\+\_\+t}} $\ast$}]{tok,  }\item[{int}]{type,  }\item[{\mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$}]{value,  }\item[{unsigned int}]{line,  }\item[{unsigned int}]{col }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{lib_2common_2include_2lexer_2token_2core_8h_a5c961eb92f544c018260f375ac1c3048}\label{lib_2common_2include_2lexer_2token_2core_8h_a5c961eb92f544c018260f375ac1c3048}} 
 \index{core.h@{core.h}!token\_delete@{token\_delete}}
@@ -67,6 +95,12 @@ const \mbox{\hyperlink{structtoken__desc__t}{token\+\_\+desc\+\_\+t}} \mbox{\hyp
 \doxysubsubsection{\texorpdfstring{token\_move()}{token\_move()}}
 {\footnotesize\ttfamily void token\+\_\+move (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtoken__t}{token\+\_\+t}} $\ast$}]{dest,  }\item[{\mbox{\hyperlink{structtoken__t}{token\+\_\+t}} $\ast$}]{src }\end{DoxyParamCaption})}
 
+\mbox{\Hypertarget{lib_2common_2include_2lexer_2token_2core_8h_a6ace40f08094e6d6ee3a434e7dccfc10}\label{lib_2common_2include_2lexer_2token_2core_8h_a6ace40f08094e6d6ee3a434e7dccfc10}} 
+\index{core.h@{core.h}!token\_move\_value@{token\_move\_value}}
+\index{token\_move\_value@{token\_move\_value}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{token\_move\_value()}{token\_move\_value()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtoken__t}{token\+\_\+t}} token\+\_\+move\+\_\+value (\begin{DoxyParamCaption}\item[{int}]{type,  }\item[{\mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$}]{value,  }\item[{unsigned int}]{line,  }\item[{unsigned int}]{col }\end{DoxyParamCaption})}
+
 
 
 \doxysubsection{Variable Documentation}
@@ -85,7 +119,13 @@ const \mbox{\hyperlink{structtoken__desc__t}{token\+\_\+desc\+\_\+t}} \mbox{\hyp
 \DoxyCodeLine{}
 \DoxyCodeLine{}
 \DoxyCodeLine{}
-\DoxyCodeLine{ \mbox{\hyperlink{lib_2common_2include_2lexer_2token_2core_8h_a44396ddf47d23066bab39e22716b42de}{token\_copy}} ,  \mbox{\hyperlink{lib_2common_2include_2lexer_2token_2core_8h_af43c29bedb1e2fb45688a6164b1014c3}{token\_move}} ,  \mbox{\hyperlink{lib_2common_2include_2lexer_2token_2core_8h_a34dc8e9410b96116615021c10a4a91d9}{token\_eq}} ,  \mbox{\hyperlink{lib_2common_2include_2lexer_2token_2core_8h_a5c961eb92f544c018260f375ac1c3048}{token\_delete}} ,  \textcolor{keyword}{sizeof}(\mbox{\hyperlink{lib_2common_2include_2lexer_2token_2core_8h_add6dc27869d5a65a366b082fc965546a}{token\_t}}) }
+\DoxyCodeLine{ \mbox{\hyperlink{lib_2common_2include_2lexer_2token_2core_8h_aa79b01772cec9d09b39e35985dad18c8}{token\_copy}} ,  \mbox{\hyperlink{lib_2common_2include_2lexer_2token_2core_8h_af43c29bedb1e2fb45688a6164b1014c3}{token\_move}} ,  \mbox{\hyperlink{lib_2common_2include_2lexer_2token_2core_8h_a34dc8e9410b96116615021c10a4a91d9}{token\_eq}} ,  \mbox{\hyperlink{lib_2common_2include_2lexer_2token_2core_8h_a5c961eb92f544c018260f375ac1c3048}{token\_delete}} ,  \textcolor{keyword}{sizeof}(\mbox{\hyperlink{lib_2common_2include_2lexer_2token_2core_8h_add6dc27869d5a65a366b082fc965546a}{token\_t}}) }
 \DoxyCodeLine{\}}
 
 \end{DoxyCode}
+\mbox{\Hypertarget{lib_2common_2include_2lexer_2token_2core_8h_ae40d9ff6f4559a50e2d59bbb70e64128}\label{lib_2common_2include_2lexer_2token_2core_8h_ae40d9ff6f4559a50e2d59bbb70e64128}} 
+\index{core.h@{core.h}!token\_init@{token\_init}}
+\index{token\_init@{token\_init}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{token\_init}{token\_init}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{structtoken__t}{token\+\_\+t}} token\+\_\+init = \{0, \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_a73dc631729e1787062db971e601a1bbe}{string\+\_\+init}}, 0, 0\}}
+

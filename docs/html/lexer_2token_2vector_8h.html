@@ -65,15 +65,446 @@ $(function() {
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">vector.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;../container/vector.h&quot;</code><br />
-<code>#include &quot;../container/macro_vector.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="container_2vector_8h_source.html">../../container/vector.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="macro__vector_8h_source.html">../../container/macro_vector.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="lib_2common_2include_2lexer_2token_2core_8h_source.html">./core.h</a>&quot;</code><br />
 </div>
 <p><a href="lexer_2token_2vector_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtoken__vector__t.html">token_vector_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtoken__vector__iterator__t.html">token_vector_iterator_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:afcb1ea9266a436dc045d5599bc1afd76"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structtoken__vector__t.html">token_vector_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2token_2vector_8h.html#afcb1ea9266a436dc045d5599bc1afd76">token_vector_t</a></td></tr>
+<tr class="separator:afcb1ea9266a436dc045d5599bc1afd76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e6bf8e87c77347dbeaca4251d49bee9"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structtoken__vector__iterator__t.html">token_vector_iterator_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2token_2vector_8h.html#a9e6bf8e87c77347dbeaca4251d49bee9">token_vector_iterator_t</a></td></tr>
+<tr class="separator:a9e6bf8e87c77347dbeaca4251d49bee9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a46680f8081748c79518c3a47cfd888ba"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structtoken__vector__t.html">token_vector_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2token_2vector_8h.html#a46680f8081748c79518c3a47cfd888ba">token_vector</a> (size_t capacity, <a class="el" href="structallocator__t.html">allocator_t</a> *elements_allocator)</td></tr>
+<tr class="separator:a46680f8081748c79518c3a47cfd888ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f6578fb4358a48bca405fef68d2f18a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2token_2vector_8h.html#a0f6578fb4358a48bca405fef68d2f18a">token_vector_create</a> (<a class="el" href="structtoken__vector__t.html">token_vector_t</a> *vec, size_t capacity, <a class="el" href="structallocator__t.html">allocator_t</a> *allocator)</td></tr>
+<tr class="separator:a0f6578fb4358a48bca405fef68d2f18a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e05e03569ee03f7be83f143c0e68ed2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2token_2vector_8h.html#a9e05e03569ee03f7be83f143c0e68ed2">token_vector_destruct</a> (<a class="el" href="structtoken__vector__t.html">token_vector_t</a> *vec)</td></tr>
+<tr class="separator:a9e05e03569ee03f7be83f143c0e68ed2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0062be031ad2590c778f1c3ca622584"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2token_2vector_8h.html#ad0062be031ad2590c778f1c3ca622584">token_vector_get</a> (<a class="el" href="structtoken__vector__t.html">token_vector_t</a> *vec, <a class="el" href="structtoken__t.html">token_t</a> **out, unsigned int index)</td></tr>
+<tr class="separator:ad0062be031ad2590c778f1c3ca622584"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a857ef7fba69531bd5c2f660ef5fcf6ba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2token_2vector_8h.html#a857ef7fba69531bd5c2f660ef5fcf6ba">token_vector_move</a> (<a class="el" href="structtoken__vector__t.html">token_vector_t</a> *dest, <a class="el" href="structtoken__vector__t.html">token_vector_t</a> *src)</td></tr>
+<tr class="separator:a857ef7fba69531bd5c2f660ef5fcf6ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0d2e8cc20ce0864ed3ffd866e444251"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2token_2vector_8h.html#ad0d2e8cc20ce0864ed3ffd866e444251">token_vector_copy</a> (<a class="el" href="structtoken__vector__t.html">token_vector_t</a> *dest, const <a class="el" href="structtoken__vector__t.html">token_vector_t</a> *src)</td></tr>
+<tr class="separator:ad0d2e8cc20ce0864ed3ffd866e444251"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe372ddcc41f1da619815aa5aefe7a7d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2token_2vector_8h.html#abe372ddcc41f1da619815aa5aefe7a7d">token_vector_eq</a> (const <a class="el" href="structtoken__vector__t.html">token_vector_t</a> *v1, const <a class="el" href="structtoken__vector__t.html">token_vector_t</a> *v2)</td></tr>
+<tr class="separator:abe372ddcc41f1da619815aa5aefe7a7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a506c961fdc8ea57cbff609d37ef3460d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2token_2vector_8h.html#a506c961fdc8ea57cbff609d37ef3460d">token_vector_move_add</a> (<a class="el" href="structtoken__vector__t.html">token_vector_t</a> *vec, <a class="el" href="structtoken__t.html">token_t</a> *element)</td></tr>
+<tr class="separator:a506c961fdc8ea57cbff609d37ef3460d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aace37c3ad0bb2da2c3b43213bf6d9ae4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2token_2vector_8h.html#aace37c3ad0bb2da2c3b43213bf6d9ae4">token_vector_copy_add</a> (<a class="el" href="structtoken__vector__t.html">token_vector_t</a> *vec, const <a class="el" href="structtoken__t.html">token_t</a> *element)</td></tr>
+<tr class="separator:aace37c3ad0bb2da2c3b43213bf6d9ae4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4c40f0e6397fc726c5b999cd8e745ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2token_2vector_8h.html#ad4c40f0e6397fc726c5b999cd8e745ca">token_vector_iter</a> (<a class="el" href="structtoken__vector__t.html">token_vector_t</a> *vec, <a class="el" href="structtoken__vector__iterator__t.html">token_vector_iterator_t</a> *it)</td></tr>
+<tr class="separator:ad4c40f0e6397fc726c5b999cd8e745ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfc0bd1f5d593a34f10969a7958a3f4a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2token_2vector_8h.html#abfc0bd1f5d593a34f10969a7958a3f4a">token_vector_iterator_next</a> (<a class="el" href="structtoken__vector__iterator__t.html">token_vector_iterator_t</a> *it)</td></tr>
+<tr class="separator:abfc0bd1f5d593a34f10969a7958a3f4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7cd95f9bf93af52cf5ed3f8f2b029a24"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structtoken__t.html">token_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2token_2vector_8h.html#a7cd95f9bf93af52cf5ed3f8f2b029a24">token_vector_iterator_get</a> (<a class="el" href="structtoken__vector__iterator__t.html">token_vector_iterator_t</a> *it)</td></tr>
+<tr class="separator:a7cd95f9bf93af52cf5ed3f8f2b029a24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ab7a72ce8249f4e1105ee265a85487934"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structtoken__vector__t.html">token_vector_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2token_2vector_8h.html#ab7a72ce8249f4e1105ee265a85487934">token_vector_init</a> = {<a class="el" href="container_2vector_8h.html#a0421292d0008d9183d5c0bf3f281e210">vector_init</a>}</td></tr>
+<tr class="separator:ab7a72ce8249f4e1105ee265a85487934"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64bc93703826ba27ebd7129ec847c113"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structtoken__vector__iterator__t.html">token_vector_iterator_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2token_2vector_8h.html#a64bc93703826ba27ebd7129ec847c113">token_vector_iterator_init</a> = { <a class="el" href="lexer_2token_2vector_8h.html#abfc0bd1f5d593a34f10969a7958a3f4a">token_vector_iterator_next</a>, <a class="el" href="lexer_2token_2vector_8h.html#a7cd95f9bf93af52cf5ed3f8f2b029a24">token_vector_iterator_get</a>, <a class="el" href="container_2vector_8h.html#a0e1e12b40785e43ebe5b7403f6ff6156">vector_it_init</a>}</td></tr>
+<tr class="separator:a64bc93703826ba27ebd7129ec847c113"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="a9e6bf8e87c77347dbeaca4251d49bee9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e6bf8e87c77347dbeaca4251d49bee9">&#9670;&nbsp;</a></span>token_vector_iterator_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structtoken__vector__iterator__t.html">token_vector_iterator_t</a> <a class="el" href="structtoken__vector__iterator__t.html">token_vector_iterator_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afcb1ea9266a436dc045d5599bc1afd76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcb1ea9266a436dc045d5599bc1afd76">&#9670;&nbsp;</a></span>token_vector_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structtoken__vector__t.html">token_vector_t</a> <a class="el" href="structtoken__vector__t.html">token_vector_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a46680f8081748c79518c3a47cfd888ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46680f8081748c79518c3a47cfd888ba">&#9670;&nbsp;</a></span>token_vector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structtoken__vector__t.html">token_vector_t</a> token_vector </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>capacity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structallocator__t.html">allocator_t</a> *&#160;</td>
+          <td class="paramname"><em>elements_allocator</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad0d2e8cc20ce0864ed3ffd866e444251"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0d2e8cc20ce0864ed3ffd866e444251">&#9670;&nbsp;</a></span>token_vector_copy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a> token_vector_copy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structtoken__vector__t.html">token_vector_t</a> *&#160;</td>
+          <td class="paramname"><em>dest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structtoken__vector__t.html">token_vector_t</a> *&#160;</td>
+          <td class="paramname"><em>src</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aace37c3ad0bb2da2c3b43213bf6d9ae4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aace37c3ad0bb2da2c3b43213bf6d9ae4">&#9670;&nbsp;</a></span>token_vector_copy_add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a> token_vector_copy_add </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structtoken__vector__t.html">token_vector_t</a> *&#160;</td>
+          <td class="paramname"><em>vec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structtoken__t.html">token_t</a> *&#160;</td>
+          <td class="paramname"><em>element</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0f6578fb4358a48bca405fef68d2f18a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f6578fb4358a48bca405fef68d2f18a">&#9670;&nbsp;</a></span>token_vector_create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a> token_vector_create </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structtoken__vector__t.html">token_vector_t</a> *&#160;</td>
+          <td class="paramname"><em>vec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>capacity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structallocator__t.html">allocator_t</a> *&#160;</td>
+          <td class="paramname"><em>allocator</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9e05e03569ee03f7be83f143c0e68ed2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e05e03569ee03f7be83f143c0e68ed2">&#9670;&nbsp;</a></span>token_vector_destruct()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void token_vector_destruct </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structtoken__vector__t.html">token_vector_t</a> *&#160;</td>
+          <td class="paramname"><em>vec</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abe372ddcc41f1da619815aa5aefe7a7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe372ddcc41f1da619815aa5aefe7a7d">&#9670;&nbsp;</a></span>token_vector_eq()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a> token_vector_eq </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structtoken__vector__t.html">token_vector_t</a> *&#160;</td>
+          <td class="paramname"><em>v1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structtoken__vector__t.html">token_vector_t</a> *&#160;</td>
+          <td class="paramname"><em>v2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad0062be031ad2590c778f1c3ca622584"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0062be031ad2590c778f1c3ca622584">&#9670;&nbsp;</a></span>token_vector_get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a> token_vector_get </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structtoken__vector__t.html">token_vector_t</a> *&#160;</td>
+          <td class="paramname"><em>vec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structtoken__t.html">token_t</a> **&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad4c40f0e6397fc726c5b999cd8e745ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4c40f0e6397fc726c5b999cd8e745ca">&#9670;&nbsp;</a></span>token_vector_iter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void token_vector_iter </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structtoken__vector__t.html">token_vector_t</a> *&#160;</td>
+          <td class="paramname"><em>vec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structtoken__vector__iterator__t.html">token_vector_iterator_t</a> *&#160;</td>
+          <td class="paramname"><em>it</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7cd95f9bf93af52cf5ed3f8f2b029a24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cd95f9bf93af52cf5ed3f8f2b029a24">&#9670;&nbsp;</a></span>token_vector_iterator_get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structtoken__t.html">token_t</a> * token_vector_iterator_get </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structtoken__vector__iterator__t.html">token_vector_iterator_t</a> *&#160;</td>
+          <td class="paramname"><em>it</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abfc0bd1f5d593a34f10969a7958a3f4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfc0bd1f5d593a34f10969a7958a3f4a">&#9670;&nbsp;</a></span>token_vector_iterator_next()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a> token_vector_iterator_next </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structtoken__vector__iterator__t.html">token_vector_iterator_t</a> *&#160;</td>
+          <td class="paramname"><em>it</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a857ef7fba69531bd5c2f660ef5fcf6ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a857ef7fba69531bd5c2f660ef5fcf6ba">&#9670;&nbsp;</a></span>token_vector_move()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void token_vector_move </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structtoken__vector__t.html">token_vector_t</a> *&#160;</td>
+          <td class="paramname"><em>dest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structtoken__vector__t.html">token_vector_t</a> *&#160;</td>
+          <td class="paramname"><em>src</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a506c961fdc8ea57cbff609d37ef3460d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a506c961fdc8ea57cbff609d37ef3460d">&#9670;&nbsp;</a></span>token_vector_move_add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a> token_vector_move_add </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structtoken__vector__t.html">token_vector_t</a> *&#160;</td>
+          <td class="paramname"><em>vec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structtoken__t.html">token_t</a> *&#160;</td>
+          <td class="paramname"><em>element</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="ab7a72ce8249f4e1105ee265a85487934"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7a72ce8249f4e1105ee265a85487934">&#9670;&nbsp;</a></span>token_vector_init</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structtoken__vector__t.html">token_vector_t</a> token_vector_init = {<a class="el" href="container_2vector_8h.html#a0421292d0008d9183d5c0bf3f281e210">vector_init</a>}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a64bc93703826ba27ebd7129ec847c113"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64bc93703826ba27ebd7129ec847c113">&#9670;&nbsp;</a></span>token_vector_iterator_init</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structtoken__vector__iterator__t.html">token_vector_iterator_t</a> token_vector_iterator_init = { <a class="el" href="lexer_2token_2vector_8h.html#abfc0bd1f5d593a34f10969a7958a3f4a">token_vector_iterator_next</a>, <a class="el" href="lexer_2token_2vector_8h.html#a7cd95f9bf93af52cf5ed3f8f2b029a24">token_vector_iterator_get</a>, <a class="el" href="container_2vector_8h.html#a0e1e12b40785e43ebe5b7403f6ff6156">vector_it_init</a>}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -73,40 +73,40 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a0746ec94865b6973ba714ab65f4888f1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtype__desc__t.html#a0746ec94865b6973ba714ab65f4888f1">copy</a> )(void *dest, const void *src, <a class="el" href="structallocator__t.html">allocator_t</a> *allocator)</td></tr>
-<tr class="separator:a0746ec94865b6973ba714ab65f4888f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01435e7b971be3521ef707d043dae820"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtype__desc__t.html#a01435e7b971be3521ef707d043dae820">copy</a> )(void *dest, const void *src)</td></tr>
+<tr class="separator:a01435e7b971be3521ef707d043dae820"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9bc540e1b60be516576871aaead14763"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtype__desc__t.html#a9bc540e1b60be516576871aaead14763">move</a> )(void *dest, void *src)</td></tr>
 <tr class="separator:a9bc540e1b60be516576871aaead14763"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a988dddef90946fb3dffbc0b4835d0477"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtype__desc__t.html#a988dddef90946fb3dffbc0b4835d0477">eq</a> )(const void *e1, const void *e2)</td></tr>
 <tr class="separator:a988dddef90946fb3dffbc0b4835d0477"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a833bcee8cdb4da982975eb3e7e8ef5fa"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtype__desc__t.html#a833bcee8cdb4da982975eb3e7e8ef5fa">del</a> )(void *this)</td></tr>
-<tr class="separator:a833bcee8cdb4da982975eb3e7e8ef5fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb9ba8a1991326cd8a04cc0457d43ac5"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtype__desc__t.html#abb9ba8a1991326cd8a04cc0457d43ac5">destruct</a> )(void *self)</td></tr>
+<tr class="separator:abb9ba8a1991326cd8a04cc0457d43ac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a49a64e431a107b8d26a0a04e05fc3610"><td class="memItemLeft" align="right" valign="top">const size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtype__desc__t.html#a49a64e431a107b8d26a0a04e05fc3610">size</a></td></tr>
 <tr class="separator:a49a64e431a107b8d26a0a04e05fc3610"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a0746ec94865b6973ba714ab65f4888f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0746ec94865b6973ba714ab65f4888f1">&#9670;&nbsp;</a></span>copy</h2>
+<a id="a01435e7b971be3521ef707d043dae820"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01435e7b971be3521ef707d043dae820">&#9670;&nbsp;</a></span>copy</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>(* type_desc_t::copy) (void *dest, const void *src, <a class="el" href="structallocator__t.html">allocator_t</a> *allocator)</td>
+          <td class="memname"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>(* type_desc_t::copy) (void *dest, const void *src)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a833bcee8cdb4da982975eb3e7e8ef5fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a833bcee8cdb4da982975eb3e7e8ef5fa">&#9670;&nbsp;</a></span>del</h2>
+<a id="abb9ba8a1991326cd8a04cc0457d43ac5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb9ba8a1991326cd8a04cc0457d43ac5">&#9670;&nbsp;</a></span>destruct</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void(* type_desc_t::del) (void *this)</td>
+          <td class="memname">void(* type_desc_t::destruct) (void *self)</td>
         </tr>
       </table>
 </div><div class="memdoc">

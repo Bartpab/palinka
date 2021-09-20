@@ -11,19 +11,21 @@ struct \mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{buffer_8h_a42f7c6fa3bb74095372fe13053126516}{buffer\+\_\+reset}} (\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$buffer)
+\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} \mbox{\hyperlink{buffer_8h_ae5ad4f4c2a5dbc0b61a2119f3871dd59}{buffer}} (size\+\_\+t capacity, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
 \item 
-\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{buffer_8h_a6baa8e0e5939a20a5e68655a3cfcfee0}{buffer\+\_\+pop\+\_\+char}} (\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$buffer)
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{buffer_8h_aef5b7d62264018b50058af08c5b9bbc5}{buffer\+\_\+create}} (\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$\mbox{\hyperlink{buffer_8h_ae5ad4f4c2a5dbc0b61a2119f3871dd59}{buffer}}, size\+\_\+t capacity, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
 \item 
-\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{buffer_8h_a31d03b61b2e121d4f4243e72ed623f22}{buffer\+\_\+copy}} (\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$dest, const \mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$src, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
+void \mbox{\hyperlink{buffer_8h_a42f7c6fa3bb74095372fe13053126516}{buffer\+\_\+reset}} (\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$\mbox{\hyperlink{buffer_8h_ae5ad4f4c2a5dbc0b61a2119f3871dd59}{buffer}})
 \item 
-\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{buffer_8h_affb0f32c3627b40c74c23864fcc3bc0a}{buffer\+\_\+write}} (\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$buffer, const void $\ast$dest, size\+\_\+t len)
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{buffer_8h_a6baa8e0e5939a20a5e68655a3cfcfee0}{buffer\+\_\+pop\+\_\+char}} (\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$\mbox{\hyperlink{buffer_8h_ae5ad4f4c2a5dbc0b61a2119f3871dd59}{buffer}})
 \item 
-\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{buffer_8h_a22a58727d76c7bbf51f08c4127e935b3}{buffer\+\_\+write\+\_\+char}} (\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$buffer, const char c)
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{buffer_8h_a9a498555a72954107cd74ece0094f056}{buffer\+\_\+copy}} (\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$dest, const \mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$src)
 \item 
-void \mbox{\hyperlink{buffer_8h_ac68da3bf9a2706e43e6c5ac71225fb6a}{buffer\+\_\+delete}} (\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$buffer)
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{buffer_8h_affb0f32c3627b40c74c23864fcc3bc0a}{buffer\+\_\+write}} (\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$\mbox{\hyperlink{buffer_8h_ae5ad4f4c2a5dbc0b61a2119f3871dd59}{buffer}}, const void $\ast$dest, size\+\_\+t len)
 \item 
-\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{buffer_8h_aef5b7d62264018b50058af08c5b9bbc5}{buffer\+\_\+create}} (\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$buffer, size\+\_\+t capacity, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{buffer_8h_a22a58727d76c7bbf51f08c4127e935b3}{buffer\+\_\+write\+\_\+char}} (\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$\mbox{\hyperlink{buffer_8h_ae5ad4f4c2a5dbc0b61a2119f3871dd59}{buffer}}, const char c)
+\item 
+void \mbox{\hyperlink{buffer_8h_aa968e416f7402eb4a84a88dfd1664144}{buffer\+\_\+destruct}} (\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$\mbox{\hyperlink{buffer_8h_ae5ad4f4c2a5dbc0b61a2119f3871dd59}{buffer}})
 \end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
@@ -33,11 +35,17 @@ const \mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} \mbox{\hyperlink{buffer_
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{buffer_8h_a31d03b61b2e121d4f4243e72ed623f22}\label{buffer_8h_a31d03b61b2e121d4f4243e72ed623f22}} 
+\mbox{\Hypertarget{buffer_8h_ae5ad4f4c2a5dbc0b61a2119f3871dd59}\label{buffer_8h_ae5ad4f4c2a5dbc0b61a2119f3871dd59}} 
+\index{buffer.h@{buffer.h}!buffer@{buffer}}
+\index{buffer@{buffer}!buffer.h@{buffer.h}}
+\doxysubsubsection{\texorpdfstring{buffer()}{buffer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} buffer (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{capacity,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{buffer_8h_a9a498555a72954107cd74ece0094f056}\label{buffer_8h_a9a498555a72954107cd74ece0094f056}} 
 \index{buffer.h@{buffer.h}!buffer\_copy@{buffer\_copy}}
 \index{buffer\_copy@{buffer\_copy}!buffer.h@{buffer.h}}
 \doxysubsubsection{\texorpdfstring{buffer\_copy()}{buffer\_copy()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} buffer\+\_\+copy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$}]{dest,  }\item[{const \mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$}]{src,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} buffer\+\_\+copy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$}]{dest,  }\item[{const \mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$}]{src }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{buffer_8h_aef5b7d62264018b50058af08c5b9bbc5}\label{buffer_8h_aef5b7d62264018b50058af08c5b9bbc5}} 
 \index{buffer.h@{buffer.h}!buffer\_create@{buffer\_create}}
@@ -45,11 +53,11 @@ const \mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} \mbox{\hyperlink{buffer_
 \doxysubsubsection{\texorpdfstring{buffer\_create()}{buffer\_create()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} buffer\+\_\+create (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$}]{buffer,  }\item[{size\+\_\+t}]{capacity,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{buffer_8h_ac68da3bf9a2706e43e6c5ac71225fb6a}\label{buffer_8h_ac68da3bf9a2706e43e6c5ac71225fb6a}} 
-\index{buffer.h@{buffer.h}!buffer\_delete@{buffer\_delete}}
-\index{buffer\_delete@{buffer\_delete}!buffer.h@{buffer.h}}
-\doxysubsubsection{\texorpdfstring{buffer\_delete()}{buffer\_delete()}}
-{\footnotesize\ttfamily void buffer\+\_\+delete (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$}]{buffer }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{buffer_8h_aa968e416f7402eb4a84a88dfd1664144}\label{buffer_8h_aa968e416f7402eb4a84a88dfd1664144}} 
+\index{buffer.h@{buffer.h}!buffer\_destruct@{buffer\_destruct}}
+\index{buffer\_destruct@{buffer\_destruct}!buffer.h@{buffer.h}}
+\doxysubsubsection{\texorpdfstring{buffer\_destruct()}{buffer\_destruct()}}
+{\footnotesize\ttfamily void buffer\+\_\+destruct (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$}]{buffer }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{buffer_8h_a6baa8e0e5939a20a5e68655a3cfcfee0}\label{buffer_8h_a6baa8e0e5939a20a5e68655a3cfcfee0}} 
 \index{buffer.h@{buffer.h}!buffer\_pop\_char@{buffer\_pop\_char}}

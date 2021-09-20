@@ -21,29 +21,33 @@ typedef struct \mbox{\hyperlink{structstring__t}{string\+\_\+t}} \mbox{\hyperlin
 \item 
 \mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$ \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_a2ffde44176681143008aaf71c90b79cb}{string\+\_\+new}} (\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
 \item 
+void \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_a73480c387d68d43ee1642ba233406c53}{string\+\_\+delete}} (\mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$str, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
+\item 
+\mbox{\hyperlink{structstring__t}{string\+\_\+t}} \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_a506f2ece9a0c33a72f20a72eb7393d2a}{string}} ()
+\item 
 const char $\ast$ \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_a5d4ba7ab9f82e238c16db090087a361d}{string\+\_\+raw}} (const \mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$pstr)
 \begin{DoxyCompactList}\small\item\em Return an access to the raw pointer of char. \end{DoxyCompactList}\item 
-int \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_ad67891fa1e534eea1d13ce7d3862fa32}{string\+\_\+compare}} (const \mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$\mbox{\hyperlink{test__lexer_8h_a1bf7c7c6352e6dbd623ed3d60936be9e}{s1}}, const \mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$s2)
+int \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_ad67891fa1e534eea1d13ce7d3862fa32}{string\+\_\+compare}} (const \mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$s1, const \mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$s2)
 \item 
-\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_acd04e3f8f3ccd50810ccd6e06e1d2dc6}{string\+\_\+eq}} (const \mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$\mbox{\hyperlink{test__lexer_8h_a1bf7c7c6352e6dbd623ed3d60936be9e}{s1}}, const \mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$s2)
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_acd04e3f8f3ccd50810ccd6e06e1d2dc6}{string\+\_\+eq}} (const \mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$s1, const \mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$s2)
 \item 
-\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_a66aac60a55949b13c10881b23b621fa8}{string\+\_\+concat}} (\mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$dest, const \mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$\mbox{\hyperlink{test__lexer_8h_a1bf7c7c6352e6dbd623ed3d60936be9e}{s1}}, const \mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$s2, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_a66aac60a55949b13c10881b23b621fa8}{string\+\_\+concat}} (\mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$dest, const \mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$s1, const \mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$s2, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
 \item 
 void \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_a0d856f52e65355f5dd80ecb8eff9c52c}{string\+\_\+move}} (\mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$dest, \mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$src)
 \item 
-\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_a0b271110a5c12895525551e6fc2fd783}{string\+\_\+copy}} (\mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$dest, const \mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$src, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_aa3204fbb7db3377412d2a6a3fbebf413}{string\+\_\+copy}} (\mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$dest, const \mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$src)
 \item 
 const size\+\_\+t \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_a160b41d68a460db36a9e91465002a6c5}{string\+\_\+length}} (const \mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$pstr)
 \item 
 void \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_a6cd4101ec93dfcaef13555719ac63eb2}{string\+\_\+clear}} (\mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$str)
 \item 
-void \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_a722906016e1f1e5eab83dbf5d432758a}{string\+\_\+delete}} (\mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$str)
+void \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_a12a6c308ac7bf230b8b78194e4f92e12}{string\+\_\+destruct}} (\mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$str)
 \item 
-\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_a5b7e1c0e03c18cd68d7dc182278663b6}{buffer\+\_\+write\+\_\+string}} (\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$buffer, \mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$str)
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_a5b7e1c0e03c18cd68d7dc182278663b6}{buffer\+\_\+write\+\_\+string}} (\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$\mbox{\hyperlink{buffer_8h_ae5ad4f4c2a5dbc0b61a2119f3871dd59}{buffer}}, \mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$str)
 \item 
-\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_a76c3e04f1f5d6eb1c86b6dc470523d27}{buffer\+\_\+move\+\_\+to\+\_\+string}} (\mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$pstr, \mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$buffer)
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_a76c3e04f1f5d6eb1c86b6dc470523d27}{buffer\+\_\+move\+\_\+to\+\_\+string}} (\mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$pstr, \mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$\mbox{\hyperlink{buffer_8h_ae5ad4f4c2a5dbc0b61a2119f3871dd59}{buffer}})
 \begin{DoxyCompactList}\small\item\em Move the buffer into a \mbox{\hyperlink{structstring__t}{string\+\_\+t}}. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_acdb94611d49df7fe24297d319ecc05ff}{buffer\+\_\+copy\+\_\+to\+\_\+string}} (\mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$pstr, \mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$buffer, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_aab7404a5780d423e6022db18be74baa8}{buffer\+\_\+copy\+\_\+to\+\_\+string}} (\mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$pstr, \mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$\mbox{\hyperlink{buffer_8h_ae5ad4f4c2a5dbc0b61a2119f3871dd59}{buffer}})
 \item 
 \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_a1f85e4d4f590cbafb1489f2596f4cb30}{string\+\_\+move\+\_\+from\+\_\+const\+\_\+char}} (\mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$pstr, const char $\ast$cstr, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
 \begin{DoxyCompactList}\small\item\em Move the content to the \mbox{\hyperlink{structstring__t}{string\+\_\+t}}. \end{DoxyCompactList}\item 
@@ -54,7 +58,7 @@ void \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_a722906016e1f1e5eab8
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-const \mbox{\hyperlink{structstring__t}{string\+\_\+t}} \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_a73dc631729e1787062db971e601a1bbe}{string\+\_\+init}} = \{0, .base = 0, 0, \mbox{\hyperlink{allocator_8h_a20b30aa4d3a2edd214a2826521596e7d}{NO\+\_\+\+ALLOCATOR}}, \mbox{\hyperlink{allocator_8h_a20b30aa4d3a2edd214a2826521596e7d}{NO\+\_\+\+ALLOCATOR}}\}
+const \mbox{\hyperlink{structstring__t}{string\+\_\+t}} \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_a73dc631729e1787062db971e601a1bbe}{string\+\_\+init}} = \{0, .base = 0, 0, \mbox{\hyperlink{allocator_8h_a20b30aa4d3a2edd214a2826521596e7d}{NO\+\_\+\+ALLOCATOR}}\}
 \item 
 const \mbox{\hyperlink{structstring__desc__t}{string\+\_\+desc\+\_\+t}} \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_ad13979bdcaed84312be7476cfe25fcbf}{string\+\_\+desc}}
 \end{DoxyCompactItemize}
@@ -70,11 +74,11 @@ const \mbox{\hyperlink{structstring__desc__t}{string\+\_\+desc\+\_\+t}} \mbox{\h
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{lib_2common_2include_2string_2core_8h_acdb94611d49df7fe24297d319ecc05ff}\label{lib_2common_2include_2string_2core_8h_acdb94611d49df7fe24297d319ecc05ff}} 
+\mbox{\Hypertarget{lib_2common_2include_2string_2core_8h_aab7404a5780d423e6022db18be74baa8}\label{lib_2common_2include_2string_2core_8h_aab7404a5780d423e6022db18be74baa8}} 
 \index{core.h@{core.h}!buffer\_copy\_to\_string@{buffer\_copy\_to\_string}}
 \index{buffer\_copy\_to\_string@{buffer\_copy\_to\_string}!core.h@{core.h}}
 \doxysubsubsection{\texorpdfstring{buffer\_copy\_to\_string()}{buffer\_copy\_to\_string()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} buffer\+\_\+copy\+\_\+to\+\_\+string (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$}]{pstr,  }\item[{\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$}]{buffer,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} buffer\+\_\+copy\+\_\+to\+\_\+string (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$}]{pstr,  }\item[{\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$}]{buffer }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{lib_2common_2include_2string_2core_8h_a76c3e04f1f5d6eb1c86b6dc470523d27}\label{lib_2common_2include_2string_2core_8h_a76c3e04f1f5d6eb1c86b6dc470523d27}} 
 \index{core.h@{core.h}!buffer\_move\_to\_string@{buffer\_move\_to\_string}}
@@ -91,6 +95,12 @@ The buffer must not be used afterwards ! \mbox{\Hypertarget{lib_2common_2include
 \index{buffer\_write\_string@{buffer\_write\_string}!core.h@{core.h}}
 \doxysubsubsection{\texorpdfstring{buffer\_write\_string()}{buffer\_write\_string()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} buffer\+\_\+write\+\_\+string (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$}]{buffer,  }\item[{\mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$}]{str }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lib_2common_2include_2string_2core_8h_a506f2ece9a0c33a72f20a72eb7393d2a}\label{lib_2common_2include_2string_2core_8h_a506f2ece9a0c33a72f20a72eb7393d2a}} 
+\index{core.h@{core.h}!string@{string}}
+\index{string@{string}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{string()}{string()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstring__t}{string\+\_\+t}} string (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{lib_2common_2include_2string_2core_8h_a6cd4101ec93dfcaef13555719ac63eb2}\label{lib_2common_2include_2string_2core_8h_a6cd4101ec93dfcaef13555719ac63eb2}} 
 \index{core.h@{core.h}!string\_clear@{string\_clear}}
@@ -110,11 +120,11 @@ The buffer must not be used afterwards ! \mbox{\Hypertarget{lib_2common_2include
 \doxysubsubsection{\texorpdfstring{string\_concat()}{string\_concat()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} string\+\_\+concat (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$}]{dest,  }\item[{const \mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$}]{s1,  }\item[{const \mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$}]{s2,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{lib_2common_2include_2string_2core_8h_a0b271110a5c12895525551e6fc2fd783}\label{lib_2common_2include_2string_2core_8h_a0b271110a5c12895525551e6fc2fd783}} 
+\mbox{\Hypertarget{lib_2common_2include_2string_2core_8h_aa3204fbb7db3377412d2a6a3fbebf413}\label{lib_2common_2include_2string_2core_8h_aa3204fbb7db3377412d2a6a3fbebf413}} 
 \index{core.h@{core.h}!string\_copy@{string\_copy}}
 \index{string\_copy@{string\_copy}!core.h@{core.h}}
 \doxysubsubsection{\texorpdfstring{string\_copy()}{string\_copy()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} string\+\_\+copy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$}]{dest,  }\item[{const \mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$}]{src,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} string\+\_\+copy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$}]{dest,  }\item[{const \mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$}]{src }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{lib_2common_2include_2string_2core_8h_a0837a59df6f61a42af9042b30bf90f79}\label{lib_2common_2include_2string_2core_8h_a0837a59df6f61a42af9042b30bf90f79}} 
 \index{core.h@{core.h}!string\_copy\_from\_const\_char@{string\_copy\_from\_const\_char}}
@@ -126,11 +136,17 @@ The buffer must not be used afterwards ! \mbox{\Hypertarget{lib_2common_2include
 
 Copy the content to the \mbox{\hyperlink{structstring__t}{string\+\_\+t}}. 
 
-Copy the content of the const char pointer and store it in the string. \mbox{\Hypertarget{lib_2common_2include_2string_2core_8h_a722906016e1f1e5eab83dbf5d432758a}\label{lib_2common_2include_2string_2core_8h_a722906016e1f1e5eab83dbf5d432758a}} 
+Copy the content of the const char pointer and store it in the string. \mbox{\Hypertarget{lib_2common_2include_2string_2core_8h_a73480c387d68d43ee1642ba233406c53}\label{lib_2common_2include_2string_2core_8h_a73480c387d68d43ee1642ba233406c53}} 
 \index{core.h@{core.h}!string\_delete@{string\_delete}}
 \index{string\_delete@{string\_delete}!core.h@{core.h}}
 \doxysubsubsection{\texorpdfstring{string\_delete()}{string\_delete()}}
-{\footnotesize\ttfamily void string\+\_\+delete (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$}]{str }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void string\+\_\+delete (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$}]{str,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lib_2common_2include_2string_2core_8h_a12a6c308ac7bf230b8b78194e4f92e12}\label{lib_2common_2include_2string_2core_8h_a12a6c308ac7bf230b8b78194e4f92e12}} 
+\index{core.h@{core.h}!string\_destruct@{string\_destruct}}
+\index{string\_destruct@{string\_destruct}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{string\_destruct()}{string\_destruct()}}
+{\footnotesize\ttfamily void string\+\_\+destruct (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$}]{str }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{lib_2common_2include_2string_2core_8h_acd04e3f8f3ccd50810ccd6e06e1d2dc6}\label{lib_2common_2include_2string_2core_8h_acd04e3f8f3ccd50810ccd6e06e1d2dc6}} 
 \index{core.h@{core.h}!string\_eq@{string\_eq}}
@@ -204,7 +220,7 @@ Return an access to the raw pointer of char.
 \DoxyCodeLine{}
 \DoxyCodeLine{}
 \DoxyCodeLine{}
-\DoxyCodeLine{ \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_a0b271110a5c12895525551e6fc2fd783}{string\_copy}} ,  \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_a0d856f52e65355f5dd80ecb8eff9c52c}{string\_move}} ,  \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_acd04e3f8f3ccd50810ccd6e06e1d2dc6}{string\_eq}} ,  \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_a722906016e1f1e5eab83dbf5d432758a}{string\_delete}} ,  \textcolor{keyword}{sizeof}(\mbox{\hyperlink{lib_2common_2include_2string_2core_8h_a4a235216712299a3b4af2d969804f54f}{string\_t}}) }
+\DoxyCodeLine{ \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_aa3204fbb7db3377412d2a6a3fbebf413}{string\_copy}} ,  \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_a0d856f52e65355f5dd80ecb8eff9c52c}{string\_move}} ,  \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_acd04e3f8f3ccd50810ccd6e06e1d2dc6}{string\_eq}} ,  \mbox{\hyperlink{lib_2common_2include_2string_2core_8h_a12a6c308ac7bf230b8b78194e4f92e12}{string\_destruct}} ,  \textcolor{keyword}{sizeof}(\mbox{\hyperlink{lib_2common_2include_2string_2core_8h_a4a235216712299a3b4af2d969804f54f}{string\_t}}) }
 \DoxyCodeLine{\}}
 
 \end{DoxyCode}
@@ -212,5 +228,5 @@ Return an access to the raw pointer of char.
 \index{core.h@{core.h}!string\_init@{string\_init}}
 \index{string\_init@{string\_init}!core.h@{core.h}}
 \doxysubsubsection{\texorpdfstring{string\_init}{string\_init}}
-{\footnotesize\ttfamily const \mbox{\hyperlink{structstring__t}{string\+\_\+t}} string\+\_\+init = \{0, .base = 0, 0, \mbox{\hyperlink{allocator_8h_a20b30aa4d3a2edd214a2826521596e7d}{NO\+\_\+\+ALLOCATOR}}, \mbox{\hyperlink{allocator_8h_a20b30aa4d3a2edd214a2826521596e7d}{NO\+\_\+\+ALLOCATOR}}\}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{structstring__t}{string\+\_\+t}} string\+\_\+init = \{0, .base = 0, 0, \mbox{\hyperlink{allocator_8h_a20b30aa4d3a2edd214a2826521596e7d}{NO\+\_\+\+ALLOCATOR}}\}}
 

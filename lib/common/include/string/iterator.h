@@ -16,7 +16,7 @@ bool string_concat_it(string_t* dest, string_iterator_t* it, allocator_t* alloca
 bool string_concat_it(string_t* dest, string_iterator_t* it, allocator_t* allocator)
 {
     buffer_t buffer;
-    string_delete(dest);
+    string_destruct(dest);
    
     if(!buffer_create(&buffer, 2, allocator))
         return false;
@@ -25,13 +25,13 @@ bool string_concat_it(string_t* dest, string_iterator_t* it, allocator_t* alloca
     {
         if(false == buffer_write_string(&buffer, it->get(it)))
         {
-            buffer_delete(&buffer);
+            buffer_destruct(&buffer);
             return false;
         }
     }
 
     buffer_move_to_string(dest, &buffer);
-    buffer_delete(&buffer);
+    buffer_destruct(&buffer);
     
     return true;
 }

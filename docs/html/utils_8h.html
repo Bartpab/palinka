@@ -89,7 +89,7 @@ Classes</h2></td></tr>
 Macros</h2></td></tr>
 <tr class="memitem:a8bd595c3ec272d83217251a1fbacc2fc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a8bd595c3ec272d83217251a1fbacc2fc">passert</a>(x)&#160;&#160;&#160;for ( ; !(x) ; assert(x) )</td></tr>
 <tr class="separator:a8bd595c3ec272d83217251a1fbacc2fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc9afb60b7b11c1919813ffefcb00875"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#acc9afb60b7b11c1919813ffefcb00875">test_print</a>(fmt, ...)&#160;&#160;&#160;tctx-&gt;cursor++; snprintf(tctx-&gt;buffer[tctx-&gt;cursor], 0xFF, fmt, ## __VA_ARGS__);</td></tr>
+<tr class="memitem:acc9afb60b7b11c1919813ffefcb00875"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#acc9afb60b7b11c1919813ffefcb00875">test_print</a>(fmt, ...)&#160;&#160;&#160;tctx-&gt;cursor++; snprintf(tctx-&gt;<a class="el" href="buffer_8h.html#ae5ad4f4c2a5dbc0b61a2119f3871dd59">buffer</a>[tctx-&gt;cursor], 0xFF, fmt, ## __VA_ARGS__);</td></tr>
 <tr class="separator:acc9afb60b7b11c1919813ffefcb00875"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab8eacde5050789fef931034f1973b763"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#ab8eacde5050789fef931034f1973b763">test_check</a>(msg_stmt,  test,  failure)&#160;&#160;&#160;<a class="el" href="utils_8h.html#acc9afb60b7b11c1919813ffefcb00875">test_print</a>(&quot;[CHECK L%i]: &quot;, __LINE__); msg_stmt; <a class="el" href="utils_8h.html#acc9afb60b7b11c1919813ffefcb00875">test_print</a>(&quot;\n&quot;); passert(test) { failure; }  <a class="el" href="utils_8h.html#acc9afb60b7b11c1919813ffefcb00875">test_print</a>(&quot;[CHECK OK].\n&quot;);</td></tr>
 <tr class="separator:ab8eacde5050789fef931034f1973b763"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -477,7 +477,7 @@ Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;tctx-&gt;cursor++; snprintf(tctx-&gt;buffer[tctx-&gt;cursor], 0xFF, fmt, ## __VA_ARGS__);</td>
+          <td></td><td>&#160;&#160;&#160;tctx-&gt;cursor++; snprintf(tctx-&gt;<a class="el" href="buffer_8h.html#ae5ad4f4c2a5dbc0b61a2119f3871dd59">buffer</a>[tctx-&gt;cursor], 0xFF, fmt, ## __VA_ARGS__);</td>
         </tr>
       </table>
 </div><div class="memdoc">

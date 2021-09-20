@@ -1,24 +1,19 @@
 \hypertarget{test__lexer_8h}{}\doxysection{C\+:/\+Users/\+GP69\+E5\+EN/\+Documents/dev/palinka/lib/common/test/test\+\_\+lexer.h File Reference}
 \label{test__lexer_8h}\index{C:/Users/GP69E5EN/Documents/dev/palinka/lib/common/test/test\_lexer.h@{C:/Users/GP69E5EN/Documents/dev/palinka/lib/common/test/test\_lexer.h}}
 {\ttfamily \#include \char`\"{}../include/testing/utils.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}../include/lexer/core.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../include/lexer/state/core.\+h\char`\"{}}\newline
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{test__lexer_8h_afaecaa3138647df9d0e0986a1ee3f5f1}{\+\_\+\+\_\+test\+\_\+lexer\+\_\+transition}} (\mbox{\hyperlink{structtest__context__t}{test\+\_\+context\+\_\+t}} $\ast$tctx)
+\item 
+void \mbox{\hyperlink{test__lexer_8h_ad01a843ba22e95b5763d7e7bcbb0433c}{test\+\_\+lexer\+\_\+transition}} (\mbox{\hyperlink{structtest__context__t}{test\+\_\+context\+\_\+t}} $\ast$tctx)
 \item 
 void \mbox{\hyperlink{test__lexer_8h_acc32dda3964fb79540d56746f5f248bb}{\+\_\+\+\_\+test\+\_\+basic\+\_\+lexer}} (\mbox{\hyperlink{structtest__context__t}{test\+\_\+context\+\_\+t}} $\ast$tctx)
 \item 
 void \mbox{\hyperlink{test__lexer_8h_a9ebb30f24d1eb3ac470b85163caa5528}{test\+\_\+basic\+\_\+lexer}} (\mbox{\hyperlink{structtest__context__t}{test\+\_\+context\+\_\+t}} $\ast$tctx)
 \item 
 void \mbox{\hyperlink{test__lexer_8h_a0a0427e3bab6f0ebe412f288c0327959}{test\+\_\+lexer}} (\mbox{\hyperlink{structtest__context__t}{test\+\_\+context\+\_\+t}} $\ast$tctx)
-\end{DoxyCompactItemize}
-\doxysubsection*{Variables}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} \mbox{\hyperlink{test__lexer_8h_a1f93aea39eafc91027100a394f1676c0}{s0}}
-\item 
-\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} \mbox{\hyperlink{test__lexer_8h_a1bf7c7c6352e6dbd623ed3d60936be9e}{s1}}
-\item 
-\mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} \mbox{\hyperlink{test__lexer_8h_ad6de3bc07d76e381470917029d42c11b}{t\+\_\+s0}} \mbox{[}$\,$\mbox{]}
 \end{DoxyCompactItemize}
 
 
@@ -28,6 +23,12 @@ void \mbox{\hyperlink{test__lexer_8h_a0a0427e3bab6f0ebe412f288c0327959}{test\+\_
 \index{\_\_test\_basic\_lexer@{\_\_test\_basic\_lexer}!test\_lexer.h@{test\_lexer.h}}
 \doxysubsubsection{\texorpdfstring{\_\_test\_basic\_lexer()}{\_\_test\_basic\_lexer()}}
 {\footnotesize\ttfamily void \+\_\+\+\_\+test\+\_\+basic\+\_\+lexer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtest__context__t}{test\+\_\+context\+\_\+t}} $\ast$}]{tctx }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{test__lexer_8h_afaecaa3138647df9d0e0986a1ee3f5f1}\label{test__lexer_8h_afaecaa3138647df9d0e0986a1ee3f5f1}} 
+\index{test\_lexer.h@{test\_lexer.h}!\_\_test\_lexer\_transition@{\_\_test\_lexer\_transition}}
+\index{\_\_test\_lexer\_transition@{\_\_test\_lexer\_transition}!test\_lexer.h@{test\_lexer.h}}
+\doxysubsubsection{\texorpdfstring{\_\_test\_lexer\_transition()}{\_\_test\_lexer\_transition()}}
+{\footnotesize\ttfamily void \+\_\+\+\_\+test\+\_\+lexer\+\_\+transition (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtest__context__t}{test\+\_\+context\+\_\+t}} $\ast$}]{tctx }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{test__lexer_8h_a9ebb30f24d1eb3ac470b85163caa5528}\label{test__lexer_8h_a9ebb30f24d1eb3ac470b85163caa5528}} 
 \index{test\_lexer.h@{test\_lexer.h}!test\_basic\_lexer@{test\_basic\_lexer}}
@@ -41,31 +42,9 @@ void \mbox{\hyperlink{test__lexer_8h_a0a0427e3bab6f0ebe412f288c0327959}{test\+\_
 \doxysubsubsection{\texorpdfstring{test\_lexer()}{test\_lexer()}}
 {\footnotesize\ttfamily void test\+\_\+lexer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtest__context__t}{test\+\_\+context\+\_\+t}} $\ast$}]{tctx }\end{DoxyParamCaption})}
 
+\mbox{\Hypertarget{test__lexer_8h_ad01a843ba22e95b5763d7e7bcbb0433c}\label{test__lexer_8h_ad01a843ba22e95b5763d7e7bcbb0433c}} 
+\index{test\_lexer.h@{test\_lexer.h}!test\_lexer\_transition@{test\_lexer\_transition}}
+\index{test\_lexer\_transition@{test\_lexer\_transition}!test\_lexer.h@{test\_lexer.h}}
+\doxysubsubsection{\texorpdfstring{test\_lexer\_transition()}{test\_lexer\_transition()}}
+{\footnotesize\ttfamily void test\+\_\+lexer\+\_\+transition (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtest__context__t}{test\+\_\+context\+\_\+t}} $\ast$}]{tctx }\end{DoxyParamCaption})}
 
-
-\doxysubsection{Variable Documentation}
-\mbox{\Hypertarget{test__lexer_8h_a1f93aea39eafc91027100a394f1676c0}\label{test__lexer_8h_a1f93aea39eafc91027100a394f1676c0}} 
-\index{test\_lexer.h@{test\_lexer.h}!s0@{s0}}
-\index{s0@{s0}!test\_lexer.h@{test\_lexer.h}}
-\doxysubsubsection{\texorpdfstring{s0}{s0}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} s0}
-
-\mbox{\Hypertarget{test__lexer_8h_a1bf7c7c6352e6dbd623ed3d60936be9e}\label{test__lexer_8h_a1bf7c7c6352e6dbd623ed3d60936be9e}} 
-\index{test\_lexer.h@{test\_lexer.h}!s1@{s1}}
-\index{s1@{s1}!test\_lexer.h@{test\_lexer.h}}
-\doxysubsubsection{\texorpdfstring{s1}{s1}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} s1}
-
-\mbox{\Hypertarget{test__lexer_8h_ad6de3bc07d76e381470917029d42c11b}\label{test__lexer_8h_ad6de3bc07d76e381470917029d42c11b}} 
-\index{test\_lexer.h@{test\_lexer.h}!t\_s0@{t\_s0}}
-\index{t\_s0@{t\_s0}!test\_lexer.h@{test\_lexer.h}}
-\doxysubsubsection{\texorpdfstring{t\_s0}{t\_s0}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} t\+\_\+s0\mbox{[}$\,$\mbox{]}}
-
-{\bfseries Initial value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{= \{}
-\DoxyCodeLine{    }
-\DoxyCodeLine{\}}
-
-\end{DoxyCode}

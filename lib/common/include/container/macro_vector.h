@@ -18,13 +18,13 @@ struct typealias ## _vector_iterator_t {\
 \
 typealias ## _vector_t typealias ## _vector(size_t capacity, allocator_t* elements_allocator);\
 bool typealias ## _vector_create(typealias ## _vector_t* vec, size_t capacity, allocator_t* allocator);\
-void typealias ## _vector_delete(typealias ## _vector_t* vec);\
+void typealias ## _vector_destruct(typealias ## _vector_t* vec);\
 bool typealias ## _vector_get(typealias ## _vector_t* vec, type_t** out, unsigned int index);\
 void typealias ## _vector_move(typealias ## _vector_t* dest, typealias ## _vector_t* src);\
-bool typealias ## _vector_copy(typealias ## _vector_t* dest, const typealias ## _vector_t* src, allocator_t* allocator);\
+bool typealias ## _vector_copy(typealias ## _vector_t* dest, const typealias ## _vector_t* src);\
 bool typealias ## _vector_eq(const typealias ## _vector_t* v1, const typealias ## _vector_t* v2);\
 bool typealias ## _vector_move_add(typealias ## _vector_t* vec, type_t* element);\
-bool typealias ## _vector_copy_add(typealias ## _vector_t* vec, const type_t* element, allocator_t* allocator);\
+bool typealias ## _vector_copy_add(typealias ## _vector_t* vec, const type_t* element);\
 void typealias ## _vector_iter(typealias ## _vector_t* vec, typealias ## _vector_iterator_t* it);\
 \
 bool typealias ## _vector_iterator_next(typealias ## _vector_iterator_t* it);\
@@ -48,9 +48,9 @@ bool typealias ## _vector_create(typealias ## _vector_t* vec, size_t capacity, a
     );\
 }\
 \
-void typealias ## _vector_delete(typealias ## _vector_t* vec)\
+void typealias ## _vector_destruct(typealias ## _vector_t* vec)\
 {\
-    vector_delete(&vec->impl);\
+    vector_destruct(&vec->impl);\
 }\
 \
 void typealias ## _vector_move(typealias ## _vector_t* dest, typealias ## _vector_t* src)\
@@ -58,9 +58,9 @@ void typealias ## _vector_move(typealias ## _vector_t* dest, typealias ## _vecto
     vector_move(&dest->impl, &src->impl);\
 }\
 \
-bool typealias ## _vector_copy(typealias ## _vector_t* dest, const typealias ## _vector_t* src, allocator_t* allocator)\
+bool typealias ## _vector_copy(typealias ## _vector_t* dest, const typealias ## _vector_t* src)\
 {\
-    return vector_copy(&dest->impl, &src->impl, allocator);\
+    return vector_copy(&dest->impl, &src->impl);\
 }\
 \
 bool typealias ## _vector_get(typealias ## _vector_t* vec, type_t** out, unsigned int index)\
@@ -78,9 +78,9 @@ bool typealias ## _vector_move_add(typealias ## _vector_t* vec, type_t* element)
     return vector_move_add(&vec->impl, element);\
 }\
 \
-bool typealias ## _vector_copy_add(typealias ## _vector_t* vec, const type_t* element, allocator_t* allocator)\
+bool typealias ## _vector_copy_add(typealias ## _vector_t* vec, const type_t* element)\
 {\
-    return vector_copy_add(&vec->impl, element, allocator);\
+    return vector_copy_add(&vec->impl, element);\
 }\
 \
 void typealias ## _vector_iter(typealias ## _vector_t* vec, typealias ## _vector_iterator_t* it)\

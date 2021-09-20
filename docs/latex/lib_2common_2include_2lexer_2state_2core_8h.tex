@@ -20,24 +20,36 @@ typedef struct \mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_a1a60b94bc1d6a4d280edbeb4bcf1c9b1}{lexer\+\_\+state\+\_\+create\+\_\+move}} (\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$state, lexer\+\_\+transition\+\_\+vector\+\_\+t $\ast$vec, int type)
+\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_ae414d993a968e705c2e6dc475ffd09d3}{lexer\+\_\+state}} (size\+\_\+t capacity, int type, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_a0ac318e2c2eba8ff8518b97e069d61f4}{lexer\+\_\+state\+\_\+create}} (\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$state, size\+\_\+t capacity, int type, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$transition\+\_\+vector\+\_\+allocator)
+\item 
+void \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_a1a60b94bc1d6a4d280edbeb4bcf1c9b1}{lexer\+\_\+state\+\_\+create\+\_\+move}} (\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$state, \mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}} $\ast$vec, int type)
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_a9c97d7cf5fa5ba7c0b4ac25c077b56da}{lexer\+\_\+state\+\_\+move\+\_\+add\+\_\+transition}} (\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$state, \mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} $\ast$transition)
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_a358627e176cda84f1c527eefc6cb8c0d}{lexer\+\_\+state\+\_\+copy\+\_\+add\+\_\+transition}} (\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$state, const \mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} $\ast$transition)
 \item 
 void \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_a51e70e5c456705ffbd4d1bb491aeb931}{lexer\+\_\+state\+\_\+move}} (\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$dest, \mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$src)
 \item 
-\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_a7a0631b571fb67934655976bd6da6d79}{lexer\+\_\+state\+\_\+copy}} (\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$dest, const \mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$src, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_a3b3f9f7c1ed4d9178d452b8b565938a9}{lexer\+\_\+state\+\_\+copy}} (\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$dest, const \mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$src)
 \item 
 \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_abaa5cc132812e8e845ebaf0a2caf3db5}{lexer\+\_\+state\+\_\+eq}} (const \mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$t1, const \mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$t2)
 \item 
-void \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_a16100ce3d457c8336fd4fd774bc2f125}{lexer\+\_\+state\+\_\+delete}} (\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$token)
+void \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_a7ce11e4188a16bb40f458c34916e09bd}{lexer\+\_\+state\+\_\+destruct}} (\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$token)
 \item 
-token\+\_\+vector\+\_\+t \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_aae305c4019174b0fb34a8d14a5d9cd7f}{lexer\+\_\+run}} (\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$init, const char $\ast$stream, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
+\mbox{\hyperlink{structtoken__vector__t}{token\+\_\+vector\+\_\+t}} \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_aae305c4019174b0fb34a8d14a5d9cd7f}{lexer\+\_\+run}} (\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$init, const char $\ast$stream, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_a083be0c641b6fcfa53543a3b8366f673}{lexer\+\_\+next\+\_\+transition}} (\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$current, const char c, \mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$$\ast$out)
+\item 
+\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$ \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_a9506589d8a4aafd690a7f0afc0e641ca}{\+\_\+\+\_\+lexer\+\_\+step}} (\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$init, \mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$\mbox{\hyperlink{buffer_8h_ae5ad4f4c2a5dbc0b61a2119f3871dd59}{buffer}}, const char $\ast$$\ast$c)
 \end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-const \mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_a3f84190fe740f8ff58778e18744ed0d8}{lexer\+\_\+state\+\_\+init}} = \{lexer\+\_\+transition\+\_\+vector\+\_\+init, 0, \mbox{\hyperlink{allocator_8h_a20b30aa4d3a2edd214a2826521596e7d}{NO\+\_\+\+ALLOCATOR}}\}
+const \mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_a3f84190fe740f8ff58778e18744ed0d8}{lexer\+\_\+state\+\_\+init}} = \{\mbox{\hyperlink{lexer_2transition_2vector_8h_abfc80ff3a366e6273d39cab4a097e6a7}{lexer\+\_\+transition\+\_\+vector\+\_\+init}}, 0\}
 \item 
-const \mbox{\hyperlink{structtoken__desc__t}{token\+\_\+desc\+\_\+t}} \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_aa3bc559d6d07d43f8f2fe700fe82f7d5}{token\+\_\+desc}}
+const \mbox{\hyperlink{structlexer__state__desc__t}{lexer\+\_\+state\+\_\+desc\+\_\+t}} \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_a391f17ec88c84534a10f798307ae8020}{lexer\+\_\+state\+\_\+desc}}
 \end{DoxyCompactItemize}
 
 
@@ -51,29 +63,59 @@ const \mbox{\hyperlink{structtoken__desc__t}{token\+\_\+desc\+\_\+t}} \mbox{\hyp
 
 
 \doxysubsection{Function Documentation}
+\mbox{\Hypertarget{lib_2common_2include_2lexer_2state_2core_8h_a9506589d8a4aafd690a7f0afc0e641ca}\label{lib_2common_2include_2lexer_2state_2core_8h_a9506589d8a4aafd690a7f0afc0e641ca}} 
+\index{core.h@{core.h}!\_\_lexer\_step@{\_\_lexer\_step}}
+\index{\_\_lexer\_step@{\_\_lexer\_step}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{\_\_lexer\_step()}{\_\_lexer\_step()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}}$\ast$ \+\_\+\+\_\+lexer\+\_\+step (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$}]{init,  }\item[{\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$}]{buffer,  }\item[{const char $\ast$$\ast$}]{c }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lib_2common_2include_2lexer_2state_2core_8h_a083be0c641b6fcfa53543a3b8366f673}\label{lib_2common_2include_2lexer_2state_2core_8h_a083be0c641b6fcfa53543a3b8366f673}} 
+\index{core.h@{core.h}!lexer\_next\_transition@{lexer\_next\_transition}}
+\index{lexer\_next\_transition@{lexer\_next\_transition}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{lexer\_next\_transition()}{lexer\_next\_transition()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} lexer\+\_\+next\+\_\+transition (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$}]{current,  }\item[{const char}]{c,  }\item[{\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$$\ast$}]{out }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{lib_2common_2include_2lexer_2state_2core_8h_aae305c4019174b0fb34a8d14a5d9cd7f}\label{lib_2common_2include_2lexer_2state_2core_8h_aae305c4019174b0fb34a8d14a5d9cd7f}} 
 \index{core.h@{core.h}!lexer\_run@{lexer\_run}}
 \index{lexer\_run@{lexer\_run}!core.h@{core.h}}
 \doxysubsubsection{\texorpdfstring{lexer\_run()}{lexer\_run()}}
-{\footnotesize\ttfamily token\+\_\+vector\+\_\+t lexer\+\_\+run (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$}]{init,  }\item[{const char $\ast$}]{stream,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{structtoken__vector__t}{token\+\_\+vector\+\_\+t}} lexer\+\_\+run (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$}]{init,  }\item[{const char $\ast$}]{stream,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{lib_2common_2include_2lexer_2state_2core_8h_a7a0631b571fb67934655976bd6da6d79}\label{lib_2common_2include_2lexer_2state_2core_8h_a7a0631b571fb67934655976bd6da6d79}} 
+\mbox{\Hypertarget{lib_2common_2include_2lexer_2state_2core_8h_ae414d993a968e705c2e6dc475ffd09d3}\label{lib_2common_2include_2lexer_2state_2core_8h_ae414d993a968e705c2e6dc475ffd09d3}} 
+\index{core.h@{core.h}!lexer\_state@{lexer\_state}}
+\index{lexer\_state@{lexer\_state}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{lexer\_state()}{lexer\_state()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} lexer\+\_\+state (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{capacity,  }\item[{int}]{type,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lib_2common_2include_2lexer_2state_2core_8h_a3b3f9f7c1ed4d9178d452b8b565938a9}\label{lib_2common_2include_2lexer_2state_2core_8h_a3b3f9f7c1ed4d9178d452b8b565938a9}} 
 \index{core.h@{core.h}!lexer\_state\_copy@{lexer\_state\_copy}}
 \index{lexer\_state\_copy@{lexer\_state\_copy}!core.h@{core.h}}
 \doxysubsubsection{\texorpdfstring{lexer\_state\_copy()}{lexer\_state\_copy()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} lexer\+\_\+state\+\_\+copy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$}]{dest,  }\item[{const \mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$}]{src,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} lexer\+\_\+state\+\_\+copy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$}]{dest,  }\item[{const \mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$}]{src }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lib_2common_2include_2lexer_2state_2core_8h_a358627e176cda84f1c527eefc6cb8c0d}\label{lib_2common_2include_2lexer_2state_2core_8h_a358627e176cda84f1c527eefc6cb8c0d}} 
+\index{core.h@{core.h}!lexer\_state\_copy\_add\_transition@{lexer\_state\_copy\_add\_transition}}
+\index{lexer\_state\_copy\_add\_transition@{lexer\_state\_copy\_add\_transition}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{lexer\_state\_copy\_add\_transition()}{lexer\_state\_copy\_add\_transition()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} lexer\+\_\+state\+\_\+copy\+\_\+add\+\_\+transition (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$}]{state,  }\item[{const \mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} $\ast$}]{transition }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lib_2common_2include_2lexer_2state_2core_8h_a0ac318e2c2eba8ff8518b97e069d61f4}\label{lib_2common_2include_2lexer_2state_2core_8h_a0ac318e2c2eba8ff8518b97e069d61f4}} 
+\index{core.h@{core.h}!lexer\_state\_create@{lexer\_state\_create}}
+\index{lexer\_state\_create@{lexer\_state\_create}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{lexer\_state\_create()}{lexer\_state\_create()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} lexer\+\_\+state\+\_\+create (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$}]{state,  }\item[{size\+\_\+t}]{capacity,  }\item[{int}]{type,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{transition\+\_\+vector\+\_\+allocator }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{lib_2common_2include_2lexer_2state_2core_8h_a1a60b94bc1d6a4d280edbeb4bcf1c9b1}\label{lib_2common_2include_2lexer_2state_2core_8h_a1a60b94bc1d6a4d280edbeb4bcf1c9b1}} 
 \index{core.h@{core.h}!lexer\_state\_create\_move@{lexer\_state\_create\_move}}
 \index{lexer\_state\_create\_move@{lexer\_state\_create\_move}!core.h@{core.h}}
 \doxysubsubsection{\texorpdfstring{lexer\_state\_create\_move()}{lexer\_state\_create\_move()}}
-{\footnotesize\ttfamily void lexer\+\_\+state\+\_\+create\+\_\+move (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$}]{state,  }\item[{lexer\+\_\+transition\+\_\+vector\+\_\+t $\ast$}]{vec,  }\item[{int}]{type }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void lexer\+\_\+state\+\_\+create\+\_\+move (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$}]{state,  }\item[{\mbox{\hyperlink{structlexer__transition__vector__t}{lexer\+\_\+transition\+\_\+vector\+\_\+t}} $\ast$}]{vec,  }\item[{int}]{type }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{lib_2common_2include_2lexer_2state_2core_8h_a16100ce3d457c8336fd4fd774bc2f125}\label{lib_2common_2include_2lexer_2state_2core_8h_a16100ce3d457c8336fd4fd774bc2f125}} 
-\index{core.h@{core.h}!lexer\_state\_delete@{lexer\_state\_delete}}
-\index{lexer\_state\_delete@{lexer\_state\_delete}!core.h@{core.h}}
-\doxysubsubsection{\texorpdfstring{lexer\_state\_delete()}{lexer\_state\_delete()}}
-{\footnotesize\ttfamily void lexer\+\_\+state\+\_\+delete (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$}]{token }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{lib_2common_2include_2lexer_2state_2core_8h_a7ce11e4188a16bb40f458c34916e09bd}\label{lib_2common_2include_2lexer_2state_2core_8h_a7ce11e4188a16bb40f458c34916e09bd}} 
+\index{core.h@{core.h}!lexer\_state\_destruct@{lexer\_state\_destruct}}
+\index{lexer\_state\_destruct@{lexer\_state\_destruct}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{lexer\_state\_destruct()}{lexer\_state\_destruct()}}
+{\footnotesize\ttfamily void lexer\+\_\+state\+\_\+destruct (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$}]{token }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{lib_2common_2include_2lexer_2state_2core_8h_abaa5cc132812e8e845ebaf0a2caf3db5}\label{lib_2common_2include_2lexer_2state_2core_8h_abaa5cc132812e8e845ebaf0a2caf3db5}} 
 \index{core.h@{core.h}!lexer\_state\_eq@{lexer\_state\_eq}}
@@ -87,20 +129,20 @@ const \mbox{\hyperlink{structtoken__desc__t}{token\+\_\+desc\+\_\+t}} \mbox{\hyp
 \doxysubsubsection{\texorpdfstring{lexer\_state\_move()}{lexer\_state\_move()}}
 {\footnotesize\ttfamily void lexer\+\_\+state\+\_\+move (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$}]{dest,  }\item[{\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$}]{src }\end{DoxyParamCaption})}
 
+\mbox{\Hypertarget{lib_2common_2include_2lexer_2state_2core_8h_a9c97d7cf5fa5ba7c0b4ac25c077b56da}\label{lib_2common_2include_2lexer_2state_2core_8h_a9c97d7cf5fa5ba7c0b4ac25c077b56da}} 
+\index{core.h@{core.h}!lexer\_state\_move\_add\_transition@{lexer\_state\_move\_add\_transition}}
+\index{lexer\_state\_move\_add\_transition@{lexer\_state\_move\_add\_transition}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{lexer\_state\_move\_add\_transition()}{lexer\_state\_move\_add\_transition()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} lexer\+\_\+state\+\_\+move\+\_\+add\+\_\+transition (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$}]{state,  }\item[{\mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} $\ast$}]{transition }\end{DoxyParamCaption})}
+
 
 
 \doxysubsection{Variable Documentation}
-\mbox{\Hypertarget{lib_2common_2include_2lexer_2state_2core_8h_a3f84190fe740f8ff58778e18744ed0d8}\label{lib_2common_2include_2lexer_2state_2core_8h_a3f84190fe740f8ff58778e18744ed0d8}} 
-\index{core.h@{core.h}!lexer\_state\_init@{lexer\_state\_init}}
-\index{lexer\_state\_init@{lexer\_state\_init}!core.h@{core.h}}
-\doxysubsubsection{\texorpdfstring{lexer\_state\_init}{lexer\_state\_init}}
-{\footnotesize\ttfamily const \mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} lexer\+\_\+state\+\_\+init = \{lexer\+\_\+transition\+\_\+vector\+\_\+init, 0, \mbox{\hyperlink{allocator_8h_a20b30aa4d3a2edd214a2826521596e7d}{NO\+\_\+\+ALLOCATOR}}\}}
-
-\mbox{\Hypertarget{lib_2common_2include_2lexer_2state_2core_8h_aa3bc559d6d07d43f8f2fe700fe82f7d5}\label{lib_2common_2include_2lexer_2state_2core_8h_aa3bc559d6d07d43f8f2fe700fe82f7d5}} 
-\index{core.h@{core.h}!token\_desc@{token\_desc}}
-\index{token\_desc@{token\_desc}!core.h@{core.h}}
-\doxysubsubsection{\texorpdfstring{token\_desc}{token\_desc}}
-{\footnotesize\ttfamily const \mbox{\hyperlink{structtoken__desc__t}{token\+\_\+desc\+\_\+t}} token\+\_\+desc}
+\mbox{\Hypertarget{lib_2common_2include_2lexer_2state_2core_8h_a391f17ec88c84534a10f798307ae8020}\label{lib_2common_2include_2lexer_2state_2core_8h_a391f17ec88c84534a10f798307ae8020}} 
+\index{core.h@{core.h}!lexer\_state\_desc@{lexer\_state\_desc}}
+\index{lexer\_state\_desc@{lexer\_state\_desc}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{lexer\_state\_desc}{lexer\_state\_desc}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{structlexer__state__desc__t}{lexer\+\_\+state\+\_\+desc\+\_\+t}} lexer\+\_\+state\+\_\+desc}
 
 {\bfseries Initial value\+:}
 \begin{DoxyCode}{0}
@@ -111,7 +153,13 @@ const \mbox{\hyperlink{structtoken__desc__t}{token\+\_\+desc\+\_\+t}} \mbox{\hyp
 \DoxyCodeLine{}
 \DoxyCodeLine{}
 \DoxyCodeLine{}
-\DoxyCodeLine{ \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_a7a0631b571fb67934655976bd6da6d79}{lexer\_state\_copy}} ,  \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_a51e70e5c456705ffbd4d1bb491aeb931}{lexer\_state\_move}} ,  \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_abaa5cc132812e8e845ebaf0a2caf3db5}{lexer\_state\_eq}} ,  \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_a16100ce3d457c8336fd4fd774bc2f125}{lexer\_state\_delete}} ,  \textcolor{keyword}{sizeof}(\mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_aff05a79f34fd61e7e8e5a403c6a6d0bd}{lexer\_state\_t}}) }
+\DoxyCodeLine{ \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_a3b3f9f7c1ed4d9178d452b8b565938a9}{lexer\_state\_copy}} ,  \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_a51e70e5c456705ffbd4d1bb491aeb931}{lexer\_state\_move}} ,  \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_abaa5cc132812e8e845ebaf0a2caf3db5}{lexer\_state\_eq}} ,  \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_a7ce11e4188a16bb40f458c34916e09bd}{lexer\_state\_destruct}} ,  \textcolor{keyword}{sizeof}(\mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_aff05a79f34fd61e7e8e5a403c6a6d0bd}{lexer\_state\_t}}) }
 \DoxyCodeLine{\}}
 
 \end{DoxyCode}
+\mbox{\Hypertarget{lib_2common_2include_2lexer_2state_2core_8h_a3f84190fe740f8ff58778e18744ed0d8}\label{lib_2common_2include_2lexer_2state_2core_8h_a3f84190fe740f8ff58778e18744ed0d8}} 
+\index{core.h@{core.h}!lexer\_state\_init@{lexer\_state\_init}}
+\index{lexer\_state\_init@{lexer\_state\_init}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{lexer\_state\_init}{lexer\_state\_init}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} lexer\+\_\+state\+\_\+init = \{\mbox{\hyperlink{lexer_2transition_2vector_8h_abfc80ff3a366e6273d39cab4a097e6a7}{lexer\+\_\+transition\+\_\+vector\+\_\+init}}, 0\}}
+

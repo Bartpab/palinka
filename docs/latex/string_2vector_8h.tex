@@ -20,21 +20,23 @@ typedef struct \mbox{\hyperlink{structstring__vector__iterator__t}{string\+\_\+v
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\hyperlink{structstring__vector__t}{string\+\_\+vector\+\_\+t}} \mbox{\hyperlink{string_2vector_8h_ad5f4168b9cd213a39a14bc1897b67bd8}{string\+\_\+vector}} (size\+\_\+t capacity, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$elements\+\_\+allocator)
+\item 
 \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{string_2vector_8h_a0ff07382e044bed87e98e2b516c701f3}{string\+\_\+vector\+\_\+create}} (\mbox{\hyperlink{structstring__vector__t}{string\+\_\+vector\+\_\+t}} $\ast$vec, size\+\_\+t capacity, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
 \item 
-void \mbox{\hyperlink{string_2vector_8h_a0d9c170f14529041d5c6ed130d9efe69}{string\+\_\+vector\+\_\+delete}} (\mbox{\hyperlink{structstring__vector__t}{string\+\_\+vector\+\_\+t}} $\ast$vec)
+void \mbox{\hyperlink{string_2vector_8h_ab08b9f4c548c194b9aa7b56a388a48e0}{string\+\_\+vector\+\_\+destruct}} (\mbox{\hyperlink{structstring__vector__t}{string\+\_\+vector\+\_\+t}} $\ast$vec)
 \item 
 \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{string_2vector_8h_a9e1bc04183bead6463d1a13fe6f680c2}{string\+\_\+vector\+\_\+get}} (\mbox{\hyperlink{structstring__vector__t}{string\+\_\+vector\+\_\+t}} $\ast$vec, \mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$$\ast$out, unsigned int index)
 \item 
 void \mbox{\hyperlink{string_2vector_8h_a47572338e30e30a97543820677671f90}{string\+\_\+vector\+\_\+move}} (\mbox{\hyperlink{structstring__vector__t}{string\+\_\+vector\+\_\+t}} $\ast$dest, \mbox{\hyperlink{structstring__vector__t}{string\+\_\+vector\+\_\+t}} $\ast$src)
 \item 
-\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{string_2vector_8h_ac445cab4372d0dd2e038d0b27a640951}{string\+\_\+vector\+\_\+copy}} (\mbox{\hyperlink{structstring__vector__t}{string\+\_\+vector\+\_\+t}} $\ast$dest, \mbox{\hyperlink{structstring__vector__t}{string\+\_\+vector\+\_\+t}} $\ast$src, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{string_2vector_8h_a33d8f33aaac4db63c1738053533287b1}{string\+\_\+vector\+\_\+copy}} (\mbox{\hyperlink{structstring__vector__t}{string\+\_\+vector\+\_\+t}} $\ast$dest, const \mbox{\hyperlink{structstring__vector__t}{string\+\_\+vector\+\_\+t}} $\ast$src)
 \item 
 \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{string_2vector_8h_ad151d141a38bc8161a7d234493157b3d}{string\+\_\+vector\+\_\+eq}} (const \mbox{\hyperlink{structstring__vector__t}{string\+\_\+vector\+\_\+t}} $\ast$v1, const \mbox{\hyperlink{structstring__vector__t}{string\+\_\+vector\+\_\+t}} $\ast$v2)
 \item 
 \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{string_2vector_8h_aaf7513558f27497d49a0a8ffead83724}{string\+\_\+vector\+\_\+move\+\_\+add}} (\mbox{\hyperlink{structstring__vector__t}{string\+\_\+vector\+\_\+t}} $\ast$vec, \mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$element)
 \item 
-\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{string_2vector_8h_a7e01b4ed3ad04cf3dd653d7ab90b3ecf}{string\+\_\+vector\+\_\+copy\+\_\+add}} (\mbox{\hyperlink{structstring__vector__t}{string\+\_\+vector\+\_\+t}} $\ast$vec, const \mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$element, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{string_2vector_8h_a8afcdc60e8b8c7cb950ca216b25c4405}{string\+\_\+vector\+\_\+copy\+\_\+add}} (\mbox{\hyperlink{structstring__vector__t}{string\+\_\+vector\+\_\+t}} $\ast$vec, const \mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$element)
 \item 
 void \mbox{\hyperlink{string_2vector_8h_a2fcd592955120d33a39c758f5ec8e282}{string\+\_\+vector\+\_\+iter}} (\mbox{\hyperlink{structstring__vector__t}{string\+\_\+vector\+\_\+t}} $\ast$vec, \mbox{\hyperlink{structstring__vector__iterator__t}{string\+\_\+vector\+\_\+iterator\+\_\+t}} $\ast$it)
 \item 
@@ -67,17 +69,23 @@ const \mbox{\hyperlink{structstring__vector__iterator__t}{string\+\_\+vector\+\_
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{string_2vector_8h_ac445cab4372d0dd2e038d0b27a640951}\label{string_2vector_8h_ac445cab4372d0dd2e038d0b27a640951}} 
+\mbox{\Hypertarget{string_2vector_8h_ad5f4168b9cd213a39a14bc1897b67bd8}\label{string_2vector_8h_ad5f4168b9cd213a39a14bc1897b67bd8}} 
+\index{vector.h@{vector.h}!string\_vector@{string\_vector}}
+\index{string\_vector@{string\_vector}!vector.h@{vector.h}}
+\doxysubsubsection{\texorpdfstring{string\_vector()}{string\_vector()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstring__vector__t}{string\+\_\+vector\+\_\+t}} string\+\_\+vector (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{capacity,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{elements\+\_\+allocator }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{string_2vector_8h_a33d8f33aaac4db63c1738053533287b1}\label{string_2vector_8h_a33d8f33aaac4db63c1738053533287b1}} 
 \index{vector.h@{vector.h}!string\_vector\_copy@{string\_vector\_copy}}
 \index{string\_vector\_copy@{string\_vector\_copy}!vector.h@{vector.h}}
 \doxysubsubsection{\texorpdfstring{string\_vector\_copy()}{string\_vector\_copy()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} string\+\_\+vector\+\_\+copy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structstring__vector__t}{string\+\_\+vector\+\_\+t}} $\ast$}]{dest,  }\item[{\mbox{\hyperlink{structstring__vector__t}{string\+\_\+vector\+\_\+t}} $\ast$}]{src,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} string\+\_\+vector\+\_\+copy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structstring__vector__t}{string\+\_\+vector\+\_\+t}} $\ast$}]{dest,  }\item[{const \mbox{\hyperlink{structstring__vector__t}{string\+\_\+vector\+\_\+t}} $\ast$}]{src }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{string_2vector_8h_a7e01b4ed3ad04cf3dd653d7ab90b3ecf}\label{string_2vector_8h_a7e01b4ed3ad04cf3dd653d7ab90b3ecf}} 
+\mbox{\Hypertarget{string_2vector_8h_a8afcdc60e8b8c7cb950ca216b25c4405}\label{string_2vector_8h_a8afcdc60e8b8c7cb950ca216b25c4405}} 
 \index{vector.h@{vector.h}!string\_vector\_copy\_add@{string\_vector\_copy\_add}}
 \index{string\_vector\_copy\_add@{string\_vector\_copy\_add}!vector.h@{vector.h}}
 \doxysubsubsection{\texorpdfstring{string\_vector\_copy\_add()}{string\_vector\_copy\_add()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} string\+\_\+vector\+\_\+copy\+\_\+add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structstring__vector__t}{string\+\_\+vector\+\_\+t}} $\ast$}]{vec,  }\item[{const \mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$}]{element,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} string\+\_\+vector\+\_\+copy\+\_\+add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structstring__vector__t}{string\+\_\+vector\+\_\+t}} $\ast$}]{vec,  }\item[{const \mbox{\hyperlink{structstring__t}{string\+\_\+t}} $\ast$}]{element }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{string_2vector_8h_a0ff07382e044bed87e98e2b516c701f3}\label{string_2vector_8h_a0ff07382e044bed87e98e2b516c701f3}} 
 \index{vector.h@{vector.h}!string\_vector\_create@{string\_vector\_create}}
@@ -85,11 +93,11 @@ const \mbox{\hyperlink{structstring__vector__iterator__t}{string\+\_\+vector\+\_
 \doxysubsubsection{\texorpdfstring{string\_vector\_create()}{string\_vector\_create()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} string\+\_\+vector\+\_\+create (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structstring__vector__t}{string\+\_\+vector\+\_\+t}} $\ast$}]{vec,  }\item[{size\+\_\+t}]{capacity,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{string_2vector_8h_a0d9c170f14529041d5c6ed130d9efe69}\label{string_2vector_8h_a0d9c170f14529041d5c6ed130d9efe69}} 
-\index{vector.h@{vector.h}!string\_vector\_delete@{string\_vector\_delete}}
-\index{string\_vector\_delete@{string\_vector\_delete}!vector.h@{vector.h}}
-\doxysubsubsection{\texorpdfstring{string\_vector\_delete()}{string\_vector\_delete()}}
-{\footnotesize\ttfamily void string\+\_\+vector\+\_\+delete (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structstring__vector__t}{string\+\_\+vector\+\_\+t}} $\ast$}]{vec }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{string_2vector_8h_ab08b9f4c548c194b9aa7b56a388a48e0}\label{string_2vector_8h_ab08b9f4c548c194b9aa7b56a388a48e0}} 
+\index{vector.h@{vector.h}!string\_vector\_destruct@{string\_vector\_destruct}}
+\index{string\_vector\_destruct@{string\_vector\_destruct}!vector.h@{vector.h}}
+\doxysubsubsection{\texorpdfstring{string\_vector\_destruct()}{string\_vector\_destruct()}}
+{\footnotesize\ttfamily void string\+\_\+vector\+\_\+destruct (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structstring__vector__t}{string\+\_\+vector\+\_\+t}} $\ast$}]{vec }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{string_2vector_8h_ad151d141a38bc8161a7d234493157b3d}\label{string_2vector_8h_ad151d141a38bc8161a7d234493157b3d}} 
 \index{vector.h@{vector.h}!string\_vector\_eq@{string\_vector\_eq}}

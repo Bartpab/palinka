@@ -92,7 +92,7 @@ $(function() {
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keywordflow">if</span>(!pnode)</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordflow">return</span>;</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <a class="code" href="structallocator__t.html">allocator_t</a> alloc = <a class="code" href="allocator_8h.html#a7c0843ff6254235f9f19deef0eabcccb">allocator_copy</a>(&amp;pnode-&gt;<a class="code" href="structpage__node__t.html#a750afeacceeb589a46d9a9f049df71ba">allocator</a>);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <a class="code" href="structallocator__t.html">allocator_t</a> alloc = <a class="code" href="allocator_8h.html#a10bd4bcd20a84da13ac001ec7db3627c">allocator_copy</a>(&amp;pnode-&gt;<a class="code" href="structpage__node__t.html#a750afeacceeb589a46d9a9f049df71ba">allocator</a>);</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <a class="code" href="allocator_8h.html#aeb73923ccc640e79cd303e2d4af7254e">allocator_delete</a>(&amp;pnode-&gt;<a class="code" href="structpage__node__t.html#a750afeacceeb589a46d9a9f049df71ba">allocator</a>);</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <a class="code" href="allocator_8h.html#af136bd0edd55aabad4ad55193e91c483">pfree</a>(&amp;alloc, pnode);</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <a class="code" href="allocator_8h.html#aeb73923ccc640e79cd303e2d4af7254e">allocator_delete</a>(&amp;alloc); </div>
@@ -198,7 +198,7 @@ $(function() {
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    (*t)-&gt;child[1] = NULL;</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    (*t)-&gt;pid = <a class="code" href="structpage__node__t.html#ad5d6ab406140b7dfe43645f1a9826253">pid</a>;</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    (*t)-&gt;height = 1;</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    (*t)-&gt;allocator = <a class="code" href="allocator_8h.html#a7c0843ff6254235f9f19deef0eabcccb">allocator_copy</a>(<a class="code" href="structpage__node__t.html#a750afeacceeb589a46d9a9f049df71ba">allocator</a>);</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    (*t)-&gt;allocator = <a class="code" href="allocator_8h.html#a10bd4bcd20a84da13ac001ec7db3627c">allocator_copy</a>(<a class="code" href="structpage__node__t.html#a750afeacceeb589a46d9a9f049df71ba">allocator</a>);</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordflow">return</span> *t;</div>
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;  } <span class="keywordflow">else</span> {</div>
@@ -258,7 +258,7 @@ $(function() {
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;}</div>
 <div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aallocator_8h_html_a7c0843ff6254235f9f19deef0eabcccb"><div class="ttname"><a href="allocator_8h.html#a7c0843ff6254235f9f19deef0eabcccb">allocator_copy</a></div><div class="ttdeci">allocator_t allocator_copy(allocator_t *allocator)</div><div class="ttdef"><b>Definition:</b> allocator.h:50</div></div>
+<div class="ttc" id="aallocator_8h_html_a10bd4bcd20a84da13ac001ec7db3627c"><div class="ttname"><a href="allocator_8h.html#a10bd4bcd20a84da13ac001ec7db3627c">allocator_copy</a></div><div class="ttdeci">allocator_t allocator_copy(const allocator_t *allocator)</div><div class="ttdef"><b>Definition:</b> allocator.h:50</div></div>
 <div class="ttc" id="aallocator_8h_html_ac3466dde2ea57ae3693b3de31d2d0cac"><div class="ttname"><a href="allocator_8h.html#ac3466dde2ea57ae3693b3de31d2d0cac">pmalloc</a></div><div class="ttdeci">void * pmalloc(allocator_t *allocator, size_t len)</div><div class="ttdef"><b>Definition:</b> allocator.h:28</div></div>
 <div class="ttc" id="aallocator_8h_html_aeb73923ccc640e79cd303e2d4af7254e"><div class="ttname"><a href="allocator_8h.html#aeb73923ccc640e79cd303e2d4af7254e">allocator_delete</a></div><div class="ttdeci">void allocator_delete(allocator_t *allocator)</div><div class="ttdef"><b>Definition:</b> allocator.h:59</div></div>
 <div class="ttc" id="aallocator_8h_html_af136bd0edd55aabad4ad55193e91c483"><div class="ttname"><a href="allocator_8h.html#af136bd0edd55aabad4ad55193e91c483">pfree</a></div><div class="ttdeci">void pfree(allocator_t *allocator, void *block)</div><div class="ttdef"><b>Definition:</b> allocator.h:36</div></div>

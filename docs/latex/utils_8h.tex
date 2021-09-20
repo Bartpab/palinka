@@ -13,7 +13,7 @@ struct \mbox{\hyperlink{structtest__context__t}{test\+\_\+context\+\_\+t}}
 \item 
 \#define \mbox{\hyperlink{utils_8h_a8bd595c3ec272d83217251a1fbacc2fc}{passert}}(x)~for ( ; !(x) ; assert(x) )
 \item 
-\#define \mbox{\hyperlink{utils_8h_acc9afb60b7b11c1919813ffefcb00875}{test\+\_\+print}}(fmt, ...)~tctx-\/$>$cursor++; snprintf(tctx-\/$>$buffer\mbox{[}tctx-\/$>$cursor\mbox{]}, 0x\+FF, fmt, \#\# \+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+);
+\#define \mbox{\hyperlink{utils_8h_acc9afb60b7b11c1919813ffefcb00875}{test\+\_\+print}}(fmt, ...)~tctx-\/$>$cursor++; snprintf(tctx-\/$>$\mbox{\hyperlink{buffer_8h_ae5ad4f4c2a5dbc0b61a2119f3871dd59}{buffer}}\mbox{[}tctx-\/$>$cursor\mbox{]}, 0x\+FF, fmt, \#\# \+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+);
 \item 
 \#define \mbox{\hyperlink{utils_8h_ab8eacde5050789fef931034f1973b763}{test\+\_\+check}}(msg\+\_\+stmt,  test,  failure)~\mbox{\hyperlink{utils_8h_acc9afb60b7b11c1919813ffefcb00875}{test\+\_\+print}}(\char`\"{}\mbox{[}CHECK L\%i\mbox{]}\+: \char`\"{}, \+\_\+\+\_\+\+LINE\+\_\+\+\_\+); msg\+\_\+stmt; \mbox{\hyperlink{utils_8h_acc9afb60b7b11c1919813ffefcb00875}{test\+\_\+print}}(\char`\"{}\textbackslash{}n\char`\"{}); passert(test) \{ failure; \}  \mbox{\hyperlink{utils_8h_acc9afb60b7b11c1919813ffefcb00875}{test\+\_\+print}}(\char`\"{}\mbox{[}CHECK OK\mbox{]}.\textbackslash{}n\char`\"{});
 \item 
@@ -192,7 +192,7 @@ void \mbox{\hyperlink{utils_8h_aa490585cccaf3aa782f0541d6628a73c}{test\+\_\+tran
 \index{utils.h@{utils.h}!test\_print@{test\_print}}
 \index{test\_print@{test\_print}!utils.h@{utils.h}}
 \doxysubsubsection{\texorpdfstring{test\_print}{test\_print}}
-{\footnotesize\ttfamily \#define test\+\_\+print(\begin{DoxyParamCaption}\item[{}]{fmt,  }\item[{}]{... }\end{DoxyParamCaption})~tctx-\/$>$cursor++; snprintf(tctx-\/$>$buffer\mbox{[}tctx-\/$>$cursor\mbox{]}, 0x\+FF, fmt, \#\# \+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+);}
+{\footnotesize\ttfamily \#define test\+\_\+print(\begin{DoxyParamCaption}\item[{}]{fmt,  }\item[{}]{... }\end{DoxyParamCaption})~tctx-\/$>$cursor++; snprintf(tctx-\/$>$\mbox{\hyperlink{buffer_8h_ae5ad4f4c2a5dbc0b61a2119f3871dd59}{buffer}}\mbox{[}tctx-\/$>$cursor\mbox{]}, 0x\+FF, fmt, \#\# \+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+);}
 
 \mbox{\Hypertarget{utils_8h_a4c8a7d98a03fd4c24e0fc761ec10c0fa}\label{utils_8h_a4c8a7d98a03fd4c24e0fc761ec10c0fa}} 
 \index{utils.h@{utils.h}!test\_success@{test\_success}}

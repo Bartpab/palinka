@@ -22,9 +22,9 @@ typedef struct {
 const wbuffer_t wbuffer_init = {0, 0, 0, 0, NO_ALLOCATOR};
 
 bool wbuffer_create(wbuffer_t* buffer, stream_t* stream, size_t capacity, allocator_t* allocator);
-void wbuffer_delete(wbuffer_t* buffer);
+void wbuffer_destruct(wbuffer_t* buffer);
 bool wbuffer_is_full(wbuffer_t* buffer);
-void wbuffer_delete(wbuffer_t* buffer);
+void wbuffer_destruct(wbuffer_t* buffer);
 size_t wbuffer_write(wbuffer_t* buffer, const void* src, size_t len);
 bool wbuffer_flush(wbuffer_t* buffer);
 
@@ -44,7 +44,7 @@ bool wbuffer_create(wbuffer_t* buffer, stream_t* stream, size_t capacity, alloca
     return true;
 }
 
-void wbuffer_delete(wbuffer_t* buffer) 
+void wbuffer_destruct(wbuffer_t* buffer) 
 {
     if(buffer->stream != NULL && buffer->raw != NULL && buffer->size > 0) 
         wbuffer_flush(buffer);
@@ -118,7 +118,7 @@ const rbuffer_t rbuffer_init = {0, 0, 0, 0, 0, NO_ALLOCATOR};
 bool rbuffer_create(rbuffer_t* buffer, stream_t* stream, size_t capacity, allocator_t* allocator);
 bool rbuffer_fetch(rbuffer_t* buffer);
 bool rbuffer_is_exhausted(rbuffer_t* buffer);
-void rbuffer_delete(rbuffer_t* buffer);
+void rbuffer_destruct(rbuffer_t* buffer);
 
 buffer_t rbuffer_read_all(rbuffer_t* buffer, size_t capacity, allocator_t* allocator);
 string_t rbuffer_read_all_str(rbuffer_t* rbuffer, size_t initial, allocator_t* allocator);
@@ -163,7 +163,7 @@ bool rbuffer_fetch(rbuffer_t* buffer)
     return true;
 } 
 
-void rbuffer_delete(rbuffer_t* buffer) 
+void rbuffer_destruct(rbuffer_t* buffer) 
 {
     buffer->stream = NULL;
 
@@ -216,7 +216,7 @@ buffer_t stream_exhaust(stream_t* stream, size_t capacity, allocator_t* allocato
     rbuffer_t rbuffer = rbuffer_init;
     rbuffer_create(&rbuffer, stream, capacity, allocator);
     buffer_t buffer = rbuffer_read_all(&rbuffer, capacity, allocator);
-    rbuffer_delete(&rbuffer);
+    rbuffer_destruct(&rbuffer);
     return buffer;
 }
 

@@ -41,8 +41,8 @@ define_test(basic_string, test_print("Basic string"))
 
   test_success;
   test_teardown {
-    string_delete(&s1);
-    string_delete(&s2);
+    string_destruct(&s1);
+    string_destruct(&s2);
   }
   test_end;
 }
@@ -72,10 +72,10 @@ define_test(string_concat, test_print("String concat"))
 
   test_success;
   test_teardown {
-    string_delete(&s1);
-    string_delete(&s2);
-    string_delete(&s3);
-    string_delete(&s4);
+    string_destruct(&s1);
+    string_destruct(&s2);
+    string_destruct(&s3);
+    string_destruct(&s4);
   }
   test_end;
 }
@@ -106,7 +106,7 @@ define_test(basic_string_vector, test_print("String vector"))
   // Copy the string to a cell in the vector
   test_check(
     test_print("Add the string to the vector"),
-    string_vector_copy_add(&vec, &s, &allocator),
+    string_vector_copy_add(&vec, &s),
     test_failure("Could not add the string to the vector")
   );
     
@@ -124,8 +124,8 @@ define_test(basic_string_vector, test_print("String vector"))
 
   test_success;
   test_teardown {
-    string_delete(&s);
-    string_vector_delete(&vec);
+    string_destruct(&s);
+    string_vector_destruct(&vec);
   }
   test_end;
 }
@@ -159,25 +159,25 @@ define_test(string_vector_eq, test_print("String vector equality"))
   // Copy the string to a cell in the vector
   test_check(
     test_print("Add the string to the vector"),
-    string_vector_copy_add(&v1, &s1, &allocator),
+    string_vector_copy_add(&v1, &s1),
     test_failure("Could not add the string to the vector")
   );
 
   test_check(
     test_print("Add the string to the vector"),
-    string_vector_copy_add(&v1, &s2, &allocator),
+    string_vector_copy_add(&v1, &s2),
     test_failure("Could not add the string to the vector")
   );
 
   test_check(
     test_print("Add the string to the vector"),
-    string_vector_copy_add(&v2, &s1, &allocator),
+    string_vector_copy_add(&v2, &s1),
     test_failure("Could not add the string to the vector")
   );
     
   test_check(
     test_print("Add the string to the vector"),
-    string_vector_copy_add(&v2, &s2, &allocator),
+    string_vector_copy_add(&v2, &s2),
     test_failure("Could not add the string to the vector")
   );
 
@@ -189,10 +189,10 @@ define_test(string_vector_eq, test_print("String vector equality"))
   
   test_success;
   test_teardown {
-    string_delete(&s1);
-    string_delete(&s2);
-    string_vector_delete(&v1);
-    string_vector_delete(&v2);
+    string_destruct(&s1);
+    string_destruct(&s2);
+    string_vector_destruct(&v1);
+    string_vector_destruct(&v2);
   }
   test_end;
 }
@@ -222,10 +222,10 @@ define_test(string_split_char, test_print("String split"))
   );
 
   // Move the const char in a string
-  string_move_from_const_char(&s1, "this", 0); string_vector_copy_add(&v1, &s1, &allocator);
-  string_move_from_const_char(&s1, "is", 0); string_vector_copy_add(&v1, &s1, &allocator);
-  string_move_from_const_char(&s1, "a", 0); string_vector_copy_add(&v1, &s1, &allocator),
-  string_move_from_const_char(&s1, "test", 0); string_vector_copy_add(&v1, &s1, &allocator),
+  string_move_from_const_char(&s1, "this", 0); string_vector_copy_add(&v1, &s1);
+  string_move_from_const_char(&s1, "is", 0); string_vector_copy_add(&v1, &s1);
+  string_move_from_const_char(&s1, "a", 0); string_vector_copy_add(&v1, &s1),
+  string_move_from_const_char(&s1, "test", 0); string_vector_copy_add(&v1, &s1),
 
   string_move_from_const_char(&s2, "this is a test", 0);
    
@@ -250,10 +250,10 @@ define_test(string_split_char, test_print("String split"))
   
   test_success;
   test_teardown {
-    string_delete(&s1);
-    string_delete(&s2);
-    string_vector_delete(&v1);
-    string_vector_delete(&v2);
+    string_destruct(&s1);
+    string_destruct(&s2);
+    string_vector_destruct(&v1);
+    string_vector_destruct(&v2);
   }
   test_end;
 }
@@ -277,10 +277,17 @@ define_test(string_join_char, test_print("String join"))
   );
 
   // Move the const char in a string
-  string_move_from_const_char(&s1, "this", 0); string_vector_copy_add(&v1, &s1, &allocator);
-  string_move_from_const_char(&s1, "is", 0); string_vector_copy_add(&v1, &s1, &allocator);
-  string_move_from_const_char(&s1, "a", 0); string_vector_copy_add(&v1, &s1, &allocator),
-  string_move_from_const_char(&s1, "test", 0); string_vector_copy_add(&v1, &s1, &allocator),
+  string_move_from_const_char(&s1, "this", 0); 
+  string_vector_copy_add(&v1, &s1);
+  
+  string_move_from_const_char(&s1, "is", 0); 
+  string_vector_copy_add(&v1, &s1);
+  
+  string_move_from_const_char(&s1, "a", 0); 
+  string_vector_copy_add(&v1, &s1),
+  
+  string_move_from_const_char(&s1, "test", 0); 
+  string_vector_copy_add(&v1, &s1),
 
   string_move_from_const_char(&s2, "this is a test", 0);
    
@@ -301,9 +308,9 @@ define_test(string_join_char, test_print("String join"))
   
   test_success;
   test_teardown {
-    string_delete(&s1);
-    string_delete(&s2);
-    string_vector_delete(&v1);
+    string_destruct(&s1);
+    string_destruct(&s2);
+    string_vector_destruct(&v1);
   }
   test_end;
 }
@@ -326,10 +333,10 @@ define_test(string_concat_it, test_print("String concat iterator"))
   string_move_from_const_char(&e, "this is a test", 0);
 
   string_move_from_const_char(&s, "this is a ", 0);
-  string_vector_copy_add(&vec, &s, &allocator);
+  string_vector_copy_add(&vec, &s);
 
   string_move_from_const_char(&s, "test", 0);
-  string_vector_copy_add(&vec, &s, &allocator);
+  string_vector_copy_add(&vec, &s);
   
   // Create an iterator
   string_vector_iter(&vec, &it);
@@ -358,8 +365,8 @@ define_test(string_concat_it, test_print("String concat iterator"))
 
   test_success;
   test_teardown {
-    string_delete(&s);
-    string_vector_delete(&vec);
+    string_destruct(&s);
+    string_vector_destruct(&vec);
   }
   test_end;
 }

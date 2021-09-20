@@ -5,6 +5,9 @@
 #include "./vector.h"
 #include "./iterator.h"
 
+bool string_join_char(string_t* s, string_iterator_t* it, const char c);
+bool string_split_char(string_vector_t *vec, string_t* s, const char c);
+
 bool string_join_char(string_t* s, string_iterator_t* it, const char c)
 {
     buffer_t buffer;
@@ -17,7 +20,8 @@ bool string_join_char(string_t* s, string_iterator_t* it, const char c)
     
     while(it->next(it)) 
     {   
-        if(!first){
+        if(!first)
+        {
             if(!buffer_write_char(&buffer, c))
                 return false;
         } else {
@@ -29,7 +33,7 @@ bool string_join_char(string_t* s, string_iterator_t* it, const char c)
     }
 
     buffer_move_to_string(s, &buffer);
-    buffer_delete(&buffer);
+    buffer_destruct(&buffer);
 
     return true;
 }
@@ -50,7 +54,7 @@ bool string_split_char(string_vector_t *vec, string_t* s, const char c)
     {
         // Split !
         if(*it == c) {
-            buffer_copy_to_string(&str, &buffer, &allocator);
+            buffer_copy_to_string(&str, &buffer);
 
             if(!string_vector_move_add(vec, &str))
                 return false;
@@ -67,13 +71,13 @@ bool string_split_char(string_vector_t *vec, string_t* s, const char c)
     
     if(buffer.length > 0) 
     {
-        buffer_copy_to_string(&str, &buffer, &allocator);
+        buffer_copy_to_string(&str, &buffer);
         if(!string_vector_move_add(vec, &str))
             return false;        
     }
 
-    buffer_delete(&buffer);
-    string_delete(&str);
+    buffer_destruct(&buffer);
+    string_destruct(&str);
     
     return true;
 }

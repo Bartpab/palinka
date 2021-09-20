@@ -12,6 +12,23 @@ struct \mbox{\hyperlink{structtype__desc__t}{type\+\_\+desc\+\_\+t}}
 \item 
 \#define \mbox{\hyperlink{desc_8h_abb5a8cbaebc8345c767f6e97d9ac6caa}{DEF\+\_\+\+TYPE\+\_\+\+DESC}}(copy,  move,  eq,  del,  size)~copy, move, eq, del, size
 \end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{desc_8h_a665ccd04929008ad68e728ba9d69c077}{type\+\_\+is\+\_\+deletable}} (const \mbox{\hyperlink{structtype__desc__t}{type\+\_\+desc\+\_\+t}} $\ast$desc)
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{desc_8h_aa282e303f36cdeebf5eb0074f82a2181}{type\+\_\+is\+\_\+movable}} (const \mbox{\hyperlink{structtype__desc__t}{type\+\_\+desc\+\_\+t}} $\ast$desc)
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{desc_8h_a41320fb902cf00ea395f22750ac35e9a}{type\+\_\+is\+\_\+copiable}} (const \mbox{\hyperlink{structtype__desc__t}{type\+\_\+desc\+\_\+t}} $\ast$desc)
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{desc_8h_af16bcca3f68677c6c077e0f612d5969a}{type\+\_\+eq}} (const \mbox{\hyperlink{structtype__desc__t}{type\+\_\+desc\+\_\+t}} $\ast$desc, void $\ast$self, void $\ast$other)
+\item 
+void \mbox{\hyperlink{desc_8h_a451e41f207ee1e16b3eb14cca413d0ea}{type\+\_\+move}} (const \mbox{\hyperlink{structtype__desc__t}{type\+\_\+desc\+\_\+t}} $\ast$desc, void $\ast$dest, void $\ast$src)
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{desc_8h_af6b11ce58c5e2a85ae54ad350d63f944}{type\+\_\+copy}} (const \mbox{\hyperlink{structtype__desc__t}{type\+\_\+desc\+\_\+t}} $\ast$desc, void $\ast$dest, const void $\ast$src)
+\item 
+void \mbox{\hyperlink{desc_8h_a6e110d971b88b75a5fbc8b79a7ab5bf7}{type\+\_\+destruct}} (const \mbox{\hyperlink{structtype__desc__t}{type\+\_\+desc\+\_\+t}} $\ast$desc, void $\ast$element)
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Macro Definition Documentation}
@@ -23,10 +40,10 @@ struct \mbox{\hyperlink{structtype__desc__t}{type\+\_\+desc\+\_\+t}}
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{    \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} (*copy) (type* dest, \textcolor{keyword}{const} type* src, \mbox{\hyperlink{structallocator__t}{allocator\_t}}* allocator);\(\backslash\)}
+\DoxyCodeLine{    \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} (*copy) (type* dest, \textcolor{keyword}{const} type* src);\(\backslash\)}
 \DoxyCodeLine{    void (*move)(type* dest, type* src);\(\backslash\)}
 \DoxyCodeLine{    bool (*eq)(\textcolor{keyword}{const} type* e1, \textcolor{keyword}{const} type* e2);\(\backslash\)}
-\DoxyCodeLine{    void (*del)(type* \textcolor{keyword}{this});\(\backslash\)}
+\DoxyCodeLine{    void (*destruct)(type* \textcolor{keyword}{this});\(\backslash\)}
 \DoxyCodeLine{    const \textcolor{keywordtype}{size\_t} size;}
 
 \end{DoxyCode}
@@ -35,4 +52,49 @@ struct \mbox{\hyperlink{structtype__desc__t}{type\+\_\+desc\+\_\+t}}
 \index{DEF\_TYPE\_DESC@{DEF\_TYPE\_DESC}!desc.h@{desc.h}}
 \doxysubsubsection{\texorpdfstring{DEF\_TYPE\_DESC}{DEF\_TYPE\_DESC}}
 {\footnotesize\ttfamily \#define DEF\+\_\+\+TYPE\+\_\+\+DESC(\begin{DoxyParamCaption}\item[{}]{copy,  }\item[{}]{move,  }\item[{}]{eq,  }\item[{}]{del,  }\item[{}]{size }\end{DoxyParamCaption})~copy, move, eq, del, size}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{desc_8h_af6b11ce58c5e2a85ae54ad350d63f944}\label{desc_8h_af6b11ce58c5e2a85ae54ad350d63f944}} 
+\index{desc.h@{desc.h}!type\_copy@{type\_copy}}
+\index{type\_copy@{type\_copy}!desc.h@{desc.h}}
+\doxysubsubsection{\texorpdfstring{type\_copy()}{type\_copy()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} type\+\_\+copy (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtype__desc__t}{type\+\_\+desc\+\_\+t}} $\ast$}]{desc,  }\item[{void $\ast$}]{dest,  }\item[{const void $\ast$}]{src }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{desc_8h_a6e110d971b88b75a5fbc8b79a7ab5bf7}\label{desc_8h_a6e110d971b88b75a5fbc8b79a7ab5bf7}} 
+\index{desc.h@{desc.h}!type\_destruct@{type\_destruct}}
+\index{type\_destruct@{type\_destruct}!desc.h@{desc.h}}
+\doxysubsubsection{\texorpdfstring{type\_destruct()}{type\_destruct()}}
+{\footnotesize\ttfamily void type\+\_\+destruct (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtype__desc__t}{type\+\_\+desc\+\_\+t}} $\ast$}]{desc,  }\item[{void $\ast$}]{element }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{desc_8h_af16bcca3f68677c6c077e0f612d5969a}\label{desc_8h_af16bcca3f68677c6c077e0f612d5969a}} 
+\index{desc.h@{desc.h}!type\_eq@{type\_eq}}
+\index{type\_eq@{type\_eq}!desc.h@{desc.h}}
+\doxysubsubsection{\texorpdfstring{type\_eq()}{type\_eq()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} type\+\_\+eq (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtype__desc__t}{type\+\_\+desc\+\_\+t}} $\ast$}]{desc,  }\item[{void $\ast$}]{self,  }\item[{void $\ast$}]{other }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{desc_8h_a41320fb902cf00ea395f22750ac35e9a}\label{desc_8h_a41320fb902cf00ea395f22750ac35e9a}} 
+\index{desc.h@{desc.h}!type\_is\_copiable@{type\_is\_copiable}}
+\index{type\_is\_copiable@{type\_is\_copiable}!desc.h@{desc.h}}
+\doxysubsubsection{\texorpdfstring{type\_is\_copiable()}{type\_is\_copiable()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} type\+\_\+is\+\_\+copiable (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtype__desc__t}{type\+\_\+desc\+\_\+t}} $\ast$}]{desc }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{desc_8h_a665ccd04929008ad68e728ba9d69c077}\label{desc_8h_a665ccd04929008ad68e728ba9d69c077}} 
+\index{desc.h@{desc.h}!type\_is\_deletable@{type\_is\_deletable}}
+\index{type\_is\_deletable@{type\_is\_deletable}!desc.h@{desc.h}}
+\doxysubsubsection{\texorpdfstring{type\_is\_deletable()}{type\_is\_deletable()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} type\+\_\+is\+\_\+deletable (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtype__desc__t}{type\+\_\+desc\+\_\+t}} $\ast$}]{desc }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{desc_8h_aa282e303f36cdeebf5eb0074f82a2181}\label{desc_8h_aa282e303f36cdeebf5eb0074f82a2181}} 
+\index{desc.h@{desc.h}!type\_is\_movable@{type\_is\_movable}}
+\index{type\_is\_movable@{type\_is\_movable}!desc.h@{desc.h}}
+\doxysubsubsection{\texorpdfstring{type\_is\_movable()}{type\_is\_movable()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} type\+\_\+is\+\_\+movable (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtype__desc__t}{type\+\_\+desc\+\_\+t}} $\ast$}]{desc }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{desc_8h_a451e41f207ee1e16b3eb14cca413d0ea}\label{desc_8h_a451e41f207ee1e16b3eb14cca413d0ea}} 
+\index{desc.h@{desc.h}!type\_move@{type\_move}}
+\index{type\_move@{type\_move}!desc.h@{desc.h}}
+\doxysubsubsection{\texorpdfstring{type\_move()}{type\_move()}}
+{\footnotesize\ttfamily void type\+\_\+move (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtype__desc__t}{type\+\_\+desc\+\_\+t}} $\ast$}]{desc,  }\item[{void $\ast$}]{dest,  }\item[{void $\ast$}]{src }\end{DoxyParamCaption})}
 

@@ -19,10 +19,10 @@ buffer_t buffer(size_t capacity, allocator_t* allocator);
 bool buffer_create(buffer_t* buffer, size_t capacity, allocator_t* allocator);
 void buffer_reset(buffer_t* buffer);
 bool buffer_pop_char(buffer_t* buffer);
-bool buffer_copy(buffer_t* dest, const buffer_t* src, allocator_t* allocator);
+bool buffer_copy(buffer_t* dest, const buffer_t* src);
 bool buffer_write(buffer_t* buffer, const void* dest, size_t len);
 bool buffer_write_char(buffer_t* buffer, const char c);
-void buffer_delete(buffer_t* buffer);
+void buffer_destruct(buffer_t* buffer);
 
 static bool __buffer_inc_capacity(buffer_t* buffer, size_t new_capacity) {
     void* base = prealloc(&buffer->allocator, buffer->base, new_capacity);
@@ -93,7 +93,7 @@ bool buffer_write_char(buffer_t* buffer, const char c)
     return buffer_write(buffer, &c, sizeof(char));
 }
 
-void buffer_delete(buffer_t* buffer) 
+void buffer_destruct(buffer_t* buffer) 
 {
     if(buffer->base != NULL)
     {
@@ -105,11 +105,11 @@ void buffer_delete(buffer_t* buffer)
     *buffer = buffer_init;
 }
 
-bool buffer_copy(buffer_t* dest, const buffer_t* src, allocator_t* allocator)
+bool buffer_copy(buffer_t* dest, const buffer_t* src)
 {
-    buffer_delete(dest);
+    allocator_t __raw_allocator = allocator_copy(&src->allocator);
 
-    void* base = pmalloc(allocator, src->capacity);
+    void* base = pmalloc(&__raw_allocator, src->capacity);
     
     if(base == NULL)
         return false;
@@ -119,7 +119,7 @@ bool buffer_copy(buffer_t* dest, const buffer_t* src, allocator_t* allocator)
     dest->base = base;
     dest->length = src->length;
     dest->capacity = src->capacity;
-    dest->allocator = allocator_copy(allocator);
+    dest->allocator = __raw_allocator;
 
     return true;
 }

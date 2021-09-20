@@ -28,16 +28,16 @@ void $\ast$ \mbox{\hyperlink{allocator_8h_ac3466dde2ea57ae3693b3de31d2d0cac}{pma
 \item 
 void \mbox{\hyperlink{allocator_8h_af136bd0edd55aabad4ad55193e91c483}{pfree}} (\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator, void $\ast$block)
 \item 
-\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} \mbox{\hyperlink{allocator_8h_a847eb4a588ff631aa4dafd3a68012dea}{default\+\_\+allocator\+\_\+cpy}} (\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
+\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} \mbox{\hyperlink{allocator_8h_ac9c05ef8240731ae28184f738623a49a}{default\+\_\+allocator\+\_\+cpy}} (const \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
 \item 
-\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} \mbox{\hyperlink{allocator_8h_a7c0843ff6254235f9f19deef0eabcccb}{allocator\+\_\+copy}} (\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
+\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} \mbox{\hyperlink{allocator_8h_a10bd4bcd20a84da13ac001ec7db3627c}{allocator\+\_\+copy}} (const \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
 \item 
 void \mbox{\hyperlink{allocator_8h_aeb73923ccc640e79cd303e2d4af7254e}{allocator\+\_\+delete}} (\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
 \end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-const \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} \mbox{\hyperlink{allocator_8h_a437666e250372b5af9afd2f1ec2e6c44}{GLOBAL\+\_\+\+ALLOCATOR}} = \{ \mbox{\hyperlink{allocator_8h_a31b0dc128e62f63103909566ac5567e0a88ec7d5086d2469ba843c7fcceade8a6}{DEFAULT}}, \mbox{\hyperlink{allocator_8h_a847eb4a588ff631aa4dafd3a68012dea}{default\+\_\+allocator\+\_\+cpy}}, 0\}
+const \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} \mbox{\hyperlink{allocator_8h_a437666e250372b5af9afd2f1ec2e6c44}{GLOBAL\+\_\+\+ALLOCATOR}} = \{ \mbox{\hyperlink{allocator_8h_a31b0dc128e62f63103909566ac5567e0a88ec7d5086d2469ba843c7fcceade8a6}{DEFAULT}}, \mbox{\hyperlink{allocator_8h_ac9c05ef8240731ae28184f738623a49a}{default\+\_\+allocator\+\_\+cpy}}, 0\}
 \item 
 const \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} \mbox{\hyperlink{allocator_8h_a20b30aa4d3a2edd214a2826521596e7d}{NO\+\_\+\+ALLOCATOR}} = \{ \mbox{\hyperlink{allocator_8h_a31b0dc128e62f63103909566ac5567e0af811bef354b292ff0713c50d7652c026}{NOP}}, 0, 0 \}
 \end{DoxyCompactItemize}
@@ -72,11 +72,11 @@ DEFAULT&\\
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{allocator_8h_a7c0843ff6254235f9f19deef0eabcccb}\label{allocator_8h_a7c0843ff6254235f9f19deef0eabcccb}} 
+\mbox{\Hypertarget{allocator_8h_a10bd4bcd20a84da13ac001ec7db3627c}\label{allocator_8h_a10bd4bcd20a84da13ac001ec7db3627c}} 
 \index{allocator.h@{allocator.h}!allocator\_copy@{allocator\_copy}}
 \index{allocator\_copy@{allocator\_copy}!allocator.h@{allocator.h}}
 \doxysubsubsection{\texorpdfstring{allocator\_copy()}{allocator\_copy()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} allocator\+\_\+copy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} allocator\+\_\+copy (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{allocator_8h_aeb73923ccc640e79cd303e2d4af7254e}\label{allocator_8h_aeb73923ccc640e79cd303e2d4af7254e}} 
 \index{allocator.h@{allocator.h}!allocator\_delete@{allocator\_delete}}
@@ -84,11 +84,11 @@ DEFAULT&\\
 \doxysubsubsection{\texorpdfstring{allocator\_delete()}{allocator\_delete()}}
 {\footnotesize\ttfamily void allocator\+\_\+delete (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{allocator_8h_a847eb4a588ff631aa4dafd3a68012dea}\label{allocator_8h_a847eb4a588ff631aa4dafd3a68012dea}} 
+\mbox{\Hypertarget{allocator_8h_ac9c05ef8240731ae28184f738623a49a}\label{allocator_8h_ac9c05ef8240731ae28184f738623a49a}} 
 \index{allocator.h@{allocator.h}!default\_allocator\_cpy@{default\_allocator\_cpy}}
 \index{default\_allocator\_cpy@{default\_allocator\_cpy}!allocator.h@{allocator.h}}
 \doxysubsubsection{\texorpdfstring{default\_allocator\_cpy()}{default\_allocator\_cpy()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} default\+\_\+allocator\+\_\+cpy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} default\+\_\+allocator\+\_\+cpy (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{allocator_8h_af136bd0edd55aabad4ad55193e91c483}\label{allocator_8h_af136bd0edd55aabad4ad55193e91c483}} 
 \index{allocator.h@{allocator.h}!pfree@{pfree}}
@@ -115,7 +115,7 @@ DEFAULT&\\
 \index{allocator.h@{allocator.h}!GLOBAL\_ALLOCATOR@{GLOBAL\_ALLOCATOR}}
 \index{GLOBAL\_ALLOCATOR@{GLOBAL\_ALLOCATOR}!allocator.h@{allocator.h}}
 \doxysubsubsection{\texorpdfstring{GLOBAL\_ALLOCATOR}{GLOBAL\_ALLOCATOR}}
-{\footnotesize\ttfamily const \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} GLOBAL\+\_\+\+ALLOCATOR = \{ \mbox{\hyperlink{allocator_8h_a31b0dc128e62f63103909566ac5567e0a88ec7d5086d2469ba843c7fcceade8a6}{DEFAULT}}, \mbox{\hyperlink{allocator_8h_a847eb4a588ff631aa4dafd3a68012dea}{default\+\_\+allocator\+\_\+cpy}}, 0\}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} GLOBAL\+\_\+\+ALLOCATOR = \{ \mbox{\hyperlink{allocator_8h_a31b0dc128e62f63103909566ac5567e0a88ec7d5086d2469ba843c7fcceade8a6}{DEFAULT}}, \mbox{\hyperlink{allocator_8h_ac9c05ef8240731ae28184f738623a49a}{default\+\_\+allocator\+\_\+cpy}}, 0\}}
 
 \mbox{\Hypertarget{allocator_8h_a20b30aa4d3a2edd214a2826521596e7d}\label{allocator_8h_a20b30aa4d3a2edd214a2826521596e7d}} 
 \index{allocator.h@{allocator.h}!NO\_ALLOCATOR@{NO\_ALLOCATOR}}

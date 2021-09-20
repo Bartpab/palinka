@@ -31,8 +31,8 @@ define_test(basic_buffer, test_print("Basic buffer"))
 
   test_success;
   test_teardown {
-    buffer_delete(&buffer);
-    string_delete(&content);
+    buffer_destruct(&buffer);
+    string_destruct(&content);
   }
   test_end;
 }
