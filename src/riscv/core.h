@@ -52,6 +52,7 @@ riscv_instr_info_t infos[] {
     {"ADD", A_IS_RS1 | B_IS_RS2}, {"SUB", A_IS_RS1 | B_IS_RS2}, {"SLL", A_IS_RS1 | B_IS_RS2}, {"SLT", A_IS_RS1 | B_IS_RS2}, 
     {"SLTU", A_IS_RS1 | B_IS_RS2}, {"XOR", A_IS_RS1 | B_IS_RS2}, {"SRL", A_IS_RS1 | B_IS_RS2}, {"SRA", A_IS_RS1 | B_IS_RS2}, 
     {"OR", A_IS_RS1 | B_IS_RS2}, {"AND", A_IS_RS1 | B_IS_RS2}, {"FENCE", 0}, {"ECALL", 0}, {"EBREAK", 0},
+    {"L"}
 }
 
 
