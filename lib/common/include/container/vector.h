@@ -48,6 +48,7 @@ const vector_iterator_t vector_it_init = {vector_iterator_next, vector_iterator_
  * \brief Create a vector of string
  */
 bool vector_create(vector_t* vec, type_desc_t* type_desc, size_t capacity, const allocator_t* elements_allocator);
+void vector_create_array(vector_t* vec, type_desc_t* type_desc, void* base, size_t length);
 
 /**
  * \brief Delete the vector of string
@@ -107,6 +108,14 @@ bool vector_create(vector_t* vec, type_desc_t* type_desc, size_t capacity, const
     vec->size = 0;
 
     return true;
+}
+
+void vector_create_array(vector_t* vec, type_desc_t* type_desc, void* base, size_t length)
+{
+    vec->base = base;
+    vec->capacity = length;
+    vec->size = length;
+    vec->__elements_allocator = NO_ALLOCATOR;
 }
 
 static bool __vector_check_capacity(vector_t* vec, size_t size) 

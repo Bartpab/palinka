@@ -10,5 +10,6 @@
 
 set_tests(
   string, buffer, lexer,
-  arith, mmix, mem
+  arith, mem
+  //, mmix
 );

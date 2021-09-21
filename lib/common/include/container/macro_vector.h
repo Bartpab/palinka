@@ -18,6 +18,7 @@ struct typealias ## _vector_iterator_t {\
 \
 typealias ## _vector_t typealias ## _vector(size_t capacity, allocator_t* elements_allocator);\
 bool typealias ## _vector_create(typealias ## _vector_t* vec, size_t capacity, allocator_t* allocator);\
+void typealias ## _vector_create_array(typealias ## _vector_t* vec, type_t* base, size_t length);\
 void typealias ## _vector_destruct(typealias ## _vector_t* vec);\
 bool typealias ## _vector_get(typealias ## _vector_t* vec, type_t** out, unsigned int index);\
 void typealias ## _vector_move(typealias ## _vector_t* dest, typealias ## _vector_t* src);\
@@ -45,6 +46,16 @@ bool typealias ## _vector_create(typealias ## _vector_t* vec, size_t capacity, a
         (type_desc_t*)(&typealias ## _desc), \
         capacity, \
         elements_allocator\
+    );\
+}\
+\
+void typealias ## _vector_create_array(typealias ## _vector_t* vec, type_t* base, size_t length)\
+{\
+    vector_create_array(\
+        &vec->impl, \
+        (type_desc_t*)(&typealias ## _desc), \
+        base, \
+        length\
     );\
 }\
 \

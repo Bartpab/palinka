@@ -175,7 +175,8 @@ define_test(lexer_run, test_print("Lexer run"))
   test_end;
 }
 
-define_test_chapter(
-  lexer, test_print("Lexer"), 
-  lexer_transition, lexer_step, lexer_run
+define_test_chapter(lexer, test_print("Lexer"), 
+  lexer_transition, 
+  lexer_step, 
+  lexer_run
 )
