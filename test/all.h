@@ -6,10 +6,12 @@
 #include "../lib/common/test/test_lexer.h"
 
 #include "test_mmix.h"
+#include "test_riscv.h"
 #include "test_mem.h"
 
 set_tests(
-  string, buffer, lexer,
+  string, buffer, 
   arith, mem
   //, mmix
+  //, lexer
 );

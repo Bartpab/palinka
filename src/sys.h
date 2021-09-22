@@ -70,7 +70,7 @@ bool sys_load_word(system_t* sys, void* addr, word* word)
   if(!sys_load_byte(sys, addr, &bytes[0]) || !sys_load_byte(sys, addr + 1, &bytes[1]))
     return false;
   
-  *word = bytes[1] << 8 | bytes[0];
+  *word = (bytes[1] << 8) | bytes[0];
 
   return true;
 }
@@ -82,18 +82,19 @@ bool sys_load_tetra(system_t* sys, void* addr, tetra* tetra)
   if(!sys_load_word(sys, addr, &words[0]) || !sys_load_word(sys, addr + 2, &words[1]))
     return false;
   
-  *tetra = words[1] << 16 | words[0];
+  *tetra = (words[1] << 16) | words[0];
   return true;
 }
 
-bool sys_load_octa(system_t* sys, void* addr, octa* octa)
+bool sys_load_octa(system_t* sys, void* addr, octa* o)
 {
   tetra tetras[2];
   
   if(!sys_load_tetra(sys, addr, &tetras[0]) || !sys_load_tetra(sys, addr + 4, &tetras[1]))
     return false;
   
-  *octa = tetras[1] << 32 | tetras[0];
+  *o = ((octa)(tetras[1]) << 32) | tetras[0];
+  return true;
 }
 
 bool sys_store_byte(system_t* sys, void* addr, const byte byt)
@@ -164,6 +165,11 @@ void sys_run(system_t* sys, unsigned int ms)
 
   while(sys->state != SYS_RUNNING)
     sys_step(sys);
+}
+
+void sys_stop(system_t* sys)
+{
+  sys->state = SYS_STOPPED;
 }
 
 void sys_halt(system_t* sys) 
