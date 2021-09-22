@@ -29,6 +29,13 @@ typedef struct {
 
 } riscv_processor_t;
 
+typedef struct {
+  unsigned int frequency;
+  unsigned int memory_size;
+
+  unsigned int boot_address;
+} riscv_processor_cfg_t;
+
 riscv_processor_t* __get_riscv_proc(system_t* sys)
 {
   return (riscv_processor_t*) (sys + 1);

@@ -37,6 +37,7 @@ void __sys_init(system_t* sys, allocator_t* allocator)
 {
   __mem_init(&sys->mem, NULL, allocator);
   sys->allocator = allocator_copy(allocator);
+  sys->state = SYS_READY;
 }
 
 void sys_delete(system_t* sys)
@@ -163,8 +164,7 @@ void sys_loop(system_t* sys)
     sys->state = SYS_RUNNING;
   }
 
-  while(sys->state != SYS_RUNNING)
-    sys_step(sys);
+  while(sys->state == SYS_RUNNING) sys_step(sys);
 }
 
 void sys_run(system_t* sys, unsigned int ms)
@@ -178,7 +178,7 @@ void sys_run(system_t* sys, unsigned int ms)
     sys->state = SYS_RUNNING;
   }
 
-  while(sys->state != SYS_RUNNING)
+  while(sys->state == SYS_RUNNING)
     sys_step(sys);
 }
 

@@ -9,13 +9,13 @@
 #include "./control.h"
 #include "./csr.h"
 
-#define RISCV_START_ADDRESS 0x80000000
+#define RISCV_START_ADDRESS 0x20000000
 
-system_t* riscv_new(allocator_t* allocator);
+system_t* riscv_new(allocator_t* allocator, riscv_processor_cfg_t* cfg);
 void riscv_alloc_sim_time(system_t* sys, unsigned int ms);
 void riscv_step(system_t* sys);
 
-static void __riscv_init(system_t* sys);
+static void __riscv_init(system_t* sys, riscv_processor_cfg_t* cfg);
 
 static inline bool __fetch(system_t* sys, riscv_processor_t* proc, riscv_control_t* instr);
 static inline void __decode(system_t* sys, riscv_processor_t* proc, riscv_control_t* instr);
@@ -42,7 +42,7 @@ void __store_csr(system_t* sys, riscv_processor_t* proc, unsigned int addr, cons
     }
 }
 
-system_t* riscv_new(allocator_t* allocator)
+system_t* riscv_new(allocator_t* allocator, riscv_processor_cfg_t* cfg)
 {
   system_t* sys = (system_t*) pmalloc(
     allocator, 
@@ -54,23 +54,24 @@ system_t* riscv_new(allocator_t* allocator)
     return NULL;
 
   __sys_init(sys, allocator);
-  __riscv_init(sys);
+  __riscv_init(sys, cfg);
  
   return sys;
 }
 
-static void __riscv_init(system_t* sys) 
+static void __riscv_init(system_t* sys, riscv_processor_cfg_t* cfg) 
 {
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
-    sys->step = riscv_step;
+    sys->step           = riscv_step;
     sys->alloc_sim_time = riscv_alloc_sim_time; 
-    proc->frequency = 500000000; //500MHz
+    
+    proc->frequency = cfg->frequency; //500MHz
     proc->remaining_cycles = 0;
    
-    proc->pc = 0x80000000;
-    proc->regs[2] = octa_uint_max;
-    proc->regs[0] = octa_zero;
+    proc->pc        = cfg->boot_address;
+    proc->regs[2]   = cfg->memory_size;
+    proc->regs[0]   = octa_zero;
 
     proc->current_control.stage = RISCV_FETCH;
 }

@@ -9,18 +9,24 @@
 
 #include "../src/riscv/core.h"
 
-system_t* riscv_bootstrap(char* prog, size_t prog_length, size_t memory)
+system_t* riscv_bootstrap(char* prog, size_t prog_length, size_t heap_memory)
 {
   allocator_t allocator = GLOBAL_ALLOCATOR;
+  riscv_processor_cfg_t cfg;
 
-  system_t* sys = riscv_new(&allocator);
+  cfg.boot_address = 0;
+  cfg.frequency    = 500;
+  cfg.memory_size  = prog_length + heap_memory;
 
-  sys_add_memory(sys, &allocator, (void*)RISCV_START_ADDRESS, prog_length);
+  system_t* sys = riscv_new(&allocator, &cfg);
+
+  sys_add_memory(sys, &allocator, (void*) 0x00, cfg.memory_size);
    
-  void* addr = (void*) RISCV_START_ADDRESS;
+  void* addr = (void*) 0x00;
   char* it = prog;
   
-  while(prog_length) {
+  while(prog_length) 
+  {
     sys_store_byte(sys, addr, *it);
     it++;
     addr = addr + 1;
@@ -30,29 +36,42 @@ system_t* riscv_bootstrap(char* prog, size_t prog_length, size_t memory)
   return sys;
 }
 
+tetra riscv_add(byte rd, byte rs1, byte rs2)
+{
+  tetra t = 0;
+  t |= ((rs2 & 0x1F) << 15) | ((rs1 & 0x1F) << 15) | ((rd & 0x1F) << 7) | 0x51;
+  return t;
+}
+
 define_test(riscv_add, test_print("RISCV_ADD"))
 {
-    allocator_t allocator = GLOBAL_ALLOCATOR;
-    stream_t stream = stream_init;
-    buffer_t buf = buffer(32, &allocator);
-
-    const char* fp = "../test/assets/riscv/add.bin";
+    tetra encoded = riscv_add(3, 1, 2);
+    tetra stored = 0;
+    octa expected = 15;
     
-    test_check(
-        test_print("Open the binary file"),
-        stream_open_file(fp, "r", &stream),
-        test_failure("Could not open the file at \"%s\"...", fp)
-    );
+    system_t* sys = riscv_bootstrap((char*) &encoded, 4, 0);
+    riscv_processor_t* proc = __get_riscv_proc(sys);
+
+    proc->regs[3] = 0;
+    proc->regs[1] = 10;
+    proc->regs[2] = 5;
+
+    sys_load_tetra(sys, (void*) 0x0, &stored);
+
+    riscv_step(sys);
+    
+    test_print("%d\n", encoded == stored);
+    test_print("%d\n", proc->current_control.decoded.opcode);
 
     test_check(
-        test_print("Read all the stream"),
-        stream_exhaust(&buf, &stream, 32, &allocator),
-        test_failure("Could not read the whole file content...")
+      test_print("Check that %lld + %lld = %lld", proc->regs[1], proc->regs[2], expected),
+      proc->regs[3] == expected,
+      test_failure("Expecting %lld, got %lld", expected, proc->regs[3])
     );
 
     test_success;
     test_teardown;
-    stream_close(&stream);
+    sys_delete(sys);
     test_end;
 }
 
