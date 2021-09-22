@@ -1,0 +1,71 @@
+\hypertarget{src_2riscv_2core_8h}{}\doxysection{C\+:/\+Users/\+GP69\+E5\+EN/\+Documents/dev/palinka/src/riscv/core.h File Reference}
+\label{src_2riscv_2core_8h}\index{C:/Users/GP69E5EN/Documents/dev/palinka/src/riscv/core.h@{C:/Users/GP69E5EN/Documents/dev/palinka/src/riscv/core.h}}
+{\ttfamily \#include \char`\"{}../../lib/common/include/allocator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../system.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}./processor.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}./opcode.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}./control.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}./csr.\+h\char`\"{}}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{src_2riscv_2core_8h_a9d719c1d0187b1959093cecce1e05aef}{RISCV\+\_\+\+START\+\_\+\+ADDRESS}}~0x80000000
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$ \mbox{\hyperlink{src_2riscv_2core_8h_a2ccf2dc506074de14602fe5a17e74a4b}{riscv\+\_\+new}} (\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
+\item 
+void \mbox{\hyperlink{src_2riscv_2core_8h_abd6b102616e8e8c2ec24c71b1d9269b1}{riscv\+\_\+alloc\+\_\+sim\+\_\+time}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys, unsigned int ms)
+\item 
+void \mbox{\hyperlink{src_2riscv_2core_8h_adeb473aa0c44f98e57049d613851f869}{riscv\+\_\+step}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys)
+\item 
+void \mbox{\hyperlink{src_2riscv_2core_8h_a39efcf9e1e5671d9625bb7c4f0358389}{\+\_\+\+\_\+load\+\_\+csr}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys, \mbox{\hyperlink{structriscv__processor__t}{riscv\+\_\+processor\+\_\+t}} $\ast$proc, unsigned int addr, \mbox{\hyperlink{types_8h_abf8479e8e86e389f81cf1da15c5100ec}{octa}} $\ast$out)
+\item 
+void \mbox{\hyperlink{src_2riscv_2core_8h_a333fbbd22ceff9be3718ca7fc4de4887}{\+\_\+\+\_\+store\+\_\+csr}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys, \mbox{\hyperlink{structriscv__processor__t}{riscv\+\_\+processor\+\_\+t}} $\ast$proc, unsigned int addr, const \mbox{\hyperlink{types_8h_abf8479e8e86e389f81cf1da15c5100ec}{octa}} value)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{src_2riscv_2core_8h_a9d719c1d0187b1959093cecce1e05aef}\label{src_2riscv_2core_8h_a9d719c1d0187b1959093cecce1e05aef}} 
+\index{core.h@{core.h}!RISCV\_START\_ADDRESS@{RISCV\_START\_ADDRESS}}
+\index{RISCV\_START\_ADDRESS@{RISCV\_START\_ADDRESS}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{RISCV\_START\_ADDRESS}{RISCV\_START\_ADDRESS}}
+{\footnotesize\ttfamily \#define RISCV\+\_\+\+START\+\_\+\+ADDRESS~0x80000000}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{src_2riscv_2core_8h_a39efcf9e1e5671d9625bb7c4f0358389}\label{src_2riscv_2core_8h_a39efcf9e1e5671d9625bb7c4f0358389}} 
+\index{core.h@{core.h}!\_\_load\_csr@{\_\_load\_csr}}
+\index{\_\_load\_csr@{\_\_load\_csr}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{\_\_load\_csr()}{\_\_load\_csr()}}
+{\footnotesize\ttfamily void \+\_\+\+\_\+load\+\_\+csr (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys,  }\item[{\mbox{\hyperlink{structriscv__processor__t}{riscv\+\_\+processor\+\_\+t}} $\ast$}]{proc,  }\item[{unsigned int}]{addr,  }\item[{\mbox{\hyperlink{types_8h_abf8479e8e86e389f81cf1da15c5100ec}{octa}} $\ast$}]{out }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{src_2riscv_2core_8h_a333fbbd22ceff9be3718ca7fc4de4887}\label{src_2riscv_2core_8h_a333fbbd22ceff9be3718ca7fc4de4887}} 
+\index{core.h@{core.h}!\_\_store\_csr@{\_\_store\_csr}}
+\index{\_\_store\_csr@{\_\_store\_csr}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{\_\_store\_csr()}{\_\_store\_csr()}}
+{\footnotesize\ttfamily void \+\_\+\+\_\+store\+\_\+csr (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys,  }\item[{\mbox{\hyperlink{structriscv__processor__t}{riscv\+\_\+processor\+\_\+t}} $\ast$}]{proc,  }\item[{unsigned int}]{addr,  }\item[{const \mbox{\hyperlink{types_8h_abf8479e8e86e389f81cf1da15c5100ec}{octa}}}]{value }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{src_2riscv_2core_8h_abd6b102616e8e8c2ec24c71b1d9269b1}\label{src_2riscv_2core_8h_abd6b102616e8e8c2ec24c71b1d9269b1}} 
+\index{core.h@{core.h}!riscv\_alloc\_sim\_time@{riscv\_alloc\_sim\_time}}
+\index{riscv\_alloc\_sim\_time@{riscv\_alloc\_sim\_time}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{riscv\_alloc\_sim\_time()}{riscv\_alloc\_sim\_time()}}
+{\footnotesize\ttfamily void riscv\+\_\+alloc\+\_\+sim\+\_\+time (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys,  }\item[{unsigned int}]{ms }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{src_2riscv_2core_8h_a2ccf2dc506074de14602fe5a17e74a4b}\label{src_2riscv_2core_8h_a2ccf2dc506074de14602fe5a17e74a4b}} 
+\index{core.h@{core.h}!riscv\_new@{riscv\_new}}
+\index{riscv\_new@{riscv\_new}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{riscv\_new()}{riscv\_new()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$ riscv\+\_\+new (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{src_2riscv_2core_8h_adeb473aa0c44f98e57049d613851f869}\label{src_2riscv_2core_8h_adeb473aa0c44f98e57049d613851f869}} 
+\index{core.h@{core.h}!riscv\_step@{riscv\_step}}
+\index{riscv\_step@{riscv\_step}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{riscv\_step()}{riscv\_step()}}
+{\footnotesize\ttfamily void riscv\+\_\+step (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys }\end{DoxyParamCaption})}
+
+Simple cycling; no pipeline
+
+fetch decode read execute memory write 

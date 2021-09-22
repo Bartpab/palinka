@@ -2,12 +2,14 @@
 #define __RISCV_CORE_H__
 
 #include "../../lib/common/include/allocator.h"
-#include "../sys.h"
+#include "../system.h"
 
 #include "./processor.h"
 #include "./opcode.h"
 #include "./control.h"
 #include "./csr.h"
+
+#define RISCV_START_ADDRESS 0x80000000
 
 system_t* riscv_new(allocator_t* allocator);
 void riscv_alloc_sim_time(system_t* sys, unsigned int ms);
@@ -59,11 +61,13 @@ system_t* riscv_new(allocator_t* allocator)
 
 static void __riscv_init(system_t* sys) 
 {
-    sys->step = riscv_step;
-    sys->alloc_sim_time = riscv_alloc_sim_time; 
-
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
+    sys->step = riscv_step;
+    sys->alloc_sim_time = riscv_alloc_sim_time; 
+    proc->frequency = 500000000; //500MHz
+    proc->remaining_cycles = 0;
+   
     proc->pc = 0x80000000;
     proc->regs[2] = octa_uint_max;
     proc->regs[0] = octa_zero;
@@ -498,7 +502,13 @@ static inline void __memory(system_t* sys, riscv_processor_t* proc, riscv_contro
     }
 }
 
-void riscv_alloc_sim_time(system_t* sys, unsigned int ms) {}
+void riscv_alloc_sim_time(system_t* sys, unsigned int ms) {
+    riscv_processor_t* proc = __get_riscv_proc(sys);
+
+    unsigned int s = ms * 1000;
+    int remaining_cycles = s * proc->frequency;
+    proc->remaining_cycles = remaining_cycles;
+}
 
 /**
  * Simple cycling; no pipeline
@@ -514,8 +524,8 @@ void riscv_step(system_t* sys)
 {   
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
-    if(proc->pc >= proc->regs[2]) 
-        return sys_stop(sys);
+    if(proc->remaining_cycles == 0) return sys_halt(sys);
+    if(proc->pc >= proc->regs[2])   return sys_stop(sys);
     
     switch(proc->stage) 
     {
@@ -535,6 +545,8 @@ void riscv_step(system_t* sys)
             __write(sys, proc, &proc->current_control); proc->current_control.stage = RISCV_FETCH;
             break;
     }
+
+    if(proc->remaining_cycles > 0) proc->remaining_cycles--;
 }
 
 

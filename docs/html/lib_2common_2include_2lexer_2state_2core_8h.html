@@ -114,12 +114,12 @@ Functions</h2></td></tr>
 <tr class="separator:abaa5cc132812e8e845ebaf0a2caf3db5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ce11e4188a16bb40f458c34916e09bd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2common_2include_2lexer_2state_2core_8h.html#a7ce11e4188a16bb40f458c34916e09bd">lexer_state_destruct</a> (<a class="el" href="structlexer__state__t.html">lexer_state_t</a> *token)</td></tr>
 <tr class="separator:a7ce11e4188a16bb40f458c34916e09bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae305c4019174b0fb34a8d14a5d9cd7f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structtoken__vector__t.html">token_vector_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2common_2include_2lexer_2state_2core_8h.html#aae305c4019174b0fb34a8d14a5d9cd7f">lexer_run</a> (<a class="el" href="structlexer__state__t.html">lexer_state_t</a> *init, const char *stream, <a class="el" href="structallocator__t.html">allocator_t</a> *allocator)</td></tr>
-<tr class="separator:aae305c4019174b0fb34a8d14a5d9cd7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6ca2b0e6562e8d78740c791e24dfb61"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2common_2include_2lexer_2state_2core_8h.html#ab6ca2b0e6562e8d78740c791e24dfb61">lexer_run</a> (<a class="el" href="structtoken__vector__t.html">token_vector_t</a> *toks, <a class="el" href="structlexer__state__t.html">lexer_state_t</a> *init, const char *stream, <a class="el" href="structallocator__t.html">allocator_t</a> *allocator)</td></tr>
+<tr class="separator:ab6ca2b0e6562e8d78740c791e24dfb61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a083be0c641b6fcfa53543a3b8366f673"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2common_2include_2lexer_2state_2core_8h.html#a083be0c641b6fcfa53543a3b8366f673">lexer_next_transition</a> (<a class="el" href="structlexer__state__t.html">lexer_state_t</a> *current, const char c, <a class="el" href="structlexer__state__t.html">lexer_state_t</a> **out)</td></tr>
 <tr class="separator:a083be0c641b6fcfa53543a3b8366f673"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9506589d8a4aafd690a7f0afc0e641ca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structlexer__state__t.html">lexer_state_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2common_2include_2lexer_2state_2core_8h.html#a9506589d8a4aafd690a7f0afc0e641ca">__lexer_step</a> (<a class="el" href="structlexer__state__t.html">lexer_state_t</a> *init, <a class="el" href="structbuffer__t.html">buffer_t</a> *<a class="el" href="buffer_8h.html#ae5ad4f4c2a5dbc0b61a2119f3871dd59">buffer</a>, const char **c)</td></tr>
-<tr class="separator:a9506589d8a4aafd690a7f0afc0e641ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82eb6d1384621f8170c20dbab80e9197"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structlexer__state__t.html">lexer_state_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lib_2common_2include_2lexer_2state_2core_8h.html#a82eb6d1384621f8170c20dbab80e9197">lexer_step</a> (<a class="el" href="structlexer__state__t.html">lexer_state_t</a> *init, <a class="el" href="structbuffer__t.html">buffer_t</a> *<a class="el" href="buffer_8h.html#ae5ad4f4c2a5dbc0b61a2119f3871dd59">buffer</a>, const char **c)</td></tr>
+<tr class="separator:a82eb6d1384621f8170c20dbab80e9197"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -144,40 +144,6 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a9506589d8a4aafd690a7f0afc0e641ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9506589d8a4aafd690a7f0afc0e641ca">&#9670;&nbsp;</a></span>__lexer_step()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structlexer__state__t.html">lexer_state_t</a>* __lexer_step </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structlexer__state__t.html">lexer_state_t</a> *&#160;</td>
-          <td class="paramname"><em>init</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structbuffer__t.html">buffer_t</a> *&#160;</td>
-          <td class="paramname"><em>buffer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char **&#160;</td>
-          <td class="paramname"><em>c</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a083be0c641b6fcfa53543a3b8366f673"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a083be0c641b6fcfa53543a3b8366f673">&#9670;&nbsp;</a></span>lexer_next_transition()</h2>
 
@@ -212,15 +178,21 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="aae305c4019174b0fb34a8d14a5d9cd7f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aae305c4019174b0fb34a8d14a5d9cd7f">&#9670;&nbsp;</a></span>lexer_run()</h2>
+<a id="ab6ca2b0e6562e8d78740c791e24dfb61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6ca2b0e6562e8d78740c791e24dfb61">&#9670;&nbsp;</a></span>lexer_run()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structtoken__vector__t.html">token_vector_t</a> lexer_run </td>
+          <td class="memname">void lexer_run </td>
           <td>(</td>
+          <td class="paramtype"><a class="el" href="structtoken__vector__t.html">token_vector_t</a> *&#160;</td>
+          <td class="paramname"><em>toks</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype"><a class="el" href="structlexer__state__t.html">lexer_state_t</a> *&#160;</td>
           <td class="paramname"><em>init</em>, </td>
         </tr>
@@ -512,6 +484,40 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a82eb6d1384621f8170c20dbab80e9197"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82eb6d1384621f8170c20dbab80e9197">&#9670;&nbsp;</a></span>lexer_step()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structlexer__state__t.html">lexer_state_t</a>* lexer_step </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structlexer__state__t.html">lexer_state_t</a> *&#160;</td>
+          <td class="paramname"><em>init</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structbuffer__t.html">buffer_t</a> *&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char **&#160;</td>
+          <td class="paramname"><em>c</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Variable Documentation</h2>
 <a id="a391f17ec88c84534a10f798307ae8020"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a391f17ec88c84534a10f798307ae8020">&#9670;&nbsp;</a></span>lexer_state_desc</h2>
@@ -533,10 +539,10 @@ Variables</h2></td></tr>
 <div class="line"> </div>
 <div class="line"> <a class="code" href="lib_2common_2include_2lexer_2state_2core_8h.html#a3b3f9f7c1ed4d9178d452b8b565938a9">lexer_state_copy</a> ,  <a class="code" href="lib_2common_2include_2lexer_2state_2core_8h.html#a51e70e5c456705ffbd4d1bb491aeb931">lexer_state_move</a> ,  <a class="code" href="lib_2common_2include_2lexer_2state_2core_8h.html#abaa5cc132812e8e845ebaf0a2caf3db5">lexer_state_eq</a> ,  <a class="code" href="lib_2common_2include_2lexer_2state_2core_8h.html#a7ce11e4188a16bb40f458c34916e09bd">lexer_state_destruct</a> ,  <span class="keyword">sizeof</span>(<a class="code" href="lib_2common_2include_2lexer_2state_2core_8h.html#aff05a79f34fd61e7e8e5a403c6a6d0bd">lexer_state_t</a>) </div>
 <div class="line">}</div>
-<div class="ttc" id="alib_2common_2include_2lexer_2state_2core_8h_html_a3b3f9f7c1ed4d9178d452b8b565938a9"><div class="ttname"><a href="lib_2common_2include_2lexer_2state_2core_8h.html#a3b3f9f7c1ed4d9178d452b8b565938a9">lexer_state_copy</a></div><div class="ttdeci">bool lexer_state_copy(lexer_state_t *dest, const lexer_state_t *src)</div><div class="ttdef"><b>Definition:</b> core.h:132</div></div>
-<div class="ttc" id="alib_2common_2include_2lexer_2state_2core_8h_html_a51e70e5c456705ffbd4d1bb491aeb931"><div class="ttname"><a href="lib_2common_2include_2lexer_2state_2core_8h.html#a51e70e5c456705ffbd4d1bb491aeb931">lexer_state_move</a></div><div class="ttdeci">void lexer_state_move(lexer_state_t *dest, lexer_state_t *src)</div><div class="ttdef"><b>Definition:</b> core.h:126</div></div>
-<div class="ttc" id="alib_2common_2include_2lexer_2state_2core_8h_html_a7ce11e4188a16bb40f458c34916e09bd"><div class="ttname"><a href="lib_2common_2include_2lexer_2state_2core_8h.html#a7ce11e4188a16bb40f458c34916e09bd">lexer_state_destruct</a></div><div class="ttdeci">void lexer_state_destruct(lexer_state_t *token)</div><div class="ttdef"><b>Definition:</b> core.h:146</div></div>
-<div class="ttc" id="alib_2common_2include_2lexer_2state_2core_8h_html_abaa5cc132812e8e845ebaf0a2caf3db5"><div class="ttname"><a href="lib_2common_2include_2lexer_2state_2core_8h.html#abaa5cc132812e8e845ebaf0a2caf3db5">lexer_state_eq</a></div><div class="ttdeci">bool lexer_state_eq(const lexer_state_t *t1, const lexer_state_t *t2)</div><div class="ttdef"><b>Definition:</b> core.h:141</div></div>
+<div class="ttc" id="alib_2common_2include_2lexer_2state_2core_8h_html_a3b3f9f7c1ed4d9178d452b8b565938a9"><div class="ttname"><a href="lib_2common_2include_2lexer_2state_2core_8h.html#a3b3f9f7c1ed4d9178d452b8b565938a9">lexer_state_copy</a></div><div class="ttdeci">bool lexer_state_copy(lexer_state_t *dest, const lexer_state_t *src)</div><div class="ttdef"><b>Definition:</b> core.h:130</div></div>
+<div class="ttc" id="alib_2common_2include_2lexer_2state_2core_8h_html_a51e70e5c456705ffbd4d1bb491aeb931"><div class="ttname"><a href="lib_2common_2include_2lexer_2state_2core_8h.html#a51e70e5c456705ffbd4d1bb491aeb931">lexer_state_move</a></div><div class="ttdeci">void lexer_state_move(lexer_state_t *dest, lexer_state_t *src)</div><div class="ttdef"><b>Definition:</b> core.h:124</div></div>
+<div class="ttc" id="alib_2common_2include_2lexer_2state_2core_8h_html_a7ce11e4188a16bb40f458c34916e09bd"><div class="ttname"><a href="lib_2common_2include_2lexer_2state_2core_8h.html#a7ce11e4188a16bb40f458c34916e09bd">lexer_state_destruct</a></div><div class="ttdeci">void lexer_state_destruct(lexer_state_t *token)</div><div class="ttdef"><b>Definition:</b> core.h:144</div></div>
+<div class="ttc" id="alib_2common_2include_2lexer_2state_2core_8h_html_abaa5cc132812e8e845ebaf0a2caf3db5"><div class="ttname"><a href="lib_2common_2include_2lexer_2state_2core_8h.html#abaa5cc132812e8e845ebaf0a2caf3db5">lexer_state_eq</a></div><div class="ttdeci">bool lexer_state_eq(const lexer_state_t *t1, const lexer_state_t *t2)</div><div class="ttdef"><b>Definition:</b> core.h:139</div></div>
 <div class="ttc" id="alib_2common_2include_2lexer_2state_2core_8h_html_aff05a79f34fd61e7e8e5a403c6a6d0bd"><div class="ttname"><a href="lib_2common_2include_2lexer_2state_2core_8h.html#aff05a79f34fd61e7e8e5a403c6a6d0bd">lexer_state_t</a></div><div class="ttdeci">struct lexer_state_t lexer_state_t</div><div class="ttdef"><b>Definition:</b> core.h:11</div></div>
 </div><!-- fragment -->
 </div>

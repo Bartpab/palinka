@@ -1,0 +1,173 @@
+\hypertarget{src_2memory_2core_8h}{}\doxysection{C\+:/\+Users/\+GP69\+E5\+EN/\+Documents/dev/palinka/src/memory/core.h File Reference}
+\label{src_2memory_2core_8h}\index{C:/Users/GP69E5EN/Documents/dev/palinka/src/memory/core.h@{C:/Users/GP69E5EN/Documents/dev/palinka/src/memory/core.h}}
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}../../lib/common/include/allocator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../lib/common/include/macro.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../lib/common/include/types.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}./avl\+\_\+page.\+h\char`\"{}}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structmanaged__memory__t}{managed\+\_\+memory\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Managed real memory. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structmemory__t}{memory\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{src_2memory_2core_8h_a7d467c1d283fdfa1f2081ba1e0d01b6e}{PAGE\+\_\+\+SIZE}}~4096
+\item 
+\#define \mbox{\hyperlink{src_2memory_2core_8h_a5f41a0ffa876640f958f316d85d54f96}{DIR\+\_\+\+ID}}(vaddr)~((uintptr\+\_\+t)(vaddr) $>$$>$ 38)
+\item 
+\#define \mbox{\hyperlink{src_2memory_2core_8h_a12970b956ca386cd140ffe5ebd47527a}{PAGE\+\_\+\+ID}}(vaddr)~((uintptr\+\_\+t )(vaddr) $>$$>$ 12)
+\item 
+\#define \mbox{\hyperlink{src_2memory_2core_8h_aa508e238ecd57872e85b3ea3616c5117}{PAGE\+\_\+\+OFFSET}}(vaddr)~((uintptr\+\_\+t)(vaddr) \& 0x\+FFF)
+\item 
+\#define \mbox{\hyperlink{src_2memory_2core_8h_ad23ca33f5a626794d58562fcf41e6f6d}{PAGE\+\_\+\+NOT\+\_\+\+PRESENT}}~1;
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structmanaged__memory__t}{managed\+\_\+memory\+\_\+t}} \mbox{\hyperlink{src_2memory_2core_8h_a985a489a53ed50b15f86abae751d21f9}{managed\+\_\+memory\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Managed real memory. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structmemory__t}{memory\+\_\+t}} $\ast$ \mbox{\hyperlink{src_2memory_2core_8h_aa4bfa76a96ce5b69adfdde0aa014a565}{mem\+\_\+create}} (\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
+\begin{DoxyCompactList}\small\item\em Create a memory device. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{src_2memory_2core_8h_acd8ddf2c3025b8f7ddbd8331c02294b2}{\+\_\+\+\_\+mem\+\_\+init}} (\mbox{\hyperlink{structmemory__t}{memory\+\_\+t}} $\ast$mem, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$page\+\_\+node\+\_\+allocator)
+\begin{DoxyCompactList}\small\item\em Init the memory device. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{src_2memory_2core_8h_a150935e65e0c4eda46ba3470e833f5a4}{mem\+\_\+delete}} (\mbox{\hyperlink{structmemory__t}{memory\+\_\+t}} $\ast$mem)
+\begin{DoxyCompactList}\small\item\em Delete the memory device. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{src_2memory_2core_8h_ab89c93c1021862dfb5f2cdc4ce195164}{mem\+\_\+align}} (size\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em Returns a memory-\/aligned length. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{src_2memory_2core_8h_aafe48e68b830b0e8a97f60963f778733}{mem\+\_\+tl}} (\mbox{\hyperlink{structmemory__t}{memory\+\_\+t}} $\ast$mem, void $\ast$vaddr, void $\ast$$\ast$out, char $\ast$exceptions)
+\begin{DoxyCompactList}\small\item\em Memory translation from virtual to real addresses. \end{DoxyCompactList}\item 
+void $\ast$ \mbox{\hyperlink{src_2memory_2core_8h_a87e560be5c43d12570f4069f357cb87a}{mem\+\_\+map}} (\mbox{\hyperlink{structmemory__t}{memory\+\_\+t}} $\ast$mem, void $\ast$vaddr, void $\ast$paddr, size\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em Map virtual memory to a real memory block. \end{DoxyCompactList}\item 
+void $\ast$ \mbox{\hyperlink{src_2memory_2core_8h_a22a29055f6fe47e7784419fab59871c9}{mem\+\_\+alloc\+\_\+managed}} (\mbox{\hyperlink{structmemory__t}{memory\+\_\+t}} $\ast$mem, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator, void $\ast$vaddr, size\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em Allocate real memory block and map it to a virtual memory block. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{src_2memory_2core_8h_a5f41a0ffa876640f958f316d85d54f96}\label{src_2memory_2core_8h_a5f41a0ffa876640f958f316d85d54f96}} 
+\index{core.h@{core.h}!DIR\_ID@{DIR\_ID}}
+\index{DIR\_ID@{DIR\_ID}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{DIR\_ID}{DIR\_ID}}
+{\footnotesize\ttfamily \#define DIR\+\_\+\+ID(\begin{DoxyParamCaption}\item[{}]{vaddr }\end{DoxyParamCaption})~((uintptr\+\_\+t)(vaddr) $>$$>$ 38)}
+
+\mbox{\Hypertarget{src_2memory_2core_8h_a12970b956ca386cd140ffe5ebd47527a}\label{src_2memory_2core_8h_a12970b956ca386cd140ffe5ebd47527a}} 
+\index{core.h@{core.h}!PAGE\_ID@{PAGE\_ID}}
+\index{PAGE\_ID@{PAGE\_ID}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{PAGE\_ID}{PAGE\_ID}}
+{\footnotesize\ttfamily \#define PAGE\+\_\+\+ID(\begin{DoxyParamCaption}\item[{}]{vaddr }\end{DoxyParamCaption})~((uintptr\+\_\+t )(vaddr) $>$$>$ 12)}
+
+\mbox{\Hypertarget{src_2memory_2core_8h_ad23ca33f5a626794d58562fcf41e6f6d}\label{src_2memory_2core_8h_ad23ca33f5a626794d58562fcf41e6f6d}} 
+\index{core.h@{core.h}!PAGE\_NOT\_PRESENT@{PAGE\_NOT\_PRESENT}}
+\index{PAGE\_NOT\_PRESENT@{PAGE\_NOT\_PRESENT}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{PAGE\_NOT\_PRESENT}{PAGE\_NOT\_PRESENT}}
+{\footnotesize\ttfamily \#define PAGE\+\_\+\+NOT\+\_\+\+PRESENT~1;}
+
+\mbox{\Hypertarget{src_2memory_2core_8h_aa508e238ecd57872e85b3ea3616c5117}\label{src_2memory_2core_8h_aa508e238ecd57872e85b3ea3616c5117}} 
+\index{core.h@{core.h}!PAGE\_OFFSET@{PAGE\_OFFSET}}
+\index{PAGE\_OFFSET@{PAGE\_OFFSET}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{PAGE\_OFFSET}{PAGE\_OFFSET}}
+{\footnotesize\ttfamily \#define PAGE\+\_\+\+OFFSET(\begin{DoxyParamCaption}\item[{}]{vaddr }\end{DoxyParamCaption})~((uintptr\+\_\+t)(vaddr) \& 0x\+FFF)}
+
+\mbox{\Hypertarget{src_2memory_2core_8h_a7d467c1d283fdfa1f2081ba1e0d01b6e}\label{src_2memory_2core_8h_a7d467c1d283fdfa1f2081ba1e0d01b6e}} 
+\index{core.h@{core.h}!PAGE\_SIZE@{PAGE\_SIZE}}
+\index{PAGE\_SIZE@{PAGE\_SIZE}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{PAGE\_SIZE}{PAGE\_SIZE}}
+{\footnotesize\ttfamily \#define PAGE\+\_\+\+SIZE~4096}
+
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{src_2memory_2core_8h_a985a489a53ed50b15f86abae751d21f9}\label{src_2memory_2core_8h_a985a489a53ed50b15f86abae751d21f9}} 
+\index{core.h@{core.h}!managed\_memory\_t@{managed\_memory\_t}}
+\index{managed\_memory\_t@{managed\_memory\_t}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{managed\_memory\_t}{managed\_memory\_t}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structmanaged__memory__t}{managed\+\_\+memory\+\_\+t}} \mbox{\hyperlink{structmanaged__memory__t}{managed\+\_\+memory\+\_\+t}}}
+
+
+
+Managed real memory. 
+
+Paging works \textbackslash{}w 64-\/bits address
+
+20 bits for directory id (1MiB) 20 bits for table id (1MiB) 12 bits for offset (page\+\_\+size = 4KiB) 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{src_2memory_2core_8h_acd8ddf2c3025b8f7ddbd8331c02294b2}\label{src_2memory_2core_8h_acd8ddf2c3025b8f7ddbd8331c02294b2}} 
+\index{core.h@{core.h}!\_\_mem\_init@{\_\_mem\_init}}
+\index{\_\_mem\_init@{\_\_mem\_init}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{\_\_mem\_init()}{\_\_mem\_init()}}
+{\footnotesize\ttfamily void \+\_\+\+\_\+mem\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmemory__t}{memory\+\_\+t}} $\ast$}]{mem,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{page\+\_\+node\+\_\+allocator }\end{DoxyParamCaption})}
+
+
+
+Init the memory device. 
+
+\mbox{\Hypertarget{src_2memory_2core_8h_ab89c93c1021862dfb5f2cdc4ce195164}\label{src_2memory_2core_8h_ab89c93c1021862dfb5f2cdc4ce195164}} 
+\index{core.h@{core.h}!mem\_align@{mem\_align}}
+\index{mem\_align@{mem\_align}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{mem\_align()}{mem\_align()}}
+{\footnotesize\ttfamily size\+\_\+t mem\+\_\+align (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Returns a memory-\/aligned length. 
+
+\mbox{\Hypertarget{src_2memory_2core_8h_a22a29055f6fe47e7784419fab59871c9}\label{src_2memory_2core_8h_a22a29055f6fe47e7784419fab59871c9}} 
+\index{core.h@{core.h}!mem\_alloc\_managed@{mem\_alloc\_managed}}
+\index{mem\_alloc\_managed@{mem\_alloc\_managed}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{mem\_alloc\_managed()}{mem\_alloc\_managed()}}
+{\footnotesize\ttfamily void $\ast$ mem\+\_\+alloc\+\_\+managed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmemory__t}{memory\+\_\+t}} $\ast$}]{mem,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator,  }\item[{void $\ast$}]{vaddr,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Allocate real memory block and map it to a virtual memory block. 
+
+The allocated memory is fully managed by the memory device. \mbox{\Hypertarget{src_2memory_2core_8h_aa4bfa76a96ce5b69adfdde0aa014a565}\label{src_2memory_2core_8h_aa4bfa76a96ce5b69adfdde0aa014a565}} 
+\index{core.h@{core.h}!mem\_create@{mem\_create}}
+\index{mem\_create@{mem\_create}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{mem\_create()}{mem\_create()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structmemory__t}{memory\+\_\+t}} $\ast$ mem\+\_\+create (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
+
+
+
+Create a memory device. 
+
+\begin{DoxyReturn}{Returns}
+A new memory device 
+\end{DoxyReturn}
+\mbox{\Hypertarget{src_2memory_2core_8h_a150935e65e0c4eda46ba3470e833f5a4}\label{src_2memory_2core_8h_a150935e65e0c4eda46ba3470e833f5a4}} 
+\index{core.h@{core.h}!mem\_delete@{mem\_delete}}
+\index{mem\_delete@{mem\_delete}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{mem\_delete()}{mem\_delete()}}
+{\footnotesize\ttfamily void mem\+\_\+delete (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmemory__t}{memory\+\_\+t}} $\ast$}]{mem }\end{DoxyParamCaption})}
+
+
+
+Delete the memory device. 
+
+\mbox{\Hypertarget{src_2memory_2core_8h_a87e560be5c43d12570f4069f357cb87a}\label{src_2memory_2core_8h_a87e560be5c43d12570f4069f357cb87a}} 
+\index{core.h@{core.h}!mem\_map@{mem\_map}}
+\index{mem\_map@{mem\_map}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{mem\_map()}{mem\_map()}}
+{\footnotesize\ttfamily void $\ast$ mem\+\_\+map (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmemory__t}{memory\+\_\+t}} $\ast$}]{mem,  }\item[{void $\ast$}]{vaddr,  }\item[{void $\ast$}]{paddr,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Map virtual memory to a real memory block. 
+
+\mbox{\Hypertarget{src_2memory_2core_8h_aafe48e68b830b0e8a97f60963f778733}\label{src_2memory_2core_8h_aafe48e68b830b0e8a97f60963f778733}} 
+\index{core.h@{core.h}!mem\_tl@{mem\_tl}}
+\index{mem\_tl@{mem\_tl}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{mem\_tl()}{mem\_tl()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} mem\+\_\+tl (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmemory__t}{memory\+\_\+t}} $\ast$}]{mem,  }\item[{void $\ast$}]{vaddr,  }\item[{void $\ast$$\ast$}]{out,  }\item[{char $\ast$}]{exceptions }\end{DoxyParamCaption})}
+
+
+
+Memory translation from virtual to real addresses. 
+

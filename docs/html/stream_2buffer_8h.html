@@ -115,9 +115,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a399cb24f7a796fe3b96b204cc5b45d11"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structstring__t.html">string_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stream_2buffer_8h.html#a399cb24f7a796fe3b96b204cc5b45d11">rbuffer_read_all_str</a> (<a class="el" href="structrbuffer__t.html">rbuffer_t</a> *rbuffer, size_t initial, <a class="el" href="structallocator__t.html">allocator_t</a> *allocator)</td></tr>
 <tr class="memdesc:a399cb24f7a796fe3b96b204cc5b45d11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Same as buffer_exhaust but add the '\0' character at the end.  <a href="stream_2buffer_8h.html#a399cb24f7a796fe3b96b204cc5b45d11">More...</a><br /></td></tr>
 <tr class="separator:a399cb24f7a796fe3b96b204cc5b45d11"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6334af5da7a918304f5a758f3eebc3ea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbuffer__t.html">buffer_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stream_2buffer_8h.html#a6334af5da7a918304f5a758f3eebc3ea">stream_exhaust</a> (<a class="el" href="structstream__t.html">stream_t</a> *stream, size_t capacity, <a class="el" href="structallocator__t.html">allocator_t</a> *allocator)</td></tr>
-<tr class="memdesc:a6334af5da7a918304f5a758f3eebc3ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the whole stream and store its content in a dynamic buffer.  <a href="stream_2buffer_8h.html#a6334af5da7a918304f5a758f3eebc3ea">More...</a><br /></td></tr>
-<tr class="separator:a6334af5da7a918304f5a758f3eebc3ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cdcf25f88a2502d83fd6fe7255434df"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stream_2buffer_8h.html#a0cdcf25f88a2502d83fd6fe7255434df">stream_exhaust</a> (<a class="el" href="structbuffer__t.html">buffer_t</a> *buff, <a class="el" href="structstream__t.html">stream_t</a> *stream, size_t capacity, <a class="el" href="structallocator__t.html">allocator_t</a> *allocator)</td></tr>
+<tr class="memdesc:a0cdcf25f88a2502d83fd6fe7255434df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the whole stream and store its content in a dynamic buffer.  <a href="stream_2buffer_8h.html#a0cdcf25f88a2502d83fd6fe7255434df">More...</a><br /></td></tr>
+<tr class="separator:a0cdcf25f88a2502d83fd6fe7255434df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -293,15 +293,21 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a6334af5da7a918304f5a758f3eebc3ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6334af5da7a918304f5a758f3eebc3ea">&#9670;&nbsp;</a></span>stream_exhaust()</h2>
+<a id="a0cdcf25f88a2502d83fd6fe7255434df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cdcf25f88a2502d83fd6fe7255434df">&#9670;&nbsp;</a></span>stream_exhaust()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structbuffer__t.html">buffer_t</a> stream_exhaust </td>
+          <td class="memname"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a> stream_exhaust </td>
           <td>(</td>
+          <td class="paramtype"><a class="el" href="structbuffer__t.html">buffer_t</a> *&#160;</td>
+          <td class="paramname"><em>buff</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype"><a class="el" href="structstream__t.html">stream_t</a> *&#160;</td>
           <td class="paramname"><em>stream</em>, </td>
         </tr>

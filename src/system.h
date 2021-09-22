@@ -2,7 +2,7 @@
 #define __SYS_H__
 
 #include "../lib/common/include/allocator.h"
-#include "./mem/core.h"
+#include "./memory/core.h"
 
 #include <string.h>
 
@@ -150,6 +150,21 @@ void sys_step(system_t* sys)
     return;
 
   sys->step(sys);
+}
+
+void sys_loop(system_t* sys)
+{
+  if(sys->state == SYS_STOPPED)
+    return;
+
+  if(sys->state == SYS_HALTED || sys->state == SYS_READY) 
+  {
+    sys->alloc_sim_time(sys, -1);
+    sys->state = SYS_RUNNING;
+  }
+
+  while(sys->state != SYS_RUNNING)
+    sys_step(sys);
 }
 
 void sys_run(system_t* sys, unsigned int ms)

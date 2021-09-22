@@ -6,8 +6,8 @@
 #include "../../lib/common/include/alu.h"
 #include "../../lib/common/include/types.h"
 
-#include "../mem/core.h"
-#include "../sys.h"
+#include "../memory/core.h"
+#include "../system.h"
 
 #include "./processor.h"
 #include "./instr.h"

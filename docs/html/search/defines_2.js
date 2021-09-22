@@ -1,9 +1,10 @@
 var searchData=
 [
-  ['e_5fbit_2382',['E_BIT',['../alu_8h.html#a9368e9f279fd5b52f0ef708d907e0fa2',1,'alu.h']]],
-  ['exception_5fmmix_5fsreg_2383',['EXCEPTION_MMIX_SREG',['../dispatch_8h.html#a3a5800dcd820fcbac38f73a8d78b2731',1,'dispatch.h']]],
-  ['exec_5ftest_2384',['exec_test',['../utils_8h.html#aa3514e74494e8138fcb06943ee4652e2',1,'utils.h']]],
-  ['exec_5ftest_5fchapter_2385',['exec_test_chapter',['../utils_8h.html#a3c226bc79377223aa2d61e0b84890e11',1,'utils.h']]],
-  ['exec_5ftest_5fchapters_2386',['exec_test_chapters',['../utils_8h.html#a4ae744fbd9f01cb2aa9c103e79f8ab2b',1,'utils.h']]],
-  ['exec_5ftests_2387',['exec_tests',['../utils_8h.html#af12dad8c8e34e8cb53f7dfa3d5820ee4',1,'utils.h']]]
+  ['d_5fbit_3169',['D_BIT',['../alu_8h.html#a19868606782aa93bd33d491a178aefb5',1,'alu.h']]],
+  ['decl_5fiterator_3170',['DECL_ITERATOR',['../container_2iterator_8h.html#a2f18893f4acbb4452dd997abe04ff151',1,'iterator.h']]],
+  ['decl_5ftype_5fdesc_3171',['DECL_TYPE_DESC',['../desc_8h.html#a9c27042d71ba38d9fd9d9a4d9f49ef02',1,'desc.h']]],
+  ['def_5ftype_5fdesc_3172',['DEF_TYPE_DESC',['../desc_8h.html#abb5a8cbaebc8345c767f6e97d9ac6caa',1,'desc.h']]],
+  ['define_5ftest_3173',['define_test',['../utils_8h.html#acea888c62920ec1ecc409843c270e981',1,'utils.h']]],
+  ['define_5ftest_5fchapter_3174',['define_test_chapter',['../utils_8h.html#ac9875e687c1668de001eb780eab21b10',1,'utils.h']]],
+  ['dir_5fid_3175',['DIR_ID',['../src_2memory_2core_8h.html#a5f41a0ffa876640f958f316d85d54f96',1,'core.h']]]
 ];

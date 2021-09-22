@@ -12,6 +12,7 @@
 set_tests(
   string, buffer, 
   arith, mem
+  , riscv
   //, mmix
   //, lexer
 );

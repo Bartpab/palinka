@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['xor_2351',['XOR',['../op_8h.html#a5a40c1deb1a00d2c218a48e0e1b4a305ac62338ffb5de22369c75caa565b5da1a',1,'op.h']]],
-  ['xori_2352',['XORI',['../op_8h.html#a5a40c1deb1a00d2c218a48e0e1b4a305a432042c51792646ca29ab2bfbe712ed2',1,'op.h']]],
-  ['xviaddu_2353',['XVIADDU',['../op_8h.html#a5a40c1deb1a00d2c218a48e0e1b4a305aac22b84e2720b5af89a230d17f4dbbe7',1,'op.h']]],
-  ['xviaddui_2354',['XVIADDUI',['../op_8h.html#a5a40c1deb1a00d2c218a48e0e1b4a305a7f411d0f7d0ec9d660bbe7511059c6d3',1,'op.h']]]
+  ['wdif_3125',['WDIF',['../op_8h.html#a5a40c1deb1a00d2c218a48e0e1b4a305a1eca7ea57342683b7db9ab7c1117deae',1,'op.h']]],
+  ['wdifi_3126',['WDIFI',['../op_8h.html#a5a40c1deb1a00d2c218a48e0e1b4a305acb854c49868f26bb716ae38115ba523d',1,'op.h']]],
+  ['weak_5foperator_3127',['WEAK_OPERATOR',['../lexer_8h.html#a3e6315e2e1593bd5329445885b93aeacad4b7edcc1a57d6203994cd2837ecc128',1,'lexer.h']]]
 ];

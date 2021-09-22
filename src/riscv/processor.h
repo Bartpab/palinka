@@ -2,7 +2,7 @@
 #define __RISCV_PROC_H__
 
 #include "../../lib/common/include/types.h"
-#include "../sys.h"
+#include "../system.h"
 #include "./control.h"
 
 typedef enum {
@@ -18,9 +18,15 @@ typedef struct {
     octa regs[32];
     octa csrs[4096];
 
-    octa pc; // Program counter
-    riscv_control_t current_control; // Current control state
-    int stage; // State
+    octa pc;                          // Program counter
+    riscv_control_t current_control;  // Current control state
+    int stage;                        // State
+
+    // Simulation
+    unsigned int frequency; // Hz
+    int remaining_cycles;
+
+
 } riscv_processor_t;
 
 riscv_processor_t* __get_riscv_proc(system_t* sys)

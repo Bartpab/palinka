@@ -1,0 +1,633 @@
+\hypertarget{opcode_8h}{}\doxysection{C\+:/\+Users/\+GP69\+E5\+EN/\+Documents/dev/palinka/src/riscv/opcode.h File Reference}
+\label{opcode_8h}\index{C:/Users/GP69E5EN/Documents/dev/palinka/src/riscv/opcode.h@{C:/Users/GP69E5EN/Documents/dev/palinka/src/riscv/opcode.h}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structriscv__instr__info__t}{riscv\+\_\+instr\+\_\+info\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{opcode_8h_a7e0dd8d5bec0e9524473589f024fa0b4}{ARG0\+\_\+\+IS\+\_\+\+IMMEDIATE}}~0b001
+\item 
+\#define \mbox{\hyperlink{opcode_8h_ab4706df78f1d5ea6cb08264c7498c91a}{ARG0\+\_\+\+IS\+\_\+\+RS1}}~0b010
+\item 
+\#define \mbox{\hyperlink{opcode_8h_ab06b9e14733a2beef66ca94cea017263}{ARG0\+\_\+\+IS\+\_\+\+RS2}}~0b100
+\item 
+\#define \mbox{\hyperlink{opcode_8h_ad2f7cf047d8d16c9667f413e60b5be4e}{ARG0\+\_\+\+IS\+\_\+\+PC}}~0b110
+\item 
+\#define \mbox{\hyperlink{opcode_8h_a0c6c520a81682349f7d2593f9e473552}{ARG1\+\_\+\+IS\+\_\+\+IMMEDIATE}}~0b001 $<$$<$ 3
+\item 
+\#define \mbox{\hyperlink{opcode_8h_a3caec743454eb9f89a5106625f1b195b}{ARG1\+\_\+\+IS\+\_\+\+RS1}}~0b100 $<$$<$ 3
+\item 
+\#define \mbox{\hyperlink{opcode_8h_a7137d035ea421dd85fbf546b2c73501c}{ARG1\+\_\+\+IS\+\_\+\+RS2}}~0b010 $<$$<$ 3
+\item 
+\#define \mbox{\hyperlink{opcode_8h_a3fce269bb5c3c7f638a5128b967641fc}{ARG1\+\_\+\+IS\+\_\+\+PC}}~0b110 $<$$<$ 3
+\item 
+\#define \mbox{\hyperlink{opcode_8h_adae3b1193d74f78684f576a1c956879d}{ARG2\+\_\+\+IS\+\_\+\+IMMEDIATE}}~0b001 $<$$<$ 6
+\item 
+\#define \mbox{\hyperlink{opcode_8h_ab071dd5d79f8aa3f6235393bc92f3275}{ARG2\+\_\+\+IS\+\_\+\+RS1}}~0b100 $<$$<$ 6
+\item 
+\#define \mbox{\hyperlink{opcode_8h_aaf550145faad024763508d68fc2f41bc}{ARG2\+\_\+\+IS\+\_\+\+RS2}}~0b010 $<$$<$ 6
+\item 
+\#define \mbox{\hyperlink{opcode_8h_a99b44c704122471f395a7c9466427f36}{ARG2\+\_\+\+IS\+\_\+\+PC}}~0b110 $<$$<$ 6
+\item 
+\#define \mbox{\hyperlink{opcode_8h_acb64952a79e4d0050718a19b75dbda66}{ARG2\+\_\+\+COMPUTE\+\_\+\+PLUS}}~0b111 $<$$<$ 6
+\item 
+\#define \mbox{\hyperlink{opcode_8h_a1a09107e0ef01a215edfea6118234caf}{ARG3\+\_\+\+IS\+\_\+\+IMMEDIATE}}~0b001 $<$$<$ 9
+\item 
+\#define \mbox{\hyperlink{opcode_8h_a2badfab6e5a4fb45c8ba0aa1bda51ee9}{ARG3\+\_\+\+IS\+\_\+\+RS1}}~0b100 $<$$<$ 9
+\item 
+\#define \mbox{\hyperlink{opcode_8h_af7a994189cac69a0dd35b2d146b027e0}{ARG3\+\_\+\+IS\+\_\+\+RS2}}~0b010 $<$$<$ 9
+\item 
+\#define \mbox{\hyperlink{opcode_8h_a2b65d2e8b1c96fcf15c3f9ee257409f5}{ARG3\+\_\+\+IS\+\_\+\+PC}}~0b110 $<$$<$ 9
+\item 
+\#define \mbox{\hyperlink{opcode_8h_a16ae2f94808d29a08d411138711917ff}{OUT0}}~0b111 $<$$<$ 12
+\item 
+\#define \mbox{\hyperlink{opcode_8h_a7b27fee6e9f2f8fa067ba7108c452307}{OUT0\+\_\+\+IS\+\_\+\+TETRA}}~0b001 $<$$<$ 12
+\item 
+\#define \mbox{\hyperlink{opcode_8h_af1050e38b49f9a2c8e861153f621c5d3}{OUT0\+\_\+\+IS\+\_\+\+RD}}~0b010 $<$$<$ 12
+\item 
+\#define \mbox{\hyperlink{opcode_8h_ab061c650d575d29c4abb80648e62a2eb}{OUT0\+\_\+\+IS\+\_\+\+PC}}~0b010 $<$$<$ 12
+\item 
+\#define \mbox{\hyperlink{opcode_8h_a6852950010a1b039347cb86df74cc270}{OUT1}}~0b111 $<$$<$ 15
+\item 
+\#define \mbox{\hyperlink{opcode_8h_a2f0a39caeca453db842f835ccdefe664}{OUT1\+\_\+\+IS\+\_\+\+RD}}~0b010 $<$$<$ 15
+\item 
+\#define \mbox{\hyperlink{opcode_8h_ab6238ed1c841241af8dcd9afbaef6d59}{OUT1\+\_\+\+IS\+\_\+\+PC}}~0b100 $<$$<$ 15
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structriscv__instr__info__t}{riscv\+\_\+instr\+\_\+info\+\_\+t}} \mbox{\hyperlink{opcode_8h_a60e8494bc6dddfb36a365c8047f18745}{riscv\+\_\+instr\+\_\+info\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384}{riscv\+\_\+opcode\+\_\+t}} \{ \newline
+\mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a6ce26a62afab55d7606ad4e92428b30c}{UNKNOWN}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384ab45efc50c693fbfab77fb645affcb479}{RISCV\+\_\+\+LUI}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384ab9dd90ecced7c3c888cf0fca8de91e11}{RISCV\+\_\+\+AUIPC}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a12b37fb8814abfafa15a59926d1ca036}{RISCV\+\_\+\+JAL}}
+, \newline
+\mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a6928298e63b5593c3a1b7a1bb62837fc}{RISCV\+\_\+\+JALR}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384af031b690f8ef8bee0d4461ea39ccd941}{RISCV\+\_\+\+BEQ}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a9cf7441dc7b20567858dcdaee0ff267d}{RISCV\+\_\+\+BNE}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384aaba624599310ebceae92ed85d70e3684}{RISCV\+\_\+\+BLT}}
+, \newline
+\mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a9d1cb55b3545e7aeb563e0a95664d4cc}{RISCV\+\_\+\+BGE}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384aca9db9f7adacd4e4c19e40a238787c66}{RISCV\+\_\+\+BLTU}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a9e48bb27bbfc6e6437b8938b6003e54a}{RISCV\+\_\+\+BGEU}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384ad817d8670bd1d1ef727a87c6219b9f53}{RISCV\+\_\+\+LB}}
+, \newline
+\mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384ab01845cc839217918001f2fefb6a0978}{RISCV\+\_\+\+LH}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a77e15971fd44a1af2a418fd6ebd36945}{RISCV\+\_\+\+LW}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384aa42b91d1002372d0b7558377531ac246}{RISCV\+\_\+\+LBU}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a4bf469b31393d73e850e82097ba4fbf6}{RISCV\+\_\+\+LHU}}
+, \newline
+\mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a517c6f8c483fde302c9000b762a08ad3}{RISCV\+\_\+\+SB}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a78a4e6950cea73bae98287bdaefc84dd}{RISCV\+\_\+\+SH}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a49540cb1e3397d15bb14f4502ef62ec9}{RISCV\+\_\+\+SW}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a4665cc23873c806bdcb689b4d4a14dd8}{RISCV\+\_\+\+ADDI}}
+, \newline
+\mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384ad0c27e7dc611cf1d8a03f0af019ddbad}{RISCV\+\_\+\+SLTI}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384ae2656ed3eace96eb8fb061358b9ea8e0}{RISCV\+\_\+\+SLTIU}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a977164c5808938b11d44ea1acefd1349}{RISCV\+\_\+\+XORI}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a8296dbd0797733d9960d461b27dc8a84}{RISCV\+\_\+\+ORI}}
+, \newline
+\mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384ae74bfa46328c06023c97690e6f28945e}{RISCV\+\_\+\+ANDI}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384acc2a1847b90ec44de5b9ec97655adeb2}{RISCV\+\_\+\+SLLI}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a085af1ba622097af06dfaed130454e9d}{RISCV\+\_\+\+SRLI}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a8610433484c2e7a933e4930e6054e218}{RISCV\+\_\+\+SRAI}}
+, \newline
+\mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a436b4ae492ead6e938c49ea2b68bb4a8}{RISCV\+\_\+\+ADD}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a2f397340ef1afc29a5ab4a4c40cd6f06}{RISCV\+\_\+\+SUB}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384acca2b9e4e629881ec486269039bfe569}{RISCV\+\_\+\+SLL}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a35ed7563c67ae69b6a39dca4a4eb2bd5}{RISCV\+\_\+\+SLT}}
+, \newline
+\mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a2f68c713cda4a603dae286d45cb5c1ee}{RISCV\+\_\+\+SLTU}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a18bec1a5a788f4085a5f79bcce646b47}{RISCV\+\_\+\+XOR}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384acd7e9c9ecb2d8283789569fb8b3e0680}{RISCV\+\_\+\+SRL}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a7b197d28e3e3c7be8a785c3d60490268}{RISCV\+\_\+\+SRA}}
+, \newline
+\mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a1c95bbff7152b1c333087667dcaa4e7c}{RISCV\+\_\+\+OR}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a49bf53ba7f53aa6c392023e3c39c54e8}{RISCV\+\_\+\+AND}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384acb98ace9bdca286ceeb932cf126a57a1}{RISCV\+\_\+\+FENCE}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a4a788c8cc237cef8f7681e200a6d40de}{RISCV\+\_\+\+ECALL}}
+, \newline
+\mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384af5905516acac6a6ec76d7dd5e7bbfcbd}{RISCV\+\_\+\+EBREAK}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a3a7c9c3f146753c5b67088112f633b1c}{RISCV\+\_\+\+LWU}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384afc954b320a4633cea9ac3a0e3259da58}{RISCV\+\_\+\+LD}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384ae5ad7d030d7055b5c86dcad87ce9ac19}{RISCV\+\_\+\+SD}}
+, \newline
+\mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384ab7be89ac3d5f818900ade0331e710bf5}{RISCV\+\_\+\+ADDIW}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384aaa63176783bdfa7e84d68c5dcd43738d}{RISCV\+\_\+\+SLLIW}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384acfa0786dbe256962fe476fbb43f35b0b}{RISCV\+\_\+\+SRLIW}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a7e8af842dac38122ea2fd215b8082138}{RISCV\+\_\+\+SRAIW}}
+, \newline
+\mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384acd6bd65dbdfda2daffdee50a64a19a38}{RISCV\+\_\+\+ADDW}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a1e7d4404b3a4770abb5027d670ee5f00}{RISCV\+\_\+\+SUBW}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384af90042713152b5ab7e186a18697b08ce}{RISCV\+\_\+\+SLLW}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a0597f673edfe3b3b0f0f2a691c3f223e}{RISCV\+\_\+\+SRLW}}
+, \newline
+\mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a8d21965a854a938363971ffcc7be6d91}{RISCV\+\_\+\+SRAW}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a87e29ed06836d84c7063feaa95517a99}{RISCV\+\_\+\+FENCE\+\_\+I}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a7eb4cea63018d0c406263b61bec6a016}{RISCV\+\_\+\+CSRRW}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a18b31ba03fd0fdf53a73ffdf1756df9c}{RISCV\+\_\+\+CSRRS}}
+, \newline
+\mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a315c6aade31d146eeeb0c2efe0f8d558}{RISCV\+\_\+\+CSRRC}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384ad5962c22383981b7316854ae2f59eb34}{RISCV\+\_\+\+CSRRWI}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384aeb791ed6f3361eda019a6ecb33e07897}{RISCV\+\_\+\+CSRRSI}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384ac811a14d4bd2b2892e671484531da6b4}{RISCV\+\_\+\+CSRRCI}}
+, \newline
+\mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a48877c3b27bd2f6a304984b7f3fb6629}{RISCV\+\_\+\+MUL}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a1e4a282c743a5d7255a149ef8694072f}{RISCV\+\_\+\+MULH}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384ad15293f67eb67b3cc741d973cc2b57b2}{RISCV\+\_\+\+MULHSU}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a7fe646c42383658dbb548ddab11a46c6}{RISCV\+\_\+\+MULHU}}
+, \newline
+\mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a6fc0eefcc53ad6e254715ef6817ad533}{RISCV\+\_\+\+DIV}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a8ad9f67a7540ae3a0101718f16a11f3f}{RISCV\+\_\+\+DIVU}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384ac386053555642d7d490f8a77fbf81a02}{RISCV\+\_\+\+REM}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a29ac8b23fd23dfe22c5ef90cbad14354}{RISCV\+\_\+\+REMU}}
+, \newline
+\mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384ac47a63fe6c75795616f75ca225eca845}{RISCV\+\_\+\+MULW}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a8354fbd5f01408759fa913b77fa8a840}{RISCV\+\_\+\+DIVW}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384aed4e1ad8bbabceddc90e4502f770e739}{RISCV\+\_\+\+DIVUW}}
+, \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384a29a6ba9d61c02f7fea5b4c3a38531fa6}{RISCV\+\_\+\+REMW}}
+, \newline
+\mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384acb9d27440cd3d660baddd662ba43faf8}{RISCV\+\_\+\+REMUW}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structriscv__instr__info__t}{riscv\+\_\+instr\+\_\+info\+\_\+t}} \mbox{\hyperlink{opcode_8h_ade57fe420a52c2909ab5e48e0a682716}{riscv\+\_\+instr\+\_\+infos}} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{opcode_8h_a7e0dd8d5bec0e9524473589f024fa0b4}\label{opcode_8h_a7e0dd8d5bec0e9524473589f024fa0b4}} 
+\index{opcode.h@{opcode.h}!ARG0\_IS\_IMMEDIATE@{ARG0\_IS\_IMMEDIATE}}
+\index{ARG0\_IS\_IMMEDIATE@{ARG0\_IS\_IMMEDIATE}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{ARG0\_IS\_IMMEDIATE}{ARG0\_IS\_IMMEDIATE}}
+{\footnotesize\ttfamily \#define ARG0\+\_\+\+IS\+\_\+\+IMMEDIATE~0b001}
+
+\mbox{\Hypertarget{opcode_8h_ad2f7cf047d8d16c9667f413e60b5be4e}\label{opcode_8h_ad2f7cf047d8d16c9667f413e60b5be4e}} 
+\index{opcode.h@{opcode.h}!ARG0\_IS\_PC@{ARG0\_IS\_PC}}
+\index{ARG0\_IS\_PC@{ARG0\_IS\_PC}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{ARG0\_IS\_PC}{ARG0\_IS\_PC}}
+{\footnotesize\ttfamily \#define ARG0\+\_\+\+IS\+\_\+\+PC~0b110}
+
+\mbox{\Hypertarget{opcode_8h_ab4706df78f1d5ea6cb08264c7498c91a}\label{opcode_8h_ab4706df78f1d5ea6cb08264c7498c91a}} 
+\index{opcode.h@{opcode.h}!ARG0\_IS\_RS1@{ARG0\_IS\_RS1}}
+\index{ARG0\_IS\_RS1@{ARG0\_IS\_RS1}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{ARG0\_IS\_RS1}{ARG0\_IS\_RS1}}
+{\footnotesize\ttfamily \#define ARG0\+\_\+\+IS\+\_\+\+RS1~0b010}
+
+\mbox{\Hypertarget{opcode_8h_ab06b9e14733a2beef66ca94cea017263}\label{opcode_8h_ab06b9e14733a2beef66ca94cea017263}} 
+\index{opcode.h@{opcode.h}!ARG0\_IS\_RS2@{ARG0\_IS\_RS2}}
+\index{ARG0\_IS\_RS2@{ARG0\_IS\_RS2}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{ARG0\_IS\_RS2}{ARG0\_IS\_RS2}}
+{\footnotesize\ttfamily \#define ARG0\+\_\+\+IS\+\_\+\+RS2~0b100}
+
+\mbox{\Hypertarget{opcode_8h_a0c6c520a81682349f7d2593f9e473552}\label{opcode_8h_a0c6c520a81682349f7d2593f9e473552}} 
+\index{opcode.h@{opcode.h}!ARG1\_IS\_IMMEDIATE@{ARG1\_IS\_IMMEDIATE}}
+\index{ARG1\_IS\_IMMEDIATE@{ARG1\_IS\_IMMEDIATE}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{ARG1\_IS\_IMMEDIATE}{ARG1\_IS\_IMMEDIATE}}
+{\footnotesize\ttfamily \#define ARG1\+\_\+\+IS\+\_\+\+IMMEDIATE~0b001 $<$$<$ 3}
+
+\mbox{\Hypertarget{opcode_8h_a3fce269bb5c3c7f638a5128b967641fc}\label{opcode_8h_a3fce269bb5c3c7f638a5128b967641fc}} 
+\index{opcode.h@{opcode.h}!ARG1\_IS\_PC@{ARG1\_IS\_PC}}
+\index{ARG1\_IS\_PC@{ARG1\_IS\_PC}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{ARG1\_IS\_PC}{ARG1\_IS\_PC}}
+{\footnotesize\ttfamily \#define ARG1\+\_\+\+IS\+\_\+\+PC~0b110 $<$$<$ 3}
+
+\mbox{\Hypertarget{opcode_8h_a3caec743454eb9f89a5106625f1b195b}\label{opcode_8h_a3caec743454eb9f89a5106625f1b195b}} 
+\index{opcode.h@{opcode.h}!ARG1\_IS\_RS1@{ARG1\_IS\_RS1}}
+\index{ARG1\_IS\_RS1@{ARG1\_IS\_RS1}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{ARG1\_IS\_RS1}{ARG1\_IS\_RS1}}
+{\footnotesize\ttfamily \#define ARG1\+\_\+\+IS\+\_\+\+RS1~0b100 $<$$<$ 3}
+
+\mbox{\Hypertarget{opcode_8h_a7137d035ea421dd85fbf546b2c73501c}\label{opcode_8h_a7137d035ea421dd85fbf546b2c73501c}} 
+\index{opcode.h@{opcode.h}!ARG1\_IS\_RS2@{ARG1\_IS\_RS2}}
+\index{ARG1\_IS\_RS2@{ARG1\_IS\_RS2}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{ARG1\_IS\_RS2}{ARG1\_IS\_RS2}}
+{\footnotesize\ttfamily \#define ARG1\+\_\+\+IS\+\_\+\+RS2~0b010 $<$$<$ 3}
+
+\mbox{\Hypertarget{opcode_8h_acb64952a79e4d0050718a19b75dbda66}\label{opcode_8h_acb64952a79e4d0050718a19b75dbda66}} 
+\index{opcode.h@{opcode.h}!ARG2\_COMPUTE\_PLUS@{ARG2\_COMPUTE\_PLUS}}
+\index{ARG2\_COMPUTE\_PLUS@{ARG2\_COMPUTE\_PLUS}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{ARG2\_COMPUTE\_PLUS}{ARG2\_COMPUTE\_PLUS}}
+{\footnotesize\ttfamily \#define ARG2\+\_\+\+COMPUTE\+\_\+\+PLUS~0b111 $<$$<$ 6}
+
+\mbox{\Hypertarget{opcode_8h_adae3b1193d74f78684f576a1c956879d}\label{opcode_8h_adae3b1193d74f78684f576a1c956879d}} 
+\index{opcode.h@{opcode.h}!ARG2\_IS\_IMMEDIATE@{ARG2\_IS\_IMMEDIATE}}
+\index{ARG2\_IS\_IMMEDIATE@{ARG2\_IS\_IMMEDIATE}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{ARG2\_IS\_IMMEDIATE}{ARG2\_IS\_IMMEDIATE}}
+{\footnotesize\ttfamily \#define ARG2\+\_\+\+IS\+\_\+\+IMMEDIATE~0b001 $<$$<$ 6}
+
+\mbox{\Hypertarget{opcode_8h_a99b44c704122471f395a7c9466427f36}\label{opcode_8h_a99b44c704122471f395a7c9466427f36}} 
+\index{opcode.h@{opcode.h}!ARG2\_IS\_PC@{ARG2\_IS\_PC}}
+\index{ARG2\_IS\_PC@{ARG2\_IS\_PC}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{ARG2\_IS\_PC}{ARG2\_IS\_PC}}
+{\footnotesize\ttfamily \#define ARG2\+\_\+\+IS\+\_\+\+PC~0b110 $<$$<$ 6}
+
+\mbox{\Hypertarget{opcode_8h_ab071dd5d79f8aa3f6235393bc92f3275}\label{opcode_8h_ab071dd5d79f8aa3f6235393bc92f3275}} 
+\index{opcode.h@{opcode.h}!ARG2\_IS\_RS1@{ARG2\_IS\_RS1}}
+\index{ARG2\_IS\_RS1@{ARG2\_IS\_RS1}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{ARG2\_IS\_RS1}{ARG2\_IS\_RS1}}
+{\footnotesize\ttfamily \#define ARG2\+\_\+\+IS\+\_\+\+RS1~0b100 $<$$<$ 6}
+
+\mbox{\Hypertarget{opcode_8h_aaf550145faad024763508d68fc2f41bc}\label{opcode_8h_aaf550145faad024763508d68fc2f41bc}} 
+\index{opcode.h@{opcode.h}!ARG2\_IS\_RS2@{ARG2\_IS\_RS2}}
+\index{ARG2\_IS\_RS2@{ARG2\_IS\_RS2}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{ARG2\_IS\_RS2}{ARG2\_IS\_RS2}}
+{\footnotesize\ttfamily \#define ARG2\+\_\+\+IS\+\_\+\+RS2~0b010 $<$$<$ 6}
+
+\mbox{\Hypertarget{opcode_8h_a1a09107e0ef01a215edfea6118234caf}\label{opcode_8h_a1a09107e0ef01a215edfea6118234caf}} 
+\index{opcode.h@{opcode.h}!ARG3\_IS\_IMMEDIATE@{ARG3\_IS\_IMMEDIATE}}
+\index{ARG3\_IS\_IMMEDIATE@{ARG3\_IS\_IMMEDIATE}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{ARG3\_IS\_IMMEDIATE}{ARG3\_IS\_IMMEDIATE}}
+{\footnotesize\ttfamily \#define ARG3\+\_\+\+IS\+\_\+\+IMMEDIATE~0b001 $<$$<$ 9}
+
+\mbox{\Hypertarget{opcode_8h_a2b65d2e8b1c96fcf15c3f9ee257409f5}\label{opcode_8h_a2b65d2e8b1c96fcf15c3f9ee257409f5}} 
+\index{opcode.h@{opcode.h}!ARG3\_IS\_PC@{ARG3\_IS\_PC}}
+\index{ARG3\_IS\_PC@{ARG3\_IS\_PC}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{ARG3\_IS\_PC}{ARG3\_IS\_PC}}
+{\footnotesize\ttfamily \#define ARG3\+\_\+\+IS\+\_\+\+PC~0b110 $<$$<$ 9}
+
+\mbox{\Hypertarget{opcode_8h_a2badfab6e5a4fb45c8ba0aa1bda51ee9}\label{opcode_8h_a2badfab6e5a4fb45c8ba0aa1bda51ee9}} 
+\index{opcode.h@{opcode.h}!ARG3\_IS\_RS1@{ARG3\_IS\_RS1}}
+\index{ARG3\_IS\_RS1@{ARG3\_IS\_RS1}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{ARG3\_IS\_RS1}{ARG3\_IS\_RS1}}
+{\footnotesize\ttfamily \#define ARG3\+\_\+\+IS\+\_\+\+RS1~0b100 $<$$<$ 9}
+
+\mbox{\Hypertarget{opcode_8h_af7a994189cac69a0dd35b2d146b027e0}\label{opcode_8h_af7a994189cac69a0dd35b2d146b027e0}} 
+\index{opcode.h@{opcode.h}!ARG3\_IS\_RS2@{ARG3\_IS\_RS2}}
+\index{ARG3\_IS\_RS2@{ARG3\_IS\_RS2}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{ARG3\_IS\_RS2}{ARG3\_IS\_RS2}}
+{\footnotesize\ttfamily \#define ARG3\+\_\+\+IS\+\_\+\+RS2~0b010 $<$$<$ 9}
+
+\mbox{\Hypertarget{opcode_8h_a16ae2f94808d29a08d411138711917ff}\label{opcode_8h_a16ae2f94808d29a08d411138711917ff}} 
+\index{opcode.h@{opcode.h}!OUT0@{OUT0}}
+\index{OUT0@{OUT0}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{OUT0}{OUT0}}
+{\footnotesize\ttfamily \#define OUT0~0b111 $<$$<$ 12}
+
+\mbox{\Hypertarget{opcode_8h_ab061c650d575d29c4abb80648e62a2eb}\label{opcode_8h_ab061c650d575d29c4abb80648e62a2eb}} 
+\index{opcode.h@{opcode.h}!OUT0\_IS\_PC@{OUT0\_IS\_PC}}
+\index{OUT0\_IS\_PC@{OUT0\_IS\_PC}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{OUT0\_IS\_PC}{OUT0\_IS\_PC}}
+{\footnotesize\ttfamily \#define OUT0\+\_\+\+IS\+\_\+\+PC~0b010 $<$$<$ 12}
+
+\mbox{\Hypertarget{opcode_8h_af1050e38b49f9a2c8e861153f621c5d3}\label{opcode_8h_af1050e38b49f9a2c8e861153f621c5d3}} 
+\index{opcode.h@{opcode.h}!OUT0\_IS\_RD@{OUT0\_IS\_RD}}
+\index{OUT0\_IS\_RD@{OUT0\_IS\_RD}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{OUT0\_IS\_RD}{OUT0\_IS\_RD}}
+{\footnotesize\ttfamily \#define OUT0\+\_\+\+IS\+\_\+\+RD~0b010 $<$$<$ 12}
+
+\mbox{\Hypertarget{opcode_8h_a7b27fee6e9f2f8fa067ba7108c452307}\label{opcode_8h_a7b27fee6e9f2f8fa067ba7108c452307}} 
+\index{opcode.h@{opcode.h}!OUT0\_IS\_TETRA@{OUT0\_IS\_TETRA}}
+\index{OUT0\_IS\_TETRA@{OUT0\_IS\_TETRA}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{OUT0\_IS\_TETRA}{OUT0\_IS\_TETRA}}
+{\footnotesize\ttfamily \#define OUT0\+\_\+\+IS\+\_\+\+TETRA~0b001 $<$$<$ 12}
+
+\mbox{\Hypertarget{opcode_8h_a6852950010a1b039347cb86df74cc270}\label{opcode_8h_a6852950010a1b039347cb86df74cc270}} 
+\index{opcode.h@{opcode.h}!OUT1@{OUT1}}
+\index{OUT1@{OUT1}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{OUT1}{OUT1}}
+{\footnotesize\ttfamily \#define OUT1~0b111 $<$$<$ 15}
+
+\mbox{\Hypertarget{opcode_8h_ab6238ed1c841241af8dcd9afbaef6d59}\label{opcode_8h_ab6238ed1c841241af8dcd9afbaef6d59}} 
+\index{opcode.h@{opcode.h}!OUT1\_IS\_PC@{OUT1\_IS\_PC}}
+\index{OUT1\_IS\_PC@{OUT1\_IS\_PC}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{OUT1\_IS\_PC}{OUT1\_IS\_PC}}
+{\footnotesize\ttfamily \#define OUT1\+\_\+\+IS\+\_\+\+PC~0b100 $<$$<$ 15}
+
+\mbox{\Hypertarget{opcode_8h_a2f0a39caeca453db842f835ccdefe664}\label{opcode_8h_a2f0a39caeca453db842f835ccdefe664}} 
+\index{opcode.h@{opcode.h}!OUT1\_IS\_RD@{OUT1\_IS\_RD}}
+\index{OUT1\_IS\_RD@{OUT1\_IS\_RD}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{OUT1\_IS\_RD}{OUT1\_IS\_RD}}
+{\footnotesize\ttfamily \#define OUT1\+\_\+\+IS\+\_\+\+RD~0b010 $<$$<$ 15}
+
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{opcode_8h_a60e8494bc6dddfb36a365c8047f18745}\label{opcode_8h_a60e8494bc6dddfb36a365c8047f18745}} 
+\index{opcode.h@{opcode.h}!riscv\_instr\_info\_t@{riscv\_instr\_info\_t}}
+\index{riscv\_instr\_info\_t@{riscv\_instr\_info\_t}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{riscv\_instr\_info\_t}{riscv\_instr\_info\_t}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structriscv__instr__info__t}{riscv\+\_\+instr\+\_\+info\+\_\+t}} \mbox{\hyperlink{structriscv__instr__info__t}{riscv\+\_\+instr\+\_\+info\+\_\+t}}}
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384}\label{opcode_8h_a0d715204060e97a6002673792a4d9384}} 
+\index{opcode.h@{opcode.h}!riscv\_opcode\_t@{riscv\_opcode\_t}}
+\index{riscv\_opcode\_t@{riscv\_opcode\_t}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{riscv\_opcode\_t}{riscv\_opcode\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{opcode_8h_a0d715204060e97a6002673792a4d9384}{riscv\+\_\+opcode\+\_\+t}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{UNKNOWN@{UNKNOWN}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!UNKNOWN@{UNKNOWN}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a6ce26a62afab55d7606ad4e92428b30c}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a6ce26a62afab55d7606ad4e92428b30c}} 
+UNKNOWN&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_LUI@{RISCV\_LUI}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_LUI@{RISCV\_LUI}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384ab45efc50c693fbfab77fb645affcb479}\label{opcode_8h_a0d715204060e97a6002673792a4d9384ab45efc50c693fbfab77fb645affcb479}} 
+RISCV\+\_\+\+LUI&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_AUIPC@{RISCV\_AUIPC}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_AUIPC@{RISCV\_AUIPC}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384ab9dd90ecced7c3c888cf0fca8de91e11}\label{opcode_8h_a0d715204060e97a6002673792a4d9384ab9dd90ecced7c3c888cf0fca8de91e11}} 
+RISCV\+\_\+\+AUIPC&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_JAL@{RISCV\_JAL}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_JAL@{RISCV\_JAL}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a12b37fb8814abfafa15a59926d1ca036}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a12b37fb8814abfafa15a59926d1ca036}} 
+RISCV\+\_\+\+JAL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_JALR@{RISCV\_JALR}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_JALR@{RISCV\_JALR}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a6928298e63b5593c3a1b7a1bb62837fc}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a6928298e63b5593c3a1b7a1bb62837fc}} 
+RISCV\+\_\+\+JALR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_BEQ@{RISCV\_BEQ}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_BEQ@{RISCV\_BEQ}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384af031b690f8ef8bee0d4461ea39ccd941}\label{opcode_8h_a0d715204060e97a6002673792a4d9384af031b690f8ef8bee0d4461ea39ccd941}} 
+RISCV\+\_\+\+BEQ&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_BNE@{RISCV\_BNE}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_BNE@{RISCV\_BNE}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a9cf7441dc7b20567858dcdaee0ff267d}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a9cf7441dc7b20567858dcdaee0ff267d}} 
+RISCV\+\_\+\+BNE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_BLT@{RISCV\_BLT}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_BLT@{RISCV\_BLT}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384aaba624599310ebceae92ed85d70e3684}\label{opcode_8h_a0d715204060e97a6002673792a4d9384aaba624599310ebceae92ed85d70e3684}} 
+RISCV\+\_\+\+BLT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_BGE@{RISCV\_BGE}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_BGE@{RISCV\_BGE}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a9d1cb55b3545e7aeb563e0a95664d4cc}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a9d1cb55b3545e7aeb563e0a95664d4cc}} 
+RISCV\+\_\+\+BGE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_BLTU@{RISCV\_BLTU}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_BLTU@{RISCV\_BLTU}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384aca9db9f7adacd4e4c19e40a238787c66}\label{opcode_8h_a0d715204060e97a6002673792a4d9384aca9db9f7adacd4e4c19e40a238787c66}} 
+RISCV\+\_\+\+BLTU&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_BGEU@{RISCV\_BGEU}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_BGEU@{RISCV\_BGEU}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a9e48bb27bbfc6e6437b8938b6003e54a}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a9e48bb27bbfc6e6437b8938b6003e54a}} 
+RISCV\+\_\+\+BGEU&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_LB@{RISCV\_LB}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_LB@{RISCV\_LB}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384ad817d8670bd1d1ef727a87c6219b9f53}\label{opcode_8h_a0d715204060e97a6002673792a4d9384ad817d8670bd1d1ef727a87c6219b9f53}} 
+RISCV\+\_\+\+LB&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_LH@{RISCV\_LH}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_LH@{RISCV\_LH}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384ab01845cc839217918001f2fefb6a0978}\label{opcode_8h_a0d715204060e97a6002673792a4d9384ab01845cc839217918001f2fefb6a0978}} 
+RISCV\+\_\+\+LH&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_LW@{RISCV\_LW}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_LW@{RISCV\_LW}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a77e15971fd44a1af2a418fd6ebd36945}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a77e15971fd44a1af2a418fd6ebd36945}} 
+RISCV\+\_\+\+LW&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_LBU@{RISCV\_LBU}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_LBU@{RISCV\_LBU}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384aa42b91d1002372d0b7558377531ac246}\label{opcode_8h_a0d715204060e97a6002673792a4d9384aa42b91d1002372d0b7558377531ac246}} 
+RISCV\+\_\+\+LBU&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_LHU@{RISCV\_LHU}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_LHU@{RISCV\_LHU}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a4bf469b31393d73e850e82097ba4fbf6}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a4bf469b31393d73e850e82097ba4fbf6}} 
+RISCV\+\_\+\+LHU&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_SB@{RISCV\_SB}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_SB@{RISCV\_SB}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a517c6f8c483fde302c9000b762a08ad3}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a517c6f8c483fde302c9000b762a08ad3}} 
+RISCV\+\_\+\+SB&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_SH@{RISCV\_SH}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_SH@{RISCV\_SH}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a78a4e6950cea73bae98287bdaefc84dd}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a78a4e6950cea73bae98287bdaefc84dd}} 
+RISCV\+\_\+\+SH&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_SW@{RISCV\_SW}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_SW@{RISCV\_SW}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a49540cb1e3397d15bb14f4502ef62ec9}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a49540cb1e3397d15bb14f4502ef62ec9}} 
+RISCV\+\_\+\+SW&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_ADDI@{RISCV\_ADDI}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_ADDI@{RISCV\_ADDI}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a4665cc23873c806bdcb689b4d4a14dd8}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a4665cc23873c806bdcb689b4d4a14dd8}} 
+RISCV\+\_\+\+ADDI&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_SLTI@{RISCV\_SLTI}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_SLTI@{RISCV\_SLTI}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384ad0c27e7dc611cf1d8a03f0af019ddbad}\label{opcode_8h_a0d715204060e97a6002673792a4d9384ad0c27e7dc611cf1d8a03f0af019ddbad}} 
+RISCV\+\_\+\+SLTI&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_SLTIU@{RISCV\_SLTIU}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_SLTIU@{RISCV\_SLTIU}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384ae2656ed3eace96eb8fb061358b9ea8e0}\label{opcode_8h_a0d715204060e97a6002673792a4d9384ae2656ed3eace96eb8fb061358b9ea8e0}} 
+RISCV\+\_\+\+SLTIU&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_XORI@{RISCV\_XORI}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_XORI@{RISCV\_XORI}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a977164c5808938b11d44ea1acefd1349}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a977164c5808938b11d44ea1acefd1349}} 
+RISCV\+\_\+\+XORI&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_ORI@{RISCV\_ORI}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_ORI@{RISCV\_ORI}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a8296dbd0797733d9960d461b27dc8a84}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a8296dbd0797733d9960d461b27dc8a84}} 
+RISCV\+\_\+\+ORI&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_ANDI@{RISCV\_ANDI}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_ANDI@{RISCV\_ANDI}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384ae74bfa46328c06023c97690e6f28945e}\label{opcode_8h_a0d715204060e97a6002673792a4d9384ae74bfa46328c06023c97690e6f28945e}} 
+RISCV\+\_\+\+ANDI&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_SLLI@{RISCV\_SLLI}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_SLLI@{RISCV\_SLLI}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384acc2a1847b90ec44de5b9ec97655adeb2}\label{opcode_8h_a0d715204060e97a6002673792a4d9384acc2a1847b90ec44de5b9ec97655adeb2}} 
+RISCV\+\_\+\+SLLI&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_SRLI@{RISCV\_SRLI}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_SRLI@{RISCV\_SRLI}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a085af1ba622097af06dfaed130454e9d}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a085af1ba622097af06dfaed130454e9d}} 
+RISCV\+\_\+\+SRLI&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_SRAI@{RISCV\_SRAI}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_SRAI@{RISCV\_SRAI}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a8610433484c2e7a933e4930e6054e218}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a8610433484c2e7a933e4930e6054e218}} 
+RISCV\+\_\+\+SRAI&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_ADD@{RISCV\_ADD}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_ADD@{RISCV\_ADD}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a436b4ae492ead6e938c49ea2b68bb4a8}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a436b4ae492ead6e938c49ea2b68bb4a8}} 
+RISCV\+\_\+\+ADD&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_SUB@{RISCV\_SUB}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_SUB@{RISCV\_SUB}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a2f397340ef1afc29a5ab4a4c40cd6f06}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a2f397340ef1afc29a5ab4a4c40cd6f06}} 
+RISCV\+\_\+\+SUB&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_SLL@{RISCV\_SLL}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_SLL@{RISCV\_SLL}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384acca2b9e4e629881ec486269039bfe569}\label{opcode_8h_a0d715204060e97a6002673792a4d9384acca2b9e4e629881ec486269039bfe569}} 
+RISCV\+\_\+\+SLL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_SLT@{RISCV\_SLT}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_SLT@{RISCV\_SLT}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a35ed7563c67ae69b6a39dca4a4eb2bd5}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a35ed7563c67ae69b6a39dca4a4eb2bd5}} 
+RISCV\+\_\+\+SLT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_SLTU@{RISCV\_SLTU}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_SLTU@{RISCV\_SLTU}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a2f68c713cda4a603dae286d45cb5c1ee}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a2f68c713cda4a603dae286d45cb5c1ee}} 
+RISCV\+\_\+\+SLTU&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_XOR@{RISCV\_XOR}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_XOR@{RISCV\_XOR}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a18bec1a5a788f4085a5f79bcce646b47}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a18bec1a5a788f4085a5f79bcce646b47}} 
+RISCV\+\_\+\+XOR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_SRL@{RISCV\_SRL}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_SRL@{RISCV\_SRL}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384acd7e9c9ecb2d8283789569fb8b3e0680}\label{opcode_8h_a0d715204060e97a6002673792a4d9384acd7e9c9ecb2d8283789569fb8b3e0680}} 
+RISCV\+\_\+\+SRL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_SRA@{RISCV\_SRA}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_SRA@{RISCV\_SRA}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a7b197d28e3e3c7be8a785c3d60490268}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a7b197d28e3e3c7be8a785c3d60490268}} 
+RISCV\+\_\+\+SRA&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_OR@{RISCV\_OR}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_OR@{RISCV\_OR}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a1c95bbff7152b1c333087667dcaa4e7c}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a1c95bbff7152b1c333087667dcaa4e7c}} 
+RISCV\+\_\+\+OR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_AND@{RISCV\_AND}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_AND@{RISCV\_AND}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a49bf53ba7f53aa6c392023e3c39c54e8}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a49bf53ba7f53aa6c392023e3c39c54e8}} 
+RISCV\+\_\+\+AND&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_FENCE@{RISCV\_FENCE}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_FENCE@{RISCV\_FENCE}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384acb98ace9bdca286ceeb932cf126a57a1}\label{opcode_8h_a0d715204060e97a6002673792a4d9384acb98ace9bdca286ceeb932cf126a57a1}} 
+RISCV\+\_\+\+FENCE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_ECALL@{RISCV\_ECALL}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_ECALL@{RISCV\_ECALL}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a4a788c8cc237cef8f7681e200a6d40de}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a4a788c8cc237cef8f7681e200a6d40de}} 
+RISCV\+\_\+\+ECALL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_EBREAK@{RISCV\_EBREAK}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_EBREAK@{RISCV\_EBREAK}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384af5905516acac6a6ec76d7dd5e7bbfcbd}\label{opcode_8h_a0d715204060e97a6002673792a4d9384af5905516acac6a6ec76d7dd5e7bbfcbd}} 
+RISCV\+\_\+\+EBREAK&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_LWU@{RISCV\_LWU}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_LWU@{RISCV\_LWU}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a3a7c9c3f146753c5b67088112f633b1c}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a3a7c9c3f146753c5b67088112f633b1c}} 
+RISCV\+\_\+\+LWU&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_LD@{RISCV\_LD}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_LD@{RISCV\_LD}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384afc954b320a4633cea9ac3a0e3259da58}\label{opcode_8h_a0d715204060e97a6002673792a4d9384afc954b320a4633cea9ac3a0e3259da58}} 
+RISCV\+\_\+\+LD&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_SD@{RISCV\_SD}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_SD@{RISCV\_SD}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384ae5ad7d030d7055b5c86dcad87ce9ac19}\label{opcode_8h_a0d715204060e97a6002673792a4d9384ae5ad7d030d7055b5c86dcad87ce9ac19}} 
+RISCV\+\_\+\+SD&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_ADDIW@{RISCV\_ADDIW}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_ADDIW@{RISCV\_ADDIW}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384ab7be89ac3d5f818900ade0331e710bf5}\label{opcode_8h_a0d715204060e97a6002673792a4d9384ab7be89ac3d5f818900ade0331e710bf5}} 
+RISCV\+\_\+\+ADDIW&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_SLLIW@{RISCV\_SLLIW}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_SLLIW@{RISCV\_SLLIW}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384aaa63176783bdfa7e84d68c5dcd43738d}\label{opcode_8h_a0d715204060e97a6002673792a4d9384aaa63176783bdfa7e84d68c5dcd43738d}} 
+RISCV\+\_\+\+SLLIW&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_SRLIW@{RISCV\_SRLIW}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_SRLIW@{RISCV\_SRLIW}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384acfa0786dbe256962fe476fbb43f35b0b}\label{opcode_8h_a0d715204060e97a6002673792a4d9384acfa0786dbe256962fe476fbb43f35b0b}} 
+RISCV\+\_\+\+SRLIW&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_SRAIW@{RISCV\_SRAIW}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_SRAIW@{RISCV\_SRAIW}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a7e8af842dac38122ea2fd215b8082138}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a7e8af842dac38122ea2fd215b8082138}} 
+RISCV\+\_\+\+SRAIW&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_ADDW@{RISCV\_ADDW}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_ADDW@{RISCV\_ADDW}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384acd6bd65dbdfda2daffdee50a64a19a38}\label{opcode_8h_a0d715204060e97a6002673792a4d9384acd6bd65dbdfda2daffdee50a64a19a38}} 
+RISCV\+\_\+\+ADDW&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_SUBW@{RISCV\_SUBW}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_SUBW@{RISCV\_SUBW}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a1e7d4404b3a4770abb5027d670ee5f00}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a1e7d4404b3a4770abb5027d670ee5f00}} 
+RISCV\+\_\+\+SUBW&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_SLLW@{RISCV\_SLLW}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_SLLW@{RISCV\_SLLW}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384af90042713152b5ab7e186a18697b08ce}\label{opcode_8h_a0d715204060e97a6002673792a4d9384af90042713152b5ab7e186a18697b08ce}} 
+RISCV\+\_\+\+SLLW&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_SRLW@{RISCV\_SRLW}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_SRLW@{RISCV\_SRLW}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a0597f673edfe3b3b0f0f2a691c3f223e}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a0597f673edfe3b3b0f0f2a691c3f223e}} 
+RISCV\+\_\+\+SRLW&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_SRAW@{RISCV\_SRAW}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_SRAW@{RISCV\_SRAW}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a8d21965a854a938363971ffcc7be6d91}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a8d21965a854a938363971ffcc7be6d91}} 
+RISCV\+\_\+\+SRAW&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_FENCE\_I@{RISCV\_FENCE\_I}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_FENCE\_I@{RISCV\_FENCE\_I}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a87e29ed06836d84c7063feaa95517a99}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a87e29ed06836d84c7063feaa95517a99}} 
+RISCV\+\_\+\+FENCE\+\_\+I&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_CSRRW@{RISCV\_CSRRW}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_CSRRW@{RISCV\_CSRRW}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a7eb4cea63018d0c406263b61bec6a016}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a7eb4cea63018d0c406263b61bec6a016}} 
+RISCV\+\_\+\+CSRRW&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_CSRRS@{RISCV\_CSRRS}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_CSRRS@{RISCV\_CSRRS}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a18b31ba03fd0fdf53a73ffdf1756df9c}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a18b31ba03fd0fdf53a73ffdf1756df9c}} 
+RISCV\+\_\+\+CSRRS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_CSRRC@{RISCV\_CSRRC}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_CSRRC@{RISCV\_CSRRC}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a315c6aade31d146eeeb0c2efe0f8d558}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a315c6aade31d146eeeb0c2efe0f8d558}} 
+RISCV\+\_\+\+CSRRC&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_CSRRWI@{RISCV\_CSRRWI}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_CSRRWI@{RISCV\_CSRRWI}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384ad5962c22383981b7316854ae2f59eb34}\label{opcode_8h_a0d715204060e97a6002673792a4d9384ad5962c22383981b7316854ae2f59eb34}} 
+RISCV\+\_\+\+CSRRWI&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_CSRRSI@{RISCV\_CSRRSI}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_CSRRSI@{RISCV\_CSRRSI}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384aeb791ed6f3361eda019a6ecb33e07897}\label{opcode_8h_a0d715204060e97a6002673792a4d9384aeb791ed6f3361eda019a6ecb33e07897}} 
+RISCV\+\_\+\+CSRRSI&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_CSRRCI@{RISCV\_CSRRCI}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_CSRRCI@{RISCV\_CSRRCI}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384ac811a14d4bd2b2892e671484531da6b4}\label{opcode_8h_a0d715204060e97a6002673792a4d9384ac811a14d4bd2b2892e671484531da6b4}} 
+RISCV\+\_\+\+CSRRCI&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_MUL@{RISCV\_MUL}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_MUL@{RISCV\_MUL}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a48877c3b27bd2f6a304984b7f3fb6629}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a48877c3b27bd2f6a304984b7f3fb6629}} 
+RISCV\+\_\+\+MUL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_MULH@{RISCV\_MULH}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_MULH@{RISCV\_MULH}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a1e4a282c743a5d7255a149ef8694072f}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a1e4a282c743a5d7255a149ef8694072f}} 
+RISCV\+\_\+\+MULH&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_MULHSU@{RISCV\_MULHSU}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_MULHSU@{RISCV\_MULHSU}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384ad15293f67eb67b3cc741d973cc2b57b2}\label{opcode_8h_a0d715204060e97a6002673792a4d9384ad15293f67eb67b3cc741d973cc2b57b2}} 
+RISCV\+\_\+\+MULHSU&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_MULHU@{RISCV\_MULHU}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_MULHU@{RISCV\_MULHU}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a7fe646c42383658dbb548ddab11a46c6}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a7fe646c42383658dbb548ddab11a46c6}} 
+RISCV\+\_\+\+MULHU&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_DIV@{RISCV\_DIV}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_DIV@{RISCV\_DIV}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a6fc0eefcc53ad6e254715ef6817ad533}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a6fc0eefcc53ad6e254715ef6817ad533}} 
+RISCV\+\_\+\+DIV&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_DIVU@{RISCV\_DIVU}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_DIVU@{RISCV\_DIVU}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a8ad9f67a7540ae3a0101718f16a11f3f}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a8ad9f67a7540ae3a0101718f16a11f3f}} 
+RISCV\+\_\+\+DIVU&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_REM@{RISCV\_REM}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_REM@{RISCV\_REM}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384ac386053555642d7d490f8a77fbf81a02}\label{opcode_8h_a0d715204060e97a6002673792a4d9384ac386053555642d7d490f8a77fbf81a02}} 
+RISCV\+\_\+\+REM&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_REMU@{RISCV\_REMU}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_REMU@{RISCV\_REMU}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a29ac8b23fd23dfe22c5ef90cbad14354}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a29ac8b23fd23dfe22c5ef90cbad14354}} 
+RISCV\+\_\+\+REMU&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_MULW@{RISCV\_MULW}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_MULW@{RISCV\_MULW}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384ac47a63fe6c75795616f75ca225eca845}\label{opcode_8h_a0d715204060e97a6002673792a4d9384ac47a63fe6c75795616f75ca225eca845}} 
+RISCV\+\_\+\+MULW&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_DIVW@{RISCV\_DIVW}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_DIVW@{RISCV\_DIVW}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a8354fbd5f01408759fa913b77fa8a840}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a8354fbd5f01408759fa913b77fa8a840}} 
+RISCV\+\_\+\+DIVW&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_DIVUW@{RISCV\_DIVUW}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_DIVUW@{RISCV\_DIVUW}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384aed4e1ad8bbabceddc90e4502f770e739}\label{opcode_8h_a0d715204060e97a6002673792a4d9384aed4e1ad8bbabceddc90e4502f770e739}} 
+RISCV\+\_\+\+DIVUW&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_REMW@{RISCV\_REMW}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_REMW@{RISCV\_REMW}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384a29a6ba9d61c02f7fea5b4c3a38531fa6}\label{opcode_8h_a0d715204060e97a6002673792a4d9384a29a6ba9d61c02f7fea5b4c3a38531fa6}} 
+RISCV\+\_\+\+REMW&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_REMUW@{RISCV\_REMUW}!opcode.h@{opcode.h}}\index{opcode.h@{opcode.h}!RISCV\_REMUW@{RISCV\_REMUW}}}\mbox{\Hypertarget{opcode_8h_a0d715204060e97a6002673792a4d9384acb9d27440cd3d660baddd662ba43faf8}\label{opcode_8h_a0d715204060e97a6002673792a4d9384acb9d27440cd3d660baddd662ba43faf8}} 
+RISCV\+\_\+\+REMUW&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{opcode_8h_ade57fe420a52c2909ab5e48e0a682716}\label{opcode_8h_ade57fe420a52c2909ab5e48e0a682716}} 
+\index{opcode.h@{opcode.h}!riscv\_instr\_infos@{riscv\_instr\_infos}}
+\index{riscv\_instr\_infos@{riscv\_instr\_infos}!opcode.h@{opcode.h}}
+\doxysubsubsection{\texorpdfstring{riscv\_instr\_infos}{riscv\_instr\_infos}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structriscv__instr__info__t}{riscv\+\_\+instr\+\_\+info\+\_\+t}} riscv\+\_\+instr\+\_\+infos\mbox{[}$\,$\mbox{]}}
+

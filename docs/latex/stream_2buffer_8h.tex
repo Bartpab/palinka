@@ -38,7 +38,7 @@ void \mbox{\hyperlink{stream_2buffer_8h_a3189faeb32d8eee6a252e836a9ece9c0}{rbuff
 \begin{DoxyCompactList}\small\item\em Read the whole content of the stream and store it in a buffer. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{structstring__t}{string\+\_\+t}} \mbox{\hyperlink{stream_2buffer_8h_a399cb24f7a796fe3b96b204cc5b45d11}{rbuffer\+\_\+read\+\_\+all\+\_\+str}} (\mbox{\hyperlink{structrbuffer__t}{rbuffer\+\_\+t}} $\ast$rbuffer, size\+\_\+t initial, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
 \begin{DoxyCompactList}\small\item\em Same as buffer\+\_\+exhaust but add the \textquotesingle{}\textbackslash{}0\textquotesingle{} character at the end. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} \mbox{\hyperlink{stream_2buffer_8h_a6334af5da7a918304f5a758f3eebc3ea}{stream\+\_\+exhaust}} (\mbox{\hyperlink{structstream__t}{stream\+\_\+t}} $\ast$stream, size\+\_\+t capacity, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{stream_2buffer_8h_a0cdcf25f88a2502d83fd6fe7255434df}{stream\+\_\+exhaust}} (\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$buff, \mbox{\hyperlink{structstream__t}{stream\+\_\+t}} $\ast$stream, size\+\_\+t capacity, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
 \begin{DoxyCompactList}\small\item\em Read the whole stream and store its content in a dynamic buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
@@ -94,11 +94,11 @@ Read the whole content of the stream and store it in a buffer.
 
 Same as buffer\+\_\+exhaust but add the \textquotesingle{}\textbackslash{}0\textquotesingle{} character at the end. 
 
-\mbox{\Hypertarget{stream_2buffer_8h_a6334af5da7a918304f5a758f3eebc3ea}\label{stream_2buffer_8h_a6334af5da7a918304f5a758f3eebc3ea}} 
+\mbox{\Hypertarget{stream_2buffer_8h_a0cdcf25f88a2502d83fd6fe7255434df}\label{stream_2buffer_8h_a0cdcf25f88a2502d83fd6fe7255434df}} 
 \index{buffer.h@{buffer.h}!stream\_exhaust@{stream\_exhaust}}
 \index{stream\_exhaust@{stream\_exhaust}!buffer.h@{buffer.h}}
 \doxysubsubsection{\texorpdfstring{stream\_exhaust()}{stream\_exhaust()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} stream\+\_\+exhaust (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structstream__t}{stream\+\_\+t}} $\ast$}]{stream,  }\item[{size\+\_\+t}]{capacity,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} stream\+\_\+exhaust (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$}]{buff,  }\item[{\mbox{\hyperlink{structstream__t}{stream\+\_\+t}} $\ast$}]{stream,  }\item[{size\+\_\+t}]{capacity,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
 
 
 

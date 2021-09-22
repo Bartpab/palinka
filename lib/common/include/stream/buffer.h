@@ -122,7 +122,6 @@ void rbuffer_destruct(rbuffer_t* buffer);
 
 buffer_t rbuffer_read_all(rbuffer_t* buffer, size_t capacity, allocator_t* allocator);
 string_t rbuffer_read_all_str(rbuffer_t* rbuffer, size_t initial, allocator_t* allocator);
-buffer_t stream_exhaust(stream_t* stream, size_t capacity, allocator_t* allocator);
 
 bool rbuffer_is_exhausted(rbuffer_t* buffer) 
 {
@@ -206,18 +205,31 @@ string_t rbuffer_read_all_str(rbuffer_t* rbuffer, size_t initial, allocator_t* a
     return str;
 }
 
+bool stream_exhaust(buffer_t* buffer, stream_t* stream, size_t capacity, allocator_t* allocator);
 /**
  * \brief Read the whole stream and store its content in a dynamic buffer.
  * 
  * \return The buffer with all the content of the stream
  */
-buffer_t stream_exhaust(stream_t* stream, size_t capacity, allocator_t* allocator)
+bool stream_exhaust(buffer_t* buff, stream_t* stream, size_t capacity, allocator_t* allocator)
 {
-    rbuffer_t rbuffer = rbuffer_init;
-    rbuffer_create(&rbuffer, stream, capacity, allocator);
-    buffer_t buffer = rbuffer_read_all(&rbuffer, capacity, allocator);
-    rbuffer_destruct(&rbuffer);
-    return buffer;
+    size_t length;    
+    void* raw = pmalloc(allocator, capacity);
+    
+    if(raw == false)
+        return false;
+
+    for(length = stream_read(stream, &raw, capacity); length > 0; length = stream_read(stream, &raw, capacity))
+    {
+        if(!buffer_write(buff, raw, length))
+        {
+            pfree(allocator, raw);
+            return false;
+        }
+    }
+
+    pfree(allocator, raw);
+    return true;
 }
 
 #endif

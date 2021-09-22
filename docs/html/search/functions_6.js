@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['int_5fto_5focta_1379',['int_to_octa',['../types_8h.html#a0306c07638b66c02075767dcf4312160',1,'types.h']]]
+  ['hexadeca_5fstr_1790',['hexadeca_str',['../types_8h.html#a92d9fcdd253c092a1ac7819eab55eafb',1,'types.h']]]
 ];

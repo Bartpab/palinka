@@ -3,8 +3,8 @@
 
 #include "../../lib/common/include/types.h"
 
-#include "../sys.h"
-#include "../mem/core.h"
+#include "../system.h"
+#include "../memory/core.h"
 
 #include "./processor.h"
 

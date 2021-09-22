@@ -100,6 +100,8 @@ Functions</h2></td></tr>
 <tr class="separator:a46680f8081748c79518c3a47cfd888ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f6578fb4358a48bca405fef68d2f18a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2token_2vector_8h.html#a0f6578fb4358a48bca405fef68d2f18a">token_vector_create</a> (<a class="el" href="structtoken__vector__t.html">token_vector_t</a> *vec, size_t capacity, <a class="el" href="structallocator__t.html">allocator_t</a> *allocator)</td></tr>
 <tr class="separator:a0f6578fb4358a48bca405fef68d2f18a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c0b9250491201e11a9403ad0819b3ed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2token_2vector_8h.html#a5c0b9250491201e11a9403ad0819b3ed">token_vector_create_array</a> (<a class="el" href="structtoken__vector__t.html">token_vector_t</a> *vec, <a class="el" href="structtoken__t.html">token_t</a> *base, size_t length)</td></tr>
+<tr class="separator:a5c0b9250491201e11a9403ad0819b3ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e05e03569ee03f7be83f143c0e68ed2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2token_2vector_8h.html#a9e05e03569ee03f7be83f143c0e68ed2">token_vector_destruct</a> (<a class="el" href="structtoken__vector__t.html">token_vector_t</a> *vec)</td></tr>
 <tr class="separator:a9e05e03569ee03f7be83f143c0e68ed2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad0062be031ad2590c778f1c3ca622584"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#af6a258d8f3ee5206d682d799316314b1">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lexer_2token_2vector_8h.html#ad0062be031ad2590c778f1c3ca622584">token_vector_get</a> (<a class="el" href="structtoken__vector__t.html">token_vector_t</a> *vec, <a class="el" href="structtoken__t.html">token_t</a> **out, unsigned int index)</td></tr>
@@ -265,6 +267,40 @@ Variables</h2></td></tr>
           <td></td>
           <td class="paramtype"><a class="el" href="structallocator__t.html">allocator_t</a> *&#160;</td>
           <td class="paramname"><em>allocator</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5c0b9250491201e11a9403ad0819b3ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c0b9250491201e11a9403ad0819b3ed">&#9670;&nbsp;</a></span>token_vector_create_array()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void token_vector_create_array </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structtoken__vector__t.html">token_vector_t</a> *&#160;</td>
+          <td class="paramname"><em>vec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structtoken__t.html">token_t</a> *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>length</em>&#160;</td>
         </tr>
         <tr>
           <td></td>

@@ -38,11 +38,11 @@ void \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_a51e70e5c45670
 \item 
 void \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_a7ce11e4188a16bb40f458c34916e09bd}{lexer\+\_\+state\+\_\+destruct}} (\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$token)
 \item 
-\mbox{\hyperlink{structtoken__vector__t}{token\+\_\+vector\+\_\+t}} \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_aae305c4019174b0fb34a8d14a5d9cd7f}{lexer\+\_\+run}} (\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$init, const char $\ast$stream, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
+void \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_ab6ca2b0e6562e8d78740c791e24dfb61}{lexer\+\_\+run}} (\mbox{\hyperlink{structtoken__vector__t}{token\+\_\+vector\+\_\+t}} $\ast$toks, \mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$init, const char $\ast$stream, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
 \item 
 \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_a083be0c641b6fcfa53543a3b8366f673}{lexer\+\_\+next\+\_\+transition}} (\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$current, const char c, \mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$$\ast$out)
 \item 
-\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$ \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_a9506589d8a4aafd690a7f0afc0e641ca}{\+\_\+\+\_\+lexer\+\_\+step}} (\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$init, \mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$\mbox{\hyperlink{buffer_8h_ae5ad4f4c2a5dbc0b61a2119f3871dd59}{buffer}}, const char $\ast$$\ast$c)
+\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$ \mbox{\hyperlink{lib_2common_2include_2lexer_2state_2core_8h_a82eb6d1384621f8170c20dbab80e9197}{lexer\+\_\+step}} (\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$init, \mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$\mbox{\hyperlink{buffer_8h_ae5ad4f4c2a5dbc0b61a2119f3871dd59}{buffer}}, const char $\ast$$\ast$c)
 \end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
@@ -63,23 +63,17 @@ const \mbox{\hyperlink{structlexer__state__desc__t}{lexer\+\_\+state\+\_\+desc\+
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{lib_2common_2include_2lexer_2state_2core_8h_a9506589d8a4aafd690a7f0afc0e641ca}\label{lib_2common_2include_2lexer_2state_2core_8h_a9506589d8a4aafd690a7f0afc0e641ca}} 
-\index{core.h@{core.h}!\_\_lexer\_step@{\_\_lexer\_step}}
-\index{\_\_lexer\_step@{\_\_lexer\_step}!core.h@{core.h}}
-\doxysubsubsection{\texorpdfstring{\_\_lexer\_step()}{\_\_lexer\_step()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}}$\ast$ \+\_\+\+\_\+lexer\+\_\+step (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$}]{init,  }\item[{\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$}]{buffer,  }\item[{const char $\ast$$\ast$}]{c }\end{DoxyParamCaption})}
-
 \mbox{\Hypertarget{lib_2common_2include_2lexer_2state_2core_8h_a083be0c641b6fcfa53543a3b8366f673}\label{lib_2common_2include_2lexer_2state_2core_8h_a083be0c641b6fcfa53543a3b8366f673}} 
 \index{core.h@{core.h}!lexer\_next\_transition@{lexer\_next\_transition}}
 \index{lexer\_next\_transition@{lexer\_next\_transition}!core.h@{core.h}}
 \doxysubsubsection{\texorpdfstring{lexer\_next\_transition()}{lexer\_next\_transition()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} lexer\+\_\+next\+\_\+transition (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$}]{current,  }\item[{const char}]{c,  }\item[{\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$$\ast$}]{out }\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{lib_2common_2include_2lexer_2state_2core_8h_aae305c4019174b0fb34a8d14a5d9cd7f}\label{lib_2common_2include_2lexer_2state_2core_8h_aae305c4019174b0fb34a8d14a5d9cd7f}} 
+\mbox{\Hypertarget{lib_2common_2include_2lexer_2state_2core_8h_ab6ca2b0e6562e8d78740c791e24dfb61}\label{lib_2common_2include_2lexer_2state_2core_8h_ab6ca2b0e6562e8d78740c791e24dfb61}} 
 \index{core.h@{core.h}!lexer\_run@{lexer\_run}}
 \index{lexer\_run@{lexer\_run}!core.h@{core.h}}
 \doxysubsubsection{\texorpdfstring{lexer\_run()}{lexer\_run()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structtoken__vector__t}{token\+\_\+vector\+\_\+t}} lexer\+\_\+run (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$}]{init,  }\item[{const char $\ast$}]{stream,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void lexer\+\_\+run (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtoken__vector__t}{token\+\_\+vector\+\_\+t}} $\ast$}]{toks,  }\item[{\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$}]{init,  }\item[{const char $\ast$}]{stream,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{lib_2common_2include_2lexer_2state_2core_8h_ae414d993a968e705c2e6dc475ffd09d3}\label{lib_2common_2include_2lexer_2state_2core_8h_ae414d993a968e705c2e6dc475ffd09d3}} 
 \index{core.h@{core.h}!lexer\_state@{lexer\_state}}
@@ -134,6 +128,12 @@ const \mbox{\hyperlink{structlexer__state__desc__t}{lexer\+\_\+state\+\_\+desc\+
 \index{lexer\_state\_move\_add\_transition@{lexer\_state\_move\_add\_transition}!core.h@{core.h}}
 \doxysubsubsection{\texorpdfstring{lexer\_state\_move\_add\_transition()}{lexer\_state\_move\_add\_transition()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} lexer\+\_\+state\+\_\+move\+\_\+add\+\_\+transition (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$}]{state,  }\item[{\mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} $\ast$}]{transition }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lib_2common_2include_2lexer_2state_2core_8h_a82eb6d1384621f8170c20dbab80e9197}\label{lib_2common_2include_2lexer_2state_2core_8h_a82eb6d1384621f8170c20dbab80e9197}} 
+\index{core.h@{core.h}!lexer\_step@{lexer\_step}}
+\index{lexer\_step@{lexer\_step}!core.h@{core.h}}
+\doxysubsubsection{\texorpdfstring{lexer\_step()}{lexer\_step()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}}$\ast$ lexer\+\_\+step (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$}]{init,  }\item[{\mbox{\hyperlink{structbuffer__t}{buffer\+\_\+t}} $\ast$}]{buffer,  }\item[{const char $\ast$$\ast$}]{c }\end{DoxyParamCaption})}
 
 
 

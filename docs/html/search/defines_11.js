@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['z_5fbit_2473',['Z_BIT',['../alu_8h.html#a32666ee6e6eac67c501085d830389b35',1,'alu.h']]],
-  ['z_5fis_5fimmed_5fbit_2474',['Z_is_immed_bit',['../op_8h.html#aabf8d238686d9628a670cb339396a9eb',1,'op.h']]],
-  ['z_5fis_5fsource_5fbit_2475',['Z_is_source_bit',['../op_8h.html#a67ecc3f4b5a20c0b3e637332adfa78d8',1,'op.h']]]
+  ['y_5fis_5fimmed_5fbit_3273',['Y_is_immed_bit',['../op_8h.html#a157c1b7699d72e0e37807a8b4b6e6f55',1,'op.h']]],
+  ['y_5fis_5fsource_5fbit_3274',['Y_is_source_bit',['../op_8h.html#ae9ec60e37015ee205f4df4e1d2c6a53c',1,'op.h']]]
 ];

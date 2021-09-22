@@ -24,6 +24,8 @@ typedef struct \mbox{\hyperlink{structlexer__state__vector__iterator__t}{lexer\+
 \item 
 \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lexer_2state_2vector_8h_a0c7a6a066cea8d9708e24da0605f1202}{lexer\+\_\+state\+\_\+vector\+\_\+create}} (\mbox{\hyperlink{structlexer__state__vector__t}{lexer\+\_\+state\+\_\+vector\+\_\+t}} $\ast$vec, size\+\_\+t capacity, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
 \item 
+void \mbox{\hyperlink{lexer_2state_2vector_8h_abca4531a186f11d72c4f8f0312f13942}{lexer\+\_\+state\+\_\+vector\+\_\+create\+\_\+array}} (\mbox{\hyperlink{structlexer__state__vector__t}{lexer\+\_\+state\+\_\+vector\+\_\+t}} $\ast$vec, \mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$base, size\+\_\+t length)
+\item 
 void \mbox{\hyperlink{lexer_2state_2vector_8h_a8c7c8d0fefdb70151d03805310137ba8}{lexer\+\_\+state\+\_\+vector\+\_\+destruct}} (\mbox{\hyperlink{structlexer__state__vector__t}{lexer\+\_\+state\+\_\+vector\+\_\+t}} $\ast$vec)
 \item 
 \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lexer_2state_2vector_8h_a961b962df9951375d1e3d2461de689cb}{lexer\+\_\+state\+\_\+vector\+\_\+get}} (\mbox{\hyperlink{structlexer__state__vector__t}{lexer\+\_\+state\+\_\+vector\+\_\+t}} $\ast$vec, \mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$$\ast$out, unsigned int index)
@@ -92,6 +94,12 @@ const \mbox{\hyperlink{structlexer__state__vector__iterator__t}{lexer\+\_\+state
 \index{lexer\_state\_vector\_create@{lexer\_state\_vector\_create}!vector.h@{vector.h}}
 \doxysubsubsection{\texorpdfstring{lexer\_state\_vector\_create()}{lexer\_state\_vector\_create()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} lexer\+\_\+state\+\_\+vector\+\_\+create (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlexer__state__vector__t}{lexer\+\_\+state\+\_\+vector\+\_\+t}} $\ast$}]{vec,  }\item[{size\+\_\+t}]{capacity,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lexer_2state_2vector_8h_abca4531a186f11d72c4f8f0312f13942}\label{lexer_2state_2vector_8h_abca4531a186f11d72c4f8f0312f13942}} 
+\index{vector.h@{vector.h}!lexer\_state\_vector\_create\_array@{lexer\_state\_vector\_create\_array}}
+\index{lexer\_state\_vector\_create\_array@{lexer\_state\_vector\_create\_array}!vector.h@{vector.h}}
+\doxysubsubsection{\texorpdfstring{lexer\_state\_vector\_create\_array()}{lexer\_state\_vector\_create\_array()}}
+{\footnotesize\ttfamily void lexer\+\_\+state\+\_\+vector\+\_\+create\+\_\+array (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structlexer__state__vector__t}{lexer\+\_\+state\+\_\+vector\+\_\+t}} $\ast$}]{vec,  }\item[{\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$}]{base,  }\item[{size\+\_\+t}]{length }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{lexer_2state_2vector_8h_a8c7c8d0fefdb70151d03805310137ba8}\label{lexer_2state_2vector_8h_a8c7c8d0fefdb70151d03805310137ba8}} 
 \index{vector.h@{vector.h}!lexer\_state\_vector\_destruct@{lexer\_state\_vector\_destruct}}

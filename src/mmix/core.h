@@ -5,8 +5,8 @@
 
 #include "../../lib/common/include/macro.h"
 
-#include "../sys.h"
-#include "../mem/core.h"
+#include "../system.h"
+#include "../memory/core.h"
 
 #include "./processor.h"
 #include "./instr.h"

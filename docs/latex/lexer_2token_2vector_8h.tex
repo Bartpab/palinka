@@ -24,6 +24,8 @@ typedef struct \mbox{\hyperlink{structtoken__vector__iterator__t}{token\+\_\+vec
 \item 
 \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lexer_2token_2vector_8h_a0f6578fb4358a48bca405fef68d2f18a}{token\+\_\+vector\+\_\+create}} (\mbox{\hyperlink{structtoken__vector__t}{token\+\_\+vector\+\_\+t}} $\ast$vec, size\+\_\+t capacity, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
 \item 
+void \mbox{\hyperlink{lexer_2token_2vector_8h_a5c0b9250491201e11a9403ad0819b3ed}{token\+\_\+vector\+\_\+create\+\_\+array}} (\mbox{\hyperlink{structtoken__vector__t}{token\+\_\+vector\+\_\+t}} $\ast$vec, \mbox{\hyperlink{structtoken__t}{token\+\_\+t}} $\ast$base, size\+\_\+t length)
+\item 
 void \mbox{\hyperlink{lexer_2token_2vector_8h_a9e05e03569ee03f7be83f143c0e68ed2}{token\+\_\+vector\+\_\+destruct}} (\mbox{\hyperlink{structtoken__vector__t}{token\+\_\+vector\+\_\+t}} $\ast$vec)
 \item 
 \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lexer_2token_2vector_8h_ad0062be031ad2590c778f1c3ca622584}{token\+\_\+vector\+\_\+get}} (\mbox{\hyperlink{structtoken__vector__t}{token\+\_\+vector\+\_\+t}} $\ast$vec, \mbox{\hyperlink{structtoken__t}{token\+\_\+t}} $\ast$$\ast$out, unsigned int index)
@@ -92,6 +94,12 @@ const \mbox{\hyperlink{structtoken__vector__iterator__t}{token\+\_\+vector\+\_\+
 \index{token\_vector\_create@{token\_vector\_create}!vector.h@{vector.h}}
 \doxysubsubsection{\texorpdfstring{token\_vector\_create()}{token\_vector\_create()}}
 {\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} token\+\_\+vector\+\_\+create (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtoken__vector__t}{token\+\_\+vector\+\_\+t}} $\ast$}]{vec,  }\item[{size\+\_\+t}]{capacity,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{lexer_2token_2vector_8h_a5c0b9250491201e11a9403ad0819b3ed}\label{lexer_2token_2vector_8h_a5c0b9250491201e11a9403ad0819b3ed}} 
+\index{vector.h@{vector.h}!token\_vector\_create\_array@{token\_vector\_create\_array}}
+\index{token\_vector\_create\_array@{token\_vector\_create\_array}!vector.h@{vector.h}}
+\doxysubsubsection{\texorpdfstring{token\_vector\_create\_array()}{token\_vector\_create\_array()}}
+{\footnotesize\ttfamily void token\+\_\+vector\+\_\+create\+\_\+array (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structtoken__vector__t}{token\+\_\+vector\+\_\+t}} $\ast$}]{vec,  }\item[{\mbox{\hyperlink{structtoken__t}{token\+\_\+t}} $\ast$}]{base,  }\item[{size\+\_\+t}]{length }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{lexer_2token_2vector_8h_a9e05e03569ee03f7be83f143c0e68ed2}\label{lexer_2token_2vector_8h_a9e05e03569ee03f7be83f143c0e68ed2}} 
 \index{vector.h@{vector.h}!token\_vector\_destruct@{token\_vector\_destruct}}

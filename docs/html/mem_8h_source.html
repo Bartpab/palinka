@@ -74,10 +74,10 @@ $(function() {
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;../../lib/common/include/types.h&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;../sys.h&quot;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;../mem/core.h&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;../system.h&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;../memory/core.h&quot;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="processor_8h.html">./processor.h</a>&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="riscv_2processor_8h.html">./processor.h</a>&quot;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
 <div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="mem_8h.html#a87d4822f1cfde2862a9bed8a7909f434">   11</a></span>&#160;<span class="preprocessor">#define PAGE_NOT_PRESENT_BIT (1 &lt;&lt; 19);</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
@@ -114,11 +114,11 @@ $(function() {
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">*/</span></div>
 <div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="mem_8h.html#a487bf9d644f6d4d1c9d82d23b12169ef">   44</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="mem_8h.html#a487bf9d644f6d4d1c9d82d23b12169ef">mmix_memtl</a>(<a class="code" href="structsystem__t.html">system_t</a>* sys, <span class="keywordtype">void</span>* addr, <span class="keywordtype">void</span>** out)</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;{</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <a class="code" href="structmmix__processor__t.html">mmix_processor_t</a>* proc = <a class="code" href="processor_8h.html#a1f05c6e0095f784029eb5a06be10e09b">__get_mmix_proc</a>(sys);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <a class="code" href="structmmix__processor__t.html">mmix_processor_t</a>* proc = <a class="code" href="mmix_2processor_8h.html#a1f05c6e0095f784029eb5a06be10e09b">__get_mmix_proc</a>(sys);</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="keywordtype">char</span> exceptions = 0;</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keywordtype">bool</span> retres = <a class="code" href="src_2mem_2core_8h.html#aafe48e68b830b0e8a97f60963f778733">mem_tl</a>(&amp;sys-&gt;<a class="code" href="structsystem__t.html#ac83f542afbd20a2c6185c52217797e3b">mem</a>, addr, out, &amp;exceptions);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keywordtype">bool</span> retres = <a class="code" href="src_2memory_2core_8h.html#aafe48e68b830b0e8a97f60963f778733">mem_tl</a>(&amp;sys-&gt;<a class="code" href="structsystem__t.html#ac83f542afbd20a2c6185c52217797e3b">mem</a>, addr, out, &amp;exceptions);</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  </div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordflow">if</span>(!retres)</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    proc-&gt;<a class="code" href="structmmix__processor__t.html#a4ad523aa4c4391f3d277954ce4ae8c0c">g</a>[<a class="code" href="reg_8h.html#a61ee67fbb3bd55a07badcc621391a275a05f372d852819ab5f39a8d414aa91eeb">rA</a>] |= exceptions &lt;&lt; 19; <span class="comment">// Set the value</span></div>
@@ -129,14 +129,14 @@ $(function() {
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="amem_8h_html_a487bf9d644f6d4d1c9d82d23b12169ef"><div class="ttname"><a href="mem_8h.html#a487bf9d644f6d4d1c9d82d23b12169ef">mmix_memtl</a></div><div class="ttdeci">bool mmix_memtl(system_t *sys, void *addr, void **out)</div><div class="ttdef"><b>Definition:</b> mem.h:44</div></div>
-<div class="ttc" id="aprocessor_8h_html"><div class="ttname"><a href="processor_8h.html">processor.h</a></div></div>
-<div class="ttc" id="aprocessor_8h_html_a1f05c6e0095f784029eb5a06be10e09b"><div class="ttname"><a href="processor_8h.html#a1f05c6e0095f784029eb5a06be10e09b">__get_mmix_proc</a></div><div class="ttdeci">mmix_processor_t * __get_mmix_proc(system_t *sys)</div><div class="ttdef"><b>Definition:</b> processor.h:58</div></div>
+<div class="ttc" id="ammix_2processor_8h_html_a1f05c6e0095f784029eb5a06be10e09b"><div class="ttname"><a href="mmix_2processor_8h.html#a1f05c6e0095f784029eb5a06be10e09b">__get_mmix_proc</a></div><div class="ttdeci">mmix_processor_t * __get_mmix_proc(system_t *sys)</div><div class="ttdef"><b>Definition:</b> processor.h:58</div></div>
 <div class="ttc" id="areg_8h_html_a61ee67fbb3bd55a07badcc621391a275a05f372d852819ab5f39a8d414aa91eeb"><div class="ttname"><a href="reg_8h.html#a61ee67fbb3bd55a07badcc621391a275a05f372d852819ab5f39a8d414aa91eeb">rA</a></div><div class="ttdeci">@ rA</div><div class="ttdef"><b>Definition:</b> reg.h:5</div></div>
-<div class="ttc" id="asrc_2mem_2core_8h_html_aafe48e68b830b0e8a97f60963f778733"><div class="ttname"><a href="src_2mem_2core_8h.html#aafe48e68b830b0e8a97f60963f778733">mem_tl</a></div><div class="ttdeci">bool mem_tl(memory_t *mem, void *vaddr, void **out, char *exceptions)</div><div class="ttdoc">Memory translation from virtual to real addresses.</div><div class="ttdef"><b>Definition:</b> core.h:122</div></div>
+<div class="ttc" id="ariscv_2processor_8h_html"><div class="ttname"><a href="riscv_2processor_8h.html">processor.h</a></div></div>
+<div class="ttc" id="asrc_2memory_2core_8h_html_aafe48e68b830b0e8a97f60963f778733"><div class="ttname"><a href="src_2memory_2core_8h.html#aafe48e68b830b0e8a97f60963f778733">mem_tl</a></div><div class="ttdeci">bool mem_tl(memory_t *mem, void *vaddr, void **out, char *exceptions)</div><div class="ttdoc">Memory translation from virtual to real addresses.</div><div class="ttdef"><b>Definition:</b> core.h:122</div></div>
 <div class="ttc" id="astructmmix__processor__t_html"><div class="ttname"><a href="structmmix__processor__t.html">mmix_processor_t</a></div><div class="ttdef"><b>Definition:</b> processor.h:30</div></div>
 <div class="ttc" id="astructmmix__processor__t_html_a4ad523aa4c4391f3d277954ce4ae8c0c"><div class="ttname"><a href="structmmix__processor__t.html#a4ad523aa4c4391f3d277954ce4ae8c0c">mmix_processor_t::g</a></div><div class="ttdeci">octa g[256]</div><div class="ttdef"><b>Definition:</b> processor.h:31</div></div>
-<div class="ttc" id="astructsystem__t_html"><div class="ttname"><a href="structsystem__t.html">system_t</a></div><div class="ttdef"><b>Definition:</b> sys.h:16</div></div>
-<div class="ttc" id="astructsystem__t_html_ac83f542afbd20a2c6185c52217797e3b"><div class="ttname"><a href="structsystem__t.html#ac83f542afbd20a2c6185c52217797e3b">system_t::mem</a></div><div class="ttdeci">memory_t mem</div><div class="ttdef"><b>Definition:</b> sys.h:21</div></div>
+<div class="ttc" id="astructsystem__t_html"><div class="ttname"><a href="structsystem__t.html">system_t</a></div><div class="ttdef"><b>Definition:</b> system.h:18</div></div>
+<div class="ttc" id="astructsystem__t_html_ac83f542afbd20a2c6185c52217797e3b"><div class="ttname"><a href="structsystem__t.html#ac83f542afbd20a2c6185c52217797e3b">system_t::mem</a></div><div class="ttdeci">memory_t mem</div><div class="ttdef"><b>Definition:</b> system.h:23</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

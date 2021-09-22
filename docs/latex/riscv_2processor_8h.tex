@@ -1,0 +1,72 @@
+\hypertarget{riscv_2processor_8h}{}\doxysection{C\+:/\+Users/\+GP69\+E5\+EN/\+Documents/dev/palinka/src/riscv/processor.h File Reference}
+\label{riscv_2processor_8h}\index{C:/Users/GP69E5EN/Documents/dev/palinka/src/riscv/processor.h@{C:/Users/GP69E5EN/Documents/dev/palinka/src/riscv/processor.h}}
+{\ttfamily \#include \char`\"{}../../lib/common/include/types.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../system.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}./control.\+h\char`\"{}}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structriscv__processor__t}{riscv\+\_\+processor\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{riscv_2processor_8h_a7f33963ec4e5c7ba2ab1db93b169ef25}{riscv\+\_\+stage\+\_\+t}} \{ \newline
+\mbox{\hyperlink{riscv_2processor_8h_a7f33963ec4e5c7ba2ab1db93b169ef25a068a0fb74714382e919933dc979d4e28}{RISCV\+\_\+\+FETCH}}
+, \mbox{\hyperlink{riscv_2processor_8h_a7f33963ec4e5c7ba2ab1db93b169ef25a9b41de52c58fb5a26d090fc2e931c10b}{RISCV\+\_\+\+DECODE}}
+, \mbox{\hyperlink{riscv_2processor_8h_a7f33963ec4e5c7ba2ab1db93b169ef25afc42e412a01a2a293343cc2d911f0ac3}{RISCV\+\_\+\+READ}}
+, \mbox{\hyperlink{riscv_2processor_8h_a7f33963ec4e5c7ba2ab1db93b169ef25a20c17338c277c9fc6b28fdb8e76824be}{RISCV\+\_\+\+EXECUTE}}
+, \newline
+\mbox{\hyperlink{riscv_2processor_8h_a7f33963ec4e5c7ba2ab1db93b169ef25ac7390585b134ca15e0c50bc81401a8fe}{RISCV\+\_\+\+MEMORY}}
+, \mbox{\hyperlink{riscv_2processor_8h_a7f33963ec4e5c7ba2ab1db93b169ef25aad012cb82b38e2cd2b42b4acb5143a83}{RISCV\+\_\+\+WRITE}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structriscv__processor__t}{riscv\+\_\+processor\+\_\+t}} $\ast$ \mbox{\hyperlink{riscv_2processor_8h_a7f75feaaba54aba7f5d5ad86e2becf1a}{\+\_\+\+\_\+get\+\_\+riscv\+\_\+proc}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{riscv_2processor_8h_a7f33963ec4e5c7ba2ab1db93b169ef25}\label{riscv_2processor_8h_a7f33963ec4e5c7ba2ab1db93b169ef25}} 
+\index{processor.h@{processor.h}!riscv\_stage\_t@{riscv\_stage\_t}}
+\index{riscv\_stage\_t@{riscv\_stage\_t}!processor.h@{processor.h}}
+\doxysubsubsection{\texorpdfstring{riscv\_stage\_t}{riscv\_stage\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{riscv_2processor_8h_a7f33963ec4e5c7ba2ab1db93b169ef25}{riscv\+\_\+stage\+\_\+t}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_FETCH@{RISCV\_FETCH}!processor.h@{processor.h}}\index{processor.h@{processor.h}!RISCV\_FETCH@{RISCV\_FETCH}}}\mbox{\Hypertarget{riscv_2processor_8h_a7f33963ec4e5c7ba2ab1db93b169ef25a068a0fb74714382e919933dc979d4e28}\label{riscv_2processor_8h_a7f33963ec4e5c7ba2ab1db93b169ef25a068a0fb74714382e919933dc979d4e28}} 
+RISCV\+\_\+\+FETCH&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_DECODE@{RISCV\_DECODE}!processor.h@{processor.h}}\index{processor.h@{processor.h}!RISCV\_DECODE@{RISCV\_DECODE}}}\mbox{\Hypertarget{riscv_2processor_8h_a7f33963ec4e5c7ba2ab1db93b169ef25a9b41de52c58fb5a26d090fc2e931c10b}\label{riscv_2processor_8h_a7f33963ec4e5c7ba2ab1db93b169ef25a9b41de52c58fb5a26d090fc2e931c10b}} 
+RISCV\+\_\+\+DECODE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_READ@{RISCV\_READ}!processor.h@{processor.h}}\index{processor.h@{processor.h}!RISCV\_READ@{RISCV\_READ}}}\mbox{\Hypertarget{riscv_2processor_8h_a7f33963ec4e5c7ba2ab1db93b169ef25afc42e412a01a2a293343cc2d911f0ac3}\label{riscv_2processor_8h_a7f33963ec4e5c7ba2ab1db93b169ef25afc42e412a01a2a293343cc2d911f0ac3}} 
+RISCV\+\_\+\+READ&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_EXECUTE@{RISCV\_EXECUTE}!processor.h@{processor.h}}\index{processor.h@{processor.h}!RISCV\_EXECUTE@{RISCV\_EXECUTE}}}\mbox{\Hypertarget{riscv_2processor_8h_a7f33963ec4e5c7ba2ab1db93b169ef25a20c17338c277c9fc6b28fdb8e76824be}\label{riscv_2processor_8h_a7f33963ec4e5c7ba2ab1db93b169ef25a20c17338c277c9fc6b28fdb8e76824be}} 
+RISCV\+\_\+\+EXECUTE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_MEMORY@{RISCV\_MEMORY}!processor.h@{processor.h}}\index{processor.h@{processor.h}!RISCV\_MEMORY@{RISCV\_MEMORY}}}\mbox{\Hypertarget{riscv_2processor_8h_a7f33963ec4e5c7ba2ab1db93b169ef25ac7390585b134ca15e0c50bc81401a8fe}\label{riscv_2processor_8h_a7f33963ec4e5c7ba2ab1db93b169ef25ac7390585b134ca15e0c50bc81401a8fe}} 
+RISCV\+\_\+\+MEMORY&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RISCV\_WRITE@{RISCV\_WRITE}!processor.h@{processor.h}}\index{processor.h@{processor.h}!RISCV\_WRITE@{RISCV\_WRITE}}}\mbox{\Hypertarget{riscv_2processor_8h_a7f33963ec4e5c7ba2ab1db93b169ef25aad012cb82b38e2cd2b42b4acb5143a83}\label{riscv_2processor_8h_a7f33963ec4e5c7ba2ab1db93b169ef25aad012cb82b38e2cd2b42b4acb5143a83}} 
+RISCV\+\_\+\+WRITE&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{riscv_2processor_8h_a7f75feaaba54aba7f5d5ad86e2becf1a}\label{riscv_2processor_8h_a7f75feaaba54aba7f5d5ad86e2becf1a}} 
+\index{processor.h@{processor.h}!\_\_get\_riscv\_proc@{\_\_get\_riscv\_proc}}
+\index{\_\_get\_riscv\_proc@{\_\_get\_riscv\_proc}!processor.h@{processor.h}}
+\doxysubsubsection{\texorpdfstring{\_\_get\_riscv\_proc()}{\_\_get\_riscv\_proc()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structriscv__processor__t}{riscv\+\_\+processor\+\_\+t}}$\ast$ \+\_\+\+\_\+get\+\_\+riscv\+\_\+proc (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys }\end{DoxyParamCaption})}
+

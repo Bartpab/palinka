@@ -1,0 +1,233 @@
+\hypertarget{lexer_8h}{}\doxysection{C\+:/\+Users/\+GP69\+E5\+EN/\+Documents/dev/palinka/src/mmix/asm/lexer.h File Reference}
+\label{lexer_8h}\index{C:/Users/GP69E5EN/Documents/dev/palinka/src/mmix/asm/lexer.h@{C:/Users/GP69E5EN/Documents/dev/palinka/src/mmix/asm/lexer.h}}
+{\ttfamily \#include \char`\"{}../../lib/common/include/lexer/state/core.\+h\char`\"{}}\newline
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{lexer_8h_a3e6315e2e1593bd5329445885b93aeac}{mmix\+\_\+token\+\_\+type\+\_\+t}} \{ \newline
+\mbox{\hyperlink{lexer_8h_a3e6315e2e1593bd5329445885b93aeacaef2863a469df3ea6871d640e3669a2f2}{INVALID}}
+, \mbox{\hyperlink{lexer_8h_a3e6315e2e1593bd5329445885b93aeacae3d30ffaffa3c06ed917e565dda1fbc5}{SYMBOL}}
+, \mbox{\hyperlink{lexer_8h_a3e6315e2e1593bd5329445885b93aeacaecb674676a7ca09de1d0aa58ed4ca2d2}{DECIMAL\+\_\+\+CONSTANT}}
+, \mbox{\hyperlink{lexer_8h_a3e6315e2e1593bd5329445885b93aeaca9fd06beb67f6cbbea202a85be1c0637b}{CHAR\+\_\+\+CONSTANT}}
+, \newline
+\mbox{\hyperlink{lexer_8h_a3e6315e2e1593bd5329445885b93aeacabb9e5764f929ed68c553b904612d1095}{HEX\+\_\+\+CONSTANT}}
+, \mbox{\hyperlink{lexer_8h_a3e6315e2e1593bd5329445885b93aeaca3f4a7104d266b8f471058a97b87b5e89}{LOCAL\+\_\+\+OPERAND}}
+, \mbox{\hyperlink{lexer_8h_a3e6315e2e1593bd5329445885b93aeacafc2f6f4a7c816120c3c6c2e84deca874}{LOCAL\+\_\+\+LABEL}}
+, \mbox{\hyperlink{lexer_8h_a3e6315e2e1593bd5329445885b93aeaca9ad4a97e6e18d3ea164797398bf5548d}{UNARY\+\_\+\+OPERATOR}}
+, \newline
+\mbox{\hyperlink{lexer_8h_a3e6315e2e1593bd5329445885b93aeacad4b7edcc1a57d6203994cd2837ecc128}{WEAK\+\_\+\+OPERATOR}}
+, \mbox{\hyperlink{lexer_8h_a3e6315e2e1593bd5329445885b93aeaca059d390bb9ee71a764588a88f2ef1005}{STRONG\+\_\+\+OPERATOR}}
+, \mbox{\hyperlink{lexer_8h_a3e6315e2e1593bd5329445885b93aeaca9c36170003f0258d8f89bac9de4430c6}{AROBASE}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} $\ast$ \mbox{\hyperlink{lexer_8h_ad81ed33c170df8d28685d3968eb16bb2}{get\+\_\+lexer}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const char \mbox{\hyperlink{lexer_8h_a2633359c7e999fc2b431482175552b16}{symbol\+\_\+chars}} \mbox{[}$\,$\mbox{]} = \char`\"{}ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\+\_\+0123456789\char`\"{}
+\item 
+const char \mbox{\hyperlink{lexer_8h_ae645edde80dda15aa7be90d4c15222bf}{char\+\_\+chars}} \mbox{[}$\,$\mbox{]} = \char`\"{}ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\+\_\+0123456789\char`\"{}
+\item 
+const char \mbox{\hyperlink{lexer_8h_a8e203079850c81a57a9ea677b3baaecf}{hex\+\_\+digits\+\_\+chars}} \mbox{[}$\,$\mbox{]} = \char`\"{}ABCDEFacbdef0123456789\char`\"{}
+\item 
+const char \mbox{\hyperlink{lexer_8h_a44cb4d2c4ed36bb138997943d257469b}{decimal\+\_\+digits\+\_\+chars}} \mbox{[}$\,$\mbox{]} = \char`\"{}0123456789\char`\"{}
+\item 
+\mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} \mbox{\hyperlink{lexer_8h_a4d4f578c88c5270c4b1cabe95df55f14}{states}} \mbox{[}19\mbox{]}
+\item 
+\mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} \mbox{\hyperlink{lexer_8h_ad1fd6d21a1e88de7e6be38c08403385c}{s0\+\_\+transitions}} \mbox{[}10\mbox{]}
+\item 
+\mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} \mbox{\hyperlink{lexer_8h_a1d3838ef866ed0fbbc83f3d2726c8e74}{s1\+\_\+transitions}} \mbox{[}3\mbox{]}
+\item 
+\mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} \mbox{\hyperlink{lexer_8h_a50d60b94c5cbf8fb12f143f21aec7220}{s4\+\_\+transitions}} \mbox{[}1\mbox{]}
+\item 
+\mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} \mbox{\hyperlink{lexer_8h_ac74df1724faa59a50dad347df6c72368}{s5\+\_\+transitions}} \mbox{[}1\mbox{]}
+\item 
+\mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} \mbox{\hyperlink{lexer_8h_a1da96d3ac1494a9bc7f0a39df23f960e}{s6\+\_\+transitions}} \mbox{[}1\mbox{]}
+\item 
+\mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} \mbox{\hyperlink{lexer_8h_a1394bc9bac9477744e0d8cb68c734c95}{s7\+\_\+transitions}} \mbox{[}1\mbox{]}
+\item 
+\mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} \mbox{\hyperlink{lexer_8h_aa7f6fe1ef8106bb2d50046e82a4879ae}{s8\+\_\+transitions}} \mbox{[}1\mbox{]}
+\item 
+\mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} \mbox{\hyperlink{lexer_8h_aeb006095d431017c3df2f843c1aebaf1}{s10\+\_\+transitions}} \mbox{[}1\mbox{]}
+\item 
+\mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} \mbox{\hyperlink{lexer_8h_aff4fe4b75186f96250b5f9f7f1dc1102}{s15\+\_\+transitions}} \mbox{[}1\mbox{]}
+\item 
+\mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} \mbox{\hyperlink{lexer_8h_afdf7e9ccc263cc28f1f32924dda2e420}{s16\+\_\+transitions}} \mbox{[}1\mbox{]}
+\item 
+\mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} \mbox{\hyperlink{lexer_8h_a9cadec7486996704460bb2127570d5b5}{s17\+\_\+transitions}} \mbox{[}1\mbox{]}
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{lexer_8h_a4ebb39f319bfce3f49a7a6437c855bcf}{lexer\+\_\+initialised}} = \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1ae9de385ef6fe9bf3360d1038396b884c}{false}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{lexer_8h_a3e6315e2e1593bd5329445885b93aeac}\label{lexer_8h_a3e6315e2e1593bd5329445885b93aeac}} 
+\index{lexer.h@{lexer.h}!mmix\_token\_type\_t@{mmix\_token\_type\_t}}
+\index{mmix\_token\_type\_t@{mmix\_token\_type\_t}!lexer.h@{lexer.h}}
+\doxysubsubsection{\texorpdfstring{mmix\_token\_type\_t}{mmix\_token\_type\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{lexer_8h_a3e6315e2e1593bd5329445885b93aeac}{mmix\+\_\+token\+\_\+type\+\_\+t}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{INVALID@{INVALID}!lexer.h@{lexer.h}}\index{lexer.h@{lexer.h}!INVALID@{INVALID}}}\mbox{\Hypertarget{lexer_8h_a3e6315e2e1593bd5329445885b93aeacaef2863a469df3ea6871d640e3669a2f2}\label{lexer_8h_a3e6315e2e1593bd5329445885b93aeacaef2863a469df3ea6871d640e3669a2f2}} 
+INVALID&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SYMBOL@{SYMBOL}!lexer.h@{lexer.h}}\index{lexer.h@{lexer.h}!SYMBOL@{SYMBOL}}}\mbox{\Hypertarget{lexer_8h_a3e6315e2e1593bd5329445885b93aeacae3d30ffaffa3c06ed917e565dda1fbc5}\label{lexer_8h_a3e6315e2e1593bd5329445885b93aeacae3d30ffaffa3c06ed917e565dda1fbc5}} 
+SYMBOL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DECIMAL\_CONSTANT@{DECIMAL\_CONSTANT}!lexer.h@{lexer.h}}\index{lexer.h@{lexer.h}!DECIMAL\_CONSTANT@{DECIMAL\_CONSTANT}}}\mbox{\Hypertarget{lexer_8h_a3e6315e2e1593bd5329445885b93aeacaecb674676a7ca09de1d0aa58ed4ca2d2}\label{lexer_8h_a3e6315e2e1593bd5329445885b93aeacaecb674676a7ca09de1d0aa58ed4ca2d2}} 
+DECIMAL\+\_\+\+CONSTANT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CHAR\_CONSTANT@{CHAR\_CONSTANT}!lexer.h@{lexer.h}}\index{lexer.h@{lexer.h}!CHAR\_CONSTANT@{CHAR\_CONSTANT}}}\mbox{\Hypertarget{lexer_8h_a3e6315e2e1593bd5329445885b93aeaca9fd06beb67f6cbbea202a85be1c0637b}\label{lexer_8h_a3e6315e2e1593bd5329445885b93aeaca9fd06beb67f6cbbea202a85be1c0637b}} 
+CHAR\+\_\+\+CONSTANT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{HEX\_CONSTANT@{HEX\_CONSTANT}!lexer.h@{lexer.h}}\index{lexer.h@{lexer.h}!HEX\_CONSTANT@{HEX\_CONSTANT}}}\mbox{\Hypertarget{lexer_8h_a3e6315e2e1593bd5329445885b93aeacabb9e5764f929ed68c553b904612d1095}\label{lexer_8h_a3e6315e2e1593bd5329445885b93aeacabb9e5764f929ed68c553b904612d1095}} 
+HEX\+\_\+\+CONSTANT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOCAL\_OPERAND@{LOCAL\_OPERAND}!lexer.h@{lexer.h}}\index{lexer.h@{lexer.h}!LOCAL\_OPERAND@{LOCAL\_OPERAND}}}\mbox{\Hypertarget{lexer_8h_a3e6315e2e1593bd5329445885b93aeaca3f4a7104d266b8f471058a97b87b5e89}\label{lexer_8h_a3e6315e2e1593bd5329445885b93aeaca3f4a7104d266b8f471058a97b87b5e89}} 
+LOCAL\+\_\+\+OPERAND&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOCAL\_LABEL@{LOCAL\_LABEL}!lexer.h@{lexer.h}}\index{lexer.h@{lexer.h}!LOCAL\_LABEL@{LOCAL\_LABEL}}}\mbox{\Hypertarget{lexer_8h_a3e6315e2e1593bd5329445885b93aeacafc2f6f4a7c816120c3c6c2e84deca874}\label{lexer_8h_a3e6315e2e1593bd5329445885b93aeacafc2f6f4a7c816120c3c6c2e84deca874}} 
+LOCAL\+\_\+\+LABEL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{UNARY\_OPERATOR@{UNARY\_OPERATOR}!lexer.h@{lexer.h}}\index{lexer.h@{lexer.h}!UNARY\_OPERATOR@{UNARY\_OPERATOR}}}\mbox{\Hypertarget{lexer_8h_a3e6315e2e1593bd5329445885b93aeaca9ad4a97e6e18d3ea164797398bf5548d}\label{lexer_8h_a3e6315e2e1593bd5329445885b93aeaca9ad4a97e6e18d3ea164797398bf5548d}} 
+UNARY\+\_\+\+OPERATOR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{WEAK\_OPERATOR@{WEAK\_OPERATOR}!lexer.h@{lexer.h}}\index{lexer.h@{lexer.h}!WEAK\_OPERATOR@{WEAK\_OPERATOR}}}\mbox{\Hypertarget{lexer_8h_a3e6315e2e1593bd5329445885b93aeacad4b7edcc1a57d6203994cd2837ecc128}\label{lexer_8h_a3e6315e2e1593bd5329445885b93aeacad4b7edcc1a57d6203994cd2837ecc128}} 
+WEAK\+\_\+\+OPERATOR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STRONG\_OPERATOR@{STRONG\_OPERATOR}!lexer.h@{lexer.h}}\index{lexer.h@{lexer.h}!STRONG\_OPERATOR@{STRONG\_OPERATOR}}}\mbox{\Hypertarget{lexer_8h_a3e6315e2e1593bd5329445885b93aeaca059d390bb9ee71a764588a88f2ef1005}\label{lexer_8h_a3e6315e2e1593bd5329445885b93aeaca059d390bb9ee71a764588a88f2ef1005}} 
+STRONG\+\_\+\+OPERATOR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{AROBASE@{AROBASE}!lexer.h@{lexer.h}}\index{lexer.h@{lexer.h}!AROBASE@{AROBASE}}}\mbox{\Hypertarget{lexer_8h_a3e6315e2e1593bd5329445885b93aeaca9c36170003f0258d8f89bac9de4430c6}\label{lexer_8h_a3e6315e2e1593bd5329445885b93aeaca9c36170003f0258d8f89bac9de4430c6}} 
+AROBASE&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{lexer_8h_ad81ed33c170df8d28685d3968eb16bb2}\label{lexer_8h_ad81ed33c170df8d28685d3968eb16bb2}} 
+\index{lexer.h@{lexer.h}!get\_lexer@{get\_lexer}}
+\index{get\_lexer@{get\_lexer}!lexer.h@{lexer.h}}
+\doxysubsubsection{\texorpdfstring{get\_lexer()}{get\_lexer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}}$\ast$ get\+\_\+lexer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{lexer_8h_ae645edde80dda15aa7be90d4c15222bf}\label{lexer_8h_ae645edde80dda15aa7be90d4c15222bf}} 
+\index{lexer.h@{lexer.h}!char\_chars@{char\_chars}}
+\index{char\_chars@{char\_chars}!lexer.h@{lexer.h}}
+\doxysubsubsection{\texorpdfstring{char\_chars}{char\_chars}}
+{\footnotesize\ttfamily const char char\+\_\+chars\mbox{[}$\,$\mbox{]} = \char`\"{}ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\+\_\+0123456789\char`\"{}}
+
+\mbox{\Hypertarget{lexer_8h_a44cb4d2c4ed36bb138997943d257469b}\label{lexer_8h_a44cb4d2c4ed36bb138997943d257469b}} 
+\index{lexer.h@{lexer.h}!decimal\_digits\_chars@{decimal\_digits\_chars}}
+\index{decimal\_digits\_chars@{decimal\_digits\_chars}!lexer.h@{lexer.h}}
+\doxysubsubsection{\texorpdfstring{decimal\_digits\_chars}{decimal\_digits\_chars}}
+{\footnotesize\ttfamily const char decimal\+\_\+digits\+\_\+chars\mbox{[}$\,$\mbox{]} = \char`\"{}0123456789\char`\"{}}
+
+\mbox{\Hypertarget{lexer_8h_a8e203079850c81a57a9ea677b3baaecf}\label{lexer_8h_a8e203079850c81a57a9ea677b3baaecf}} 
+\index{lexer.h@{lexer.h}!hex\_digits\_chars@{hex\_digits\_chars}}
+\index{hex\_digits\_chars@{hex\_digits\_chars}!lexer.h@{lexer.h}}
+\doxysubsubsection{\texorpdfstring{hex\_digits\_chars}{hex\_digits\_chars}}
+{\footnotesize\ttfamily const char hex\+\_\+digits\+\_\+chars\mbox{[}$\,$\mbox{]} = \char`\"{}ABCDEFacbdef0123456789\char`\"{}}
+
+\mbox{\Hypertarget{lexer_8h_a4ebb39f319bfce3f49a7a6437c855bcf}\label{lexer_8h_a4ebb39f319bfce3f49a7a6437c855bcf}} 
+\index{lexer.h@{lexer.h}!lexer\_initialised@{lexer\_initialised}}
+\index{lexer\_initialised@{lexer\_initialised}!lexer.h@{lexer.h}}
+\doxysubsubsection{\texorpdfstring{lexer\_initialised}{lexer\_initialised}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} lexer\+\_\+initialised = \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1ae9de385ef6fe9bf3360d1038396b884c}{false}}}
+
+\mbox{\Hypertarget{lexer_8h_ad1fd6d21a1e88de7e6be38c08403385c}\label{lexer_8h_ad1fd6d21a1e88de7e6be38c08403385c}} 
+\index{lexer.h@{lexer.h}!s0\_transitions@{s0\_transitions}}
+\index{s0\_transitions@{s0\_transitions}!lexer.h@{lexer.h}}
+\doxysubsubsection{\texorpdfstring{s0\_transitions}{s0\_transitions}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} s0\+\_\+transitions\mbox{[}10\mbox{]}}
+
+\mbox{\Hypertarget{lexer_8h_aeb006095d431017c3df2f843c1aebaf1}\label{lexer_8h_aeb006095d431017c3df2f843c1aebaf1}} 
+\index{lexer.h@{lexer.h}!s10\_transitions@{s10\_transitions}}
+\index{s10\_transitions@{s10\_transitions}!lexer.h@{lexer.h}}
+\doxysubsubsection{\texorpdfstring{s10\_transitions}{s10\_transitions}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} s10\+\_\+transitions\mbox{[}1\mbox{]}}
+
+\mbox{\Hypertarget{lexer_8h_aff4fe4b75186f96250b5f9f7f1dc1102}\label{lexer_8h_aff4fe4b75186f96250b5f9f7f1dc1102}} 
+\index{lexer.h@{lexer.h}!s15\_transitions@{s15\_transitions}}
+\index{s15\_transitions@{s15\_transitions}!lexer.h@{lexer.h}}
+\doxysubsubsection{\texorpdfstring{s15\_transitions}{s15\_transitions}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} s15\+\_\+transitions\mbox{[}1\mbox{]}}
+
+\mbox{\Hypertarget{lexer_8h_afdf7e9ccc263cc28f1f32924dda2e420}\label{lexer_8h_afdf7e9ccc263cc28f1f32924dda2e420}} 
+\index{lexer.h@{lexer.h}!s16\_transitions@{s16\_transitions}}
+\index{s16\_transitions@{s16\_transitions}!lexer.h@{lexer.h}}
+\doxysubsubsection{\texorpdfstring{s16\_transitions}{s16\_transitions}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} s16\+\_\+transitions\mbox{[}1\mbox{]}}
+
+\mbox{\Hypertarget{lexer_8h_a9cadec7486996704460bb2127570d5b5}\label{lexer_8h_a9cadec7486996704460bb2127570d5b5}} 
+\index{lexer.h@{lexer.h}!s17\_transitions@{s17\_transitions}}
+\index{s17\_transitions@{s17\_transitions}!lexer.h@{lexer.h}}
+\doxysubsubsection{\texorpdfstring{s17\_transitions}{s17\_transitions}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} s17\+\_\+transitions\mbox{[}1\mbox{]}}
+
+\mbox{\Hypertarget{lexer_8h_a1d3838ef866ed0fbbc83f3d2726c8e74}\label{lexer_8h_a1d3838ef866ed0fbbc83f3d2726c8e74}} 
+\index{lexer.h@{lexer.h}!s1\_transitions@{s1\_transitions}}
+\index{s1\_transitions@{s1\_transitions}!lexer.h@{lexer.h}}
+\doxysubsubsection{\texorpdfstring{s1\_transitions}{s1\_transitions}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} s1\+\_\+transitions\mbox{[}3\mbox{]}}
+
+\mbox{\Hypertarget{lexer_8h_a50d60b94c5cbf8fb12f143f21aec7220}\label{lexer_8h_a50d60b94c5cbf8fb12f143f21aec7220}} 
+\index{lexer.h@{lexer.h}!s4\_transitions@{s4\_transitions}}
+\index{s4\_transitions@{s4\_transitions}!lexer.h@{lexer.h}}
+\doxysubsubsection{\texorpdfstring{s4\_transitions}{s4\_transitions}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} s4\+\_\+transitions\mbox{[}1\mbox{]}}
+
+\mbox{\Hypertarget{lexer_8h_ac74df1724faa59a50dad347df6c72368}\label{lexer_8h_ac74df1724faa59a50dad347df6c72368}} 
+\index{lexer.h@{lexer.h}!s5\_transitions@{s5\_transitions}}
+\index{s5\_transitions@{s5\_transitions}!lexer.h@{lexer.h}}
+\doxysubsubsection{\texorpdfstring{s5\_transitions}{s5\_transitions}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} s5\+\_\+transitions\mbox{[}1\mbox{]}}
+
+\mbox{\Hypertarget{lexer_8h_a1da96d3ac1494a9bc7f0a39df23f960e}\label{lexer_8h_a1da96d3ac1494a9bc7f0a39df23f960e}} 
+\index{lexer.h@{lexer.h}!s6\_transitions@{s6\_transitions}}
+\index{s6\_transitions@{s6\_transitions}!lexer.h@{lexer.h}}
+\doxysubsubsection{\texorpdfstring{s6\_transitions}{s6\_transitions}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} s6\+\_\+transitions\mbox{[}1\mbox{]}}
+
+\mbox{\Hypertarget{lexer_8h_a1394bc9bac9477744e0d8cb68c734c95}\label{lexer_8h_a1394bc9bac9477744e0d8cb68c734c95}} 
+\index{lexer.h@{lexer.h}!s7\_transitions@{s7\_transitions}}
+\index{s7\_transitions@{s7\_transitions}!lexer.h@{lexer.h}}
+\doxysubsubsection{\texorpdfstring{s7\_transitions}{s7\_transitions}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} s7\+\_\+transitions\mbox{[}1\mbox{]}}
+
+\mbox{\Hypertarget{lexer_8h_aa7f6fe1ef8106bb2d50046e82a4879ae}\label{lexer_8h_aa7f6fe1ef8106bb2d50046e82a4879ae}} 
+\index{lexer.h@{lexer.h}!s8\_transitions@{s8\_transitions}}
+\index{s8\_transitions@{s8\_transitions}!lexer.h@{lexer.h}}
+\doxysubsubsection{\texorpdfstring{s8\_transitions}{s8\_transitions}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structlexer__transition__t}{lexer\+\_\+transition\+\_\+t}} s8\+\_\+transitions\mbox{[}1\mbox{]}}
+
+\mbox{\Hypertarget{lexer_8h_a4d4f578c88c5270c4b1cabe95df55f14}\label{lexer_8h_a4d4f578c88c5270c4b1cabe95df55f14}} 
+\index{lexer.h@{lexer.h}!states@{states}}
+\index{states@{states}!lexer.h@{lexer.h}}
+\doxysubsubsection{\texorpdfstring{states}{states}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structlexer__state__t}{lexer\+\_\+state\+\_\+t}} states\mbox{[}19\mbox{]}}
+
+\mbox{\Hypertarget{lexer_8h_a2633359c7e999fc2b431482175552b16}\label{lexer_8h_a2633359c7e999fc2b431482175552b16}} 
+\index{lexer.h@{lexer.h}!symbol\_chars@{symbol\_chars}}
+\index{symbol\_chars@{symbol\_chars}!lexer.h@{lexer.h}}
+\doxysubsubsection{\texorpdfstring{symbol\_chars}{symbol\_chars}}
+{\footnotesize\ttfamily const char symbol\+\_\+chars\mbox{[}$\,$\mbox{]} = \char`\"{}ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\+\_\+0123456789\char`\"{}}
+

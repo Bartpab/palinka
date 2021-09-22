@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['i_5fbit_2392',['I_BIT',['../alu_8h.html#aee2152981b17e0fd7752a41c038f42ad',1,'alu.h']]],
-  ['int64_5fmax_5fvalue_2393',['INT64_MAX_VALUE',['../alu_8h.html#a24418afb3e4cd2a5190d1b35adfcd586',1,'alu.h']]]
+  ['h_5fbit_3184',['H_BIT',['../alu_8h.html#a27dd469ef8938e39b9ea37ee1acc5e80',1,'alu.h']]],
+  ['has_5fflag_3185',['HAS_FLAG',['../macro_8h.html#a03c91a40ac149893ee643dbd90c20204',1,'macro.h']]]
 ];

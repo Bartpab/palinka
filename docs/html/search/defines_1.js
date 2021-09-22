@@ -1,10 +1,20 @@
 var searchData=
 [
-  ['d_5fbit_2375',['D_BIT',['../alu_8h.html#a19868606782aa93bd33d491a178aefb5',1,'alu.h']]],
-  ['decl_5fiterator_2376',['DECL_ITERATOR',['../container_2iterator_8h.html#a2f18893f4acbb4452dd997abe04ff151',1,'iterator.h']]],
-  ['decl_5ftype_5fdesc_2377',['DECL_TYPE_DESC',['../desc_8h.html#a9c27042d71ba38d9fd9d9a4d9f49ef02',1,'desc.h']]],
-  ['def_5ftype_5fdesc_2378',['DEF_TYPE_DESC',['../desc_8h.html#abb5a8cbaebc8345c767f6e97d9ac6caa',1,'desc.h']]],
-  ['define_5ftest_2379',['define_test',['../utils_8h.html#acea888c62920ec1ecc409843c270e981',1,'utils.h']]],
-  ['define_5ftest_5fchapter_2380',['define_test_chapter',['../utils_8h.html#ac9875e687c1668de001eb780eab21b10',1,'utils.h']]],
-  ['dir_5fid_2381',['DIR_ID',['../src_2mem_2core_8h.html#a5f41a0ffa876640f958f316d85d54f96',1,'core.h']]]
+  ['arg0_5fis_5fimmediate_3152',['ARG0_IS_IMMEDIATE',['../opcode_8h.html#a7e0dd8d5bec0e9524473589f024fa0b4',1,'opcode.h']]],
+  ['arg0_5fis_5fpc_3153',['ARG0_IS_PC',['../opcode_8h.html#ad2f7cf047d8d16c9667f413e60b5be4e',1,'opcode.h']]],
+  ['arg0_5fis_5frs1_3154',['ARG0_IS_RS1',['../opcode_8h.html#ab4706df78f1d5ea6cb08264c7498c91a',1,'opcode.h']]],
+  ['arg0_5fis_5frs2_3155',['ARG0_IS_RS2',['../opcode_8h.html#ab06b9e14733a2beef66ca94cea017263',1,'opcode.h']]],
+  ['arg1_5fis_5fimmediate_3156',['ARG1_IS_IMMEDIATE',['../opcode_8h.html#a0c6c520a81682349f7d2593f9e473552',1,'opcode.h']]],
+  ['arg1_5fis_5fpc_3157',['ARG1_IS_PC',['../opcode_8h.html#a3fce269bb5c3c7f638a5128b967641fc',1,'opcode.h']]],
+  ['arg1_5fis_5frs1_3158',['ARG1_IS_RS1',['../opcode_8h.html#a3caec743454eb9f89a5106625f1b195b',1,'opcode.h']]],
+  ['arg1_5fis_5frs2_3159',['ARG1_IS_RS2',['../opcode_8h.html#a7137d035ea421dd85fbf546b2c73501c',1,'opcode.h']]],
+  ['arg2_5fcompute_5fplus_3160',['ARG2_COMPUTE_PLUS',['../opcode_8h.html#acb64952a79e4d0050718a19b75dbda66',1,'opcode.h']]],
+  ['arg2_5fis_5fimmediate_3161',['ARG2_IS_IMMEDIATE',['../opcode_8h.html#adae3b1193d74f78684f576a1c956879d',1,'opcode.h']]],
+  ['arg2_5fis_5fpc_3162',['ARG2_IS_PC',['../opcode_8h.html#a99b44c704122471f395a7c9466427f36',1,'opcode.h']]],
+  ['arg2_5fis_5frs1_3163',['ARG2_IS_RS1',['../opcode_8h.html#ab071dd5d79f8aa3f6235393bc92f3275',1,'opcode.h']]],
+  ['arg2_5fis_5frs2_3164',['ARG2_IS_RS2',['../opcode_8h.html#aaf550145faad024763508d68fc2f41bc',1,'opcode.h']]],
+  ['arg3_5fis_5fimmediate_3165',['ARG3_IS_IMMEDIATE',['../opcode_8h.html#a1a09107e0ef01a215edfea6118234caf',1,'opcode.h']]],
+  ['arg3_5fis_5fpc_3166',['ARG3_IS_PC',['../opcode_8h.html#a2b65d2e8b1c96fcf15c3f9ee257409f5',1,'opcode.h']]],
+  ['arg3_5fis_5frs1_3167',['ARG3_IS_RS1',['../opcode_8h.html#a2badfab6e5a4fb45c8ba0aa1bda51ee9',1,'opcode.h']]],
+  ['arg3_5fis_5frs2_3168',['ARG3_IS_RS2',['../opcode_8h.html#af7a994189cac69a0dd35b2d146b027e0',1,'opcode.h']]]
 ];

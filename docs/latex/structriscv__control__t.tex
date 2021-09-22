@@ -1,0 +1,165 @@
+\hypertarget{structriscv__control__t}{}\doxysection{riscv\+\_\+control\+\_\+t Struct Reference}
+\label{structriscv__control__t}\index{riscv\_control\_t@{riscv\_control\_t}}
+
+
+{\ttfamily \#include $<$control.\+h$>$}
+
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{types_8h_afd61c115ffade1e498b3563528686ec1}{tetra}} \mbox{\hyperlink{structriscv__control__t_a1bcb7226ad817ba0697790113db7702f}{raw}}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>\mbox{\hyperlink{types_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte}} \mbox{\hyperlink{structriscv__control__t_ac6663d8a58908ad5c3d337f27e681f38}{opcode}}\\
+\>\mbox{\hyperlink{types_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte}} \mbox{\hyperlink{structriscv__control__t_a9d3368951425a3ff94f5bfbcec689606}{rd}}\\
+\>\mbox{\hyperlink{types_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte}} \mbox{\hyperlink{structriscv__control__t_a16e8badb8eaf1a067ad255ac06111822}{funct3}}\\
+\>\mbox{\hyperlink{types_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte}} \mbox{\hyperlink{structriscv__control__t_ab93bec4595b3745ec8521c7848e36619}{funct7}}\\
+\>\mbox{\hyperlink{types_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte}} \mbox{\hyperlink{structriscv__control__t_a99c1d73993e12e9ef176dcd0ef4e00ef}{rs1}}\\
+\>\mbox{\hyperlink{types_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte}} \mbox{\hyperlink{structriscv__control__t_ae3a5ef8e2a03d156fb6966aac2fd5fcf}{rs2}}\\
+\>\mbox{\hyperlink{types_8h_abf8479e8e86e389f81cf1da15c5100ec}{octa}} \mbox{\hyperlink{structriscv__control__t_a199c562988fff50f692b61faea7537a2}{shamt}}\\
+\>\mbox{\hyperlink{types_8h_abf8479e8e86e389f81cf1da15c5100ec}{octa}} \mbox{\hyperlink{structriscv__control__t_a688814ed4b7a02c9a4e1946e99156907}{imm}}\\
+\} \mbox{\hyperlink{structriscv__control__t_aaaebd6c065525ff5f80831c04e4eee29}{decoded}}\\
+
+\end{tabbing}\item 
+unsigned int \mbox{\hyperlink{structriscv__control__t_a29418b7f2f58b223108b7777b61381c2}{op}}
+\item 
+struct \mbox{\hyperlink{structriscv__instr__info__t}{riscv\+\_\+instr\+\_\+info\+\_\+t}} $\ast$ \mbox{\hyperlink{structriscv__control__t_a3b670c027ef6487b9fcda46ef5e71f98}{infos}}
+\item 
+int \mbox{\hyperlink{structriscv__control__t_ad38c754f94251a3addc86396fc8f5c98}{stage}}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>\mbox{\hyperlink{types_8h_abf8479e8e86e389f81cf1da15c5100ec}{octa}} \mbox{\hyperlink{structriscv__control__t_a8a4f2a64a40c468e849286ff30e1b29d}{flag}}\\
+\>\mbox{\hyperlink{types_8h_abf8479e8e86e389f81cf1da15c5100ec}{octa}} $\ast$ \mbox{\hyperlink{structriscv__control__t_a0f651508fea051f474cd16e5236cadc4}{ptr}}\\
+\>\mbox{\hyperlink{types_8h_abf8479e8e86e389f81cf1da15c5100ec}{octa}} \mbox{\hyperlink{structriscv__control__t_a6b46c44b36f7af16eb2b96ab3c58692b}{value}}\\
+\} \mbox{\hyperlink{structriscv__control__t_a7edb7775bf899a2db34ad17ae3e3f3e4}{args}} \mbox{[}4\mbox{]}\\
+
+\end{tabbing}\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>\mbox{\hyperlink{types_8h_abf8479e8e86e389f81cf1da15c5100ec}{octa}} $\ast$ \mbox{\hyperlink{structriscv__control__t_a0f651508fea051f474cd16e5236cadc4}{ptr}}\\
+\>\mbox{\hyperlink{types_8h_abf8479e8e86e389f81cf1da15c5100ec}{octa}} \mbox{\hyperlink{structriscv__control__t_a6b46c44b36f7af16eb2b96ab3c58692b}{value}}\\
+\>\mbox{\hyperlink{types_8h_abf8479e8e86e389f81cf1da15c5100ec}{octa}} \mbox{\hyperlink{structriscv__control__t_a8a4f2a64a40c468e849286ff30e1b29d}{flag}}\\
+\} \mbox{\hyperlink{structriscv__control__t_a2723577ba322d03edf8c2b7e09df48be}{out}} \mbox{[}3\mbox{]}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structriscv__control__t_a7edb7775bf899a2db34ad17ae3e3f3e4}\label{structriscv__control__t_a7edb7775bf899a2db34ad17ae3e3f3e4}} 
+\index{riscv\_control\_t@{riscv\_control\_t}!args@{args}}
+\index{args@{args}!riscv\_control\_t@{riscv\_control\_t}}
+\doxysubsubsection{\texorpdfstring{}{}}
+{\footnotesize\ttfamily struct \{ ... \}  riscv\+\_\+control\+\_\+t\+::args\mbox{[}4\mbox{]}}
+
+\mbox{\Hypertarget{structriscv__control__t_aaaebd6c065525ff5f80831c04e4eee29}\label{structriscv__control__t_aaaebd6c065525ff5f80831c04e4eee29}} 
+\index{riscv\_control\_t@{riscv\_control\_t}!decoded@{decoded}}
+\index{decoded@{decoded}!riscv\_control\_t@{riscv\_control\_t}}
+\doxysubsubsection{\texorpdfstring{}{}}
+{\footnotesize\ttfamily struct \{ ... \}  riscv\+\_\+control\+\_\+t\+::decoded}
+
+\mbox{\Hypertarget{structriscv__control__t_a8a4f2a64a40c468e849286ff30e1b29d}\label{structriscv__control__t_a8a4f2a64a40c468e849286ff30e1b29d}} 
+\index{riscv\_control\_t@{riscv\_control\_t}!flag@{flag}}
+\index{flag@{flag}!riscv\_control\_t@{riscv\_control\_t}}
+\doxysubsubsection{\texorpdfstring{flag}{flag}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_abf8479e8e86e389f81cf1da15c5100ec}{octa}} riscv\+\_\+control\+\_\+t\+::flag}
+
+\mbox{\Hypertarget{structriscv__control__t_a16e8badb8eaf1a067ad255ac06111822}\label{structriscv__control__t_a16e8badb8eaf1a067ad255ac06111822}} 
+\index{riscv\_control\_t@{riscv\_control\_t}!funct3@{funct3}}
+\index{funct3@{funct3}!riscv\_control\_t@{riscv\_control\_t}}
+\doxysubsubsection{\texorpdfstring{funct3}{funct3}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte}} riscv\+\_\+control\+\_\+t\+::funct3}
+
+\mbox{\Hypertarget{structriscv__control__t_ab93bec4595b3745ec8521c7848e36619}\label{structriscv__control__t_ab93bec4595b3745ec8521c7848e36619}} 
+\index{riscv\_control\_t@{riscv\_control\_t}!funct7@{funct7}}
+\index{funct7@{funct7}!riscv\_control\_t@{riscv\_control\_t}}
+\doxysubsubsection{\texorpdfstring{funct7}{funct7}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte}} riscv\+\_\+control\+\_\+t\+::funct7}
+
+\mbox{\Hypertarget{structriscv__control__t_a688814ed4b7a02c9a4e1946e99156907}\label{structriscv__control__t_a688814ed4b7a02c9a4e1946e99156907}} 
+\index{riscv\_control\_t@{riscv\_control\_t}!imm@{imm}}
+\index{imm@{imm}!riscv\_control\_t@{riscv\_control\_t}}
+\doxysubsubsection{\texorpdfstring{imm}{imm}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_abf8479e8e86e389f81cf1da15c5100ec}{octa}} riscv\+\_\+control\+\_\+t\+::imm}
+
+\mbox{\Hypertarget{structriscv__control__t_a3b670c027ef6487b9fcda46ef5e71f98}\label{structriscv__control__t_a3b670c027ef6487b9fcda46ef5e71f98}} 
+\index{riscv\_control\_t@{riscv\_control\_t}!infos@{infos}}
+\index{infos@{infos}!riscv\_control\_t@{riscv\_control\_t}}
+\doxysubsubsection{\texorpdfstring{infos}{infos}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structriscv__instr__info__t}{riscv\+\_\+instr\+\_\+info\+\_\+t}}$\ast$ riscv\+\_\+control\+\_\+t\+::infos}
+
+\mbox{\Hypertarget{structriscv__control__t_a29418b7f2f58b223108b7777b61381c2}\label{structriscv__control__t_a29418b7f2f58b223108b7777b61381c2}} 
+\index{riscv\_control\_t@{riscv\_control\_t}!op@{op}}
+\index{op@{op}!riscv\_control\_t@{riscv\_control\_t}}
+\doxysubsubsection{\texorpdfstring{op}{op}}
+{\footnotesize\ttfamily unsigned int riscv\+\_\+control\+\_\+t\+::op}
+
+\mbox{\Hypertarget{structriscv__control__t_ac6663d8a58908ad5c3d337f27e681f38}\label{structriscv__control__t_ac6663d8a58908ad5c3d337f27e681f38}} 
+\index{riscv\_control\_t@{riscv\_control\_t}!opcode@{opcode}}
+\index{opcode@{opcode}!riscv\_control\_t@{riscv\_control\_t}}
+\doxysubsubsection{\texorpdfstring{opcode}{opcode}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte}} riscv\+\_\+control\+\_\+t\+::opcode}
+
+\mbox{\Hypertarget{structriscv__control__t_a2723577ba322d03edf8c2b7e09df48be}\label{structriscv__control__t_a2723577ba322d03edf8c2b7e09df48be}} 
+\index{riscv\_control\_t@{riscv\_control\_t}!out@{out}}
+\index{out@{out}!riscv\_control\_t@{riscv\_control\_t}}
+\doxysubsubsection{\texorpdfstring{}{}}
+{\footnotesize\ttfamily struct \{ ... \}  riscv\+\_\+control\+\_\+t\+::out\mbox{[}3\mbox{]}}
+
+\mbox{\Hypertarget{structriscv__control__t_a0f651508fea051f474cd16e5236cadc4}\label{structriscv__control__t_a0f651508fea051f474cd16e5236cadc4}} 
+\index{riscv\_control\_t@{riscv\_control\_t}!ptr@{ptr}}
+\index{ptr@{ptr}!riscv\_control\_t@{riscv\_control\_t}}
+\doxysubsubsection{\texorpdfstring{ptr}{ptr}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_abf8479e8e86e389f81cf1da15c5100ec}{octa}}$\ast$ riscv\+\_\+control\+\_\+t\+::ptr}
+
+\mbox{\Hypertarget{structriscv__control__t_a1bcb7226ad817ba0697790113db7702f}\label{structriscv__control__t_a1bcb7226ad817ba0697790113db7702f}} 
+\index{riscv\_control\_t@{riscv\_control\_t}!raw@{raw}}
+\index{raw@{raw}!riscv\_control\_t@{riscv\_control\_t}}
+\doxysubsubsection{\texorpdfstring{raw}{raw}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_afd61c115ffade1e498b3563528686ec1}{tetra}} riscv\+\_\+control\+\_\+t\+::raw}
+
+\mbox{\Hypertarget{structriscv__control__t_a9d3368951425a3ff94f5bfbcec689606}\label{structriscv__control__t_a9d3368951425a3ff94f5bfbcec689606}} 
+\index{riscv\_control\_t@{riscv\_control\_t}!rd@{rd}}
+\index{rd@{rd}!riscv\_control\_t@{riscv\_control\_t}}
+\doxysubsubsection{\texorpdfstring{rd}{rd}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte}} riscv\+\_\+control\+\_\+t\+::rd}
+
+\mbox{\Hypertarget{structriscv__control__t_a99c1d73993e12e9ef176dcd0ef4e00ef}\label{structriscv__control__t_a99c1d73993e12e9ef176dcd0ef4e00ef}} 
+\index{riscv\_control\_t@{riscv\_control\_t}!rs1@{rs1}}
+\index{rs1@{rs1}!riscv\_control\_t@{riscv\_control\_t}}
+\doxysubsubsection{\texorpdfstring{rs1}{rs1}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte}} riscv\+\_\+control\+\_\+t\+::rs1}
+
+\mbox{\Hypertarget{structriscv__control__t_ae3a5ef8e2a03d156fb6966aac2fd5fcf}\label{structriscv__control__t_ae3a5ef8e2a03d156fb6966aac2fd5fcf}} 
+\index{riscv\_control\_t@{riscv\_control\_t}!rs2@{rs2}}
+\index{rs2@{rs2}!riscv\_control\_t@{riscv\_control\_t}}
+\doxysubsubsection{\texorpdfstring{rs2}{rs2}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte}} riscv\+\_\+control\+\_\+t\+::rs2}
+
+\mbox{\Hypertarget{structriscv__control__t_a199c562988fff50f692b61faea7537a2}\label{structriscv__control__t_a199c562988fff50f692b61faea7537a2}} 
+\index{riscv\_control\_t@{riscv\_control\_t}!shamt@{shamt}}
+\index{shamt@{shamt}!riscv\_control\_t@{riscv\_control\_t}}
+\doxysubsubsection{\texorpdfstring{shamt}{shamt}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_abf8479e8e86e389f81cf1da15c5100ec}{octa}} riscv\+\_\+control\+\_\+t\+::shamt}
+
+\mbox{\Hypertarget{structriscv__control__t_ad38c754f94251a3addc86396fc8f5c98}\label{structriscv__control__t_ad38c754f94251a3addc86396fc8f5c98}} 
+\index{riscv\_control\_t@{riscv\_control\_t}!stage@{stage}}
+\index{stage@{stage}!riscv\_control\_t@{riscv\_control\_t}}
+\doxysubsubsection{\texorpdfstring{stage}{stage}}
+{\footnotesize\ttfamily int riscv\+\_\+control\+\_\+t\+::stage}
+
+\mbox{\Hypertarget{structriscv__control__t_a6b46c44b36f7af16eb2b96ab3c58692b}\label{structriscv__control__t_a6b46c44b36f7af16eb2b96ab3c58692b}} 
+\index{riscv\_control\_t@{riscv\_control\_t}!value@{value}}
+\index{value@{value}!riscv\_control\_t@{riscv\_control\_t}}
+\doxysubsubsection{\texorpdfstring{value}{value}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_abf8479e8e86e389f81cf1da15c5100ec}{octa}} riscv\+\_\+control\+\_\+t\+::value}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+GP69\+E5\+EN/\+Documents/dev/palinka/src/riscv/\mbox{\hyperlink{control_8h}{control.\+h}}\end{DoxyCompactItemize}

@@ -1,0 +1,209 @@
+\hypertarget{system_8h}{}\doxysection{C\+:/\+Users/\+GP69\+E5\+EN/\+Documents/dev/palinka/src/system.h File Reference}
+\label{system_8h}\index{C:/Users/GP69E5EN/Documents/dev/palinka/src/system.h@{C:/Users/GP69E5EN/Documents/dev/palinka/src/system.h}}
+{\ttfamily \#include \char`\"{}../lib/common/include/allocator.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}./memory/core.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structsystem__t}{system\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structsystem__t}{system\+\_\+t}} \mbox{\hyperlink{system_8h_af8bfecf699c8967568c302385281a041}{system\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{system_8h_aeaac97ef8a153a4e1abc636f535656eb}{system\+\_\+state\+\_\+t}} \{ \newline
+\mbox{\hyperlink{system_8h_aeaac97ef8a153a4e1abc636f535656eba2d61b09202f1f1e2d300812496ced10c}{SYS\+\_\+\+READY}}
+, \mbox{\hyperlink{system_8h_aeaac97ef8a153a4e1abc636f535656eba7afe1cec45e9fbeac6647a96626f1258}{SYS\+\_\+\+STOPPED}}
+, \mbox{\hyperlink{system_8h_aeaac97ef8a153a4e1abc636f535656ebac9f9b9519c8142b83d37b08d794d6178}{SYS\+\_\+\+HALTED}}
+, \mbox{\hyperlink{system_8h_aeaac97ef8a153a4e1abc636f535656eba87a8eb0f14c0146d538466925684cfe3}{SYS\+\_\+\+RUNNING}}
+, \newline
+\mbox{\hyperlink{system_8h_aeaac97ef8a153a4e1abc636f535656eba845db23080d34477c539064871741be7}{SYS\+\_\+\+PANICKED}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{system_8h_a86f89adffe7f5b57bd0aefb2217a53ce}{\+\_\+\+\_\+sys\+\_\+init}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator)
+\item 
+void \mbox{\hyperlink{system_8h_a6c53757f4e138d183f1af8adac47ee26}{sys\+\_\+delete}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys)
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{system_8h_a990db80b9fac6f40d9e5672dc3b94b3c}{sys\+\_\+load\+\_\+byte}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys, void $\ast$addr, \mbox{\hyperlink{types_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte}} $\ast$\mbox{\hyperlink{types_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte}})
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{system_8h_a8f358fcc98d583f71d3168641ef43748}{sys\+\_\+load\+\_\+word}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys, void $\ast$addr, \mbox{\hyperlink{types_8h_aacc262b7acb8ef2b1d38df8b855bc0f6}{word}} $\ast$\mbox{\hyperlink{types_8h_aacc262b7acb8ef2b1d38df8b855bc0f6}{word}})
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{system_8h_ab7bdebc5edf4b95c7a85c624381faf35}{sys\+\_\+load\+\_\+tetra}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys, void $\ast$addr, \mbox{\hyperlink{types_8h_afd61c115ffade1e498b3563528686ec1}{tetra}} $\ast$\mbox{\hyperlink{types_8h_afd61c115ffade1e498b3563528686ec1}{tetra}})
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{system_8h_a4e0070b02202513c7bf50a56aff6a9ee}{sys\+\_\+load\+\_\+octa}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys, void $\ast$addr, \mbox{\hyperlink{types_8h_abf8479e8e86e389f81cf1da15c5100ec}{octa}} $\ast$o)
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{system_8h_a1a27b93f82584688ea044bf8a8f3bf33}{sys\+\_\+store\+\_\+byte}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys, void $\ast$addr, const \mbox{\hyperlink{types_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte}} byt)
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{system_8h_a8146ceceef6478560af296b28ea63bd8}{sys\+\_\+store\+\_\+word}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys, void $\ast$addr, const \mbox{\hyperlink{types_8h_aacc262b7acb8ef2b1d38df8b855bc0f6}{word}} wd)
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{system_8h_add6a20cb48f6d85b591dc13b6d1a77a3}{sys\+\_\+store\+\_\+tetra}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys, void $\ast$addr, const \mbox{\hyperlink{types_8h_afd61c115ffade1e498b3563528686ec1}{tetra}} t)
+\item 
+\mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} \mbox{\hyperlink{system_8h_aea2659ecc5a40c251bc3ee8bff6595fe}{sys\+\_\+store\+\_\+octa}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys, void $\ast$addr, const \mbox{\hyperlink{types_8h_abf8479e8e86e389f81cf1da15c5100ec}{octa}} o)
+\item 
+void $\ast$ \mbox{\hyperlink{system_8h_a6fe7a84cd83a39586f9e2cb4450cbe1c}{sys\+\_\+add\+\_\+memory}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys, \mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$allocator, void $\ast$vbase, size\+\_\+t len)
+\item 
+void \mbox{\hyperlink{system_8h_a5fb2d443e408ea7b49463b947ae1b6c9}{sys\+\_\+step}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys)
+\item 
+void \mbox{\hyperlink{system_8h_aa9e2a500cc75ff2e6ef0aae323e0440e}{sys\+\_\+loop}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys)
+\item 
+void \mbox{\hyperlink{system_8h_ae4e42a00657c580bc1d02d2fcd08130b}{sys\+\_\+run}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys, unsigned int ms)
+\item 
+void \mbox{\hyperlink{system_8h_a931aa65c2b3cbc183c58b05156c98483}{sys\+\_\+stop}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys)
+\item 
+void \mbox{\hyperlink{system_8h_afa1e408172076325932a40cb206fc4f0}{sys\+\_\+halt}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys)
+\item 
+void \mbox{\hyperlink{system_8h_acd56daf4c8461190c38336724e5626b7}{sys\+\_\+panic}} (\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$sys)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{system_8h_af8bfecf699c8967568c302385281a041}\label{system_8h_af8bfecf699c8967568c302385281a041}} 
+\index{system.h@{system.h}!system\_t@{system\_t}}
+\index{system\_t@{system\_t}!system.h@{system.h}}
+\doxysubsubsection{\texorpdfstring{system\_t}{system\_t}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structsystem__t}{system\+\_\+t}} \mbox{\hyperlink{structsystem__t}{system\+\_\+t}}}
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{system_8h_aeaac97ef8a153a4e1abc636f535656eb}\label{system_8h_aeaac97ef8a153a4e1abc636f535656eb}} 
+\index{system.h@{system.h}!system\_state\_t@{system\_state\_t}}
+\index{system\_state\_t@{system\_state\_t}!system.h@{system.h}}
+\doxysubsubsection{\texorpdfstring{system\_state\_t}{system\_state\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{system_8h_aeaac97ef8a153a4e1abc636f535656eb}{system\+\_\+state\+\_\+t}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SYS\_READY@{SYS\_READY}!system.h@{system.h}}\index{system.h@{system.h}!SYS\_READY@{SYS\_READY}}}\mbox{\Hypertarget{system_8h_aeaac97ef8a153a4e1abc636f535656eba2d61b09202f1f1e2d300812496ced10c}\label{system_8h_aeaac97ef8a153a4e1abc636f535656eba2d61b09202f1f1e2d300812496ced10c}} 
+SYS\+\_\+\+READY&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SYS\_STOPPED@{SYS\_STOPPED}!system.h@{system.h}}\index{system.h@{system.h}!SYS\_STOPPED@{SYS\_STOPPED}}}\mbox{\Hypertarget{system_8h_aeaac97ef8a153a4e1abc636f535656eba7afe1cec45e9fbeac6647a96626f1258}\label{system_8h_aeaac97ef8a153a4e1abc636f535656eba7afe1cec45e9fbeac6647a96626f1258}} 
+SYS\+\_\+\+STOPPED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SYS\_HALTED@{SYS\_HALTED}!system.h@{system.h}}\index{system.h@{system.h}!SYS\_HALTED@{SYS\_HALTED}}}\mbox{\Hypertarget{system_8h_aeaac97ef8a153a4e1abc636f535656ebac9f9b9519c8142b83d37b08d794d6178}\label{system_8h_aeaac97ef8a153a4e1abc636f535656ebac9f9b9519c8142b83d37b08d794d6178}} 
+SYS\+\_\+\+HALTED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SYS\_RUNNING@{SYS\_RUNNING}!system.h@{system.h}}\index{system.h@{system.h}!SYS\_RUNNING@{SYS\_RUNNING}}}\mbox{\Hypertarget{system_8h_aeaac97ef8a153a4e1abc636f535656eba87a8eb0f14c0146d538466925684cfe3}\label{system_8h_aeaac97ef8a153a4e1abc636f535656eba87a8eb0f14c0146d538466925684cfe3}} 
+SYS\+\_\+\+RUNNING&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SYS\_PANICKED@{SYS\_PANICKED}!system.h@{system.h}}\index{system.h@{system.h}!SYS\_PANICKED@{SYS\_PANICKED}}}\mbox{\Hypertarget{system_8h_aeaac97ef8a153a4e1abc636f535656eba845db23080d34477c539064871741be7}\label{system_8h_aeaac97ef8a153a4e1abc636f535656eba845db23080d34477c539064871741be7}} 
+SYS\+\_\+\+PANICKED&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{system_8h_a86f89adffe7f5b57bd0aefb2217a53ce}\label{system_8h_a86f89adffe7f5b57bd0aefb2217a53ce}} 
+\index{system.h@{system.h}!\_\_sys\_init@{\_\_sys\_init}}
+\index{\_\_sys\_init@{\_\_sys\_init}!system.h@{system.h}}
+\doxysubsubsection{\texorpdfstring{\_\_sys\_init()}{\_\_sys\_init()}}
+{\footnotesize\ttfamily void \+\_\+\+\_\+sys\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{system_8h_a6fe7a84cd83a39586f9e2cb4450cbe1c}\label{system_8h_a6fe7a84cd83a39586f9e2cb4450cbe1c}} 
+\index{system.h@{system.h}!sys\_add\_memory@{sys\_add\_memory}}
+\index{sys\_add\_memory@{sys\_add\_memory}!system.h@{system.h}}
+\doxysubsubsection{\texorpdfstring{sys\_add\_memory()}{sys\_add\_memory()}}
+{\footnotesize\ttfamily void$\ast$ sys\+\_\+add\+\_\+memory (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys,  }\item[{\mbox{\hyperlink{structallocator__t}{allocator\+\_\+t}} $\ast$}]{allocator,  }\item[{void $\ast$}]{vbase,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{system_8h_a6c53757f4e138d183f1af8adac47ee26}\label{system_8h_a6c53757f4e138d183f1af8adac47ee26}} 
+\index{system.h@{system.h}!sys\_delete@{sys\_delete}}
+\index{sys\_delete@{sys\_delete}!system.h@{system.h}}
+\doxysubsubsection{\texorpdfstring{sys\_delete()}{sys\_delete()}}
+{\footnotesize\ttfamily void sys\+\_\+delete (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{system_8h_afa1e408172076325932a40cb206fc4f0}\label{system_8h_afa1e408172076325932a40cb206fc4f0}} 
+\index{system.h@{system.h}!sys\_halt@{sys\_halt}}
+\index{sys\_halt@{sys\_halt}!system.h@{system.h}}
+\doxysubsubsection{\texorpdfstring{sys\_halt()}{sys\_halt()}}
+{\footnotesize\ttfamily void sys\+\_\+halt (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{system_8h_a990db80b9fac6f40d9e5672dc3b94b3c}\label{system_8h_a990db80b9fac6f40d9e5672dc3b94b3c}} 
+\index{system.h@{system.h}!sys\_load\_byte@{sys\_load\_byte}}
+\index{sys\_load\_byte@{sys\_load\_byte}!system.h@{system.h}}
+\doxysubsubsection{\texorpdfstring{sys\_load\_byte()}{sys\_load\_byte()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} sys\+\_\+load\+\_\+byte (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys,  }\item[{void $\ast$}]{addr,  }\item[{\mbox{\hyperlink{types_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte}} $\ast$}]{byte }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{system_8h_a4e0070b02202513c7bf50a56aff6a9ee}\label{system_8h_a4e0070b02202513c7bf50a56aff6a9ee}} 
+\index{system.h@{system.h}!sys\_load\_octa@{sys\_load\_octa}}
+\index{sys\_load\_octa@{sys\_load\_octa}!system.h@{system.h}}
+\doxysubsubsection{\texorpdfstring{sys\_load\_octa()}{sys\_load\_octa()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} sys\+\_\+load\+\_\+octa (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys,  }\item[{void $\ast$}]{addr,  }\item[{\mbox{\hyperlink{types_8h_abf8479e8e86e389f81cf1da15c5100ec}{octa}} $\ast$}]{o }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{system_8h_ab7bdebc5edf4b95c7a85c624381faf35}\label{system_8h_ab7bdebc5edf4b95c7a85c624381faf35}} 
+\index{system.h@{system.h}!sys\_load\_tetra@{sys\_load\_tetra}}
+\index{sys\_load\_tetra@{sys\_load\_tetra}!system.h@{system.h}}
+\doxysubsubsection{\texorpdfstring{sys\_load\_tetra()}{sys\_load\_tetra()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} sys\+\_\+load\+\_\+tetra (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys,  }\item[{void $\ast$}]{addr,  }\item[{\mbox{\hyperlink{types_8h_afd61c115ffade1e498b3563528686ec1}{tetra}} $\ast$}]{tetra }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{system_8h_a8f358fcc98d583f71d3168641ef43748}\label{system_8h_a8f358fcc98d583f71d3168641ef43748}} 
+\index{system.h@{system.h}!sys\_load\_word@{sys\_load\_word}}
+\index{sys\_load\_word@{sys\_load\_word}!system.h@{system.h}}
+\doxysubsubsection{\texorpdfstring{sys\_load\_word()}{sys\_load\_word()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} sys\+\_\+load\+\_\+word (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys,  }\item[{void $\ast$}]{addr,  }\item[{\mbox{\hyperlink{types_8h_aacc262b7acb8ef2b1d38df8b855bc0f6}{word}} $\ast$}]{word }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{system_8h_aa9e2a500cc75ff2e6ef0aae323e0440e}\label{system_8h_aa9e2a500cc75ff2e6ef0aae323e0440e}} 
+\index{system.h@{system.h}!sys\_loop@{sys\_loop}}
+\index{sys\_loop@{sys\_loop}!system.h@{system.h}}
+\doxysubsubsection{\texorpdfstring{sys\_loop()}{sys\_loop()}}
+{\footnotesize\ttfamily void sys\+\_\+loop (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{system_8h_acd56daf4c8461190c38336724e5626b7}\label{system_8h_acd56daf4c8461190c38336724e5626b7}} 
+\index{system.h@{system.h}!sys\_panic@{sys\_panic}}
+\index{sys\_panic@{sys\_panic}!system.h@{system.h}}
+\doxysubsubsection{\texorpdfstring{sys\_panic()}{sys\_panic()}}
+{\footnotesize\ttfamily void sys\+\_\+panic (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{system_8h_ae4e42a00657c580bc1d02d2fcd08130b}\label{system_8h_ae4e42a00657c580bc1d02d2fcd08130b}} 
+\index{system.h@{system.h}!sys\_run@{sys\_run}}
+\index{sys\_run@{sys\_run}!system.h@{system.h}}
+\doxysubsubsection{\texorpdfstring{sys\_run()}{sys\_run()}}
+{\footnotesize\ttfamily void sys\+\_\+run (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys,  }\item[{unsigned int}]{ms }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{system_8h_a5fb2d443e408ea7b49463b947ae1b6c9}\label{system_8h_a5fb2d443e408ea7b49463b947ae1b6c9}} 
+\index{system.h@{system.h}!sys\_step@{sys\_step}}
+\index{sys\_step@{sys\_step}!system.h@{system.h}}
+\doxysubsubsection{\texorpdfstring{sys\_step()}{sys\_step()}}
+{\footnotesize\ttfamily void sys\+\_\+step (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{system_8h_a931aa65c2b3cbc183c58b05156c98483}\label{system_8h_a931aa65c2b3cbc183c58b05156c98483}} 
+\index{system.h@{system.h}!sys\_stop@{sys\_stop}}
+\index{sys\_stop@{sys\_stop}!system.h@{system.h}}
+\doxysubsubsection{\texorpdfstring{sys\_stop()}{sys\_stop()}}
+{\footnotesize\ttfamily void sys\+\_\+stop (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{system_8h_a1a27b93f82584688ea044bf8a8f3bf33}\label{system_8h_a1a27b93f82584688ea044bf8a8f3bf33}} 
+\index{system.h@{system.h}!sys\_store\_byte@{sys\_store\_byte}}
+\index{sys\_store\_byte@{sys\_store\_byte}!system.h@{system.h}}
+\doxysubsubsection{\texorpdfstring{sys\_store\_byte()}{sys\_store\_byte()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} sys\+\_\+store\+\_\+byte (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys,  }\item[{void $\ast$}]{addr,  }\item[{const \mbox{\hyperlink{types_8h_a0c8186d9b9b7880309c27230bbb5e69d}{byte}}}]{byt }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{system_8h_aea2659ecc5a40c251bc3ee8bff6595fe}\label{system_8h_aea2659ecc5a40c251bc3ee8bff6595fe}} 
+\index{system.h@{system.h}!sys\_store\_octa@{sys\_store\_octa}}
+\index{sys\_store\_octa@{sys\_store\_octa}!system.h@{system.h}}
+\doxysubsubsection{\texorpdfstring{sys\_store\_octa()}{sys\_store\_octa()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} sys\+\_\+store\+\_\+octa (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys,  }\item[{void $\ast$}]{addr,  }\item[{const \mbox{\hyperlink{types_8h_abf8479e8e86e389f81cf1da15c5100ec}{octa}}}]{o }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{system_8h_add6a20cb48f6d85b591dc13b6d1a77a3}\label{system_8h_add6a20cb48f6d85b591dc13b6d1a77a3}} 
+\index{system.h@{system.h}!sys\_store\_tetra@{sys\_store\_tetra}}
+\index{sys\_store\_tetra@{sys\_store\_tetra}!system.h@{system.h}}
+\doxysubsubsection{\texorpdfstring{sys\_store\_tetra()}{sys\_store\_tetra()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} sys\+\_\+store\+\_\+tetra (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys,  }\item[{void $\ast$}]{addr,  }\item[{const \mbox{\hyperlink{types_8h_afd61c115ffade1e498b3563528686ec1}{tetra}}}]{t }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{system_8h_a8146ceceef6478560af296b28ea63bd8}\label{system_8h_a8146ceceef6478560af296b28ea63bd8}} 
+\index{system.h@{system.h}!sys\_store\_word@{sys\_store\_word}}
+\index{sys\_store\_word@{sys\_store\_word}!system.h@{system.h}}
+\doxysubsubsection{\texorpdfstring{sys\_store\_word()}{sys\_store\_word()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{types_8h_af6a258d8f3ee5206d682d799316314b1}{bool}} sys\+\_\+store\+\_\+word (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsystem__t}{system\+\_\+t}} $\ast$}]{sys,  }\item[{void $\ast$}]{addr,  }\item[{const \mbox{\hyperlink{types_8h_aacc262b7acb8ef2b1d38df8b855bc0f6}{word}}}]{wd }\end{DoxyParamCaption})}
+

@@ -2,7 +2,7 @@
 #define __MMIX_PROC_H__
 
 #include "../../lib/common/include/types.h"
-#include "../sys.h"
+#include "../system.h"
 
 #include "./instr.h"
 #include "./reg.h"
