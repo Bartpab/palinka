@@ -149,7 +149,7 @@ void vector_destruct(vector_t* vec)
     {
         void* it;
         
-        for(size_t i; i < vec->size; i++) 
+        for(size_t i = 0; i < vec->size; i++) 
         {
             it = vec->base + i * vec->type_desc->size;
             type_destruct(vec->type_desc, it);
@@ -189,7 +189,7 @@ bool vector_copy(vector_t* dest, const vector_t* src)
 
     void* it_src, *it_dest;
     
-    for(size_t i; i < src->size; i++) 
+    for(size_t i = 0; i < src->size; i++) 
     {
         it_src = src->base + i * src->type_desc->size;
         it_dest = dest->base + i * src->type_desc->size;

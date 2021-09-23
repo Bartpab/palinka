@@ -117,7 +117,7 @@ static inline void __decode(system_t* sys, riscv_processor_t* proc)
        proc->writeback.control.dest_reg 
     };
 
-    for(unsigned char i = 0; i < 4; i++) 
+    for(unsigned char i = 0; i < 3; i++) 
     {
         for(unsigned char j = 0; j < 2; j++) 
         {

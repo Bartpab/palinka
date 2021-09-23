@@ -15,7 +15,7 @@ system_t* riscv_bootstrap(char* prog, size_t prog_length, size_t heap_memory)
   riscv_processor_cfg_t cfg;
 
   cfg.boot_address = 0;
-  cfg.frequency    = 5000000; // 5 MHz
+  cfg.frequency    = 100000000; // 50 MHz
   cfg.memory_size  = prog_length + heap_memory;
 
   system_t* sys = riscv_new(&allocator, &cfg);
@@ -102,7 +102,7 @@ define_test(riscv_sub, test_print("RISCV_SUB"))
     proc->regs[29] = 10;
     proc->regs[30] = 5;
 
-    sys_run(sys, 1);
+    sys_run(sys, 100);
   
     test_check(
       test_print("Check that %lld + %lld = %lld", proc->regs[29], proc->regs[30], expected),
