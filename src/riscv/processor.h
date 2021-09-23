@@ -3,23 +3,93 @@
 
 #include "../../lib/common/include/types.h"
 #include "../system.h"
-#include "./control.h"
+#include "./instr.h"
 
-typedef enum {
-  RISCV_FETCH,
-  RISCV_DECODE,
-  RISCV_READ,
-  RISCV_EXECUTE,
-  RISCV_MEMORY,
-  RISCV_WRITE
-} riscv_stage_t;
+typedef struct {
+  struct {
+    bool stall;
+  } control;
+} riscv_stage_fetch_t;
+
+typedef struct {
+  octa pc;
+  tetra raw;
+  struct {
+    bool stall;
+  } control;
+} riscv_stage_decoder_t;
+
+typedef struct {
+  octa pc;
+  struct {
+      bool stall;
+      riscv_decoded_instr_t instr;
+      octa imm;
+      unsigned char src_regs[2]; 
+      unsigned char dest_reg; // Address of the destination registers
+  } control;
+} riscv_stage_read_t;
+
+typedef struct {
+  octa    pc;
+  tetra   args[2];
+  struct {
+      bool stall;
+      riscv_decoded_instr_t instr;
+      octa imm;
+      unsigned char src_regs[2]; 
+      unsigned char dest_reg; // Address of the destination registers
+  } control;
+} riscv_stage_execute_t;
+
+typedef struct {
+  octa pc;
+  tetra result;
+  struct {
+      bool stall;
+
+      riscv_decoded_instr_t instr;
+      unsigned char dest_reg; // Address of the destination registers
+
+      bool store;
+      octa store_addr;
+
+      bool load;
+      octa load_addr;
+  } control;
+} riscv_stage_memory_t;
+
+typedef struct {
+  tetra result;
+  struct {
+    bool stall;
+    unsigned char dest_reg; // Address of the destination registers
+  } control;
+} riscv_stage_writeback_t;
 
 typedef struct {
     octa regs[32];
     octa csrs[4096];
 
     octa pc;                          // Program counter
-    riscv_control_t current_control;  // Current control state
+
+    // Fetch register
+    riscv_stage_fetch_t fetch;
+
+    // Fetch/Decode Register
+    riscv_stage_decoder_t decoder;
+
+    // Decode/Read Register
+    riscv_stage_read_t read;
+
+    // Read/Execute Register
+    riscv_stage_execute_t execute;
+
+    // Execute/Memory Register
+    riscv_stage_memory_t memory;
+
+    //Memory/Writeback Register
+    riscv_stage_writeback_t writeback;
 
     // Simulation
     unsigned int frequency; // Hz
@@ -29,7 +99,6 @@ typedef struct {
 typedef struct {
   unsigned int frequency;
   unsigned int memory_size;
-
   unsigned int boot_address;
 } riscv_processor_cfg_t;
 

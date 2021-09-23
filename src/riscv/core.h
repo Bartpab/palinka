@@ -17,12 +17,12 @@ void riscv_step(system_t* sys);
 
 static void __riscv_init(system_t* sys, riscv_processor_cfg_t* cfg);
 
-static inline bool __fetch(system_t* sys, riscv_processor_t* proc, riscv_control_t* instr);
-static inline void __decode(system_t* sys, riscv_processor_t* proc, riscv_control_t* instr);
-static inline void __read(system_t* sys, riscv_processor_t* proc, riscv_control_t* instr);
-static inline void __execute(system_t* sys, riscv_processor_t* proc, riscv_control_t* instr);
-static inline void __memory(system_t* sys, riscv_processor_t* proc, riscv_control_t* instr);
-static inline void __write(system_t* sys, riscv_processor_t* proc, riscv_control_t* instr);
+static inline bool __fetch(system_t* sys, riscv_processor_t* proc);
+static inline void __decode(system_t* sys, riscv_processor_t* proc);
+static inline void __read(system_t* sys, riscv_processor_t* proc);
+static inline void __execute(system_t* sys, riscv_processor_t* proc);
+static inline void __memory(system_t* sys, riscv_processor_t* proc);
+static inline void __write(system_t* sys, riscv_processor_t* proc);
 
 void __load_csr(system_t* sys, riscv_processor_t* proc, unsigned int addr, octa* out)
 {
@@ -73,491 +73,235 @@ static void __riscv_init(system_t* sys, riscv_processor_cfg_t* cfg)
     proc->regs[2]   = cfg->memory_size;
     proc->regs[0]   = octa_zero;
 
-    proc->current_control.stage = RISCV_FETCH;
 }
 
-static inline bool __fetch(system_t* sys, riscv_processor_t* proc, riscv_control_t* instr)
+static inline bool __fetch(system_t* sys, riscv_processor_t* proc)
 {
+    riscv_stage_fetch_t* in = &proc->fetch;
+
+    if(in->control.stall) return false;
+
+    riscv_stage_decoder_t* out = &proc->decoder;
+
     tetra raw;
     void* vaddr = (void*) proc->pc;
     
     if(!sys_load_tetra(sys, vaddr, &raw))
-        return false;
+    {
+        out->pc = proc->pc + 4;
+        out->raw = 0;
+    }
     
-    instr->raw = raw;
-    proc->pc += 4;
+    out->pc = proc->pc + 4;
+    out->raw = raw;
+    
+    in->control.stall = true;
+
     return true;
 }
 
-/**
- * 
- * 4 types of RISC-V instructions
- * 
- * R-TYPE
- * 
- * 31       25 24    20 19     15 14       12 11    7 6       0
- * | funct 7  | rs2    | rs1     | funct3    | rd    | opcode |
- * 
- * I-TYPE
- * 
- * 31                   19     15 14       12 11    7 6       0
- * | imm[11:0]         | rs1     | funct3    | rd    | opcode |
- * 
- * S-TYPE
- * 
- * 31        25 24  20 19      15 14       12 11      7 6     0
- * | imm[11:5] | rs2  | rs1      | funct3    |imm[4:0] |opcode|
- * 
- * U-TYPE
- * 
- * 31                                      12 11     7 6      0
- * | imm[32:12]                              | rd     | opcode|
- */
-static inline void __decode(system_t* sys, riscv_processor_t* proc, riscv_control_t* instr)
+static inline void __decode(system_t* sys, riscv_processor_t* proc)
 {
-    tetra raw = instr->raw;
+    // Setup control
+    proc->read.control.instr        = decode(proc->decoder.raw);
+    proc->read.control.src_regs[0]  = proc->read.control.instr.src_regs[0];
+    proc->read.control.src_regs[1]  = proc->read.control.instr.src_regs[1];
+    proc->read.control.dest_reg     = proc->read.control.instr.dest_reg;
+    proc->read.pc                   = proc->decoder.pc;
+    proc->read.control.imm          = proc->read.control.instr.imm;
 
-    byte opcode = raw & 0x7f;
-    byte rd = (raw >> 7) & 0x1F;
-    byte funct3 = (raw >> 12) & 0x7;
-    byte rs1 = (raw >> 15) & 0x1F;
-    byte rs2 = (raw >> 20) & 0x1F;
-    byte funct7 = (raw >> 25) & 0x7F;
+    // Check any data hazards
+    unsigned char write_regs[3] = {
+       proc->execute.control.dest_reg,
+       proc->memory.control.dest_reg,
+       proc->writeback.control.dest_reg 
+    };
 
-    instr->decoded.opcode = opcode;
-    instr->decoded.rd = rd;
-    instr->decoded.funct3 = funct3;
-    instr->decoded.funct7 = funct7;
-
-    instr->decoded.rs1 = rs1;
-    instr->decoded.rs2 = rs2;
-    instr->decoded.shamt = 0;
-    
-    instr->op = 0;
-
-    for(unsigned char i = 0; i < 3; i++) 
+    for(unsigned char i = 0; i < 4; i++) 
     {
-        instr->out[i].flag = false;
-        instr->out[i].ptr = NULL;
-        instr->out[i].value = 0;
-    }
+        for(unsigned char j = 0; j < 2; j++) 
+        {
+            if(write_regs[i] == 0)
+                continue;
 
-    for(unsigned char i = 0; i < 4; i++)
-    {
-        instr->args[i].flag = false;
-        instr->args[i].ptr   = NULL;
-        instr->args[i].value = 0;
-    }
-
-    switch(instr->decoded.opcode) {
-        case 0b0110111: instr->op = RISCV_LUI; goto u_type;
-        case 0b0010111: instr->op = RISCV_AUIPC; goto u_type;
-        case 0b1101111: instr->op = RISCV_JAL; goto j_type;
-        case 0b1100111: instr->op = RISCV_JALR; goto b_type;
-        case 0b1100011:
-            switch(instr->decoded.funct3) {
-                case 0b000: instr->op = RISCV_BEQ; goto b_type;
-                case 0b001: instr->op = RISCV_BNE; goto b_type;
-                case 0b100: instr->op = RISCV_BLT; goto b_type;
-                case 0b101: instr->op = RISCV_BGE; goto b_type;
-                case 0b110: instr->op = RISCV_BLTU; goto b_type;
-                case 0b111: instr->op = RISCV_BGEU; goto b_type;
-                default: goto __end;
+            // Data hazard !
+            if(write_regs[i] == proc->read.control.src_regs[j]) 
+            {
+                proc->fetch.control.stall = true;
+                proc->decoder.control.stall = true;
+                proc->read.control.stall = true;
+                break;
             }
-            break;
-        case 0b0000011:
-            switch(instr->decoded.funct3) {
-                case 0b000: instr->op = RISCV_LB; goto i_type;
-                case 0b001: instr->op = RISCV_LH; goto i_type;
-                case 0b010: instr->op = RISCV_LW; goto i_type;
-                case 0b100: instr->op = RISCV_LBU; goto i_type;
-                case 0b101: instr->op = RISCV_LHU; goto i_type;
-                default: goto __end;
-            }
-        case 0b0100011:
-            switch(instr->decoded.funct3) {
-                case 0b000: instr->op = RISCV_SB; goto s_type;
-                case 0b001: instr->op = RISCV_SH; goto s_type;
-                case 0b010: instr->op = RISCV_SW; goto s_type;
-                default: goto __end;
-            } 
-            break;
-        case 0b0010011:
-            switch(instr->decoded.funct3) {
-                case 0b000: instr->op = RISCV_ADDI; goto i_type;
-                case 0b010: instr->op = RISCV_SLTI; goto i_type;
-                case 0b011: instr->op = RISCV_SLTIU; goto i_type;
-                case 0b100: instr->op = RISCV_XORI; goto i_type;
-                case 0b110: instr->op = RISCV_ORI; goto i_type;
-                case 0b111: instr->op = RISCV_ANDI; goto i_type;
-                case 0b001:
-                    switch(instr->decoded.funct7) {
-                        case 0b0000000: instr->op = RISCV_SLLI; goto __end;
-                        default: goto __end;
-                    }
-                case 0b101:
-                    switch(instr->decoded.funct7) {
-                        case 0b0000000: instr->op = RISCV_SRLI; goto __end;
-                        case 0b0100000: instr->op = RISCV_SRAI; goto __end;
-                        default: goto __end;
-                    }
-                default: goto __end;
-            }
-        case 0b0110011:
-            switch(instr->decoded.funct3) {
-                case 0b000:
-                    switch(instr->decoded.funct7) {
-                        case 0b0000000: instr->op = RISCV_ADD; goto __end;
-                        case 0b0100000: instr->op = RISCV_SUB; goto __end;
-                        default: goto __end;
-                    }
-                case 0b001:
-                    switch(instr->decoded.funct7) {
-                        case 0b0000000: instr->op = RISCV_SLL; goto __end;
-                        default: goto __end;
-                    }
-                case 0b010:
-                    switch(instr->decoded.funct7) {
-                        case 0b0000000: instr->op = RISCV_SLT; goto __end;
-                        default: goto __end;
-                    }
-                case 0b011:
-                    switch(instr->decoded.funct7) {
-                        case 0b0000000: instr->op = RISCV_SLTU; goto __end;
-                        default: goto __end;
-                    }
-                case 0b100:
-                    switch(instr->decoded.funct7) {
-                        case 0b0000000: instr->op = RISCV_XOR; goto __end;
-                        default: goto __end;
-                    }
-                case 0b101:
-                    switch(instr->decoded.funct7) {
-                        case 0b0000000: instr->op = RISCV_SRL; goto __end;
-                        case 0b0100000: instr->op = RISCV_SRA; goto __end;
-                        default: goto __end;
-                    }
-                case 0b110:
-                    switch(instr->decoded.funct7) {
-                        case 0b0000000: instr->op = RISCV_OR; goto __end;
-                        default: goto __end;
-                    }
-                case 0b111:
-                    switch(instr->decoded.funct7) {
-                        case 0b0000000: instr->op = RISCV_AND; goto __end;
-                        default: goto __end;
-                    } 
-                default: goto __end;
-            }
-            break;
-        case 0b0001111: instr->op = RISCV_FENCE; goto __end;
-        case 0b1110011:
-            if(instr->decoded.rd == 0 && instr->decoded.funct3 == 0 && instr->decoded.rs1 == 0) {
-                switch(instr->decoded.rs2) {
-                    case 0x0: instr->op = RISCV_ECALL; goto __end;
-                    case 0x1: instr->op = RISCV_EBREAK; goto __end;
-                    default: goto __end;
-                }
-            }
-            goto __end;
-        case 0b0011011:
-            switch(instr->decoded.funct3) {
-                case 0b000: instr->op = RISCV_ADDIW; goto __end;
-                case 0b001: instr->op = RISCV_SLLIW; goto __end;
-                case 0b101: 
-                    switch(instr->decoded.funct7) {
-                        case 0x00: instr->op = RISCV_SRLIW; goto __end;
-                        case 0x20: instr->op = RISCV_SRAIW; goto __end;
-                        default: goto __end;
-                    }
-                default: goto __end;
-            }
-            break;
-
-        i_type: 
-            instr->decoded.imm = (instr->raw >> 20) & 1;
-            instr->decoded.imm |= (((octa)(instr->raw) >> 21) & 0x7ff) << 1;
-            break;
-        s_type:
-            instr->decoded.imm = (instr->raw >> 7) & 1;
-            instr->decoded.imm |= ((instr->raw >> 8) & 0xf) << 1;
-            instr->decoded.imm |= ((instr->raw >> 25) & 0x40) << 5;
-            break;
-        b_type:
-            instr->decoded.imm = ((instr->raw >> 8) & 0xF) << 1;
-            instr->decoded.imm |= ((instr->raw >> 25) & 0x3F) << 5;
-            instr->decoded.imm |= ((instr->raw >> 7) & 1) << 11;
-            instr->decoded.imm |= ((instr->raw >> 31) & 1) << 12;
-            break;
-        u_type:
-            instr->decoded.imm = ((instr->raw >> 12) & 0xFF) << 12;
-            instr->decoded.imm |= ((instr->raw >> 20) & 0x7FF) << 20;
-            instr->decoded.imm |= ((instr->raw >> 31) & 1) << 31;
-            break;
-        j_type:
-            instr->decoded.imm = ((instr->raw >> 21) & 0x3FF) << 1;
-            instr->decoded.imm |= ((instr->raw >> 20) & 1) << 11;
-            instr->decoded.imm |= ((instr->raw >> 12) & 0x7F) << 12;
-            instr->decoded.imm |= (((octa)(instr->raw) >> 32) & 1) << 31;
-            break;
-        __end:
-            break;
-    }
-
-    instr->infos =  &riscv_instr_infos[instr->op];
-
-    int flags = instr->infos->flags;
-    
-    // Set controls info for ARG0
-    if((flags & ARG0_IS_RS1) == ARG0_IS_RS1)
-    {
-        instr->args[0].flag = true;
-        instr->args[0].value = proc->regs[instr->decoded.rs1];
-        instr->args[0].ptr = &proc->regs[instr->decoded.rs1];
-    }
-
-    else if((flags & ARG0_IS_RS2) == ARG0_IS_RS2) {
-        instr->args[0].value = proc->regs[instr->decoded.rs2];
-        instr->args[0].ptr  = &proc->regs[instr->decoded.rs2];
-        instr->args[0].flag = true;
-    }
-        
-    else if((flags & ARG0_IS_PC) == ARG0_IS_PC) {
-        instr->args[0].flag = true;
-        instr->args[0].value = proc->pc;
-        instr->args[0].ptr = &proc->pc;
-    }
-
-    // Set controls info for ARG1
-    if((flags & ARG1_IS_RS1) == ARG1_IS_RS1) {
-        instr->args[1].flag = true;
-        instr->args[1].value = proc->regs[instr->decoded.rs1];
-        instr->args[1].ptr = &proc->regs[instr->decoded.rs1];   
-    }
-    else if((flags & ARG1_IS_RS2) == ARG1_IS_RS2)
-    {
-        instr->args[1].value = proc->regs[instr->decoded.rs2];
-        instr->args[1].ptr  = &proc->regs[instr->decoded.rs2];
-        instr->args[1].flag = true;
-    }
-    else if((flags & ARG1_IS_PC) == ARG1_IS_PC)
-    {
-        instr->args[1].flag = true;
-        instr->args[1].value = proc->pc;
-        instr->args[1].ptr = &proc->pc;
-    }
-    // Set controls info for ARG2
-    if((flags & ARG2_IS_RS1) == ARG2_IS_RS1)
-    {
-        instr->args[2].value = proc->regs[instr->decoded.rs1];
-        instr->args[2].ptr = &proc->regs[instr->decoded.rs1];   
-    }
-    else if((flags & ARG2_IS_RS2) == ARG2_IS_RS2)
-    {
-        instr->args[2].ptr  = &proc->regs[instr->decoded.rs2];
-        instr->args[2].flag = true;   
-    }
-    else if((flags & ARG2_IS_PC) == ARG2_IS_PC)
-    {
-        instr->args[2].flag = true;
-        instr->args[2].ptr = &proc->pc;        
-    }
-
-    // Set controls info for ARG3
-    if((flags & ARG3_IS_RS1) == ARG3_IS_RS1)
-    {
-        instr->args[3].flag = true;
-        instr->args[3].ptr = &proc->regs[instr->decoded.rs1];           
-    }
-    else if((flags & ARG3_IS_RS2) == ARG3_IS_RS2)
-    {
-        instr->args[3].ptr  = &proc->regs[instr->decoded.rs2];
-        instr->args[3].flag = true;  
-    }
-    else if((flags & ARG3_IS_PC) == ARG3_IS_PC)
-    {
-        instr->args[2].flag = true;
-        instr->args[2].ptr = &proc->pc;  
-    }
-
-    // Set controls info for OUT0
-    if((flags & OUT0_IS_RD) == OUT0_IS_RD) 
-    {
-        instr->out[0].flag = true;
-        instr->out[0].ptr = &proc->regs[instr->decoded.rd];
-    }
-    else if((flags & OUT0_IS_PC) == OUT0_IS_PC) 
-    {
-        instr->out[0].flag = true;
-        instr->out[0].ptr = &proc->pc;  
-    }
-    
-    // Set controls info for OUT1
-    if((flags & OUT1_IS_RD) == OUT1_IS_RD) 
-    {
-        instr->out[1].flag = true;
-        instr->out[1].ptr = &proc->regs[instr->decoded.rd];
-    }
-    else if((flags & OUT1_IS_PC) == OUT1_IS_PC) 
-    {
-        instr->out[1].ptr = &proc->pc;
-        instr->out[1].flag = true;
-    } 
-}
-
-static inline void __fetch_failure(system_t* sys, riscv_processor_t* proc, void* addr) 
-{
-
-}
-
-static inline void __store_failure(system_t* sys, riscv_processor_t* proc, void* addr) 
-{
-
-}
-
-static inline void __read(system_t* sys, riscv_processor_t* proc, riscv_control_t* instr)
-{
-    for(unsigned int i = 0; i < 4; i++) 
-    {
-        if(instr->args[i].ptr)
-            instr->args[i].value = *instr->args[i].ptr;
+        }
     }
 }
 
-static inline void __write(system_t* sys, riscv_processor_t* proc, riscv_control_t* instr)
+static inline void __read(system_t* sys, riscv_processor_t* proc)
 {
-    for(unsigned int i = 0; i < 2; i++) 
-    {
-        if(instr->out[i].ptr != NULL) *instr->out[i].ptr = instr->out[i].value;
-    }
+    riscv_stage_read_t* in = &proc->read;
+    riscv_stage_execute_t* out = &proc->execute;
+
+    // Read registers
+    out->args[0] = proc->regs[in->control.src_regs[0]];
+    out->args[1] = proc->regs[in->control.src_regs[1]];
+
+    // Transfer control to control
+    out->control.instr = in->control.instr;
+    out->control.src_regs[0] = in->control.src_regs[0];
+    out->control.src_regs[1] = in->control.src_regs[1];
+    out->control.dest_reg = in->control.dest_reg;
+    out->control.imm = in->control.imm;
+
 }
 
-static inline void __execute(system_t* sys, riscv_processor_t* proc, riscv_control_t* instr)
+static inline void __execute(system_t* sys, riscv_processor_t* proc)
 {
-    octa out0, out1, a, b, c;
-    int flags = instr->infos->flags;
+    riscv_stage_execute_t* in = &proc->execute;
+    riscv_stage_memory_t* out = &proc->memory;
 
-    if((flags & ARG0_IS_IMMEDIATE) == ARG0_IS_IMMEDIATE)          instr->args[0].value = instr->decoded.imm;
-    if((flags & ARG1_IS_IMMEDIATE) == ARG1_IS_IMMEDIATE)          instr->args[1].value = instr->decoded.imm;
-    if((flags & ARG2_IS_IMMEDIATE) == ARG2_IS_IMMEDIATE)          instr->args[2].value = instr->decoded.imm;
-    else if((flags & ARG2_COMPUTE_PLUS) == ARG2_COMPUTE_PLUS)     instr->args[2].value = instr->args[0].value + instr->args[1].value;
-    if((flags & ARG3_IS_IMMEDIATE) == ARG3_IS_IMMEDIATE)          instr->args[3].value = instr->decoded.imm;
+    octa result, a, b, pc, store_addr, load_addr, imm;
+    bool store, load;
 
-    a = instr->args[0].value;
-    b = instr->args[1].value;
-    c = instr->args[2].value;
+    a = in->args[0];
+    b = in->args[1];
 
-    out0 = out1 = 0;
+    pc = in->pc;
+    imm = in->control.imm;
+    result  = 0;
 
-    switch(instr->op) 
+    store = load = false;
+    store_addr = load_addr = 0;
+
+    switch(in->control.instr.op) 
     {
-        case RISCV_LUI: out0 = a << 12; goto __store; // OK
-        case RISCV_AUIPC: out0 = b + (a << 12); goto __store; // OK
+        case RISCV_LUI: result = imm; break; // OK
+        case RISCV_AUIPC: result = pc + (imm << 12); break; // OK
         // jump
-        case RISCV_JAL: out0 = b + 4, out1 = c + (a << 1); goto __store; // OK
-        case RISCV_JALR: out0 = c, out1 = (a + b) & (~1); goto __store; // OK
+        case RISCV_JAL: result = pc + 4, pc = pc + (imm << 1); break; // OK
+        case RISCV_JALR: result = pc, pc = (pc + imm) & (~1); break; // OK
         // branch
-        case RISCV_BEQ: out0 = a; if(b == c) goto __store; break; // OK
-        case RISCV_BNE: out0 = a; if(b != c) goto __store; break; // OK
-        case RISCV_BLTU: case RISCV_BLT: out0 = a; if(b < c) goto __store; break; // OK
-        case RISCV_BGEU: case RISCV_BGE: out0 = a; if(b >= c) goto __store; break; // OK
+        case RISCV_BEQ: if(a == b) pc += imm + 4; break; // OK
+        case RISCV_BNE: if(a != b) pc += imm + 4; break; // OK
+        case RISCV_BLTU: case RISCV_BLT: if(a < b) pc += imm + 4; break; // OK
+        case RISCV_BGEU: case RISCV_BGE: if(a >= b) pc += imm + 4; break; // OK
+        // load
+        case RISCV_LBU: case RISCV_LB:
+        case RISCV_LHU: case RISCV_LH:
+        case RISCV_LW: case RISCV_LWU:
+        case RISCV_LD: load = true, load_addr = a + b; break;
+        // store
+        case RISCV_SB: case RISCV_SH: case RISCV_SW: case RISCV_SD: store = true, store_addr = a + b; break;
         // add
-        case RISCV_ADD:  case RISCV_ADDI: case RISCV_ADDW: case RISCV_ADDIW: out0 = a + b; goto __store; 
+        case RISCV_ADD:  case RISCV_ADDW: result = a + b; break;
+        case RISCV_ADDI: case RISCV_ADDIW: result = a + imm; break;
         // sub
-        case RISCV_SUB: case RISCV_SUBW: out0 = a - b; goto __store;
+        case RISCV_SUB: case RISCV_SUBW: result = a - b; break;
         // compare lt
-        case RISCV_SLTU: case RISCV_SLTIU: case RISCV_SLTI: out0 = a < b; goto __store;         
+        case RISCV_SLTU:  result = a < b; break;         
+        case RISCV_SLTIU: case RISCV_SLTI: result = a < imm; break;
         // xor
-        case RISCV_XOR: case RISCV_XORI: out0 =  a ^ b; goto __store;
+        case RISCV_XOR: result =  a ^ b; break;
+        case RISCV_XORI: result = a ^ imm; break;
         // or
-        case RISCV_OR: case RISCV_ORI: out0 = a | b; goto __store;
+        case RISCV_OR: result = a | b; break;
+        case RISCV_ORI: result = a | imm; break;
         // and
-        case RISCV_AND: case RISCV_ANDI: out0 = a & b; goto __store;
+        case RISCV_AND:  result = a & b; break;
+        case RISCV_ANDI: result = a & b; break;
         // shift left
-        case RISCV_SLL: case RISCV_SLLI: case RISCV_SLLW: case RISCV_SLLIW: out0 = a << b; goto __store;
+        case RISCV_SLL: case RISCV_SLLW:  result = a << b; break;
+        case RISCV_SLLI: case RISCV_SLLIW: result = a << imm; break;
         // shift right
-        case RISCV_SRL: case RISCV_SRLI: case RISCV_SRA: case RISCV_SRAI: case RISCV_SRLIW: case RISCV_SRAW: case RISCV_SRAIW: out0 = a >> b; goto __store;
+        case RISCV_SRL: case RISCV_SRA: case RISCV_SRAW: result = a >> b; break;
+        case RISCV_SRLI: case RISCV_SRLIW: case RISCV_SRAIW: case RISCV_SRAI: result = a >> imm; break;
+        case RISCV_EBREAK: sys_halt(sys);
         default: break;
-        __store:
-            instr->out[0].value = out0;
-            instr->out[1].value = out1;
     }
+    
+    // Write data
+    out->result = result;
+    out->pc = pc;
+    
+    // Write control
+    out->control.store = store;
+    out->control.store_addr = store_addr;
+    out->control.load = load;
+    out->control.load_addr = load_addr;
+    out->control.instr = in->control.instr;
+    out->control.dest_reg = in->control.dest_reg;
+
+    // Write target
+    proc->pc = out->pc;
+
+    // Unstall
+    proc->fetch.control.stall = false;
 }
 
-static inline void __memory(system_t* sys, riscv_processor_t* proc, riscv_control_t* instr)
+static inline void __memory(system_t* sys, riscv_processor_t* proc)
 {
-    octa a; void* c;
-    a = instr->args[3].value;
-    c = (void*)(instr->args[2].value);
-    
-    switch(instr->op) 
+    riscv_stage_memory_t* in = &proc->memory;
+    riscv_stage_writeback_t* out = &proc->writeback;
+
+    octa result = in->result;
+    octa addr = 0;
+
+    if(in->control.store) addr = in->control.store_addr;
+    if(in->control.load) addr = in->control.load_addr;
+
+    switch(in->control.instr.op) 
     {
         // load
-        case RISCV_LBU: case RISCV_LB: if(sys_load_byte(sys, c, (byte*) &instr->out[0].value)) return __fetch_failure(sys, proc, c); break;
-        case RISCV_LHU: case RISCV_LH: if(sys_load_word(sys, c, (word*) &instr->out[0].value)) return __fetch_failure(sys, proc, c); break;
-        case RISCV_LW: case RISCV_LWU: if(sys_load_tetra(sys, c, (tetra*) &instr->out[0].value)) return __fetch_failure(sys, proc, c); break;
-        case RISCV_LD: if(sys_load_octa(sys, c, &instr->out[0].value)) return __fetch_failure(sys, proc, c); break;
+        case RISCV_LBU: case RISCV_LB: sys_load_byte(sys, (void*) addr, (byte*) &result); break;
+        case RISCV_LHU: case RISCV_LH: sys_load_word(sys, (void*) addr, (word*) &result); break;
+        case RISCV_LW: case RISCV_LWU: sys_load_tetra(sys, (void*) addr, (tetra*) &result); break;
+        case RISCV_LD: sys_load_octa(sys, (void*) addr, &result); break;
         // store
-        case RISCV_SB: if(!sys_store_byte(sys, c, a))  return __store_failure(sys, proc, c); break;
-        case RISCV_SH: if(!sys_store_word(sys, c, a))  return __store_failure(sys, proc, c); break;
-        case RISCV_SW: if(!sys_store_tetra(sys, c, a)) return __store_failure(sys, proc, c); break;
-        case RISCV_SD: if(!sys_store_octa(sys, c, a))  return __store_failure(sys, proc, c); break;
+        case RISCV_SB: sys_store_byte(sys, (void*) addr, result); break;
+        case RISCV_SH: sys_store_word(sys, (void*) addr, result); break;
+        case RISCV_SW: sys_store_tetra(sys, (void*) addr, result); break;
+        case RISCV_SD: sys_store_octa(sys, (void*) addr, result); break;
         default: break;
     }
+
+    out->result = result;
+    out->control.dest_reg = in->control.dest_reg;
+}
+
+static inline void __write(system_t* sys, riscv_processor_t* proc)
+{
+    riscv_stage_writeback_t* in = &proc->writeback;
+    proc->regs[in->control.dest_reg] = in->result;
+
+    proc->fetch.control.stall   = false;
+    proc->decoder.control.stall = false;
+    proc->read.control.stall    = false;
 }
 
 void riscv_alloc_sim_time(system_t* sys, unsigned int ms) {
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
-    unsigned int s = ms * 1000;
-    int remaining_cycles = s * proc->frequency;
-    proc->remaining_cycles = remaining_cycles;
+    float s = (float)(ms) / 1000.0;
+    float remaining_cycles = s * (float)(proc->frequency);
+    proc->remaining_cycles = (int) remaining_cycles;
 }
 
-/**
- * Simple cycling; no pipeline
- * 
- * fetch
- * decode
- * read
- * execute
- * memory
- * write
- */
+
 void riscv_step(system_t* sys)
 {   
     riscv_processor_t* proc = __get_riscv_proc(sys);
-
-    if(proc->remaining_cycles == 0) return sys_halt(sys);
     
-    if(proc->current_control.stage == RISCV_FETCH && proc->pc >= proc->regs[2])   
-        return sys_stop(sys);
-    
-    switch(proc->current_control.stage) 
-    {
-        case RISCV_FETCH:
-            if(!__fetch(sys, proc, &proc->current_control))
-                return sys_panic(sys);
-            
-            break;
-        case RISCV_DECODE:
-            __decode(sys, proc , &proc->current_control);
-            break;
-        case RISCV_READ:
-            __read(sys, proc, &proc->current_control);
-            break;
-        case RISCV_EXECUTE:
-            __execute(sys, proc, &proc->current_control);
-            break;
-        case RISCV_MEMORY:
-            __memory(sys, proc, &proc->current_control);
-            break;
-        case RISCV_WRITE:
-            __write(sys, proc, &proc->current_control); 
-            break;
-    }
+    if(proc->remaining_cycles == 0) 
+        return sys_halt(sys);
 
-    proc->current_control.stage = (proc->current_control.stage + 1) % 6;
+    // Set zero at each cycle
+    proc->regs[0] = 0;
+    
+    __fetch(sys, proc);
+    __decode(sys, proc);
+    __read(sys, proc);
+    __execute(sys, proc);
+    __memory(sys, proc);
+    __write(sys, proc);
 
     if(proc->remaining_cycles > 0) proc->remaining_cycles--;
 }

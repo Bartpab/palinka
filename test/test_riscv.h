@@ -15,7 +15,7 @@ system_t* riscv_bootstrap(char* prog, size_t prog_length, size_t heap_memory)
   riscv_processor_cfg_t cfg;
 
   cfg.boot_address = 0;
-  cfg.frequency    = 500;
+  cfg.frequency    = 5000000; // 5 MHz
   cfg.memory_size  = prog_length + heap_memory;
 
   system_t* sys = riscv_new(&allocator, &cfg);
@@ -36,6 +36,11 @@ system_t* riscv_bootstrap(char* prog, size_t prog_length, size_t heap_memory)
   return sys;
 }
 
+tetra riscv_ebreak()
+{
+  return 1048691;
+}
+
 tetra riscv_add(byte rd, byte rs1, byte rs2)
 {
   tetra t = 0;
@@ -52,17 +57,22 @@ tetra riscv_sub(byte rd, byte rs1, byte rs2)
 define_test(riscv_add, test_print("RISCV_ADD"))
 {
     allocator_t allocator = GLOBAL_ALLOCATOR;
-    tetra encoded = riscv_add(28, 29, 30);
+
+    tetra prog[] = {
+      riscv_add(28, 29, 30),
+      riscv_ebreak()
+    };
+
     octa expected = 15;
     
-    system_t* sys = riscv_bootstrap((char*) &encoded, 4, 0);
+    system_t* sys = riscv_bootstrap((char*) &prog, 8, 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = 0;
     proc->regs[29] = 10;
     proc->regs[30] = 5;
 
-    sys_loop(sys);
+    sys_run(sys, 100);
   
     test_check(
       test_print("Check that %lld + %lld = %lld", proc->regs[29], proc->regs[30], expected),
@@ -79,17 +89,20 @@ define_test(riscv_add, test_print("RISCV_ADD"))
 define_test(riscv_sub, test_print("RISCV_SUB"))
 {
     allocator_t allocator = GLOBAL_ALLOCATOR;
-    tetra encoded = riscv_sub(28, 29, 30);
+    tetra prog[] = {
+      riscv_sub(28, 29, 30),
+      riscv_ebreak()
+    };
     octa expected = 5;
     
-    system_t* sys = riscv_bootstrap((char*) &encoded, 4, 0);
+    system_t* sys = riscv_bootstrap((char*) &prog, 8, 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = 0;
     proc->regs[29] = 10;
     proc->regs[30] = 5;
 
-    sys_loop(sys);
+    sys_run(sys, 1);
   
     test_check(
       test_print("Check that %lld + %lld = %lld", proc->regs[29], proc->regs[30], expected),
@@ -102,7 +115,6 @@ define_test(riscv_sub, test_print("RISCV_SUB"))
     sys_delete(sys, &allocator);
     test_end;
 }
-
 
 define_test_chapter(
   riscv, test_print("RISCV"),
