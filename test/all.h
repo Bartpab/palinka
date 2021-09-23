@@ -5,13 +5,13 @@
 #include "../lib/common/test/test_string.h"
 #include "../lib/common/test/test_lexer.h"
 
-#include "test_mmix.h"
 #include "test_riscv.h"
-#include "test_mem.h"
+#include "test_system.h"
+#include "test_memory.h"
 
 set_tests(
   string, buffer, 
-  arith, mem
+  arith, memory, system
   , riscv
   //, mmix
   //, lexer

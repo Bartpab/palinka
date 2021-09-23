@@ -117,7 +117,7 @@ static inline void __decode(system_t* sys, riscv_processor_t* proc, riscv_contro
 {
     tetra raw = instr->raw;
 
-    byte opcode = raw & 0x7F;
+    byte opcode = raw & 0x7f;
     byte rd = (raw >> 7) & 0x1F;
     byte funct3 = (raw >> 12) & 0x7;
     byte rs1 = (raw >> 15) & 0x1F;
@@ -156,30 +156,30 @@ static inline void __decode(system_t* sys, riscv_processor_t* proc, riscv_contro
         case 0b1100111: instr->op = RISCV_JALR; goto b_type;
         case 0b1100011:
             switch(instr->decoded.funct3) {
-                case 0b000: instr->op = RISCV_BEQ; 
-                case 0b001: instr->op = RISCV_BNE;
-                case 0b100: instr->op = RISCV_BLT;
-                case 0b101: instr->op = RISCV_BGE;
-                case 0b110: instr->op = RISCV_BLTU;
-                case 0b111: instr->op = RISCV_BGEU;
-                default: goto b_type;
+                case 0b000: instr->op = RISCV_BEQ; goto b_type;
+                case 0b001: instr->op = RISCV_BNE; goto b_type;
+                case 0b100: instr->op = RISCV_BLT; goto b_type;
+                case 0b101: instr->op = RISCV_BGE; goto b_type;
+                case 0b110: instr->op = RISCV_BLTU; goto b_type;
+                case 0b111: instr->op = RISCV_BGEU; goto b_type;
+                default: goto __end;
             }
             break;
         case 0b0000011:
             switch(instr->decoded.funct3) {
-                case 0b000: instr->op = RISCV_LB;
-                case 0b001: instr->op = RISCV_LH; 
-                case 0b010: instr->op = RISCV_LW; 
-                case 0b100: instr->op = RISCV_LBU;
-                case 0b101: instr->op = RISCV_LHU;
-                default: goto i_type;
+                case 0b000: instr->op = RISCV_LB; goto i_type;
+                case 0b001: instr->op = RISCV_LH; goto i_type;
+                case 0b010: instr->op = RISCV_LW; goto i_type;
+                case 0b100: instr->op = RISCV_LBU; goto i_type;
+                case 0b101: instr->op = RISCV_LHU; goto i_type;
+                default: goto __end;
             }
         case 0b0100011:
             switch(instr->decoded.funct3) {
-                case 0b000: instr->op = RISCV_SB;
-                case 0b001: instr->op = RISCV_SH;
-                case 0b010: instr->op = RISCV_SW;
-                default: goto s_type;
+                case 0b000: instr->op = RISCV_SB; goto s_type;
+                case 0b001: instr->op = RISCV_SH; goto s_type;
+                case 0b010: instr->op = RISCV_SW; goto s_type;
+                default: goto __end;
             } 
             break;
         case 0b0010011:
@@ -192,14 +192,14 @@ static inline void __decode(system_t* sys, riscv_processor_t* proc, riscv_contro
                 case 0b111: instr->op = RISCV_ANDI; goto i_type;
                 case 0b001:
                     switch(instr->decoded.funct7) {
-                        case 0b0000000: instr->op = RISCV_SLLI; 
-                        default: instr->decoded.shamt = instr->decoded.rs2; goto __end;
+                        case 0b0000000: instr->op = RISCV_SLLI; goto __end;
+                        default: goto __end;
                     }
                 case 0b101:
                     switch(instr->decoded.funct7) {
-                        case 0b0000000: instr->op = RISCV_SRLI; 
-                        case 0b0100000: instr->op = RISCV_SRAI;
-                        default: instr->decoded.shamt = instr->decoded.rs2; goto __end;
+                        case 0b0000000: instr->op = RISCV_SRLI; goto __end;
+                        case 0b0100000: instr->op = RISCV_SRAI; goto __end;
+                        default: goto __end;
                     }
                 default: goto __end;
             }
@@ -207,44 +207,44 @@ static inline void __decode(system_t* sys, riscv_processor_t* proc, riscv_contro
             switch(instr->decoded.funct3) {
                 case 0b000:
                     switch(instr->decoded.funct7) {
-                        case 0b0000000: instr->op = RISCV_ADD;
-                        case 0b0100000: instr->op = RISCV_SUB; 
+                        case 0b0000000: instr->op = RISCV_ADD; goto __end;
+                        case 0b0100000: instr->op = RISCV_SUB; goto __end;
                         default: goto __end;
                     }
                 case 0b001:
                     switch(instr->decoded.funct7) {
-                        case 0b0000000: instr->op = RISCV_SLL;
+                        case 0b0000000: instr->op = RISCV_SLL; goto __end;
                         default: goto __end;
                     }
                 case 0b010:
                     switch(instr->decoded.funct7) {
-                        case 0b0000000: instr->op = RISCV_SLT;
+                        case 0b0000000: instr->op = RISCV_SLT; goto __end;
                         default: goto __end;
                     }
                 case 0b011:
                     switch(instr->decoded.funct7) {
-                        case 0b0000000: instr->op = RISCV_SLTU;
+                        case 0b0000000: instr->op = RISCV_SLTU; goto __end;
                         default: goto __end;
                     }
                 case 0b100:
                     switch(instr->decoded.funct7) {
-                        case 0b0000000: instr->op = RISCV_XOR;
+                        case 0b0000000: instr->op = RISCV_XOR; goto __end;
                         default: goto __end;
                     }
                 case 0b101:
                     switch(instr->decoded.funct7) {
-                        case 0b0000000: instr->op = RISCV_SRL; 
-                        case 0b0100000: instr->op = RISCV_SRA;
+                        case 0b0000000: instr->op = RISCV_SRL; goto __end;
+                        case 0b0100000: instr->op = RISCV_SRA; goto __end;
                         default: goto __end;
                     }
                 case 0b110:
                     switch(instr->decoded.funct7) {
-                        case 0b0000000: instr->op = RISCV_OR;
+                        case 0b0000000: instr->op = RISCV_OR; goto __end;
                         default: goto __end;
                     }
                 case 0b111:
                     switch(instr->decoded.funct7) {
-                        case 0b0000000: instr->op = RISCV_AND;
+                        case 0b0000000: instr->op = RISCV_AND; goto __end;
                         default: goto __end;
                     } 
                 default: goto __end;
@@ -262,12 +262,12 @@ static inline void __decode(system_t* sys, riscv_processor_t* proc, riscv_contro
             goto __end;
         case 0b0011011:
             switch(instr->decoded.funct3) {
-                case 0b000: instr->op = RISCV_ADDIW; 
-                case 0b001: instr->op = RISCV_SLLIW;
+                case 0b000: instr->op = RISCV_ADDIW; goto __end;
+                case 0b001: instr->op = RISCV_SLLIW; goto __end;
                 case 0b101: 
                     switch(instr->decoded.funct7) {
-                        case 0x00: instr->op = RISCV_SRLIW;
-                        case 0x20: instr->op = RISCV_SRAIW;
+                        case 0x00: instr->op = RISCV_SRLIW; goto __end;
+                        case 0x20: instr->op = RISCV_SRAIW; goto __end;
                         default: goto __end;
                     }
                 default: goto __end;
@@ -393,11 +393,13 @@ static inline void __decode(system_t* sys, riscv_processor_t* proc, riscv_contro
     }
     
     // Set controls info for OUT1
-    if((flags & OUT1_IS_RD) == OUT1_IS_RD) {
+    if((flags & OUT1_IS_RD) == OUT1_IS_RD) 
+    {
         instr->out[1].flag = true;
         instr->out[1].ptr = &proc->regs[instr->decoded.rd];
     }
-    else if((flags & OUT1_IS_PC) == OUT1_IS_PC) {
+    else if((flags & OUT1_IS_PC) == OUT1_IS_PC) 
+    {
         instr->out[1].ptr = &proc->pc;
         instr->out[1].flag = true;
     } 
@@ -426,8 +428,7 @@ static inline void __write(system_t* sys, riscv_processor_t* proc, riscv_control
 {
     for(unsigned int i = 0; i < 2; i++) 
     {
-        if(instr->out[i].ptr)
-            instr->out[i].value = *instr->out[i].ptr;
+        if(instr->out[i].ptr != NULL) *instr->out[i].ptr = instr->out[i].value;
     }
 }
 
@@ -445,6 +446,8 @@ static inline void __execute(system_t* sys, riscv_processor_t* proc, riscv_contr
     a = instr->args[0].value;
     b = instr->args[1].value;
     c = instr->args[2].value;
+
+    out0 = out1 = 0;
 
     switch(instr->op) 
     {
@@ -476,8 +479,8 @@ static inline void __execute(system_t* sys, riscv_processor_t* proc, riscv_contr
         case RISCV_SRL: case RISCV_SRLI: case RISCV_SRA: case RISCV_SRAI: case RISCV_SRLIW: case RISCV_SRAW: case RISCV_SRAIW: out0 = a >> b; goto __store;
         default: break;
         __store:
-            if(instr->infos->flags & OUT0) instr->out[0].value = out0;
-            if(instr->infos->flags & OUT1) instr->out[1].value = out1;
+            instr->out[0].value = out0;
+            instr->out[1].value = out1;
     }
 }
 
@@ -526,26 +529,35 @@ void riscv_step(system_t* sys)
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     if(proc->remaining_cycles == 0) return sys_halt(sys);
-    if(proc->pc >= proc->regs[2])   return sys_stop(sys);
     
-    switch(proc->stage) 
+    if(proc->current_control.stage == RISCV_FETCH && proc->pc >= proc->regs[2])   
+        return sys_stop(sys);
+    
+    switch(proc->current_control.stage) 
     {
         case RISCV_FETCH:
-            if(__fetch(sys, proc, &proc->current_control)) proc->current_control.stage = RISCV_DECODE;
+            if(!__fetch(sys, proc, &proc->current_control))
+                return sys_panic(sys);
+            
             break;
         case RISCV_DECODE:
-            __decode(sys, proc , &proc->current_control); proc->current_control.stage  = RISCV_READ;
+            __decode(sys, proc , &proc->current_control);
+            break;
+        case RISCV_READ:
+            __read(sys, proc, &proc->current_control);
             break;
         case RISCV_EXECUTE:
-            __execute(sys, proc, &proc->current_control); proc->current_control.stage  = RISCV_MEMORY;
+            __execute(sys, proc, &proc->current_control);
             break;
         case RISCV_MEMORY:
-            __memory(sys, proc, &proc->current_control); proc->current_control.stage  = RISCV_WRITE;
+            __memory(sys, proc, &proc->current_control);
             break;
         case RISCV_WRITE:
-            __write(sys, proc, &proc->current_control); proc->current_control.stage = RISCV_FETCH;
+            __write(sys, proc, &proc->current_control); 
             break;
     }
+
+    proc->current_control.stage = (proc->current_control.stage + 1) % 6;
 
     if(proc->remaining_cycles > 0) proc->remaining_cycles--;
 }

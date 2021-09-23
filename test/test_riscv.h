@@ -39,43 +39,73 @@ system_t* riscv_bootstrap(char* prog, size_t prog_length, size_t heap_memory)
 tetra riscv_add(byte rd, byte rs1, byte rs2)
 {
   tetra t = 0;
-  t |= ((rs2 & 0x1F) << 15) | ((rs1 & 0x1F) << 15) | ((rd & 0x1F) << 7) | 0x51;
+  t |= ((rs2 & 0x1F) << 20) | ((rs1 & 0x1F) << 15) | ((rd & 0x1F) << 7) | 0x33;
+  return t;
+}
+tetra riscv_sub(byte rd, byte rs1, byte rs2)
+{
+  tetra t = 0;
+  t |= (0b0100000 << 25) | ((rs2 & 0x1F) << 20) | ((rs1 & 0x1F) << 15) | ((rd & 0x1F) << 7) | 0x33;
   return t;
 }
 
 define_test(riscv_add, test_print("RISCV_ADD"))
 {
-    tetra encoded = riscv_add(3, 1, 2);
-    tetra stored = 0;
+    allocator_t allocator = GLOBAL_ALLOCATOR;
+    tetra encoded = riscv_add(28, 29, 30);
     octa expected = 15;
     
     system_t* sys = riscv_bootstrap((char*) &encoded, 4, 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
-    proc->regs[3] = 0;
-    proc->regs[1] = 10;
-    proc->regs[2] = 5;
+    proc->regs[28] = 0;
+    proc->regs[29] = 10;
+    proc->regs[30] = 5;
 
-    sys_load_tetra(sys, (void*) 0x0, &stored);
-
-    riscv_step(sys);
-    
-    test_print("%d\n", encoded == stored);
-    test_print("%d\n", proc->current_control.decoded.opcode);
-
+    sys_loop(sys);
+  
     test_check(
-      test_print("Check that %lld + %lld = %lld", proc->regs[1], proc->regs[2], expected),
-      proc->regs[3] == expected,
-      test_failure("Expecting %lld, got %lld", expected, proc->regs[3])
+      test_print("Check that %lld + %lld = %lld", proc->regs[29], proc->regs[30], expected),
+      proc->regs[28] == expected,
+      test_failure("Expecting %lld, got %lld", expected, proc->regs[28])
     );
 
     test_success;
     test_teardown;
-    sys_delete(sys);
+    sys_delete(sys, &allocator);
     test_end;
 }
 
+define_test(riscv_sub, test_print("RISCV_SUB"))
+{
+    allocator_t allocator = GLOBAL_ALLOCATOR;
+    tetra encoded = riscv_sub(28, 29, 30);
+    octa expected = 5;
+    
+    system_t* sys = riscv_bootstrap((char*) &encoded, 4, 0);
+    riscv_processor_t* proc = __get_riscv_proc(sys);
+
+    proc->regs[28] = 0;
+    proc->regs[29] = 10;
+    proc->regs[30] = 5;
+
+    sys_loop(sys);
+  
+    test_check(
+      test_print("Check that %lld + %lld = %lld", proc->regs[29], proc->regs[30], expected),
+      proc->regs[28] == expected,
+      test_failure("Expecting %lld, got %lld", expected, proc->regs[28])
+    );
+
+    test_success;
+    test_teardown;
+    sys_delete(sys, &allocator);
+    test_end;
+}
+
+
 define_test_chapter(
   riscv, test_print("RISCV"),
-  riscv_add
+  riscv_add,
+  riscv_sub
 )

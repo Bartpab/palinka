@@ -33,35 +33,35 @@ typedef struct system_t
 
 } system_t;
 
-void __sys_init(system_t* sys, allocator_t* allocator)
+void __sys_init(system_t* sys, allocator_t* page_node_allocator)
 {
-  __mem_init(&sys->mem, NULL, allocator);
-  sys->allocator = allocator_copy(allocator);
+  __mem_init(&sys->mem, page_node_allocator);
   sys->state = SYS_READY;
 }
 
-void sys_delete(system_t* sys)
-{ 
+void sys_destroy(system_t* sys)
+{
   // Delete the memory.
-  mem_delete(&sys->mem);
-
-  // Copy the allocator locally.
-  allocator_t allocator = allocator_copy(&sys->allocator);
-
-  // Delete the owned allocator.
-  allocator_delete(&sys->allocator);
-  
-  // Free the system
-  pfree(&allocator, sys);
-
-  // Delete the allocator.
-  allocator_delete(&allocator);
+  mem_destroy(&sys->mem);
 }
 
-bool sys_load_byte(system_t* sys, void* addr, byte* byte)
+void sys_delete(system_t* sys, allocator_t* allocator)
+{ 
+  sys_destroy(sys);
+  pfree(allocator, sys);
+}
+
+bool sys_load_byte(system_t* sys, void* addr, byte* ptr)
 {
   char exceptions;
-  return mem_tl(&sys->mem, addr, (void**) &byte, &exceptions);
+  void* base;
+
+  if(!mem_tl(&sys->mem, addr, &base, &exceptions))
+    return false;
+  
+  *ptr = *(byte*) base;
+
+  return true;
 }
 
 bool sys_load_word(system_t* sys, void* addr, word* word)
@@ -98,15 +98,16 @@ bool sys_load_octa(system_t* sys, void* addr, octa* o)
   return true;
 }
 
-bool sys_store_byte(system_t* sys, void* addr, const byte byt)
+bool sys_store_byte(system_t* sys, void* addr, const byte value)
 {
   char exceptions;
-  byte* __byte;
+  void* base;
 
-  if(!mem_tl(&sys->mem, addr, (void**) &__byte, &exceptions))
+  if(false == mem_tl(&sys->mem, addr, &base, &exceptions))
     return false;
 
-  *__byte = byt;
+  *(byte*)(base) = value;
+
   return true;
 }
 

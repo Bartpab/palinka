@@ -6,36 +6,34 @@
 
 #include "./page.h"
 
-typedef struct page_node_t {
+typedef struct page_node_t 
+{
   struct page_node_t* child[2];
   int height;
   unsigned long pid;
   page_t page;
-  allocator_t allocator;
 } page_node_t;
 
 typedef page_node_t* page_tree_t;
 
-void avl_page_delete(page_node_t* pnode)
+void avl_page_delete(page_node_t* pnode, allocator_t* allocator)
 {
   if(!pnode)
     return;
 
-  allocator_t alloc = allocator_copy(&pnode->allocator);
-  allocator_delete(&pnode->allocator);
-  pfree(&alloc, pnode);
-  allocator_delete(&alloc); 
+  
+  pfree(allocator, pnode);
 }
 
-void avl_page_delete_tree(page_tree_t t)
+void avl_page_delete_tree(page_tree_t t, allocator_t* allocator)
 {
   if(t == NULL)
     return;
   
-  avl_page_delete_tree(t->child[0]);
-  avl_page_delete_tree(t->child[1]);
+  avl_page_delete_tree(t->child[0], allocator);
+  avl_page_delete_tree(t->child[1], allocator);
 
-  avl_page_delete(t);
+  avl_page_delete(t, allocator);
 }
 
 int avl_page_get_height(page_tree_t tree)
@@ -127,7 +125,6 @@ page_node_t* avl_page_insert(page_tree_t* t, unsigned long pid, allocator_t* all
     (*t)->child[1] = NULL;
     (*t)->pid = pid;
     (*t)->height = 1;
-    (*t)->allocator = allocator_copy(allocator);
 
     return *t;
   } else {
@@ -137,7 +134,7 @@ page_node_t* avl_page_insert(page_tree_t* t, unsigned long pid, allocator_t* all
   }
 }
 
-page_node_t avl_page_remove_min(page_tree_t* t)
+page_node_t avl_page_remove_min(page_tree_t* t, allocator_t* allocator)
 {
   page_node_t pnode;
   
@@ -149,9 +146,9 @@ page_node_t avl_page_remove_min(page_tree_t* t)
     pnode = *old_root;
     *t = old_root->child[1];
 
-    avl_page_delete(old_root);
+    avl_page_delete(old_root, allocator);
   } else {
-    pnode = avl_page_remove_min(&(*t)->child[0]);
+    pnode = avl_page_remove_min(&(*t)->child[0], allocator);
   }
 
   avl_page_rebalance(t);
@@ -159,7 +156,7 @@ page_node_t avl_page_remove_min(page_tree_t* t)
   return pnode;
 }
 
-void avl_page_remove(page_tree_t* t, unsigned long pid)
+void avl_page_remove(page_tree_t* t, unsigned long pid, allocator_t* allocator)
 {
   page_tree_t old_root;
 
@@ -171,16 +168,16 @@ void avl_page_remove(page_tree_t* t, unsigned long pid)
     page_node_t* left = (*t)->child[0];
 
     if(*right != NULL) {
-      page_node_t tmp = avl_page_remove_min(right);
+      page_node_t tmp = avl_page_remove_min(right, allocator);
       (*t)->page = tmp.page;
       (*t)->pid = tmp.pid; 
     } else {
       old_root = *t;
       *t = left;
-      avl_page_delete(old_root);
+      avl_page_delete(old_root, allocator);
     }
   } else {
-    avl_page_remove(&(*t)->child[pid > (*t)->pid], pid);
+    avl_page_remove(&(*t)->child[pid > (*t)->pid], pid, allocator);
   }
 
   avl_page_rebalance(t);

@@ -7,8 +7,7 @@ memory_t mem_boostrap()
 {
   memory_t mem;
   allocator_t node_page_allocator = GLOBAL_ALLOCATOR;
-  allocator_t allocator = NO_ALLOCATOR;
-  __mem_init(&mem, &allocator, &node_page_allocator);
+  __mem_init(&mem, &node_page_allocator);
   return mem;
 }
 
@@ -48,7 +47,7 @@ define_test(
     test_failure("Should get an inserted page node.")
   );
 
-  avl_page_remove(&tree, 10);
+  avl_page_remove(&tree, 10, &allocator);
 
   test_check(
     test_print("Check when the #10th page is removed, we do get a negative search result."),
@@ -59,7 +58,7 @@ define_test(
   test_success;
   
   test_teardown {
-    avl_page_delete_tree(tree); 
+    avl_page_delete_tree(tree, &allocator); 
   }
 
   test_end;
@@ -84,7 +83,7 @@ define_test(
   test_success;
   
   test_teardown {
-    mem_delete(&mem);
+    mem_destroy(&mem);
   }
 
   test_end;
@@ -135,7 +134,7 @@ define_test(
   test_success;
   
   test_teardown {
-    mem_delete(&mem);
+    mem_destroy(&mem);
   }
 
   test_end;
@@ -166,7 +165,7 @@ define_test(
   test_success;
   
   test_teardown {
-    mem_delete(&mem);
+    mem_destroy(&mem);
   }
 
   test_end;
@@ -174,6 +173,6 @@ define_test(
 
 
 define_test_chapter(
-  mem, test_print("Memory"), 
+  memory, test_print("Memory"), 
   page_node, mem_tl, mem_map, mem_alloc_managed
 )

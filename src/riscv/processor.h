@@ -20,13 +20,10 @@ typedef struct {
 
     octa pc;                          // Program counter
     riscv_control_t current_control;  // Current control state
-    int stage;                        // State
 
     // Simulation
     unsigned int frequency; // Hz
     int remaining_cycles;
-
-
 } riscv_processor_t;
 
 typedef struct {

@@ -34,15 +34,13 @@ typedef struct managed_memory_t
 
   size_t len;
   allocator_t allocator;
-
   struct managed_memory_t* next;
+  
 } managed_memory_t;
 
 typedef struct {
   page_tree_t pages;
   managed_memory_t* managed;
-
-  allocator_t allocator;
   allocator_t page_node_allocator;
 } memory_t;
 
@@ -52,17 +50,17 @@ typedef struct {
  * 
  * \return A new memory device
  */
-memory_t* mem_create(allocator_t* allocator);
+memory_t* mem_new(allocator_t* allocator, allocator_t* page_node_allocator);
 
 /**
  * \brief Init the memory device
  */
-void __mem_init(memory_t* mem, allocator_t* allocator, allocator_t* page_node_allocator);
+void __mem_init(memory_t* mem, allocator_t* page_node_allocator);
 
 /**
  * \brief Delete the memory device
  */
-void mem_delete(memory_t* mem);
+void mem_delete(memory_t* mem, allocator_t* allocator);
 
 /**
  * \brief Returns a memory-aligned length.
@@ -91,19 +89,18 @@ void* mem_alloc_managed(memory_t* mem, allocator_t* allocator, void* vaddr, size
  */
 static void __managed_mem_delete_all(managed_memory_t* managed);
 
-void __mem_init(memory_t* mem, allocator_t* allocator, allocator_t* page_node_allocator)
+void __mem_init(memory_t* mem, allocator_t* page_node_allocator)
 {
   mem->pages = 0;
   mem->managed = 0;
 
-  mem->allocator = allocator == NULL ? NO_ALLOCATOR: allocator_copy(allocator);
   mem->page_node_allocator = page_node_allocator == NULL ? NO_ALLOCATOR: allocator_copy(page_node_allocator);
 }
 
-memory_t* mem_create(allocator_t* allocator)
+memory_t* mem_new(allocator_t* allocator, allocator_t* page_node_allocator)
 {
   memory_t* mem = (memory_t*) pmalloc(allocator, sizeof(memory_t));
-  __mem_init(mem, allocator, allocator);
+  __mem_init(mem, page_node_allocator);
   return mem;
 }
 
@@ -178,8 +175,8 @@ void* mem_map(memory_t* mem, void* vaddr, void* paddr, size_t len)
     else  
       len = 0;
 
-    vaddr += PAGE_SIZE;
-    paddr += PAGE_SIZE;
+    vaddr = vaddr + PAGE_SIZE;
+    paddr = paddr + PAGE_SIZE;
 
   } while (len > PAGE_SIZE);
 
@@ -225,21 +222,21 @@ static void __managed_mem_delete_all(managed_memory_t* managed)
   }
 }
 
-void mem_delete(memory_t* mem)
+void mem_destroy(memory_t* mem)
 {
   // Delete all page nodes.
-  avl_page_delete_tree(mem->pages);
+  avl_page_delete_tree(mem->pages, &mem->page_node_allocator);
   mem->pages = 0;
 
   // Delete all managed memory.
   __managed_mem_delete_all(mem->managed);
   mem->managed = 0;
+}
 
-  // Free the rest.
-  allocator_t allocator = allocator_copy(&mem->allocator);
-  allocator_delete(&mem->allocator);
-  pfree(&allocator, mem);
-  allocator_delete(&allocator);
+void mem_delete(memory_t* mem, allocator_t* allocator)
+{
+  mem_destroy(mem);
+  pfree(allocator, mem);
 }
 
 #endif
