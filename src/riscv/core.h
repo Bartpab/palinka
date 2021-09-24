@@ -70,9 +70,55 @@ static void __riscv_init(system_t* sys, riscv_processor_cfg_t* cfg)
     proc->remaining_cycles = 0;
    
     proc->pc        = cfg->boot_address;
+
+    for(int i = 0; i < 32; i++) {
+        proc->regs[i] = 0;
+    }
+
     proc->regs[2]   = cfg->memory_size;
     proc->regs[0]   = octa_zero;
 
+    proc->fetch.control.stall = false;
+
+    proc->decoder.pc = 0;
+    proc->decoder.raw = 0;
+    proc->decoder.control.stall = false;
+    proc->decoder.control.invalid = false;
+
+    proc->read.pc = 0;
+    proc->read.control.dest_reg = 0;
+    proc->read.control.imm = 0;
+    proc->read.control.src_regs[0] = 0;
+    proc->read.control.src_regs[1] = 0;
+    proc->read.control.stall = false;
+    proc->read.control.write_pc = false;
+    proc->read.control.invalid = false;
+    
+    proc->execute.args[0] = 0;
+    proc->execute.args[1] = 0;
+    proc->execute.pc = 0;
+    proc->execute.control.dest_reg = 0;
+    proc->execute.control.imm = 0;
+    proc->execute.control.src_regs[0] = 0;
+    proc->execute.control.src_regs[1] = 0;
+    proc->execute.control.stall = false;
+    proc->execute.control.write_pc = false;
+    proc->execute.control.invalid = false;
+
+    proc->memory.pc = 0;
+    proc->memory.result = 0;
+    proc->memory.control.dest_reg = 0;
+    proc->memory.control.load = 0;
+    proc->memory.control.load_addr = 0;
+    proc->memory.control.store = false;
+    proc->memory.control.store_addr = 0;
+    proc->memory.control.stall = false;
+    proc->memory.control.invalid = false;
+
+    proc->writeback.control.dest_reg = 0;
+    proc->writeback.control.stall = false;
+    proc->writeback.control.invalid = true;
+    proc->writeback.result = 0;
 }
 
 static inline bool __fetch(system_t* sys, riscv_processor_t* proc)
@@ -92,10 +138,10 @@ static inline bool __fetch(system_t* sys, riscv_processor_t* proc)
         out->raw = 0;
     }
     
-    out->pc = proc->pc + 4;
+    proc->pc += 4;
+    out->pc = proc->pc;
     out->raw = raw;
-    
-    in->control.stall = true;
+    out->control.invalid = false;
 
     return true;
 }
@@ -109,7 +155,8 @@ static inline void __decode(system_t* sys, riscv_processor_t* proc)
     proc->read.control.dest_reg     = proc->read.control.instr.dest_reg;
     proc->read.pc                   = proc->decoder.pc;
     proc->read.control.imm          = proc->read.control.instr.imm;
-
+    proc->read.control.write_pc     = proc->read.control.instr.write_pc;
+    
     // Check any data hazards
     unsigned char write_regs[3] = {
        proc->execute.control.dest_reg,
@@ -141,16 +188,25 @@ static inline void __read(system_t* sys, riscv_processor_t* proc)
     riscv_stage_read_t* in = &proc->read;
     riscv_stage_execute_t* out = &proc->execute;
 
+    out->control.invalid = in->control.invalid;
+
+    if(out->control.invalid)
+        return;
+
     // Read registers
     out->args[0] = proc->regs[in->control.src_regs[0]];
     out->args[1] = proc->regs[in->control.src_regs[1]];
 
+    // Copy target
+    out->pc = in->pc;
+
     // Transfer control to control
-    out->control.instr = in->control.instr;
+    out->control.instr       = in->control.instr;
     out->control.src_regs[0] = in->control.src_regs[0];
     out->control.src_regs[1] = in->control.src_regs[1];
-    out->control.dest_reg = in->control.dest_reg;
-    out->control.imm = in->control.imm;
+    out->control.dest_reg    = in->control.dest_reg;
+    out->control.imm         = in->control.imm;
+    out->control.write_pc    = in->control.write_pc;
 
 }
 
@@ -159,13 +215,18 @@ static inline void __execute(system_t* sys, riscv_processor_t* proc)
     riscv_stage_execute_t* in = &proc->execute;
     riscv_stage_memory_t* out = &proc->memory;
 
+    out->control.invalid = in->control.invalid;
+
+    if(out->control.invalid)
+        return;
+
     octa result, a, b, pc, store_addr, load_addr, imm;
     bool store, load;
 
     a = in->args[0];
     b = in->args[1];
 
-    pc = in->pc;
+    pc  = in->pc;
     imm = in->control.imm;
     result  = 0;
 
@@ -175,10 +236,11 @@ static inline void __execute(system_t* sys, riscv_processor_t* proc)
     switch(in->control.instr.op) 
     {
         case RISCV_LUI: result = imm; break; // OK
-        case RISCV_AUIPC: result = pc + (imm << 12); break; // OK
+        case RISCV_AUIPC: 
+            result = pc + (imm << 12); break; // OK
         // jump
-        case RISCV_JAL: result = pc + 4, pc = pc + (imm << 1); break; // OK
-        case RISCV_JALR: result = pc, pc = (pc + imm) & (~1); break; // OK
+        case RISCV_JAL: result = pc, pc = pc - 4 + (imm << 2); break; // OK
+        case RISCV_JALR: result = pc, pc = (pc - 4 + imm) & (~3); break; // OK
         // branch
         case RISCV_BEQ: if(a == b) pc += imm + 4; break; // OK
         case RISCV_BNE: if(a != b) pc += imm + 4; break; // OK
@@ -231,16 +293,27 @@ static inline void __execute(system_t* sys, riscv_processor_t* proc)
     out->control.dest_reg = in->control.dest_reg;
 
     // Write target
-    proc->pc = out->pc;
-
-    // Unstall
-    proc->fetch.control.stall = false;
+    if(in->control.write_pc) 
+    {
+        // Control hazard !
+        if(proc->read.pc != out->pc) 
+        {
+            proc->pc = out->pc;
+            proc->decoder.control.invalid = true;
+            proc->read.control.invalid = true;
+        }
+    }
 }
 
 static inline void __memory(system_t* sys, riscv_processor_t* proc)
 {
     riscv_stage_memory_t* in = &proc->memory;
     riscv_stage_writeback_t* out = &proc->writeback;
+
+    out->control.invalid = in->control.invalid;
+
+    if(out->control.invalid)
+        return;
 
     octa result = in->result;
     octa addr = 0;
@@ -270,6 +343,10 @@ static inline void __memory(system_t* sys, riscv_processor_t* proc)
 static inline void __write(system_t* sys, riscv_processor_t* proc)
 {
     riscv_stage_writeback_t* in = &proc->writeback;
+
+    if(in->control.invalid)
+        return;
+
     proc->regs[in->control.dest_reg] = in->result;
 
     proc->fetch.control.stall   = false;

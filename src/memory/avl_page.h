@@ -18,9 +18,8 @@ typedef page_node_t* page_tree_t;
 
 void avl_page_delete(page_node_t* pnode, allocator_t* allocator)
 {
-  if(!pnode)
+  if(pnode == NULL)
     return;
-
   
   pfree(allocator, pnode);
 }

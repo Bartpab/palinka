@@ -20,6 +20,7 @@ typedef struct {
 
     byte src_regs[2];
     byte dest_reg;
+    bool write_pc;
 } riscv_decoded_instr_t;
 
 
@@ -45,6 +46,8 @@ riscv_decoded_instr_t decode(tetra raw)
     decoded.src_regs[0] = 0;
     decoded.src_regs[1] = 0;
     decoded.dest_reg    = 0;
+    decoded.write_pc    = 0;
+    decoded.op = 0;
 
     switch(decoded.opcode) {
         case 0b0110111: decoded.op = RISCV_LUI; goto u_type;
@@ -181,7 +184,8 @@ riscv_decoded_instr_t decode(tetra raw)
             decoded.imm = (((raw >> 8) & 0xF) << 1)| (((raw >> 25) & 0x3F) << 5) | (((raw >> 7) & 1) << 11) | (((raw >> 31) & 1) << 12);
             break;
         u_type:
-            decoded.imm = (((raw >> 12) & 0xFF) << 12) | (((raw >> 20) & 0x7FF) << 20) | (((raw >> 31) & 1) << 31);
+            decoded.imm = (raw >> 12) & 0x7FFFF;
+            //decoded.imm = (((raw >> 12) & 0xFF) << 12) | (((raw >> 20) & 0x7FF) << 20) | (((raw >> 31) & 1) << 31);
             break;
         j_type:
             decoded.imm = ((raw >> 21) & 0x3FF) << 1 | (((raw >> 20) & 1) << 11) | (((raw >> 12) & 0x7F) << 12) | ((((octa)(raw) >> 32) & 1) << 31);
@@ -200,7 +204,9 @@ riscv_decoded_instr_t decode(tetra raw)
     if((flag & ARG1_IS_RS1) == ARG1_IS_RS1) decoded.src_regs[1] = decoded.rs1;
     if((flag & ARG1_IS_RS2) == ARG1_IS_RS2) decoded.src_regs[1] = decoded.rs2;
 
-    if((flag & OUT0_IS_RD)) decoded.dest_reg = decoded.rd;
+    if((flag & WRITE_REG)) decoded.dest_reg = decoded.rd;
+
+    if((flag & WRITE_PC) == WRITE_PC) decoded.write_pc = true;
 
     return decoded;
 }

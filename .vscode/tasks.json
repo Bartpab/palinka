@@ -5,7 +5,7 @@
         "type": "shell",
         "label": "gcc build test",
         "command": "gcc",
-        "args": ["-Wall", "-Werror", "-g3", "${workspaceFolder}/test.c", "-o", "${workspaceFolder}/build/test.exe"],
+        "args": ["-O1", "-Wall", "-Werror", "-g3", "${workspaceFolder}/test.c", "-o", "${workspaceFolder}/build/test.exe", "-fno-strict-aliasing", "-Wno-uninitialized"],
         "problemMatcher": ["$gcc"],
         "group": {
           "kind": "build",

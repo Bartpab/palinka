@@ -15,16 +15,17 @@ typedef struct {
   octa pc;
   tetra raw;
   struct {
-    bool stall;
+    bool stall, invalid;
   } control;
 } riscv_stage_decoder_t;
 
 typedef struct {
   octa pc;
   struct {
-      bool stall;
+      bool stall, invalid;
       riscv_decoded_instr_t instr;
       octa imm;
+      bool write_pc;
       unsigned char src_regs[2]; 
       unsigned char dest_reg; // Address of the destination registers
   } control;
@@ -34,9 +35,10 @@ typedef struct {
   octa    pc;
   tetra   args[2];
   struct {
-      bool stall;
+      bool stall, invalid;
       riscv_decoded_instr_t instr;
       octa imm;
+      bool write_pc;
       unsigned char src_regs[2]; 
       unsigned char dest_reg; // Address of the destination registers
   } control;
@@ -46,7 +48,7 @@ typedef struct {
   octa pc;
   tetra result;
   struct {
-      bool stall;
+      bool stall, invalid;
 
       riscv_decoded_instr_t instr;
       unsigned char dest_reg; // Address of the destination registers
@@ -62,7 +64,7 @@ typedef struct {
 typedef struct {
   tetra result;
   struct {
-    bool stall;
+    bool stall, invalid;
     unsigned char dest_reg; // Address of the destination registers
   } control;
 } riscv_stage_writeback_t;
