@@ -46,13 +46,9 @@ tetra riscv_auipc(byte rd, tetra imm)
   return ((imm & 0x7ffff) << 12 ) | ((rd & 0x1F) << 7) | 23;
 }
 
-tetra riscv_jal(byte rd, tetra imm) {
-  tetra tmp = 0;
-  tmp |= (imm & 0x3ff) << 9;
-  tmp |= ((imm >> 11) & 1) << 8; 
-  tmp |= ((imm >> 12) & 0xFF);
-  tmp |= ((imm >> 20) & 1) << 19;
-  return (tmp << 12) |((rd & 0x1F) << 7) | 111;
+tetra riscv_jal(byte rd, tetra imm) 
+{
+  return encode_j_type(imm) | ((rd & 0x1F) << 7) | 0b1101111;
 }
 
 tetra riscv_add(byte rd, byte rs1, byte rs2)
@@ -123,8 +119,14 @@ define_test(riscv_jal, test_print("RISCV_JAL"))
 
     proc->regs[28] = 0;
 
-    sys_run(sys, 100);
+    sys_run(sys, 1);
   
+    test_check(
+      test_print("Check the imm encoding/decoding for J-type based instruction."),
+      decode_j_type(encode_j_type(1)) == 1,
+      test_failure("Expecting %d, got %d", 1, decode_j_type(encode_j_type(1)))
+    );
+
     test_check(
       test_print("Check the JAL result"),
       proc->regs[28] == expected_reg,

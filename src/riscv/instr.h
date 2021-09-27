@@ -17,12 +17,31 @@ typedef struct {
     octa imm;
     
     unsigned int op;
-
     byte src_regs[2];
     byte dest_reg;
     bool write_pc;
+    bool arg1_is_imm;
 } riscv_decoded_instr_t;
 
+tetra encode_j_type(tetra imm)
+{
+    tetra imm_10_1 = imm & 0x1ff;
+    tetra imm_11 = (imm >> 11) & 1;
+    tetra imm_19_12 = (imm >> 12) & 0xff;
+    tetra imm_20 = (imm >> 20) & 1;
+
+    return imm_19_12 | (imm_11 << 20) | (imm_10_1 << 21) | (imm_20 << 31);
+}
+
+tetra decode_j_type(tetra raw)
+{
+    tetra imm_19_12 = (raw >> 12) & 0xff;
+    tetra imm_11 = (raw >> 20) & 1;
+    tetra imm_10_1 = (raw >> 21) & 0x1ff;
+    tetra imm_20 = (raw >> 31) & 1;
+
+    return imm_10_1 | (imm_11 << 11) | (imm_19_12 << 12) | (imm_20 << 20);
+}
 
 riscv_decoded_instr_t decode(tetra raw)
 {
@@ -48,6 +67,7 @@ riscv_decoded_instr_t decode(tetra raw)
     decoded.dest_reg    = 0;
     decoded.write_pc    = 0;
     decoded.op = 0;
+    decoded.arg1_is_imm = 0;
 
     switch(decoded.opcode) {
         case 0b0110111: decoded.op = RISCV_LUI; goto u_type;
@@ -188,7 +208,7 @@ riscv_decoded_instr_t decode(tetra raw)
             //decoded.imm = (((raw >> 12) & 0xFF) << 12) | (((raw >> 20) & 0x7FF) << 20) | (((raw >> 31) & 1) << 31);
             break;
         j_type:
-            decoded.imm = ((raw >> 21) & 0x3FF) << 1 | (((raw >> 20) & 1) << 11) | (((raw >> 12) & 0x7F) << 12) | ((((octa)(raw) >> 32) & 1) << 31);
+            decoded.imm = decode_j_type(raw);
             break;
         __end:
             break;
@@ -203,7 +223,7 @@ riscv_decoded_instr_t decode(tetra raw)
     
     if((flag & ARG1_IS_RS1) == ARG1_IS_RS1) decoded.src_regs[1] = decoded.rs1;
     if((flag & ARG1_IS_RS2) == ARG1_IS_RS2) decoded.src_regs[1] = decoded.rs2;
-
+    if((flag & ARG1_IS_IMMEDIATE) == ARG1_IS_IMMEDIATE) decoded.arg1_is_imm = true;
     if((flag & WRITE_REG)) decoded.dest_reg = decoded.rd;
 
     if((flag & WRITE_PC) == WRITE_PC) decoded.write_pc = true;

@@ -78,64 +78,25 @@ static void __riscv_init(system_t* sys, riscv_processor_cfg_t* cfg)
     proc->regs[2]   = cfg->memory_size;
     proc->regs[0]   = octa_zero;
 
-    proc->fetch.control.stall = false;
-
-    proc->decoder.pc = 0;
-    proc->decoder.raw = 0;
-    proc->decoder.control.stall = false;
-    proc->decoder.control.invalid = false;
-
-    proc->read.pc = 0;
-    proc->read.control.dest_reg = 0;
-    proc->read.control.imm = 0;
-    proc->read.control.src_regs[0] = 0;
-    proc->read.control.src_regs[1] = 0;
-    proc->read.control.stall = false;
-    proc->read.control.write_pc = false;
-    proc->read.control.invalid = false;
-    
-    proc->execute.args[0] = 0;
-    proc->execute.args[1] = 0;
-    proc->execute.pc = 0;
-    proc->execute.control.dest_reg = 0;
-    proc->execute.control.imm = 0;
-    proc->execute.control.src_regs[0] = 0;
-    proc->execute.control.src_regs[1] = 0;
-    proc->execute.control.stall = false;
-    proc->execute.control.write_pc = false;
-    proc->execute.control.invalid = false;
-
-    proc->memory.pc = 0;
-    proc->memory.result = 0;
-    proc->memory.control.dest_reg = 0;
-    proc->memory.control.load = 0;
-    proc->memory.control.load_addr = 0;
-    proc->memory.control.store = false;
-    proc->memory.control.store_addr = 0;
-    proc->memory.control.stall = false;
-    proc->memory.control.invalid = false;
-
-    proc->writeback.control.dest_reg = 0;
-    proc->writeback.control.stall = false;
-    proc->writeback.control.invalid = true;
-    proc->writeback.result = 0;
+    riscv_pipeline_create(&proc->pipeline);
 }
 
 static inline bool __fetch(system_t* sys, riscv_processor_t* proc)
 {
-    riscv_stage_fetch_t* in = &proc->fetch;
+    riscv_pipeline_t* pipeline  = &proc->pipeline;
+    riscv_stage_fetch_t* in     = &pipeline->fetch;
+    riscv_stage_decoder_t* out  = &pipeline->decoder;
 
-    if(in->control.stall) return false;
-
-    riscv_stage_decoder_t* out = &proc->decoder;
+    if(in->control.stall)
+        return false;        
 
     tetra raw;
     void* vaddr = (void*) proc->pc;
     
     if(!sys_load_tetra(sys, vaddr, &raw))
     {
-        out->pc = proc->pc + 4;
-        out->raw = 0;
+        out->pc = proc->pc;
+        out->raw = 0; // NOP
     }
     
     proc->pc += 4;
@@ -148,20 +109,37 @@ static inline bool __fetch(system_t* sys, riscv_processor_t* proc)
 
 static inline void __decode(system_t* sys, riscv_processor_t* proc)
 {
+    riscv_pipeline_t* pipeline      = &proc->pipeline;
+    riscv_stage_decoder_t* in       = &pipeline->decoder;
+    riscv_stage_read_t* out         = &pipeline->read;
+
+    out->control.invalid = in->control.invalid;
+
+    if(out->control.invalid)
+        return;
+
+    if(in->control.stall)
+        return;
+
     // Setup control
-    proc->read.control.instr        = decode(proc->decoder.raw);
-    proc->read.control.src_regs[0]  = proc->read.control.instr.src_regs[0];
-    proc->read.control.src_regs[1]  = proc->read.control.instr.src_regs[1];
-    proc->read.control.dest_reg     = proc->read.control.instr.dest_reg;
-    proc->read.pc                   = proc->decoder.pc;
-    proc->read.control.imm          = proc->read.control.instr.imm;
-    proc->read.control.write_pc     = proc->read.control.instr.write_pc;
+    riscv_decoded_instr_t decoded   = decode(in->raw);
+    
+    out->control.op           = decoded.op;
+    out->control.src_regs[0]  = decoded.src_regs[0];
+    out->control.src_regs[1]  = decoded.src_regs[1];
+    out->control.dest_reg     = decoded.dest_reg;
+    out->control.arg1_is_imm  = decoded.arg1_is_imm;
+
+    // Fill the control block
+    out->pc                     = in->pc;
+    out->control.imm            = decoded.imm;
+    out->control.write_pc       = decoded.write_pc;
     
     // Check any data hazards
     unsigned char write_regs[3] = {
-       proc->execute.control.dest_reg,
-       proc->memory.control.dest_reg,
-       proc->writeback.control.dest_reg 
+       pipeline->execute.control.dest_reg,
+       pipeline->memory.control.dest_reg,
+       pipeline->writeback.control.dest_reg 
     };
 
     for(unsigned char i = 0; i < 3; i++) 
@@ -172,11 +150,11 @@ static inline void __decode(system_t* sys, riscv_processor_t* proc)
                 continue;
 
             // Data hazard !
-            if(write_regs[i] == proc->read.control.src_regs[j]) 
+            if(write_regs[i] == pipeline->read.control.src_regs[j]) 
             {
-                proc->fetch.control.stall = true;
-                proc->decoder.control.stall = true;
-                proc->read.control.stall = true;
+                pipeline->fetch.control.stall   = true;
+                pipeline->decoder.control.stall = true;
+                pipeline->read.control.stall    = true;
                 break;
             }
         }
@@ -185,12 +163,17 @@ static inline void __decode(system_t* sys, riscv_processor_t* proc)
 
 static inline void __read(system_t* sys, riscv_processor_t* proc)
 {
-    riscv_stage_read_t* in = &proc->read;
-    riscv_stage_execute_t* out = &proc->execute;
+    riscv_pipeline_t* pipeline = &proc->pipeline;
+
+    riscv_stage_read_t* in = &pipeline->read;
+    riscv_stage_execute_t* out = &pipeline->execute;
+
+    if(in->control.stall)
+        return;
 
     out->control.invalid = in->control.invalid;
 
-    if(out->control.invalid)
+    if(out->control.invalid) 
         return;
 
     // Read registers
@@ -201,19 +184,25 @@ static inline void __read(system_t* sys, riscv_processor_t* proc)
     out->pc = in->pc;
 
     // Transfer control to control
-    out->control.instr       = in->control.instr;
+    out->control.op          = in->control.op;
     out->control.src_regs[0] = in->control.src_regs[0];
     out->control.src_regs[1] = in->control.src_regs[1];
     out->control.dest_reg    = in->control.dest_reg;
     out->control.imm         = in->control.imm;
     out->control.write_pc    = in->control.write_pc;
+    out->control.arg1_is_imm = in->control.arg1_is_imm;
 
 }
 
 static inline void __execute(system_t* sys, riscv_processor_t* proc)
 {
-    riscv_stage_execute_t* in = &proc->execute;
-    riscv_stage_memory_t* out = &proc->memory;
+    riscv_pipeline_t* pipeline = &proc->pipeline;
+
+    riscv_stage_execute_t* in = &pipeline->execute;
+    riscv_stage_memory_t* out = &pipeline->memory;
+
+    if(in->control.stall)
+        return;
 
     out->control.invalid = in->control.invalid;
 
@@ -224,7 +213,7 @@ static inline void __execute(system_t* sys, riscv_processor_t* proc)
     bool store, load;
 
     a = in->args[0];
-    b = in->args[1];
+    b = in->control.arg1_is_imm ? in->control.imm : in->args[1];
 
     pc  = in->pc;
     imm = in->control.imm;
@@ -233,14 +222,16 @@ static inline void __execute(system_t* sys, riscv_processor_t* proc)
     store = load = false;
     store_addr = load_addr = 0;
 
-    switch(in->control.instr.op) 
+    switch(in->control.op) 
     {
         case RISCV_LUI: result = imm; break; // OK
         case RISCV_AUIPC: 
             result = pc + (imm << 12); break; // OK
         // jump
-        case RISCV_JAL: result = pc, pc = pc - 4 + (imm << 2); break; // OK
-        case RISCV_JALR: result = pc, pc = (pc - 4 + imm) & (~3); break; // OK
+        case RISCV_JAL: 
+            result = pc, pc = pc - 4 + (b << 2); 
+            break; // OK
+        case RISCV_JALR: result = pc, pc = (pc - 4 + b) & (~3); break; // OK
         // branch
         case RISCV_BEQ: if(a == b) pc += imm + 4; break; // OK
         case RISCV_BNE: if(a != b) pc += imm + 4; break; // OK
@@ -254,28 +245,22 @@ static inline void __execute(system_t* sys, riscv_processor_t* proc)
         // store
         case RISCV_SB: case RISCV_SH: case RISCV_SW: case RISCV_SD: store = true, store_addr = a + b; break;
         // add
-        case RISCV_ADD:  case RISCV_ADDW: result = a + b; break;
-        case RISCV_ADDI: case RISCV_ADDIW: result = a + imm; break;
+        case RISCV_ADD:  case RISCV_ADDW: case RISCV_ADDI: case RISCV_ADDIW: result = a + b; break;
         // sub
         case RISCV_SUB: case RISCV_SUBW: result = a - b; break;
         // compare lt
-        case RISCV_SLTU:  result = a < b; break;         
-        case RISCV_SLTIU: case RISCV_SLTI: result = a < imm; break;
+        case RISCV_SLTU: case RISCV_SLTIU: case RISCV_SLTI: result = a < b; break;         
         // xor
-        case RISCV_XOR: result =  a ^ b; break;
-        case RISCV_XORI: result = a ^ imm; break;
+        case RISCV_XORI: case RISCV_XOR: result =  a ^ b; break;
         // or
-        case RISCV_OR: result = a | b; break;
-        case RISCV_ORI: result = a | imm; break;
+        case RISCV_ORI: case RISCV_OR: result = a | b; break;
         // and
-        case RISCV_AND:  result = a & b; break;
-        case RISCV_ANDI: result = a & b; break;
+        case RISCV_ANDI: case RISCV_AND:  result = a & b; break;
         // shift left
-        case RISCV_SLL: case RISCV_SLLW:  result = a << b; break;
-        case RISCV_SLLI: case RISCV_SLLIW: result = a << imm; break;
+        case RISCV_SLL: case RISCV_SLLW: case RISCV_SLLI: case RISCV_SLLIW: result = a << b; break;
         // shift right
-        case RISCV_SRL: case RISCV_SRA: case RISCV_SRAW: result = a >> b; break;
-        case RISCV_SRLI: case RISCV_SRLIW: case RISCV_SRAIW: case RISCV_SRAI: result = a >> imm; break;
+        case RISCV_SRLI: case RISCV_SRLIW: case RISCV_SRAIW: case RISCV_SRAI: case RISCV_SRL: case RISCV_SRA: case RISCV_SRAW: result = a >> b; break;
+        // Halt the simulation
         case RISCV_EBREAK: sys_halt(sys);
         default: break;
     }
@@ -289,39 +274,40 @@ static inline void __execute(system_t* sys, riscv_processor_t* proc)
     out->control.store_addr = store_addr;
     out->control.load = load;
     out->control.load_addr = load_addr;
-    out->control.instr = in->control.instr;
     out->control.dest_reg = in->control.dest_reg;
 
     // Write target
-    if(in->control.write_pc) 
+    if(in->control.write_pc && pipeline->read.pc != out->pc) 
     {
-        // Control hazard !
-        if(proc->read.pc != out->pc) 
-        {
-            proc->pc = out->pc;
-            proc->decoder.control.invalid = true;
-            proc->read.control.invalid = true;
-        }
+        proc->pc = out->pc;
+        pipeline->decoder.control.invalid = true;
+        pipeline->read.control.invalid = true;
     }
 }
 
 static inline void __memory(system_t* sys, riscv_processor_t* proc)
 {
-    riscv_stage_memory_t* in = &proc->memory;
-    riscv_stage_writeback_t* out = &proc->writeback;
+    octa result, addr;
+
+    riscv_pipeline_t* pipeline = &proc->pipeline;
+    riscv_stage_memory_t* in     = &pipeline->memory;
+    riscv_stage_writeback_t* out = &pipeline->writeback;
+
+    if(in->control.stall)
+        return;
 
     out->control.invalid = in->control.invalid;
 
     if(out->control.invalid)
         return;
 
-    octa result = in->result;
-    octa addr = 0;
+    result = in->result;
+    addr = 0;
 
     if(in->control.store) addr = in->control.store_addr;
     if(in->control.load) addr = in->control.load_addr;
 
-    switch(in->control.instr.op) 
+    switch(in->control.op) 
     {
         // load
         case RISCV_LBU: case RISCV_LB: sys_load_byte(sys, (void*) addr, (byte*) &result); break;
@@ -342,16 +328,20 @@ static inline void __memory(system_t* sys, riscv_processor_t* proc)
 
 static inline void __write(system_t* sys, riscv_processor_t* proc)
 {
-    riscv_stage_writeback_t* in = &proc->writeback;
+    riscv_pipeline_t* pipeline = &proc->pipeline;
+    riscv_stage_writeback_t* in = &pipeline->writeback;
+
+    if(in->control.stall)
+        return;
 
     if(in->control.invalid)
         return;
 
     proc->regs[in->control.dest_reg] = in->result;
 
-    proc->fetch.control.stall   = false;
-    proc->decoder.control.stall = false;
-    proc->read.control.stall    = false;
+    pipeline->fetch.control.stall   = false;
+    pipeline->decoder.control.stall = false;
+    pipeline->read.control.stall    = false;
 }
 
 void riscv_alloc_sim_time(system_t* sys, unsigned int ms) {

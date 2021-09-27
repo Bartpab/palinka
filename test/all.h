@@ -10,9 +10,8 @@
 #include "test_memory.h"
 
 set_tests(
-  string, buffer, 
-  arith, memory, system
-  , riscv
+  riscv, system, string, buffer, 
+  arith, memory
   //, mmix
   //, lexer
 );
