@@ -33,7 +33,7 @@ typedef struct {
 
 typedef struct {
   octa    pc;
-  tetra   args[2];
+  octa   args[2];
   struct {
       bool stall, invalid;
       int op;
@@ -46,7 +46,7 @@ typedef struct {
 
 typedef struct {
   octa pc;
-  tetra result;
+  octa result;
   struct {
       bool stall, invalid;
 
@@ -62,7 +62,7 @@ typedef struct {
 } riscv_stage_memory_t;
 
 typedef struct {
-  tetra result;
+  octa result;
   struct {
     bool stall, invalid;
     unsigned char dest_reg; // Address of the destination registers

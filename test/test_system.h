@@ -8,15 +8,19 @@ define_test(system, test_print("System"))
     byte bs, be;
     word ws, we;
     tetra ts, te;
+    octa os, oe;
 
     bs = 0x0;
-    be = 0x4;
+    be = 0x44;
 
     we = 0x3344;
     ws = 0x0000;
 
     ts = 0x11223344;
     te = 0x00000000;
+
+    os = 0x1122334455667788;
+    oe = 0x1122334455667788;
 
     __sys_init(&sys, &allocator);
     sys_add_memory(&sys, &allocator, (void*) 0x00, 4);
@@ -79,6 +83,26 @@ define_test(system, test_print("System"))
         test_print("Compare the stored tetra."),
         ts == te,
         test_failure("Expecting %d, got %d", te, ts)
+    );
+
+    sys_store_tetra(&sys, 0, 0);
+
+    test_check(
+        test_print("Store an octa (%d) in the system's memory.", te),
+        sys_store_octa(&sys, 0x00, oe),
+        test_failure("Failed to store a tetra...")
+    );
+
+    test_check(
+        test_print("Load an octa from the system's memory."),
+        sys_load_octa(&sys, 0x00, &os),
+        test_failure("Failed to load a tetra...")
+    );
+
+    test_check(
+        test_print("Compare the stored octa."),
+        os == oe,
+        test_failure("Expecting %lld, got %lld", oe, os)
     );
 
     test_success;

@@ -76,6 +76,42 @@ tetra riscv_bgeu(byte rs1, byte rs2, tetra offset)
 {
   return encode_b_type(offset) | encode_rs1(rs1) | encode_rs2(rs2) | encode_funct3(0b111) | encode_opcode(0b1100011);
 }
+tetra riscv_lb(byte rs1, byte rd, tetra offset)
+{
+  return encode_i_type(offset) | encode_rs1(rs1) | encode_rd(rd) | encode_funct3(0b000) | encode_opcode(0b0000011);
+}
+tetra riscv_lh(byte rs1, byte rd, tetra offset)
+{
+  return encode_i_type(offset) | encode_rs1(rs1) | encode_rd(rd) | encode_funct3(0b001) | encode_opcode(0b0000011);
+}
+tetra riscv_lw(byte rs1, byte rd, tetra offset)
+{
+  return encode_i_type(offset) | encode_rs1(rs1) | encode_rd(rd) | encode_funct3(0b010) | encode_opcode(0b0000011);
+}
+tetra riscv_lbu(byte rs1, byte rd, tetra offset)
+{
+  return encode_i_type(offset) | encode_rs1(rs1) | encode_rd(rd) | encode_funct3(0b100) | encode_opcode(0b0000011);
+}
+tetra riscv_lhu(byte rs1, byte rd, tetra offset)
+{
+  return encode_i_type(offset) | encode_rs1(rs1) | encode_rd(rd) | encode_funct3(0b101) | encode_opcode(0b0000011);
+}
+tetra riscv_sb(byte base, byte src, tetra offset) 
+{
+  return encode_s_type(offset) | encode_rs1(base) | encode_rs2(src) | encode_funct3(0b000) | encode_opcode(0b0100011);
+}
+tetra riscv_sh(byte rs1, byte rs2, tetra offset) 
+{
+  return encode_s_type(offset) | encode_rs1(rs1) | encode_rs2(rs2) | encode_funct3(0b001) | encode_opcode(0b0100011);
+}
+tetra riscv_sw(byte rs1, byte rs2, tetra offset) 
+{
+  return encode_s_type(offset) | encode_rs1(rs1) | encode_rs2(rs2) | encode_funct3(0b010) | encode_opcode(0b0100011);
+}
+tetra riscv_sd(byte rs1, byte rs2, tetra offset) 
+{
+  return encode_s_type(offset) | encode_rs1(rs1) | encode_rs2(rs2) | encode_funct3(0b011) | encode_opcode(0b0100011);
+}
 tetra riscv_add(byte rd, byte rs1, byte rs2)
 {
   tetra t = 0;
@@ -411,6 +447,324 @@ define_test(riscv_bgeu, test_print("RISCV_BGEU"))
     sys_delete(sys, &allocator);
     test_end;
 }
+define_test(riscv_lb, test_print("RISCV_LB"))
+{
+    allocator_t allocator = GLOBAL_ALLOCATOR;
+
+    tetra prog[] = {
+      riscv_nop(),
+      riscv_lb(28, 29, 0),
+      riscv_ebreak(),
+      0xD00D
+    };
+
+    octa expected  = 0x0D;
+    
+    system_t* sys = riscv_bootstrap((char*) &prog, 4 * 4, 0);
+    riscv_processor_t* proc = __get_riscv_proc(sys);
+
+    proc->regs[28] = 12;
+    proc->regs[29] = 0;
+
+    sys_run(sys, 1);
+
+    test_check(
+      test_print("Check the LB result"),
+      proc->regs[29] == expected,
+      test_failure("Expecting %lld, got %lld", expected, proc->regs[29])
+    );
+
+    test_success;
+    test_teardown;
+    sys_delete(sys, &allocator);
+    test_end;
+}
+define_test(riscv_lh, test_print("RISCV_LH"))
+{
+    allocator_t allocator = GLOBAL_ALLOCATOR;
+
+    tetra prog[] = {
+      riscv_nop(),
+      riscv_lh(28, 29, 0),
+      riscv_ebreak(),
+      0x1234D00D
+    };
+
+    octa expected  = 0xD00D;
+    
+    system_t* sys = riscv_bootstrap((char*) &prog, 4 * 4, 0);
+    riscv_processor_t* proc = __get_riscv_proc(sys);
+
+    proc->regs[28] = 12;
+    proc->regs[29] = 0;
+
+    sys_run(sys, 1);
+
+    test_check(
+      test_print("Check the LH result"),
+      proc->regs[29] == expected,
+      test_failure("Expecting %lld, got %lld", expected, proc->regs[29])
+    );
+
+    test_success;
+    test_teardown;
+    sys_delete(sys, &allocator);
+    test_end;
+}
+define_test(riscv_lw, test_print("RISCV_LW"))
+{
+    allocator_t allocator = GLOBAL_ALLOCATOR;
+
+    tetra prog[] = {
+      riscv_nop(),
+      riscv_lw(28, 29, 0),
+      riscv_ebreak(),
+      0x1234D00D,
+      0x56789
+    };
+
+    octa expected  = 0x1234D00D;
+    
+    system_t* sys = riscv_bootstrap((char*) &prog, 5 * 4, 0);
+    riscv_processor_t* proc = __get_riscv_proc(sys);
+
+    proc->regs[28] = 12;
+    proc->regs[29] = 0;
+
+    sys_run(sys, 1);
+
+    test_check(
+      test_print("Check the LH result"),
+      proc->regs[29] == expected,
+      test_failure("Expecting %lld, got %lld", expected, proc->regs[29])
+    );
+
+    test_success;
+    test_teardown;
+    sys_delete(sys, &allocator);
+    test_end;
+}
+define_test(riscv_lbu, test_print("RISCV_LBU"))
+{
+    allocator_t allocator = GLOBAL_ALLOCATOR;
+
+    tetra prog[] = {
+      riscv_nop(),
+      riscv_lbu(28, 29, 0),
+      riscv_ebreak(),
+      0xD00D
+    };
+
+    octa expected  = 0x0D;
+    
+    system_t* sys = riscv_bootstrap((char*) &prog, 4 * 4, 0);
+    riscv_processor_t* proc = __get_riscv_proc(sys);
+
+    proc->regs[28] = 12;
+    proc->regs[29] = 0;
+
+    sys_run(sys, 1);
+
+    test_check(
+      test_print("Check the LBU result"),
+      proc->regs[29] == expected,
+      test_failure("Expecting %lld, got %lld", expected, proc->regs[29])
+    );
+
+    test_success;
+    test_teardown;
+    sys_delete(sys, &allocator);
+    test_end;
+}
+define_test(riscv_lhu, test_print("RISCV_LHU"))
+{
+    allocator_t allocator = GLOBAL_ALLOCATOR;
+
+    tetra prog[] = {
+      riscv_nop(),
+      riscv_lhu(28, 29, 0),
+      riscv_ebreak(),
+      0x1234D00D
+    };
+
+    octa expected  = 0xD00D;
+    
+    system_t* sys = riscv_bootstrap((char*) &prog, 4 * 4, 0);
+    riscv_processor_t* proc = __get_riscv_proc(sys);
+
+    proc->regs[28] = 12;
+    proc->regs[29] = 0;
+
+    sys_run(sys, 1);
+
+    test_check(
+      test_print("Check the LH result"),
+      proc->regs[29] == expected,
+      test_failure("Expecting %lld, got %lld", expected, proc->regs[29])
+    );
+
+    test_success;
+    test_teardown;
+    sys_delete(sys, &allocator);
+    test_end;
+}
+define_test(riscv_sb, test_print("RISCV_SB"))
+{
+    allocator_t allocator = GLOBAL_ALLOCATOR;
+
+    tetra prog[] = {
+      riscv_nop(),
+      riscv_sb(28, 29, 0),
+      riscv_ebreak(),
+      0
+    };
+
+    octa expected  = 0x0D;
+    byte result = 0;
+    
+    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    riscv_processor_t* proc = __get_riscv_proc(sys);
+
+    proc->regs[28] = 12;
+    proc->regs[29] = 0xD00D;
+
+    sys_run(sys, 1);
+
+    test_check(
+      test_print("Try to load memory value"),
+      sys_load_byte(sys, (void*) 12, &result),
+      test_failure("Failed to load memory value")
+    );
+
+    test_check(
+      test_print("Check the SB result"),
+      result == expected,
+      test_failure("Expecting %lld, got %d", expected, result)
+    );
+
+    test_success;
+    test_teardown;
+    sys_delete(sys, &allocator);
+    test_end;
+}
+define_test(riscv_sh, test_print("RISCV_SH"))
+{
+    allocator_t allocator = GLOBAL_ALLOCATOR;
+
+    tetra prog[] = {
+      riscv_nop(),
+      riscv_sh(28, 29, 0),
+      riscv_ebreak(),
+      0
+    };
+
+    octa expected  = 0xD00D;
+    octa result = 0;
+    
+    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    riscv_processor_t* proc = __get_riscv_proc(sys);
+
+    proc->regs[28] = 12;
+    proc->regs[29] = 0xD00D;
+
+    sys_run(sys, 1);
+
+    test_check(
+      test_print("Try to load memory value"),
+      sys_load_word(sys, (void*) 12, (word*) &result),
+      test_failure("Failed to load memory value")
+    );
+
+    test_check(
+      test_print("Check the SH result"),
+      result == expected,
+      test_failure("Expecting %lld, got %lld", expected, result)
+    );
+
+    test_success;
+    test_teardown;
+    sys_delete(sys, &allocator);
+    test_end;
+}
+define_test(riscv_sw, test_print("RISCV_SW"))
+{
+    allocator_t allocator = GLOBAL_ALLOCATOR;
+
+    tetra prog[] = {
+      riscv_nop(),
+      riscv_sw(28, 29, 0),
+      riscv_ebreak(),
+      0
+    };
+
+    octa expected  = 0x1234D00D;
+    octa result = 0;
+    
+    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    riscv_processor_t* proc = __get_riscv_proc(sys);
+
+    proc->regs[28] = 12;
+    proc->regs[29] = 0x1234D00D;
+
+    sys_run(sys, 1);
+
+    test_check(
+      test_print("Try to load memory value"),
+      sys_load_tetra(sys, (void*) 12, (tetra*) &result),
+      test_failure("Failed to load memory value")
+    );
+
+    test_check(
+      test_print("Check the SW result"),
+      result == expected,
+      test_failure("Expecting %lld, got %lld", expected, result)
+    );
+
+    test_success;
+    test_teardown;
+    sys_delete(sys, &allocator);
+    test_end;
+}
+define_test(riscv_sd, test_print("RISCV_SD"))
+{
+    allocator_t allocator = GLOBAL_ALLOCATOR;
+
+    tetra prog[] = {
+      riscv_nop(),
+      riscv_sd(28, 29, 0),
+      riscv_ebreak(),
+      0,
+      0
+    };
+
+    octa expected  = 0x1122334455667788;
+    octa result = 0;
+    
+    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    riscv_processor_t* proc = __get_riscv_proc(sys);
+
+    proc->regs[28] = 12;
+    proc->regs[29] = 0x1122334455667788;
+
+    sys_run(sys, 1);
+
+    test_check(
+      test_print("Try to load memory value"),
+      sys_load_octa(sys, (void*) 12, &result),
+      test_failure("Failed to load memory value")
+    );
+
+    test_check(
+      test_print("Check the SD result"),
+      result == expected,
+      test_failure("Expecting %#llx, got %#llx", expected, result)
+    );
+
+    test_success;
+    test_teardown;
+    sys_delete(sys, &allocator);
+    test_end;
+}
 define_test(riscv_add, test_print("RISCV_ADD"))
 {
     allocator_t allocator = GLOBAL_ALLOCATOR;
@@ -485,9 +839,16 @@ define_test_chapter(
 )
 
 define_test_chapter(
+  riscv_memory, test_print("RISCV Memory"),
+  riscv_lb, riscv_lh, riscv_lw, riscv_lbu, riscv_lhu,
+  riscv_sb, riscv_sh, riscv_sw, riscv_sd
+)
+
+define_test_chapter(
   riscv, test_print("RISCV"),
   riscv_auipc,
   riscv_branching,
+  riscv_memory,
   riscv_add,
   riscv_sub
 )

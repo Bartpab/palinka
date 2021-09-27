@@ -250,7 +250,9 @@ static inline void __execute(system_t* sys, riscv_processor_t* proc)
         case RISCV_LW: case RISCV_LWU:
         case RISCV_LD: load = true, load_addr = a + b; break;
         // store
-        case RISCV_SB: case RISCV_SH: case RISCV_SW: case RISCV_SD: store = true, store_addr = a + b; break;
+        case RISCV_SB: case RISCV_SH: case RISCV_SW: case RISCV_SD: 
+            store = true, store_addr = a + imm, result = b; 
+            break;
         // add
         case RISCV_ADD:  case RISCV_ADDW: case RISCV_ADDI: case RISCV_ADDIW: result = a + b; break;
         // sub
@@ -277,6 +279,7 @@ static inline void __execute(system_t* sys, riscv_processor_t* proc)
     out->pc = pc;
     
     // Write control
+    out->control.op = in->control.op;
     out->control.store = store;
     out->control.store_addr = store_addr;
     out->control.load = load;
@@ -294,7 +297,8 @@ static inline void __execute(system_t* sys, riscv_processor_t* proc)
 
 static inline void __memory(system_t* sys, riscv_processor_t* proc)
 {
-    octa result, addr;
+    octa result;
+    void* addr;
 
     riscv_pipeline_t* pipeline = &proc->pipeline;
     riscv_stage_memory_t* in = &pipeline->memory;
@@ -311,21 +315,29 @@ static inline void __memory(system_t* sys, riscv_processor_t* proc)
     result = in->result;
     addr = 0;
 
-    if(in->control.store) addr = in->control.store_addr;
-    if(in->control.load) addr = in->control.load_addr;
+    if(in->control.store) addr = (void*) in->control.store_addr;
+    if(in->control.load) addr = (void*) in->control.load_addr;
 
     switch(in->control.op) 
     {
         // load
-        case RISCV_LBU: case RISCV_LB: sys_load_byte(sys, (void*) addr, (byte*) &result); break;
-        case RISCV_LHU: case RISCV_LH: sys_load_word(sys, (void*) addr, (word*) &result); break;
-        case RISCV_LW: case RISCV_LWU: sys_load_tetra(sys, (void*) addr, (tetra*) &result); break;
-        case RISCV_LD: sys_load_octa(sys, (void*) addr, &result); break;
+        case RISCV_LBU: case RISCV_LB: 
+            sys_load_byte(sys, addr, (byte*) &result); 
+            break;
+        case RISCV_LHU: case RISCV_LH: 
+            sys_load_word(sys, addr, (word*) &result); 
+            break;
+        case RISCV_LW: case RISCV_LWU: sys_load_tetra(sys, addr, (tetra*) &result); break;
+        case RISCV_LD: sys_load_octa(sys, addr, &result); break;
         // store
-        case RISCV_SB: sys_store_byte(sys, (void*) addr, result); break;
-        case RISCV_SH: sys_store_word(sys, (void*) addr, result); break;
-        case RISCV_SW: sys_store_tetra(sys, (void*) addr, result); break;
-        case RISCV_SD: sys_store_octa(sys, (void*) addr, result); break;
+        case RISCV_SB: 
+            sys_store_byte(sys, addr, result); 
+            break;
+        case RISCV_SH: sys_store_word(sys, addr, result); break;
+        case RISCV_SW: sys_store_tetra(sys, addr, result); break;
+        case RISCV_SD: 
+            sys_store_octa(sys, addr, result); 
+            break;
         default: break;
     }
 

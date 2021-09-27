@@ -75,6 +75,20 @@ tetra decode_i_type(tetra raw)
     return (raw >> 20) & 0xfff;
 }
 
+tetra encode_s_type(tetra imm)
+{
+    tetra imm_4_0 = imm & 0x1f;
+    tetra imm_11_5 = (imm >> 5) & 0x7f;
+    return (imm_4_0 << 7) | (imm_11_5 << 25);
+}
+
+tetra decode_s_type(tetra raw)
+{
+    tetra imm_4_0 = (raw >> 7) & 0x1f;
+    tetra imm_11_5 = (raw >> 25) & 0x7f;
+    return imm_4_0 | (imm_11_5 << 5);
+}
+
 tetra encode_rd(byte rd)
 {
     return (((tetra)(rd) & 0x1f) << 7);
@@ -181,6 +195,7 @@ riscv_decoded_instr_t decode(tetra raw)
                 case 0b000: decoded.op = RISCV_SB; goto s_type;
                 case 0b001: decoded.op = RISCV_SH; goto s_type;
                 case 0b010: decoded.op = RISCV_SW; goto s_type;
+                case 0b011: decoded.op = RISCV_SD; goto s_type;
                 default: goto __end;
             } 
             break;
