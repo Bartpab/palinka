@@ -231,7 +231,9 @@ static inline void __execute(system_t* sys, riscv_processor_t* proc)
         case RISCV_JAL: 
             result = pc, pc = pc - 4 + (b << 2); 
             break; // OK
-        case RISCV_JALR: result = pc, pc = (pc - 4 + b) & (~3); break; // OK
+        case RISCV_JALR: 
+            result = pc, pc = (a + (b << 2)) & (~3); 
+            break; // OK
         // branch
         case RISCV_BEQ: if(a == b) pc += imm + 4; break; // OK
         case RISCV_BNE: if(a != b) pc += imm + 4; break; // OK
@@ -290,7 +292,7 @@ static inline void __memory(system_t* sys, riscv_processor_t* proc)
     octa result, addr;
 
     riscv_pipeline_t* pipeline = &proc->pipeline;
-    riscv_stage_memory_t* in     = &pipeline->memory;
+    riscv_stage_memory_t* in = &pipeline->memory;
     riscv_stage_writeback_t* out = &pipeline->writeback;
 
     if(in->control.stall)

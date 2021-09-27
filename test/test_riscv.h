@@ -51,6 +51,11 @@ tetra riscv_jal(byte rd, tetra imm)
   return encode_j_type(imm) | ((rd & 0x1F) << 7) | 0b1101111;
 }
 
+tetra riscv_jalr(byte dest, byte base, tetra offset)
+{
+  return encode_i_type(offset) | encode_rs1(base) | encode_rd(dest) | encode_opcode(0b1100111);
+}
+
 tetra riscv_add(byte rd, byte rs1, byte rs2)
 {
   tetra t = 0;
@@ -145,6 +150,46 @@ define_test(riscv_jal, test_print("RISCV_JAL"))
     test_end;
 }
 
+define_test(riscv_jalr, test_print("RISCV_JALR"))
+{
+    allocator_t allocator = GLOBAL_ALLOCATOR;
+
+    tetra prog[] = {
+      riscv_nop(),
+      riscv_jalr(28, 29, 1),
+      riscv_ebreak(),
+      riscv_ebreak(),
+      riscv_ebreak()
+    };
+
+    octa expected_reg = 8;
+    octa expected_pc  = 20;
+    
+    system_t* sys = riscv_bootstrap((char*) &prog, 5 * 4, 0);
+    riscv_processor_t* proc = __get_riscv_proc(sys);
+
+    proc->regs[28] = 0;
+    proc->regs[29] = 12;
+
+    sys_run(sys, 1);
+  
+    test_check(
+      test_print("Check the JALR result"),
+      proc->regs[28] == expected_reg,
+      test_failure("Expecting %lld, got %lld", expected_reg, proc->regs[28])
+    );
+
+    test_check(
+      test_print("Check the JALR result"),
+      proc->pc == expected_pc,
+      test_failure("Expecting %lld, got %lld", expected_pc, proc->pc)
+    );
+
+    test_success;
+    test_teardown;
+    sys_delete(sys, &allocator);
+    test_end;
+}
 
 define_test(riscv_add, test_print("RISCV_ADD"))
 {
@@ -212,6 +257,7 @@ define_test_chapter(
   riscv, test_print("RISCV"),
   riscv_auipc,
   riscv_jal,
+  riscv_jalr,
   riscv_add,
   riscv_sub
 )

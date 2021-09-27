@@ -43,6 +43,46 @@ tetra decode_j_type(tetra raw)
     return imm_10_1 | (imm_11 << 11) | (imm_19_12 << 12) | (imm_20 << 20);
 }
 
+tetra encode_i_type(tetra imm)
+{
+    return ((imm & 0xfff) << 20);
+}
+
+tetra decode_i_type(tetra raw)
+{
+    return (raw >> 20) & 0xfff;
+}
+
+tetra encode_rd(byte rd)
+{
+    return (((tetra)(rd) & 0x1f) << 7);
+}
+
+byte decode_rd(tetra raw)
+{
+    return (raw >> 7) & 0x1f;
+}
+
+tetra encode_rs1(byte rs1)
+{
+    return ((tetra)(rs1 & 0x1f) << 15);
+}
+
+byte decode_rs1(tetra raw)
+{
+    return (raw >> 15) & 0x1f;
+}
+
+tetra encode_opcode(byte opcode)
+{
+    return opcode & 0x7f;
+}
+
+byte decode_opcode(tetra raw)
+{
+    return raw & 0x7f;
+}
+
 riscv_decoded_instr_t decode(tetra raw)
 {
     riscv_decoded_instr_t decoded;
@@ -73,7 +113,7 @@ riscv_decoded_instr_t decode(tetra raw)
         case 0b0110111: decoded.op = RISCV_LUI; goto u_type;
         case 0b0010111: decoded.op = RISCV_AUIPC; goto u_type;
         case 0b1101111: decoded.op = RISCV_JAL; goto j_type;
-        case 0b1100111: decoded.op = RISCV_JALR; goto b_type;
+        case 0b1100111: decoded.op = RISCV_JALR; goto i_type;
         case 0b1100011:
             switch(decoded.funct3) {
                 case 0b000: decoded.op = RISCV_BEQ; goto b_type;
@@ -195,7 +235,7 @@ riscv_decoded_instr_t decode(tetra raw)
             break;
 
         i_type: 
-            decoded.imm = ((raw >> 20) & 1) | ((((octa)(raw) >> 21) & 0x7ff) << 1);
+            decoded.imm = decode_i_type(raw);
             break;
         s_type:
             decoded.imm = ((raw >> 7) & 1) | (((raw >> 8) & 0xf) << 1) | (((raw >> 25) & 0x40) << 5);
@@ -224,8 +264,8 @@ riscv_decoded_instr_t decode(tetra raw)
     if((flag & ARG1_IS_RS1) == ARG1_IS_RS1) decoded.src_regs[1] = decoded.rs1;
     if((flag & ARG1_IS_RS2) == ARG1_IS_RS2) decoded.src_regs[1] = decoded.rs2;
     if((flag & ARG1_IS_IMMEDIATE) == ARG1_IS_IMMEDIATE) decoded.arg1_is_imm = true;
+    
     if((flag & WRITE_REG)) decoded.dest_reg = decoded.rd;
-
     if((flag & WRITE_PC) == WRITE_PC) decoded.write_pc = true;
 
     return decoded;
