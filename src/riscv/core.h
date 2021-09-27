@@ -97,6 +97,7 @@ static inline bool __fetch(system_t* sys, riscv_processor_t* proc)
     {
         out->pc = proc->pc;
         out->raw = 0; // NOP
+        sys_halt(sys);
     }
     
     proc->pc += 4;
@@ -235,10 +236,14 @@ static inline void __execute(system_t* sys, riscv_processor_t* proc)
             result = pc, pc = (a + (b << 2)) & (~3); 
             break; // OK
         // branch
-        case RISCV_BEQ: if(a == b) pc += imm + 4; break; // OK
-        case RISCV_BNE: if(a != b) pc += imm + 4; break; // OK
-        case RISCV_BLTU: case RISCV_BLT: if(a < b) pc += imm + 4; break; // OK
-        case RISCV_BGEU: case RISCV_BGE: if(a >= b) pc += imm + 4; break; // OK
+        case RISCV_BEQ: 
+            if(a == b) pc += (imm << 2); 
+            break; // OK
+        case RISCV_BNE: 
+            if(a != b) pc += (imm << 2); 
+            break; // OK
+        case RISCV_BLTU: case RISCV_BLT: if(a < b) pc += (imm << 2); break; // OK
+        case RISCV_BGEU: case RISCV_BGE: if(a >= b) pc += (imm << 2); break; // OK
         // load
         case RISCV_LBU: case RISCV_LB:
         case RISCV_LHU: case RISCV_LH:

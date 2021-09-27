@@ -43,6 +43,28 @@ tetra decode_j_type(tetra raw)
     return imm_10_1 | (imm_11 << 11) | (imm_19_12 << 12) | (imm_20 << 20);
 }
 
+tetra decode_b_type(tetra raw)
+{
+    tetra imm_11 = (raw >> 7) & 1;
+    tetra imm_4_1 = (raw >> 8) & 0xf;
+    tetra imm_10_5 = (raw >> 25) & 0x3f;
+    tetra imm_12 = (raw >> 31) & 1;
+    
+    tetra tmp = imm_4_1 | (imm_10_5 << 5) | (imm_11 << 11) | (imm_12 << 12);
+    return tmp;
+}
+
+tetra encode_b_type(tetra imm)
+{
+    tetra imm_11 = (imm >> 11) & 1;
+    tetra imm_4_1 = imm & 0xf;
+    tetra imm_10_5 = (imm >> 5) & 0x3f;
+    tetra imm_12 = (imm >> 12) & 1;   
+
+    tetra tmp = (imm_11 << 7) | (imm_4_1 << 8) | (imm_10_5 << 25) | (imm_12 << 31);
+    return tmp;
+}
+
 tetra encode_i_type(tetra imm)
 {
     return ((imm & 0xfff) << 20);
@@ -73,6 +95,16 @@ byte decode_rs1(tetra raw)
     return (raw >> 15) & 0x1f;
 }
 
+byte decode_rs2(tetra raw)
+{
+    return (raw >> 20) & 0x1f;
+}
+
+tetra encode_rs2(byte rs1)
+{
+    return ((tetra)(rs1 & 0x1f) << 20);
+}
+
 tetra encode_opcode(byte opcode)
 {
     return opcode & 0x7f;
@@ -81,6 +113,16 @@ tetra encode_opcode(byte opcode)
 byte decode_opcode(tetra raw)
 {
     return raw & 0x7f;
+}
+
+tetra encode_funct3(byte funct3)
+{
+    return ((tetra)(funct3) & 0b111) << 12;
+}
+
+tetra decode_funct3(tetra raw)
+{
+    return (raw >> 12) & 0b111;
 }
 
 riscv_decoded_instr_t decode(tetra raw)
@@ -241,7 +283,7 @@ riscv_decoded_instr_t decode(tetra raw)
             decoded.imm = ((raw >> 7) & 1) | (((raw >> 8) & 0xf) << 1) | (((raw >> 25) & 0x40) << 5);
             break;
         b_type:
-            decoded.imm = (((raw >> 8) & 0xF) << 1)| (((raw >> 25) & 0x3F) << 5) | (((raw >> 7) & 1) << 11) | (((raw >> 31) & 1) << 12);
+            decoded.imm = decode_b_type(raw);
             break;
         u_type:
             decoded.imm = (raw >> 12) & 0x7FFFF;
