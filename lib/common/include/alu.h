@@ -2,6 +2,7 @@
 #define __ARITH_H__
 
 #include "./types.h"
+#include "./env.h"
 #include <math.h>
 #include <assert.h>
 
@@ -26,8 +27,52 @@
 #define ROUND_DOWN 3
 #define ROUND_NEAR 4
 
+#ifdef ENV_64
 #define oh(o) (o >> 32)
 #define ol(o) (o & 0xFFFFFFFF)
+
+#define octa_and_expr(a, b) (a & b)
+#define octa_or_expr(a, b) (a | b)
+#define octa_xor_expr(a, b) (a ^ b)
+#define octa_andn_expr(a, b) (a & (~b))
+#define octa_orn_expr(a, b) (a | (~b))
+#define octa_nor_expr(a, b) (~(a|b))
+#define octa_nxor_expr(a, b) (~(a^b))
+#define octa_plus_expr(a, b) (a + b)
+#define octa_minus_expr(a, b) (a - b)
+#define octa_mult_expr(a, b) (a * b)
+#define octa_signed_mult_expr(a, b) octa_signed_mult(a, b, 0, 0)
+#define octa_div_expr(a, b) (a / b)
+#define octa_signed_div_expr(a, b) octa_signed_div(a, b, 0)
+#define octa_is_neg_expr(a) (a & sign_bit)
+#define octa_compl_expr(a) (~a + 1)
+#define octa_incr_expr(a, b) (a + b)
+#define octa_signed_cmp_expr(a, b) octa_signed_cmp(a, b)
+#define octa_unsigned_cmp_expr(a, b) octa_unsigned_cmp(a, b)
+#define octa_eq_expr(a, b) (a == b)
+#define octa_right_shift_expr(y, s, u) (y >> s)
+#define octa_left_shift_expr(y, s) (y << s)
+#endif
+
+#ifdef ENV_32
+#define octa_and_expr(a, b) octa_and(a, b)
+#define octa_or_expr(a, b) octa_or(a, b)
+#define octa_xor_expr(a, b) octa_xor(a, b)
+#define octa_andn_expr(a, b) octa_andn(a, b)
+#define octa_orn_expr(a, b) octa_orn(a, b)
+#define octa_nor_expr(a, b) octa_nor(a, b)
+#define octa_nxor_expr(a, b) octa_nxor(a, b)
+#define octa_plus_expr(a, b) octa_plus(a, b, 0)
+#define octa_minus_expr(a, b) octa_minus(a, b, 0)
+#define octa_is_neg_expr(a) octa_is_neg(a)
+#define octa_compl_expr(a) octa_compl(a)
+#define octa_incr_expr(a, b) octa_incr(a, b)
+#define octa_signed_cmp_expr(a, b) octa_signed_cmp(a, b)
+#define octa_unsigned_cmp_expr(a, b) octa_unsigned_cmp(a, b)
+#define octa_eq_expr(a, b) octa_eq(a, b)
+#define octa_right_shift_expr(y, s, u) octa_right_shift(y, s, u)
+#define octa_left_shift_expr(y, s) octa_left_shift(y, s)
+#endif
 
 unsigned char octa_count_bits(octa x);
 octa octa_mux(octa x, octa y, octa mask);
@@ -48,6 +93,10 @@ octa octa_odif(octa x, octa y);
 
 octa octa_plus(octa y, octa z, bool* overflow);
 octa octa_minus(octa y, octa z, bool *overflow);
+octa octa_mult(octa y, octa z, octa* aux, bool* overflow);
+octa octa_signed_mult(octa y, octa z, octa* aux, bool* overflow);
+octa octa_div(hexadeca x, octa z, octa* aux);
+octa octa_signed_div(hexadeca x, octa z, octa* aux);
 
 bool octa_is_neg(octa x);
 octa octa_compl(octa x);
@@ -179,7 +228,7 @@ octa octa_plus(octa y, octa z, bool* overflow)
 {
   octa x = y + z;
   
-  if(((y^z) & sign_bit) == 0 && ((y^x) & sign_bit) != 0)
+  if(((y^z) & sign_bit) == 0 && ((y^x) & sign_bit) != 0 && overflow)
     *overflow = true;
 
   return x;
@@ -292,9 +341,9 @@ octa octa_mult(octa y, octa z, octa* aux, bool* overflow)
   octa pm = phl + (pll >> 32) + (plh & 0xFFFFFFFF);
   octa ph = phh + (pm >> 32) + (plh >> 32);
   
-  *aux = ph;
+  if(aux) *aux = ph;
   
-  if(ph > 0)
+  if(ph > 0 && overflow)
     *overflow = true;
 
   return (pm << 32) | (pll & 0xFFFFFFFF); 
@@ -304,10 +353,10 @@ octa octa_signed_mult(octa y, octa z, octa* aux, bool* overflow)
 {
   octa acc = octa_mult(y, z, aux, overflow);
 
-  if(y & sign_bit) *aux = octa_minus(*aux, z, overflow);
-  if(z & sign_bit) *aux = octa_minus(*aux, y, overflow);
+  if(y & sign_bit && aux) *aux = octa_minus(*aux, z, overflow);
+  if(z & sign_bit && aux) *aux = octa_minus(*aux, y, overflow);
 
-  *overflow = (oh(*aux) != ol(*aux)) || (oh(*aux) ^ (oh(*aux) >> 1) ^ (acc & sign_bit));
+  if(overflow) *overflow = (oh(*aux) != ol(*aux)) || (oh(*aux) ^ (oh(*aux) >> 1) ^ (acc & sign_bit));
   
   return acc;
 }
@@ -367,7 +416,10 @@ octa octa_signed_div(hexadeca x, octa z, octa* aux)
 
   octa q = octa_div(x, z, aux);
   
-  if(sign == -1) q = octa_compl(q), *aux = octa_compl(*aux);
+  if(sign == -1) {
+    q = octa_compl(q);
+    if(aux) *aux = octa_compl(*aux);
+  }
   
   return q;
 }

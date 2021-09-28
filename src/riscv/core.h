@@ -226,49 +226,45 @@ static inline void __execute(system_t* sys, riscv_processor_t* proc)
     switch(in->control.op) 
     {
         case RISCV_LUI: result = imm; break; // OK
-        case RISCV_AUIPC: 
-            result = pc + (imm << 12); break; // OK
+        case RISCV_AUIPC: result = octa_plus_expr(pc, octa_left_shift_expr(imm, 12)); break;
         // jump
-        case RISCV_JAL: 
-            result = pc, pc = pc - 4 + (b << 2); 
-            break; // OK
-        case RISCV_JALR: 
-            result = pc, pc = (a + (b << 2)) & (~3); 
-            break; // OK
+        case RISCV_JAL: result = pc, pc = octa_plus_expr(octa_incr_expr(pc, -4), octa_left_shift_expr(b, 2)); break; // OK
+        case RISCV_JALR: result = pc, pc = octa_and_expr(octa_plus_expr(a, octa_left_shift_expr(b, 2)), octa_compl_expr(3)); break; // OK
         // branch
-        case RISCV_BEQ: 
-            if(a == b) pc += (imm << 2); 
-            break; // OK
-        case RISCV_BNE: 
-            if(a != b) pc += (imm << 2); 
-            break; // OK
-        case RISCV_BLTU: case RISCV_BLT: if(a < b) pc += (imm << 2); break; // OK
-        case RISCV_BGEU: case RISCV_BGE: if(a >= b) pc += (imm << 2); break; // OK
+        case RISCV_BEQ: if(octa_eq_expr(a, b) == true) pc = octa_plus_expr(pc, octa_left_shift_expr(imm, 2)); break;
+        case RISCV_BNE: if(octa_eq_expr(a, b) == false) pc = octa_plus_expr(pc, octa_left_shift_expr(imm, 2)); break; // OK
+        case RISCV_BLT: if(octa_signed_cmp_expr(a, b) == -1) pc = octa_plus_expr(pc, octa_left_shift_expr(imm, 2)); break;
+        case RISCV_BLTU: if(octa_unsigned_cmp_expr(a, b) == -1) pc = octa_plus_expr(pc, octa_left_shift_expr(imm, 2)); break;
+        case RISCV_BGE: if(octa_signed_cmp_expr(a, b) >= 0) pc = octa_plus_expr(pc, octa_left_shift_expr(imm, 2)); break;
+        case RISCV_BGEU: if(octa_unsigned_cmp_expr(a, b) >= 0) pc = octa_plus_expr(pc, octa_left_shift_expr(imm, 2)); break;
         // load
         case RISCV_LBU: case RISCV_LB:
         case RISCV_LHU: case RISCV_LH:
         case RISCV_LW: case RISCV_LWU:
-        case RISCV_LD: load = true, load_addr = a + b; break;
+        case RISCV_LD: load = true, load_addr = octa_plus_expr(a, b); break;
         // store
         case RISCV_SB: case RISCV_SH: case RISCV_SW: case RISCV_SD: 
-            store = true, store_addr = a + imm, result = b; 
+            store = true, store_addr = octa_plus_expr(a, imm), result = b; 
             break;
         // add
-        case RISCV_ADD:  case RISCV_ADDW: case RISCV_ADDI: case RISCV_ADDIW: result = a + b; break;
+        case RISCV_ADD:  case RISCV_ADDW: case RISCV_ADDI: case RISCV_ADDIW: result = octa_plus_expr(a, b); break;
         // sub
-        case RISCV_SUB: case RISCV_SUBW: result = a - b; break;
+        case RISCV_SUB: case RISCV_SUBW: result = octa_minus_expr(a, b); break;
         // compare lt
-        case RISCV_SLTU: case RISCV_SLTIU: case RISCV_SLTI: result = a < b; break;         
+        case RISCV_SLTI: result = octa_signed_cmp_expr(a, b) == -1; break;         
+        case RISCV_SLTU: case RISCV_SLTIU: result = octa_unsigned_cmp_expr(a, b) == -1; break;
         // xor
-        case RISCV_XORI: case RISCV_XOR: result =  a ^ b; break;
+        case RISCV_XORI: case RISCV_XOR: result =  octa_xor_expr(a, b); break;
         // or
-        case RISCV_ORI: case RISCV_OR: result = a | b; break;
+        case RISCV_ORI: case RISCV_OR: result = octa_or_expr(a, b); break;
         // and
-        case RISCV_ANDI: case RISCV_AND:  result = a & b; break;
+        case RISCV_ANDI: case RISCV_AND:  result = octa_and_expr(a, b); break;
         // shift left
-        case RISCV_SLL: case RISCV_SLLW: case RISCV_SLLI: case RISCV_SLLIW: result = a << b; break;
+        case RISCV_SLL: case RISCV_SLLW:  result = octa_left_shift_expr(a, b); break;
+        case RISCV_SLLI: case RISCV_SLLIW: result = octa_left_shift_expr(a, octa_and_expr(b, 0x1f)); break;
         // shift right
-        case RISCV_SRLI: case RISCV_SRLIW: case RISCV_SRAIW: case RISCV_SRAI: case RISCV_SRL: case RISCV_SRA: case RISCV_SRAW: result = a >> b; break;
+        case RISCV_SRL: case RISCV_SRA: case RISCV_SRAW: result = octa_right_shift_expr(a, b, 0); break;
+        case RISCV_SRLIW: case RISCV_SRAIW: case RISCV_SRAI: case RISCV_SRLI: result = octa_right_shift_expr(a, octa_and_expr(b, 0x1f), 0); break;
         // Halt the simulation
         case RISCV_EBREAK: sys_halt(sys);
         default: break;

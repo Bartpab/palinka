@@ -112,6 +112,42 @@ tetra riscv_sd(byte rs1, byte rs2, tetra offset)
 {
   return encode_s_type(offset) | encode_rs1(rs1) | encode_rs2(rs2) | encode_funct3(0b011) | encode_opcode(0b0100011);
 }
+tetra riscv_addi(byte rs1, byte rd, tetra arg)
+{
+  return encode_i_type(arg) | encode_rs1(rs1) | encode_rd(rd) | encode_funct3(0b000) | encode_opcode(0b0010011);
+}
+tetra riscv_slti(byte rs1, byte rd, tetra arg)
+{
+  return encode_i_type(arg) | encode_rs1(rs1) | encode_rd(rd) | encode_funct3(0b010) | encode_opcode(0b0010011);
+}
+tetra riscv_sltiu(byte rs1, byte rd, tetra arg)
+{
+  return encode_i_type(arg) | encode_rs1(rs1) | encode_rd(rd) | encode_funct3(0b011) | encode_opcode(0b0010011);
+}
+tetra riscv_xori(byte rs1, byte rd, tetra arg)
+{
+  return encode_i_type(arg) | encode_rs1(rs1) | encode_rd(rd) | encode_funct3(0b100) | encode_opcode(0b0010011);
+}
+tetra riscv_ori(byte rs1, byte rd, tetra arg)
+{
+  return encode_i_type(arg) | encode_rs1(rs1) | encode_rd(rd) | encode_funct3(0b110) | encode_opcode(0b0010011);
+}
+tetra riscv_andi(byte rs1, byte rd, tetra arg)
+{
+  return encode_i_type(arg) | encode_rs1(rs1) | encode_rd(rd) | encode_funct3(0b111) | encode_opcode(0b0010011);
+}
+tetra riscv_slli(byte rs1, byte rd, byte shamt)
+{
+  return encode_s_type(0) | encode_rs1(rs1) | encode_rs2(shamt) | encode_funct3(0b001) | encode_rd(rd) | encode_opcode(0b0010011);
+}
+tetra riscv_srli(byte rs1, byte rd, byte shamt)
+{
+  return encode_s_type(0) | encode_rs1(rs1) | encode_rs2(shamt) | encode_funct3(0b101) | encode_rd(rd) | encode_opcode(0b0010011);
+}
+tetra riscv_srai(byte rs1, byte rd, byte shamt)
+{
+  return encode_s_type(0b0100000) | encode_rs1(rs1) | encode_rs2(shamt) | encode_funct3(0b101) | encode_rd(rd) | encode_opcode(0b0010011);
+}
 tetra riscv_add(byte rd, byte rs1, byte rs2)
 {
   tetra t = 0;
@@ -139,7 +175,7 @@ define_test(riscv_auipc, test_print("RISCV_AUIPC"))
       riscv_ebreak()
     };
 
-    octa expected = 8 + (1 << 12);
+    octa expected = octa_plus(int_to_octa(8), octa_left_shift(int_to_octa(1), 12), 0);
     
     system_t* sys = riscv_bootstrap((char*) &prog, 3 * 4, 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
@@ -170,13 +206,13 @@ define_test(riscv_jal, test_print("RISCV_JAL"))
       riscv_ebreak()
     };
 
-    octa expected_reg = 8;
-    octa expected_pc  = 16;
+    octa expected_reg = int_to_octa(8);
+    octa expected_pc  = int_to_octa(16);
     
     system_t* sys = riscv_bootstrap((char*) &prog, 4 * 4, 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
-    proc->regs[28] = 0;
+    proc->regs[28] = octa_zero;
 
     sys_run(sys, 1);
   
@@ -188,13 +224,13 @@ define_test(riscv_jal, test_print("RISCV_JAL"))
 
     test_check(
       test_print("Check the JAL result"),
-      proc->regs[28] == expected_reg,
+      octa_eq(proc->regs[28], expected_reg),
       test_failure("Expecting %lld, got %lld", expected_reg, proc->regs[28])
     );
 
     test_check(
       test_print("Check the JAL result"),
-      proc->pc == expected_pc,
+      octa_eq(proc->pc, expected_pc),
       test_failure("Expecting %lld, got %lld", expected_pc, proc->pc)
     );
 
@@ -215,20 +251,20 @@ define_test(riscv_jalr, test_print("RISCV_JALR"))
       riscv_ebreak()
     };
 
-    octa expected_reg = 8;
-    octa expected_pc  = 20;
+    octa expected_reg = int_to_octa(8);
+    octa expected_pc  = int_to_octa(20);
     
     system_t* sys = riscv_bootstrap((char*) &prog, 5 * 4, 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
-    proc->regs[28] = 0;
-    proc->regs[29] = 12;
+    proc->regs[28] = octa_zero;
+    proc->regs[29] = int_to_octa(12);
 
     sys_run(sys, 1);
   
     test_check(
       test_print("Check the JALR result"),
-      proc->regs[28] == expected_reg,
+      octa_eq(proc->regs[28], expected_reg),
       test_failure("Expecting %lld, got %lld", expected_reg, proc->regs[28])
     );
 
@@ -255,19 +291,19 @@ define_test(riscv_beq, test_print("RISCV_BEQ"))
       riscv_ebreak()
     };
 
-    octa expected_pc  = 20;
+    octa expected_pc = int_to_octa(20);
     
     system_t* sys = riscv_bootstrap((char*) &prog, 5 * 4, 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
-    proc->regs[28] = 12;
-    proc->regs[29] = 12;
+    proc->regs[28] = int_to_octa(12);
+    proc->regs[29] = int_to_octa(12);
 
     sys_run(sys, 1);
   
     test_check(
       test_print("Check the BEQ result"),
-      proc->pc == expected_pc,
+      octa_eq(proc->pc, expected_pc),
       test_failure("Expecting %lld, got %lld", expected_pc, proc->pc)
     );
 
@@ -288,13 +324,13 @@ define_test(riscv_bne, test_print("RISCV_BNE"))
       riscv_ebreak()
     };
 
-    octa expected_pc  = 20;
+    octa expected_pc  = int_to_octa(20);
     
     system_t* sys = riscv_bootstrap((char*) &prog, 5 * 4, 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
-    proc->regs[28] = 12;
-    proc->regs[29] = 6;
+    proc->regs[28] = int_to_octa(12);
+    proc->regs[29] = int_to_octa(6);
 
     sys_run(sys, 1);
   
@@ -306,7 +342,7 @@ define_test(riscv_bne, test_print("RISCV_BNE"))
 
     test_check(
       test_print("Check the BNE result"),
-      proc->pc == expected_pc,
+      octa_eq(proc->pc, expected_pc),
       test_failure("Expecting %lld, got %lld", expected_pc, proc->pc)
     );
 
@@ -327,19 +363,19 @@ define_test(riscv_blt, test_print("RISCV_BLT"))
       riscv_ebreak()
     };
 
-    octa expected_pc  = 20;
+    octa expected_pc = int_to_octa(20);
     
     system_t* sys = riscv_bootstrap((char*) &prog, 5 * 4, 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
-    proc->regs[28] = 6;
-    proc->regs[29] = 12;
+    proc->regs[28] = int_to_octa(6);
+    proc->regs[29] = int_to_octa(12);
 
     sys_run(sys, 1);
 
     test_check(
       test_print("Check the BLT result"),
-      proc->pc == expected_pc,
+      octa_eq(proc->pc, expected_pc),
       test_failure("Expecting %lld, got %lld", expected_pc, proc->pc)
     );
 
@@ -360,19 +396,19 @@ define_test(riscv_bge, test_print("RISCV_BGE"))
       riscv_ebreak()
     };
 
-    octa expected_pc  = 20;
+    octa expected_pc  = int_to_octa(20);
     
     system_t* sys = riscv_bootstrap((char*) &prog, 5 * 4, 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
-    proc->regs[28] = 12;
-    proc->regs[29] = 6;
+    proc->regs[28] = int_to_octa(12);
+    proc->regs[29] = int_to_octa(6);
 
     sys_run(sys, 1);
 
     test_check(
       test_print("Check the BGE result"),
-      proc->pc == expected_pc,
+      octa_eq(proc->pc, expected_pc),
       test_failure("Expecting %lld, got %lld", expected_pc, proc->pc)
     );
 
@@ -393,19 +429,19 @@ define_test(riscv_bltu, test_print("RISCV_BLTU"))
       riscv_ebreak()
     };
 
-    octa expected_pc  = 20;
+    octa expected_pc  = int_to_octa(20);
     
     system_t* sys = riscv_bootstrap((char*) &prog, 5 * 4, 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
-    proc->regs[28] = 6;
-    proc->regs[29] = 12;
+    proc->regs[28] = int_to_octa(6);
+    proc->regs[29] = int_to_octa(12);
 
     sys_run(sys, 1);
 
     test_check(
       test_print("Check the BLTU result"),
-      proc->pc == expected_pc,
+      octa_eq(proc->pc, expected_pc),
       test_failure("Expecting %lld, got %lld", expected_pc, proc->pc)
     );
 
@@ -426,19 +462,19 @@ define_test(riscv_bgeu, test_print("RISCV_BGEU"))
       riscv_ebreak()
     };
 
-    octa expected_pc  = 20;
+    octa expected_pc  = int_to_octa(20);
     
     system_t* sys = riscv_bootstrap((char*) &prog, 5 * 4, 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
-    proc->regs[28] = 12;
-    proc->regs[29] = 6;
+    proc->regs[28] = int_to_octa(12);
+    proc->regs[29] = int_to_octa(6);
 
     sys_run(sys, 1);
 
     test_check(
       test_print("Check the BGEU result"),
-      proc->pc == expected_pc,
+      octa_eq(proc->pc, expected_pc),
       test_failure("Expecting %lld, got %lld", expected_pc, proc->pc)
     );
 
@@ -458,19 +494,19 @@ define_test(riscv_lb, test_print("RISCV_LB"))
       0xD00D
     };
 
-    octa expected  = 0x0D;
+    octa expected  = int_to_octa(0x0D);
     
     system_t* sys = riscv_bootstrap((char*) &prog, 4 * 4, 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
-    proc->regs[28] = 12;
-    proc->regs[29] = 0;
+    proc->regs[28] = int_to_octa(12);
+    proc->regs[29] = octa_zero;
 
     sys_run(sys, 1);
 
     test_check(
       test_print("Check the LB result"),
-      proc->regs[29] == expected,
+      octa_eq(proc->regs[29], expected),
       test_failure("Expecting %lld, got %lld", expected, proc->regs[29])
     );
 
@@ -490,19 +526,19 @@ define_test(riscv_lh, test_print("RISCV_LH"))
       0x1234D00D
     };
 
-    octa expected  = 0xD00D;
+    octa expected  = int_to_octa(0xD00D);
     
     system_t* sys = riscv_bootstrap((char*) &prog, 4 * 4, 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
-    proc->regs[28] = 12;
-    proc->regs[29] = 0;
+    proc->regs[28] = int_to_octa(12);
+    proc->regs[29] = octa_zero;
 
     sys_run(sys, 1);
 
     test_check(
       test_print("Check the LH result"),
-      proc->regs[29] == expected,
+      octa_eq(proc->regs[29], expected),
       test_failure("Expecting %lld, got %lld", expected, proc->regs[29])
     );
 
@@ -523,19 +559,19 @@ define_test(riscv_lw, test_print("RISCV_LW"))
       0x56789
     };
 
-    octa expected  = 0x1234D00D;
+    octa expected  = int_to_octa(0x1234D00D);
     
     system_t* sys = riscv_bootstrap((char*) &prog, 5 * 4, 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
-    proc->regs[28] = 12;
-    proc->regs[29] = 0;
+    proc->regs[28] = int_to_octa(12);
+    proc->regs[29] = octa_zero;
 
     sys_run(sys, 1);
 
     test_check(
       test_print("Check the LH result"),
-      proc->regs[29] == expected,
+      octa_eq(proc->regs[29], expected),
       test_failure("Expecting %lld, got %lld", expected, proc->regs[29])
     );
 
@@ -555,19 +591,19 @@ define_test(riscv_lbu, test_print("RISCV_LBU"))
       0xD00D
     };
 
-    octa expected  = 0x0D;
+    octa expected  = int_to_octa(0x0D);
     
     system_t* sys = riscv_bootstrap((char*) &prog, 4 * 4, 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
-    proc->regs[28] = 12;
-    proc->regs[29] = 0;
+    proc->regs[28] = int_to_octa(12);
+    proc->regs[29] = octa_zero;
 
     sys_run(sys, 1);
 
     test_check(
       test_print("Check the LBU result"),
-      proc->regs[29] == expected,
+      octa_eq(proc->regs[29], expected),
       test_failure("Expecting %lld, got %lld", expected, proc->regs[29])
     );
 
@@ -587,19 +623,19 @@ define_test(riscv_lhu, test_print("RISCV_LHU"))
       0x1234D00D
     };
 
-    octa expected  = 0xD00D;
+    octa expected  = int_to_octa(0xD00D);
     
     system_t* sys = riscv_bootstrap((char*) &prog, 4 * 4, 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
-    proc->regs[28] = 12;
-    proc->regs[29] = 0;
+    proc->regs[28] = int_to_octa(12);
+    proc->regs[29] = octa_zero;
 
     sys_run(sys, 1);
 
     test_check(
       test_print("Check the LH result"),
-      proc->regs[29] == expected,
+      octa_eq(proc->regs[29], expected),
       test_failure("Expecting %lld, got %lld", expected, proc->regs[29])
     );
 
@@ -619,14 +655,14 @@ define_test(riscv_sb, test_print("RISCV_SB"))
       0
     };
 
-    octa expected  = 0x0D;
-    byte result = 0;
+    octa expected  = int_to_octa(0x0D);
+    byte result = octa_zero;
     
     system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
-    proc->regs[28] = 12;
-    proc->regs[29] = 0xD00D;
+    proc->regs[28] = int_to_octa(12);
+    proc->regs[29] = int_to_octa(0xD00D);
 
     sys_run(sys, 1);
 
@@ -638,7 +674,7 @@ define_test(riscv_sb, test_print("RISCV_SB"))
 
     test_check(
       test_print("Check the SB result"),
-      result == expected,
+      octa_eq(result, expected),
       test_failure("Expecting %lld, got %d", expected, result)
     );
 
@@ -658,14 +694,14 @@ define_test(riscv_sh, test_print("RISCV_SH"))
       0
     };
 
-    octa expected  = 0xD00D;
-    octa result = 0;
+    octa expected  = int_to_octa(0xD00D);
+    octa result = octa_zero;
     
     system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
-    proc->regs[28] = 12;
-    proc->regs[29] = 0xD00D;
+    proc->regs[28] = int_to_octa(12);
+    proc->regs[29] = int_to_octa(0xD00D);
 
     sys_run(sys, 1);
 
@@ -677,7 +713,7 @@ define_test(riscv_sh, test_print("RISCV_SH"))
 
     test_check(
       test_print("Check the SH result"),
-      result == expected,
+      octa_eq(result, expected),
       test_failure("Expecting %lld, got %lld", expected, result)
     );
 
@@ -697,14 +733,14 @@ define_test(riscv_sw, test_print("RISCV_SW"))
       0
     };
 
-    octa expected  = 0x1234D00D;
-    octa result = 0;
+    octa expected  = int_to_octa(0x1234D00D);
+    octa result = octa_zero;
     
     system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
-    proc->regs[28] = 12;
-    proc->regs[29] = 0x1234D00D;
+    proc->regs[28] = int_to_octa(12);
+    proc->regs[29] = int_to_octa(0x1234D00D);
 
     sys_run(sys, 1);
 
@@ -716,7 +752,7 @@ define_test(riscv_sw, test_print("RISCV_SW"))
 
     test_check(
       test_print("Check the SW result"),
-      result == expected,
+      octa_eq(result, expected),
       test_failure("Expecting %lld, got %lld", expected, result)
     );
 
@@ -737,14 +773,14 @@ define_test(riscv_sd, test_print("RISCV_SD"))
       0
     };
 
-    octa expected  = 0x1122334455667788;
-    octa result = 0;
+    octa expected  = ll_int_to_octa(0x1122334455667788);
+    octa result = octa_zero;
     
     system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
-    proc->regs[28] = 12;
-    proc->regs[29] = 0x1122334455667788;
+    proc->regs[28] = int_to_octa(12);
+    proc->regs[29] = ll_int_to_octa(0x1122334455667788);
 
     sys_run(sys, 1);
 
@@ -756,8 +792,245 @@ define_test(riscv_sd, test_print("RISCV_SD"))
 
     test_check(
       test_print("Check the SD result"),
-      result == expected,
+      octa_eq(result, expected),
       test_failure("Expecting %#llx, got %#llx", expected, result)
+    );
+
+    test_success;
+    test_teardown;
+    sys_delete(sys, &allocator);
+    test_end;
+}
+define_test(riscv_addi, test_print("RISCV_ADDI"))
+{
+    allocator_t allocator = GLOBAL_ALLOCATOR;
+
+    tetra prog[] = {
+      riscv_addi(28, 29, 10),
+      riscv_ebreak()
+    };
+
+    octa expected = int_to_octa(15);
+    
+    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    riscv_processor_t* proc = __get_riscv_proc(sys);
+
+    proc->regs[28] = int_to_octa(5);
+    proc->regs[29] = octa_zero;
+
+    sys_run(sys, 100);
+  
+    test_check(
+      test_print("Check that %lld + %d = %lld", proc->regs[28], 10, expected),
+      octa_eq(proc->regs[29], expected),
+      test_failure("Expecting %lld, got %lld", expected, proc->regs[29])
+    );
+
+    test_success;
+    test_teardown;
+    sys_delete(sys, &allocator);
+    test_end;
+}
+define_test(riscv_slti, test_print("RISCV_SLTI"))
+{
+    allocator_t allocator = GLOBAL_ALLOCATOR;
+
+    tetra prog[] = {
+      riscv_slti(28, 29, 1),
+      riscv_ebreak()
+    };
+
+    octa expected = 1;
+    
+    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    riscv_processor_t* proc = __get_riscv_proc(sys);
+
+    proc->regs[28] = -octa_int_max;
+    proc->regs[29] = octa_zero;
+
+    sys_run(sys, 100);
+  
+    test_check(
+      test_print("Check that %lld < %d = %lld", proc->regs[28], 1, expected),
+      octa_eq(proc->regs[29], expected),
+      test_failure("Expecting %lld, got %lld", expected, proc->regs[29])
+    );
+
+    test_success;
+    test_teardown;
+    sys_delete(sys, &allocator);
+    test_end;
+}
+define_test(riscv_sltiu, test_print("RISCV_SLTIU"))
+{
+    allocator_t allocator = GLOBAL_ALLOCATOR;
+
+    tetra prog[] = {
+      riscv_sltiu(28, 29, 1),
+      riscv_ebreak()
+    };
+
+    octa expected = 0;
+    
+    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    riscv_processor_t* proc = __get_riscv_proc(sys);
+f
+    proc->regs[28] = octa_uint_max;
+    proc->regs[29] = octa_zero;
+
+    sys_run(sys, 100);
+  
+    test_check(
+      test_print("Check that %lld < %d = %lld", proc->regs[28], 1, expected),
+      octa_eq(proc->regs[29], expected),
+      test_failure("Expecting %lld, got %lld", expected, proc->regs[29])
+    );
+
+    test_success;
+    test_teardown;
+    sys_delete(sys, &allocator);
+    test_end;
+}
+define_test(riscv_xori, test_print("RISCV_XORI"))
+{
+    allocator_t allocator = GLOBAL_ALLOCATOR;
+
+    tetra prog[] = {
+      riscv_xori(28, 29, 1),
+      riscv_ebreak()
+    };
+
+    octa expected = int_to_octa(1);
+    
+    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    riscv_processor_t* proc = __get_riscv_proc(sys);
+
+    proc->regs[28] = octa_zero;
+    proc->regs[29] = octa_zero;
+
+    sys_run(sys, 100);
+  
+    test_check(
+      test_print("Check that %lld ^ %d = %lld", proc->regs[28], 1, expected),
+      octa_eq(proc->regs[29], expected),
+      test_failure("Expecting %lld, got %lld", expected, proc->regs[29])
+    );
+
+    test_success;
+    test_teardown;
+    sys_delete(sys, &allocator);
+    test_end;
+}
+define_test(riscv_ori, test_print("RISCV_XORI"))
+{
+    allocator_t allocator = GLOBAL_ALLOCATOR;
+
+    tetra prog[] = {
+      riscv_ori(28, 29, 1),
+      riscv_ebreak()
+    };
+
+    octa expected = 1;
+    
+    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    riscv_processor_t* proc = __get_riscv_proc(sys);
+
+    proc->regs[28] = octa_zero;
+    proc->regs[29] = octa_zero;
+
+    sys_run(sys, 100);
+  
+    test_check(
+      test_print("Check that %lld | %d = %lld", proc->regs[28], 1, expected),
+      octa_eq(proc->regs[29], expected),
+      test_failure("Expecting %lld, got %lld", expected, proc->regs[29])
+    );
+
+    test_success;
+    test_teardown;
+    sys_delete(sys, &allocator);
+    test_end;
+}
+define_test(riscv_andi, test_print("RISCV_ANDI"))
+{
+    allocator_t allocator = GLOBAL_ALLOCATOR;
+
+    tetra prog[] = {
+      riscv_andi(28, 29, 1),
+      riscv_ebreak()
+    };
+
+    octa expected = int_to_octa(1);
+    
+    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    riscv_processor_t* proc = __get_riscv_proc(sys);
+
+    proc->regs[28] = int_to_octa(1);
+    proc->regs[29] = octa_zero;
+
+    sys_run(sys, 100);
+  
+    test_check(
+      test_print("Check that %lld & %d = %lld", proc->regs[28], 1, expected),
+      octa_eq(proc->regs[29], expected),
+      test_failure("Expecting %lld, got %lld", expected, proc->regs[29])
+    );
+
+    test_success;
+    test_teardown;
+    sys_delete(sys, &allocator);
+    test_end;
+}
+define_test(riscv_slli, test_print("RISCV_SLLI"))
+{
+    allocator_t allocator = GLOBAL_ALLOCATOR;
+
+    tetra prog[] = {riscv_slli(28, 29, 1), riscv_ebreak()};
+
+    octa expected = octa_left_shift(int_to_octa(1), 1);
+    
+    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    riscv_processor_t* proc = __get_riscv_proc(sys);
+
+    proc->regs[28] = int_to_octa(1);
+    proc->regs[29] = octa_zero;
+
+    sys_run(sys, 100);
+  
+    test_check(
+      test_print("Check that %lld << %d = %lld", proc->regs[28], 1, expected),
+      octa_eq(proc->regs[29], expected),
+      test_failure("Expecting %lld, got %lld", expected, proc->regs[29])
+    );
+
+    test_success;
+    test_teardown;
+    sys_delete(sys, &allocator);
+    test_end;
+}
+define_test(riscv_srli, test_print("RISCV_SRLI"))
+{
+    allocator_t allocator = GLOBAL_ALLOCATOR;
+
+    tetra prog[] = {
+      riscv_srli(28, 29, 1),
+      riscv_ebreak()
+    };
+
+    octa expected = octa_right_shift(int_to_octa(2), 1, 0);
+    
+    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    riscv_processor_t* proc = __get_riscv_proc(sys);
+
+    proc->regs[28] = int_to_octa(2);
+    proc->regs[29] = octa_zero;
+
+    sys_run(sys, 100);
+  
+    test_check(
+      test_print("Check that %lld << %d = %lld", proc->regs[28], 1, expected),
+      octa_eq(proc->regs[29], expected),
+      test_failure("Expecting %lld, got %lld", expected, proc->regs[29])
     );
 
     test_success;
@@ -774,20 +1047,20 @@ define_test(riscv_add, test_print("RISCV_ADD"))
       riscv_ebreak()
     };
 
-    octa expected = 15;
+    octa expected = int_to_octa(15);
     
-    system_t* sys = riscv_bootstrap((char*) &prog, 8, 0);
+    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
-    proc->regs[28] = 0;
-    proc->regs[29] = 10;
-    proc->regs[30] = 5;
+    proc->regs[28] = octa_zero;
+    proc->regs[29] = int_to_octa(10);
+    proc->regs[30] = int_to_octa(5);
 
     sys_run(sys, 100);
   
     test_check(
       test_print("Check that %lld + %lld = %lld", proc->regs[29], proc->regs[30], expected),
-      proc->regs[28] == expected,
+      octa_eq(proc->regs[28], expected),
       test_failure("Expecting %lld, got %lld", expected, proc->regs[28])
     );
 
@@ -816,7 +1089,7 @@ define_test(riscv_sub, test_print("RISCV_SUB"))
   
     test_check(
       test_print("Check that %lld + %lld = %lld", proc->regs[29], proc->regs[30], expected),
-      proc->regs[28] == expected,
+      octa_eq(proc->regs[28], expected),
       test_failure("Expecting %lld, got %lld", expected, proc->regs[28])
     );
 
@@ -845,10 +1118,17 @@ define_test_chapter(
 )
 
 define_test_chapter(
+  riscv_alu, test_print("RISCV ALU"),
+  riscv_addi, riscv_slti, riscv_sltiu,
+  riscv_xori, riscv_ori, riscv_andi,
+  riscv_slli, 
+  riscv_add, riscv_sub
+)
+
+define_test_chapter(
   riscv, test_print("RISCV"),
   riscv_auipc,
   riscv_branching,
   riscv_memory,
-  riscv_add,
-  riscv_sub
+  riscv_alu
 )

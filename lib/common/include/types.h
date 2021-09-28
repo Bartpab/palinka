@@ -1,6 +1,7 @@
 #ifndef __TYPES_H__
 #define __TYPES_H__
 
+#include "./env.h"
 #include <stdint.h>
 #include <stddef.h>
 
@@ -34,6 +35,7 @@ octa unsigned_char_to_octa(unsigned char x);
 octa char_to_octa(char x);
 octa uint_to_octa(unsigned int x);
 octa int_to_octa(int x);
+octa ll_int_to_octa(long long int x);
 octa double_to_octa(double x);
 double octa_to_double(octa x);
 void* octa_to_voidp(octa x);
@@ -88,6 +90,10 @@ octa uint_to_octa(unsigned x) {
   return x;
 }
 octa int_to_octa(int x) {
+  return x;
+}
+octa ll_int_to_octa(long long int x)
+{
   return x;
 }
 
