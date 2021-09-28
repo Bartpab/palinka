@@ -123,7 +123,7 @@ static inline void __decode(system_t* sys, riscv_processor_t* proc)
         return;
 
     // Setup control
-    riscv_decoded_instr_t decoded   = decode(in->raw);
+    riscv_decoded_instr_t decoded = decode(in->raw);
     
     out->control.op = decoded.op;
     out->control.sregs[0].type = decoded.sregs[0].type;
@@ -269,7 +269,7 @@ static inline void __execute(system_t* sys, riscv_processor_t* proc)
         // Halt the simulation
         case RISCV_EBREAK: sys_halt(sys);
         case RISCV_FENCE_I: break;
-        case RISCV_CSRRW: break;
+        case RISCV_CSRRW: result[0] = b, result[1] = a; break;
         default: break;
     }
     

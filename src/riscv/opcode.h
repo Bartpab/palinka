@@ -23,37 +23,22 @@ typedef enum {
     RISCV_MULW, RISCV_DIVW, RISCV_DIVUW, RISCV_REMW, RISCV_REMUW 
 } riscv_opcode_t;
 
-#define ARG0_IS_IMMEDIATE   0b001
-#define ARG0_IS_RS1         0b010 
-#define ARG0_IS_RS2         0b100 
-#define ARG0_IS_PC          0b110 
+#define ARG0_IS_RS1             0b010 
+#define ARG0_IS_RS2             0b100 
 
-#define ARG1_IS_IMMEDIATE   0b001 << 3
-#define ARG1_IS_RS1         0b100 << 3
-#define ARG1_IS_RS2         0b010 << 3
-#define ARG1_IS_CSR         0b110 << 3
-
-#define ARG2_IS_IMMEDIATE   0b001 << 6
-#define ARG2_IS_RS1         0b100 << 6
-#define ARG2_IS_RS2         0b010 << 6
-#define ARG2_IS_PC          0b110 << 6
-#define ARG2_COMPUTE_PLUS   0b111 << 6
-
-#define ARG3_IS_IMMEDIATE   0b001 << 9
-#define ARG3_IS_RS1         0b100 << 9
-#define ARG3_IS_RS2         0b010 << 9
-#define ARG3_IS_PC          0b110 << 9
+#define ARG1_IS_IMMEDIATE       0b0001 << 3
+#define ARG1_IS_RS1             0b0100 << 3
+#define ARG1_IS_RS2             0b0010 << 3
+#define ARG1_IS_CSR             0b0110 << 3
+#define ARG1_READ_IF_RD_NOT_X0  0b1000 << 3
       
-#define OUT0                0b111 << 12
-#define OUT0_IS_TETRA       0b001 << 12
-#define OUT0_WRITE_REG      0b010 << 12
-#define OUT1_WRITE_CSR       0b010 << 12
+#define OUT0                    0b111 << 7
+#define OUT0_IS_TETRA           0b001 << 7
+#define OUT0_WRITE_REG          0b010 << 7
 
-#define OUT1                0b111 << 15
-#define OUT1_IS_RD          0b010 << 15
-#define OUT1_IS_PC          0b100 << 15
+#define OUT1_WRITE_CSR          0b1 << 10
 
-#define WRITE_PC            0b1 << 16
+#define WRITE_PC                0b1 << 13
 
 typedef struct riscv_instr_info_t {
     const char* name;
@@ -89,25 +74,25 @@ struct riscv_instr_info_t riscv_instr_infos[] = {
     {"SLLI",    ARG0_IS_RS1 | ARG1_IS_IMMEDIATE | OUT0_WRITE_REG}, 
     {"SRLI",    ARG0_IS_RS1 | ARG1_IS_IMMEDIATE | OUT0_WRITE_REG},
     {"SRAI",    ARG0_IS_RS1 | ARG1_IS_IMMEDIATE | OUT0_WRITE_REG},
-    {"ADD",     ARG0_IS_RS1 | ARG1_IS_RS2 | OUT0_WRITE_REG}, 
-    {"SUB",     ARG0_IS_RS1 | ARG1_IS_RS2 | OUT0_WRITE_REG}, 
-    {"SLL",     ARG0_IS_RS1 | ARG1_IS_RS2 | OUT0_WRITE_REG}, 
-    {"SLT",     ARG0_IS_RS1 | ARG1_IS_RS2 | OUT0_WRITE_REG}, 
-    {"SLTU",    ARG0_IS_RS1 | ARG1_IS_RS2 | OUT0_WRITE_REG}, 
-    {"XOR",     ARG0_IS_RS1 | ARG1_IS_RS2 | OUT0_WRITE_REG}, 
-    {"SRL",     ARG0_IS_RS1 | ARG1_IS_RS2 | OUT0_WRITE_REG}, 
-    {"SRA",     ARG0_IS_RS1 | ARG1_IS_RS2 | OUT0_WRITE_REG}, 
-    {"OR",      ARG0_IS_RS1 | ARG1_IS_RS2 | OUT0_WRITE_REG}, 
-    {"AND",     ARG0_IS_RS1 | ARG1_IS_RS2 | OUT0_WRITE_REG}, 
+    {"ADD",     ARG0_IS_RS1 | ARG1_IS_RS2 | OUT0_WRITE_REG }, 
+    {"SUB",     ARG0_IS_RS1 | ARG1_IS_RS2 | OUT0_WRITE_REG }, 
+    {"SLL",     ARG0_IS_RS1 | ARG1_IS_RS2 | OUT0_WRITE_REG }, 
+    {"SLT",     ARG0_IS_RS1 | ARG1_IS_RS2 | OUT0_WRITE_REG }, 
+    {"SLTU",    ARG0_IS_RS1 | ARG1_IS_RS2 | OUT0_WRITE_REG }, 
+    {"XOR",     ARG0_IS_RS1 | ARG1_IS_RS2 | OUT0_WRITE_REG }, 
+    {"SRL",     ARG0_IS_RS1 | ARG1_IS_RS2 | OUT0_WRITE_REG }, 
+    {"SRA",     ARG0_IS_RS1 | ARG1_IS_RS2 | OUT0_WRITE_REG }, 
+    {"OR",      ARG0_IS_RS1 | ARG1_IS_RS2 | OUT0_WRITE_REG }, 
+    {"AND",     ARG0_IS_RS1 | ARG1_IS_RS2 | OUT0_WRITE_REG }, 
     {"FENCE", 0}, 
     {"ECALL", 0}, 
     {"EBREAK", 0},
     {"LWU", ARG0_IS_RS1 | ARG1_IS_RS2}, 
     {"LD", ARG0_IS_RS1 | ARG1_IS_IMMEDIATE | OUT0_WRITE_REG}, 
     {"SD", ARG0_IS_RS1 | ARG1_IS_RS2}, 
-    {"ADDIW", ARG0_IS_IMMEDIATE}, 
-    {"SLLIW", ARG0_IS_IMMEDIATE}, 
-    {"SRLIW", ARG0_IS_IMMEDIATE | OUT0_IS_TETRA}, 
+    {"ADDIW", ARG1_IS_IMMEDIATE}, 
+    {"SLLIW", ARG1_IS_IMMEDIATE}, 
+    {"SRLIW", ARG1_IS_IMMEDIATE | OUT0_IS_TETRA}, 
     {"SRAIW", ARG0_IS_RS1 | ARG1_IS_IMMEDIATE | OUT0_IS_TETRA}, 
     {"ADDW", ARG0_IS_RS1 | ARG1_IS_RS2 | OUT0_IS_TETRA}, 
     {"SUBW", ARG0_IS_RS1 | ARG1_IS_RS2 | OUT0_IS_TETRA}, 
@@ -115,9 +100,9 @@ struct riscv_instr_info_t riscv_instr_infos[] = {
     {"SRLW", ARG0_IS_RS1 | ARG1_IS_RS2 | OUT0_IS_TETRA}, 
     {"SRAW", ARG0_IS_RS1 | ARG1_IS_RS2 | OUT0_IS_TETRA},
     {"FENCE_I", 0},
-    {"CSRRW", ARG0_IS_RS1 | ARG1_IS_CSR | OUT0_WRITE_REG | OUT1_WRITE_CSR}, 
-    {"CSRRS", ARG0_IS_RS1 | ARG1_IS_CSR | OUT0_WRITE_REG | OUT1_WRITE_CSR}, 
-    {"CSRRC", ARG0_IS_RS1 | ARG1_IS_CSR | OUT0_WRITE_REG | OUT1_WRITE_CSR}, 
+    {"CSRRW", ARG0_IS_RS1 | ARG1_IS_CSR | ARG1_READ_IF_RD_NOT_X0 | OUT0_WRITE_REG | OUT1_WRITE_CSR}, 
+    {"CSRRS", ARG0_IS_RS1 | ARG1_IS_CSR | ARG1_READ_IF_RD_NOT_X0 | OUT0_WRITE_REG | OUT1_WRITE_CSR}, 
+    {"CSRRC", ARG0_IS_RS1 | ARG1_IS_CSR | ARG1_READ_IF_RD_NOT_X0 | OUT0_WRITE_REG | OUT1_WRITE_CSR}, 
     {"CSRRWI", 0}, 
     {"CSRRSI", 0}, 
     {"CSRRCI", 0},

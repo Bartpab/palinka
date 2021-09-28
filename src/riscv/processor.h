@@ -170,6 +170,10 @@ void riscv_pipeline_create(riscv_pipeline_t* pipeline)
     pipeline->memory.control.memory_op.op = 0;
     pipeline->memory.control.stall = false;
     pipeline->memory.control.invalid = false;
+    pipeline->memory.control.dregs[0].addr = 0;
+    pipeline->memory.control.dregs[0].type = 0;
+    pipeline->memory.control.dregs[1].addr = 0;
+    pipeline->memory.control.dregs[1].type = 0;
 
     pipeline->writeback.control.dregs[0].addr = 0;
     pipeline->writeback.control.dregs[0].type = 0;

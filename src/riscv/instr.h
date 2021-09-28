@@ -172,14 +172,17 @@ riscv_decoded_instr_t decode(tetra raw)
 
     decoded.sregs[0].type = 0;
     decoded.sregs[0].addr = 0;
+    
     decoded.sregs[1].type = 0;
     decoded.sregs[1].addr = 0;
+    
     decoded.dregs[0].type = 0;
     decoded.dregs[0].addr = 0;
+    
     decoded.dregs[1].type = 0;
     decoded.dregs[1].addr = 0;
 
-    decoded.write_pc    = 0;
+    decoded.write_pc  = 0;
     decoded.op = 0;
     decoded.arg1_is_imm = 0;
 
@@ -342,16 +345,17 @@ riscv_decoded_instr_t decode(tetra raw)
     int flag = info->flags;
 
     if((flag & ARG0_IS_RS1) == ARG0_IS_RS1) decoded.sregs[0].addr = decoded.rs1, decoded.sregs[0].type = 0;
-    if((flag & ARG0_IS_RS2) == ARG0_IS_RS2) decoded.sregs[0].addr = decoded.rs2, decoded.sregs[0].type = 0;
+    else if((flag & ARG0_IS_RS2) == ARG0_IS_RS2) decoded.sregs[0].addr = decoded.rs2, decoded.sregs[0].type = 0;
     
     if((flag & ARG1_IS_RS1) == ARG1_IS_RS1) decoded.sregs[1].addr = decoded.rs1, decoded.sregs[1].type = 0;
-    if((flag & ARG1_IS_RS2) == ARG1_IS_RS2) decoded.sregs[1].addr = decoded.rs2, decoded.sregs[1].type = 0;
-    if((flag & ARG1_IS_CSR) == ARG1_IS_CSR) decoded.sregs[1].addr = decoded.imm, decoded.sregs[1].type = 1;
+    else if((flag & ARG1_IS_RS2) == ARG1_IS_RS2) decoded.sregs[1].addr = decoded.rs2, decoded.sregs[1].type = 0;
+    else if((flag & ARG1_IS_CSR) == ARG1_IS_CSR) decoded.sregs[1].addr = decoded.imm, decoded.sregs[1].type = 1;
+    else if((flag & ARG1_IS_IMMEDIATE) == ARG1_IS_IMMEDIATE) decoded.arg1_is_imm = true;
 
-    if((flag & ARG1_IS_IMMEDIATE) == ARG1_IS_IMMEDIATE) decoded.arg1_is_imm = true;
-        
+    if((flag & ARG1_READ_IF_RD_NOT_X0) == ARG1_READ_IF_RD_NOT_X0 && decoded.rd == 0) decoded.sregs[1].addr = decoded.sregs[1].type = 0; // Cancel reading
+
     if((flag & OUT0_WRITE_REG)) decoded.dregs[0].addr = decoded.rd, decoded.dregs[0].type = 0;
-    if((flag & OUT1_WRITE_CSR))
+    if((flag & OUT1_WRITE_CSR)) decoded.dregs[1].addr = decoded.imm, decoded.dregs[1].type = 1;
     if((flag & WRITE_PC) == WRITE_PC) decoded.write_pc = true;
 
     return decoded;
