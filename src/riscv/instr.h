@@ -17,8 +17,16 @@ typedef struct {
     octa imm;
     
     unsigned int op;
-    byte src_regs[2];
-    byte dest_reg;
+    struct {
+        int addr;
+        char type;
+    } sregs[2];
+    
+    struct {
+        int addr;
+        char type;
+    } dregs[2];
+
     bool write_pc;
     bool arg1_is_imm;
 } riscv_decoded_instr_t;
@@ -162,9 +170,15 @@ riscv_decoded_instr_t decode(tetra raw)
     decoded.rs1 = rs1;
     decoded.rs2 = rs2;
 
-    decoded.src_regs[0] = 0;
-    decoded.src_regs[1] = 0;
-    decoded.dest_reg    = 0;
+    decoded.sregs[0].type = 0;
+    decoded.sregs[0].addr = 0;
+    decoded.sregs[1].type = 0;
+    decoded.sregs[1].addr = 0;
+    decoded.dregs[0].type = 0;
+    decoded.dregs[0].addr = 0;
+    decoded.dregs[1].type = 0;
+    decoded.dregs[1].addr = 0;
+
     decoded.write_pc    = 0;
     decoded.op = 0;
     decoded.arg1_is_imm = 0;
@@ -280,6 +294,14 @@ riscv_decoded_instr_t decode(tetra raw)
                     default: goto __end;
                 }
             }
+            switch(decoded.funct3) {
+                case 0b001: decoded.op = RISCV_CSRRW; goto i_type;
+                case 0b010: decoded.op = RISCV_CSRRS; goto i_type;
+                case 0b011: decoded.op = RISCV_CSRRC; goto i_type;
+                case 0b101: decoded.op = RISCV_CSRRWI; goto i_type;
+                case 0b110: decoded.op = RISCV_CSRRSI; goto i_type;
+                case 0b111: decoded.op = RISCV_CSRRCI; goto i_type;
+            }
             goto __end;
         case 0b0011011:
             switch(decoded.funct3) {
@@ -294,7 +316,6 @@ riscv_decoded_instr_t decode(tetra raw)
                 default: goto __end;
             }
             break;
-
         i_type: 
             decoded.imm = decode_i_type(raw);
             break;
@@ -320,14 +341,17 @@ riscv_decoded_instr_t decode(tetra raw)
     
     int flag = info->flags;
 
-    if((flag & ARG0_IS_RS1) == ARG0_IS_RS1) decoded.src_regs[0] = decoded.rs1;
-    if((flag & ARG0_IS_RS2) == ARG0_IS_RS2) decoded.src_regs[0] = decoded.rs2;
+    if((flag & ARG0_IS_RS1) == ARG0_IS_RS1) decoded.sregs[0].addr = decoded.rs1, decoded.sregs[0].type = 0;
+    if((flag & ARG0_IS_RS2) == ARG0_IS_RS2) decoded.sregs[0].addr = decoded.rs2, decoded.sregs[0].type = 0;
     
-    if((flag & ARG1_IS_RS1) == ARG1_IS_RS1) decoded.src_regs[1] = decoded.rs1;
-    if((flag & ARG1_IS_RS2) == ARG1_IS_RS2) decoded.src_regs[1] = decoded.rs2;
+    if((flag & ARG1_IS_RS1) == ARG1_IS_RS1) decoded.sregs[1].addr = decoded.rs1, decoded.sregs[1].type = 0;
+    if((flag & ARG1_IS_RS2) == ARG1_IS_RS2) decoded.sregs[1].addr = decoded.rs2, decoded.sregs[1].type = 0;
+    if((flag & ARG1_IS_CSR) == ARG1_IS_CSR) decoded.sregs[1].addr = decoded.imm, decoded.sregs[1].type = 1;
+
     if((flag & ARG1_IS_IMMEDIATE) == ARG1_IS_IMMEDIATE) decoded.arg1_is_imm = true;
-    
-    if((flag & WRITE_REG)) decoded.dest_reg = decoded.rd;
+        
+    if((flag & OUT0_WRITE_REG)) decoded.dregs[0].addr = decoded.rd, decoded.dregs[0].type = 0;
+    if((flag & OUT1_WRITE_CSR))
     if((flag & WRITE_PC) == WRITE_PC) decoded.write_pc = true;
 
     return decoded;

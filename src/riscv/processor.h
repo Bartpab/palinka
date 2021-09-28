@@ -6,6 +6,16 @@
 #include "./instr.h"
 
 typedef struct {
+  int addr;
+  char type; // 0: Normal reg, 1: CSR
+} riscv_reg_addr_t;
+
+typedef struct {
+  char op; // 0: NOTHING, 1: STORE, 2: LOAD
+  octa addr;
+} riscv_memory_op_t;
+
+typedef struct {
   struct {
     bool stall;
   } control;
@@ -26,8 +36,8 @@ typedef struct {
       int op;
       octa imm;
       bool write_pc, arg1_is_imm;
-      unsigned char src_regs[2]; 
-      unsigned char dest_reg; // Address of the destination registers
+      riscv_reg_addr_t sregs[2];
+      riscv_reg_addr_t dregs[2];
   } control;
 } riscv_stage_read_t;
 
@@ -39,33 +49,28 @@ typedef struct {
       int op;
       octa imm;
       bool write_pc, arg1_is_imm;
-      unsigned char src_regs[2]; 
-      unsigned char dest_reg; // Address of the destination registers
+      riscv_reg_addr_t sregs[2];
+      riscv_reg_addr_t dregs[2];
   } control;
 } riscv_stage_execute_t;
 
 typedef struct {
   octa pc;
-  octa result;
+  octa results[2];
   struct {
       bool stall, invalid;
 
       int op;
-      unsigned char dest_reg; // Address of the destination registers
-
-      bool store;
-      octa store_addr;
-
-      bool load;
-      octa load_addr;
+      riscv_reg_addr_t dregs[2];
+      riscv_memory_op_t memory_op;
   } control;
 } riscv_stage_memory_t;
 
 typedef struct {
-  octa result;
+  octa results[2];
   struct {
     bool stall, invalid;
-    unsigned char dest_reg; // Address of the destination registers
+    riscv_reg_addr_t dregs[2];
   } control;
 } riscv_stage_writeback_t;
 
@@ -127,10 +132,15 @@ void riscv_pipeline_create(riscv_pipeline_t* pipeline)
     pipeline->decoder.control.invalid = false;
 
     pipeline->read.pc = 0;
-    pipeline->read.control.dest_reg = 0;
     pipeline->read.control.imm = 0;
-    pipeline->read.control.src_regs[0] = 0;
-    pipeline->read.control.src_regs[1] = 0;
+    pipeline->read.control.sregs[0].addr = 0;
+    pipeline->read.control.sregs[0].type = 0;
+    pipeline->read.control.sregs[1].addr = 0;
+    pipeline->read.control.sregs[1].type = 0;
+    pipeline->read.control.dregs[0].addr = 0;
+    pipeline->read.control.dregs[0].type = 0;
+    pipeline->read.control.dregs[1].addr = 0;
+    pipeline->read.control.dregs[1].type = 0;
     pipeline->read.control.stall = false;
     pipeline->read.control.write_pc = false;
     pipeline->read.control.invalid = false;
@@ -139,29 +149,36 @@ void riscv_pipeline_create(riscv_pipeline_t* pipeline)
     pipeline->execute.args[0] = 0;
     pipeline->execute.args[1] = 0;
     pipeline->execute.pc = 0;
-    pipeline->execute.control.dest_reg = 0;
     pipeline->execute.control.imm = 0;
-    pipeline->execute.control.src_regs[0] = 0;
-    pipeline->execute.control.src_regs[1] = 0;
+    pipeline->execute.control.sregs[0].addr = 0;
+    pipeline->execute.control.sregs[0].type = 0;
+    pipeline->execute.control.sregs[1].addr = 0;
+    pipeline->execute.control.sregs[1].type = 0;
+    pipeline->execute.control.dregs[0].addr = 0;
+    pipeline->execute.control.dregs[0].type = 0;
+    pipeline->execute.control.dregs[1].addr = 0;
+    pipeline->execute.control.dregs[1].type = 0;
     pipeline->execute.control.stall = false;
     pipeline->execute.control.write_pc = false;
     pipeline->execute.control.invalid = false;
     pipeline->execute.control.arg1_is_imm = false;
 
     pipeline->memory.pc = 0;
-    pipeline->memory.result = 0;
-    pipeline->memory.control.dest_reg = 0;
-    pipeline->memory.control.load = 0;
-    pipeline->memory.control.load_addr = 0;
-    pipeline->memory.control.store = false;
-    pipeline->memory.control.store_addr = 0;
+    pipeline->memory.results[0] = 0;
+    pipeline->memory.results[1] = 0;
+    pipeline->memory.control.memory_op.addr = 0;
+    pipeline->memory.control.memory_op.op = 0;
     pipeline->memory.control.stall = false;
     pipeline->memory.control.invalid = false;
 
-    pipeline->writeback.control.dest_reg = 0;
+    pipeline->writeback.control.dregs[0].addr = 0;
+    pipeline->writeback.control.dregs[0].type = 0;
+    pipeline->writeback.control.dregs[1].addr = 0;
+    pipeline->writeback.control.dregs[1].type = 0;
     pipeline->writeback.control.stall = false;
     pipeline->writeback.control.invalid = true;
-    pipeline->writeback.result = 0;
+    pipeline->writeback.results[0] = 0;
+    pipeline->writeback.results[1] = 0;
 }
 
 #endif
