@@ -209,13 +209,13 @@ riscv_decoded_instr_t decode(tetra raw)
                 case 0b111: decoded.op = RISCV_ANDI; goto i_type;
                 case 0b001:
                     switch(decoded.funct7) {
-                        case 0b0000000: decoded.op = RISCV_SLLI; goto __end;
+                        case 0b0000000: decoded.op = RISCV_SLLI; goto i_type;
                         default: goto __end;
                     }
                 case 0b101:
                     switch(decoded.funct7) {
-                        case 0b0000000: decoded.op = RISCV_SRLI; goto __end;
-                        case 0b0100000: decoded.op = RISCV_SRAI; goto __end;
+                        case 0b0000000: decoded.op = RISCV_SRLI; goto i_type;
+                        case 0b0100000: decoded.op = RISCV_SRAI; goto i_type;
                         default: goto __end;
                     }
                 default: goto __end;
@@ -224,8 +224,8 @@ riscv_decoded_instr_t decode(tetra raw)
             switch(decoded.funct3) {
                 case 0b000:
                     switch(decoded.funct7) {
-                        case 0b0000000: decoded.op = RISCV_ADD; goto __end;
-                        case 0b0100000: decoded.op = RISCV_SUB; goto __end;
+                        case 0b0000000: decoded.op = RISCV_ADD; goto r_type;
+                        case 0b0100000: decoded.op = RISCV_SUB; goto r_type;
                         default: goto __end;
                     }
                 case 0b001:
@@ -307,6 +307,7 @@ riscv_decoded_instr_t decode(tetra raw)
         j_type:
             decoded.imm = decode_j_type(raw);
             break;
+        r_type:
         __end:
             break;
     }

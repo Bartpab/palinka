@@ -874,7 +874,7 @@ define_test(riscv_sltiu, test_print("RISCV_SLTIU"))
     
     system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
-f
+
     proc->regs[28] = octa_uint_max;
     proc->regs[29] = octa_zero;
 
@@ -985,7 +985,10 @@ define_test(riscv_slli, test_print("RISCV_SLLI"))
 {
     allocator_t allocator = GLOBAL_ALLOCATOR;
 
-    tetra prog[] = {riscv_slli(28, 29, 1), riscv_ebreak()};
+    tetra prog[] = {
+      riscv_slli(28, 29, 1),
+      riscv_ebreak()
+    };
 
     octa expected = octa_left_shift(int_to_octa(1), 1);
     
