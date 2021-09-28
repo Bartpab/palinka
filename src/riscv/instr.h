@@ -139,6 +139,10 @@ tetra decode_funct3(tetra raw)
     return (raw >> 12) & 0b111;
 }
 
+tetra encode_funct7(byte funct7) {
+    return (funct7 << 25);
+}
+
 riscv_decoded_instr_t decode(tetra raw)
 {
     riscv_decoded_instr_t decoded;

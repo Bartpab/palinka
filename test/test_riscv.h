@@ -146,7 +146,7 @@ tetra riscv_srli(byte rs1, byte rd, byte shamt)
 }
 tetra riscv_srai(byte rs1, byte rd, byte shamt)
 {
-  return encode_s_type(0b0100000) | encode_rs1(rs1) | encode_rs2(shamt) | encode_funct3(0b101) | encode_rd(rd) | encode_opcode(0b0010011);
+  return encode_funct7(0b0100000) | encode_rs1(rs1) | encode_rs2(shamt) | encode_funct3(0b101) | encode_rd(rd) | encode_opcode(0b0010011);
 }
 tetra riscv_add(byte rd, byte rs1, byte rs2)
 {
@@ -159,6 +159,18 @@ tetra riscv_sub(byte rd, byte rs1, byte rs2)
   tetra t = 0;
   t |= (0b0100000 << 25) | ((rs2 & 0x1F) << 20) | ((rs1 & 0x1F) << 15) | ((rd & 0x1F) << 7) | 0x33;
   return t;
+}
+tetra riscv_sll(byte rd, byte rs1, byte rs2)
+{
+  return encode_funct7(0) | encode_rs1(rs1) | encode_rs2(rs2) | encode_rd(rd) | encode_funct3(0b001) | encode_opcode(0b0110011);
+}
+tetra riscv_slt(byte rd, byte rs1, byte rs2)
+{
+  return encode_funct7(0) | encode_rs1(rs1) | encode_rs2(rs2) | encode_rd(rd) | encode_funct3(0b010) | encode_opcode(0b0110011);
+}
+tetra riscv_sltu(byte rd, byte rs1, byte rs2)
+{
+  return encode_funct7(0) | encode_rs1(rs1) | encode_rs2(rs2) | encode_rd(rd) | encode_funct3(0b011) | encode_opcode(0b0110011);
 }
 tetra riscv_ebreak()
 {
@@ -1041,6 +1053,36 @@ define_test(riscv_srli, test_print("RISCV_SRLI"))
     sys_delete(sys, &allocator);
     test_end;
 }
+define_test(riscv_srai, test_print("RISCV_SRAI"))
+{
+    allocator_t allocator = GLOBAL_ALLOCATOR;
+
+    tetra prog[] = {
+      riscv_srai(28, 29, 1),
+      riscv_ebreak()
+    };
+
+    octa expected = octa_right_shift(int_to_octa(2), 1, 0);
+    
+    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    riscv_processor_t* proc = __get_riscv_proc(sys);
+
+    proc->regs[28] = int_to_octa(2);
+    proc->regs[29] = octa_zero;
+
+    sys_run(sys, 100);
+  
+    test_check(
+      test_print("Check that %lld << %d = %lld", proc->regs[28], 1, expected),
+      octa_eq(proc->regs[29], expected),
+      test_failure("Expecting %lld, got %lld", expected, proc->regs[29])
+    );
+
+    test_success;
+    test_teardown;
+    sys_delete(sys, &allocator);
+    test_end;
+}
 define_test(riscv_add, test_print("RISCV_ADD"))
 {
     allocator_t allocator = GLOBAL_ALLOCATOR;
@@ -1101,6 +1143,35 @@ define_test(riscv_sub, test_print("RISCV_SUB"))
     sys_delete(sys, &allocator);
     test_end;
 }
+define_test(riscv_slt, test_print("RISCV_SLT"))
+{
+    allocator_t allocator = GLOBAL_ALLOCATOR;
+    tetra prog[] = {
+      riscv_slt(28, 29, 30),
+      riscv_ebreak()
+    };
+    octa expected = int_to_octa(0);
+    
+    system_t* sys = riscv_bootstrap((char*) &prog, 8, 0);
+    riscv_processor_t* proc = __get_riscv_proc(sys);
+
+    proc->regs[28] = octa_zero;
+    proc->regs[29] = int_to_octa(2);
+    proc->regs[30] = int_to_octa(1);
+
+    sys_run(sys, 100);
+  
+    test_check(
+      test_print("Check that %lld < %lld = %lld", proc->regs[29], proc->regs[30], expected),
+      octa_eq(proc->regs[28], expected),
+      test_failure("Expecting %lld, got %lld", expected, proc->regs[28])
+    );
+
+    test_success;
+    test_teardown;
+    sys_delete(sys, &allocator);
+    test_end;
+}
 
 define_test_chapter(
   riscv_branching, test_print("RISCV Branching"),
@@ -1121,11 +1192,21 @@ define_test_chapter(
 )
 
 define_test_chapter(
-  riscv_alu, test_print("RISCV ALU"),
+  riscv_alu_1, test_print("RISCV ALU #1"),
   riscv_addi, riscv_slti, riscv_sltiu,
   riscv_xori, riscv_ori, riscv_andi,
-  riscv_slli, 
+  riscv_slli, riscv_srli, riscv_srai,
   riscv_add, riscv_sub
+)
+
+define_test_chapter(
+  riscv_alu_2, test_print("RISCV ALU #2"),
+  riscv_slt
+)
+
+define_test_chapter(
+  riscv_alu, test_print("RISCV ALU"),
+  riscv_alu_1, riscv_alu_2
 )
 
 define_test_chapter(

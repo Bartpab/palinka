@@ -251,7 +251,7 @@ static inline void __execute(system_t* sys, riscv_processor_t* proc)
         // sub
         case RISCV_SUB: case RISCV_SUBW: result = octa_minus_expr(a, b); break;
         // compare lt
-        case RISCV_SLTI: result = octa_signed_cmp_expr(a, b) == -1; break;         
+        case RISCV_SLT: case RISCV_SLTI: result = octa_signed_cmp_expr(a, b) == -1; break;         
         case RISCV_SLTU: case RISCV_SLTIU: result = octa_unsigned_cmp_expr(a, b) == -1; break;
         // xor
         case RISCV_XORI: case RISCV_XOR: result =  octa_xor_expr(a, b); break;
