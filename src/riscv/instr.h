@@ -13,7 +13,6 @@ typedef struct {
     byte funct7;
     byte rs1;
     byte rs2;
-    octa shamt; 
     octa imm;
     
     unsigned int op;
@@ -40,7 +39,6 @@ tetra encode_j_type(tetra imm)
 
     return imm_19_12 | (imm_11 << 20) | (imm_10_1 << 21) | (imm_20 << 31);
 }
-
 tetra decode_j_type(tetra raw)
 {
     tetra imm_19_12 = (raw >> 12) & 0xff;
@@ -50,7 +48,6 @@ tetra decode_j_type(tetra raw)
 
     return imm_10_1 | (imm_11 << 11) | (imm_19_12 << 12) | (imm_20 << 20);
 }
-
 tetra decode_b_type(tetra raw)
 {
     tetra imm_11 = (raw >> 7) & 1;
@@ -61,7 +58,6 @@ tetra decode_b_type(tetra raw)
     tetra tmp = imm_4_1 | (imm_10_5 << 5) | (imm_11 << 11) | (imm_12 << 12);
     return tmp;
 }
-
 tetra encode_b_type(tetra imm)
 {
     tetra imm_11 = (imm >> 11) & 1;
@@ -72,85 +68,69 @@ tetra encode_b_type(tetra imm)
     tetra tmp = (imm_11 << 7) | (imm_4_1 << 8) | (imm_10_5 << 25) | (imm_12 << 31);
     return tmp;
 }
-
 tetra encode_i_type(tetra imm)
 {
     return ((imm & 0xfff) << 20);
 }
-
 tetra decode_i_type(tetra raw)
 {
     return (raw >> 20) & 0xfff;
 }
-
 tetra encode_s_type(tetra imm)
 {
     tetra imm_4_0 = imm & 0x1f;
     tetra imm_11_5 = (imm >> 5) & 0x7f;
     return (imm_4_0 << 7) | (imm_11_5 << 25);
 }
-
 tetra decode_s_type(tetra raw)
 {
     tetra imm_4_0 = (raw >> 7) & 0x1f;
     tetra imm_11_5 = (raw >> 25) & 0x7f;
     return imm_4_0 | (imm_11_5 << 5);
 }
-
 tetra encode_rd(byte rd)
 {
     return (((tetra)(rd) & 0x1f) << 7);
 }
-
 byte decode_rd(tetra raw)
 {
     return (raw >> 7) & 0x1f;
 }
-
 tetra encode_rs1(byte rs1)
 {
     return ((tetra)(rs1 & 0x1f) << 15);
 }
-
 byte decode_rs1(tetra raw)
 {
     return (raw >> 15) & 0x1f;
 }
-
 byte decode_rs2(tetra raw)
 {
     return (raw >> 20) & 0x1f;
 }
-
 tetra encode_rs2(byte rs1)
 {
     return ((tetra)(rs1 & 0x1f) << 20);
 }
-
 tetra encode_opcode(byte opcode)
 {
     return opcode & 0x7f;
 }
-
 byte decode_opcode(tetra raw)
 {
     return raw & 0x7f;
 }
-
 tetra encode_funct3(byte funct3)
 {
     return ((tetra)(funct3) & 0b111) << 12;
 }
-
 tetra decode_funct3(tetra raw)
 {
     return (raw >> 12) & 0b111;
 }
-
 tetra encode_funct7(byte funct7) {
     return (funct7 << 25);
 }
-
 riscv_decoded_instr_t decode(tetra raw)
 {
     riscv_decoded_instr_t decoded;
@@ -172,16 +152,14 @@ riscv_decoded_instr_t decode(tetra raw)
 
     decoded.sregs[0].type = 0;
     decoded.sregs[0].addr = 0;
-    
     decoded.sregs[1].type = 0;
     decoded.sregs[1].addr = 0;
-    
     decoded.dregs[0].type = 0;
     decoded.dregs[0].addr = 0;
-    
     decoded.dregs[1].type = 0;
     decoded.dregs[1].addr = 0;
 
+    decoded.imm = 0;
     decoded.write_pc  = 0;
     decoded.op = 0;
     decoded.arg1_is_imm = 0;

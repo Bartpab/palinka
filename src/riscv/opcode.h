@@ -1,8 +1,8 @@
 #ifndef __RISCV_OPCODE_H__
 #define __RISCV_OPCODE_H__
 
-typedef enum {
-    UNKNOWN,
+typedef enum riscv_opcode_t {
+    RISCV_NOP,
     // RV32I Instruction Set
     RISCV_LUI, RISCV_AUIPC, RISCV_JAL, RISCV_JALR, RISCV_BEQ, RISCV_BNE, RISCV_BLT, RISCV_BGE, RISCV_BLTU, RISCV_BGEU, RISCV_LB, RISCV_LH, 
     RISCV_LW, RISCV_LBU, RISCV_LHU, RISCV_SB, RISCV_SH, RISCV_SW,
@@ -26,19 +26,19 @@ typedef enum {
 #define ARG0_IS_RS1             0b010 
 #define ARG0_IS_RS2             0b100 
 
-#define ARG1_IS_IMMEDIATE       0b0001 << 3
-#define ARG1_IS_RS1             0b0100 << 3
-#define ARG1_IS_RS2             0b0010 << 3
-#define ARG1_IS_CSR             0b0110 << 3
-#define ARG1_READ_IF_RD_NOT_X0  0b1000 << 3
+#define ARG1_IS_IMMEDIATE       (0b0001 << 3)
+#define ARG1_IS_RS1             (0b0100 << 3)
+#define ARG1_IS_RS2             (0b0010 << 3)
+#define ARG1_IS_CSR             (0b0110 << 3)
+#define ARG1_READ_IF_RD_NOT_X0  (0b1000 << 3)
       
-#define OUT0                    0b111 << 7
-#define OUT0_IS_TETRA           0b001 << 7
-#define OUT0_WRITE_REG          0b010 << 7
+#define OUT0                    (0b111 << 7)
+#define OUT0_IS_TETRA           (0b001 << 7)
+#define OUT0_WRITE_REG          (0b010 << 7)
 
-#define OUT1_WRITE_CSR          0b1 << 10
+#define OUT1_WRITE_CSR          (0b1 << 10)
 
-#define WRITE_PC                0b1 << 13
+#define WRITE_PC                (0b1 << 13)
 
 typedef struct riscv_instr_info_t {
     const char* name;
@@ -47,8 +47,8 @@ typedef struct riscv_instr_info_t {
 
 struct riscv_instr_info_t riscv_instr_infos[] = {
     {"NOP",     0},
-    {"LUI",     ARG1_IS_IMMEDIATE | OUT0_WRITE_REG | WRITE_PC}, 
-    {"AUIPC",   ARG1_IS_IMMEDIATE | OUT0_WRITE_REG | WRITE_PC}, 
+    {"LUI",     ARG1_IS_IMMEDIATE | OUT0_WRITE_REG}, 
+    {"AUIPC",   ARG1_IS_IMMEDIATE | OUT0_WRITE_REG}, 
     {"JAL",     ARG1_IS_IMMEDIATE | OUT0_WRITE_REG | WRITE_PC}, 
     {"JALR",    ARG0_IS_RS1 | ARG1_IS_IMMEDIATE | OUT0_WRITE_REG | WRITE_PC},
     {"BEQ",     ARG0_IS_RS1 | ARG1_IS_RS2 | OUT0_WRITE_REG | WRITE_PC}, 

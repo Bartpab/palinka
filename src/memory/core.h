@@ -185,15 +185,17 @@ void* mem_map(memory_t* mem, void* vaddr, void* paddr, size_t len)
 
 void* mem_alloc_managed(memory_t* mem, allocator_t* allocator, void* vaddr, size_t len)
 {
-  size_t offset = PAGE_OFFSET(vaddr);
-  len = mem_align(offset + len)  + sizeof(struct managed_memory_t); // Align the memory
+  len = mem_align(len) + sizeof(struct managed_memory_t); // Align the memory
   struct managed_memory_t* header = (struct managed_memory_t*) pmalloc(allocator, len);
 
   header->vaddr = vaddr;
   header->len = len;
   header->allocator = allocator_copy(allocator);
 
-  void* paddr = (void*)(header + 1);  
+  void* paddr = (void*)(header + 1);
+
+  // We clean the allocated memory
+  for(int i = 0; i < len - sizeof(struct managed_memory_t); i++) *(char*)(paddr + i) = 0;
   
   mem_map(mem, vaddr, paddr, len); // Map the memory.
 

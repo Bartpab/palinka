@@ -40,7 +40,7 @@ static void __riscv_init(system_t* sys, riscv_processor_cfg_t* cfg)
     proc->frequency = cfg->frequency; //500MHz
     proc->remaining_cycles = 0;
    
-    proc->pc        = cfg->boot_address;
+    proc->pc = cfg->boot_address;
 
     for(int i = 0; i < 32; i++) {
         proc->regs[i] = 0;
@@ -70,6 +70,7 @@ void riscv_step(system_t* sys)
 
     // Set zero at each cycle
     proc->regs[0] = 0;
+
     riscv_pipeline_step(sys, proc, &proc->pipeline);
 
     if(proc->remaining_cycles > 0) 
