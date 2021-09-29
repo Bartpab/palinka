@@ -3,7 +3,7 @@
 
 #include "../../lib/common/include/types.h"
 #include "../../lib/common/include/alu.h"
-#include "../bus/bus.h"
+#include "../bus/model.h"
 #include "../system.h"
 #include "./instr.h"
 #include "./csr.h"
@@ -281,7 +281,7 @@ static inline bool riscv_stage_fetch_step(system_t* sys, riscv_processor_t* proc
         return false;        
 
     tetra raw;
-    void* vaddr = (void*) proc->pc;
+    void* vaddr = octa_to_voidp(proc->pc);
     
     if(!sys_load_tetra(sys, vaddr, &raw))
     {
@@ -502,7 +502,7 @@ static inline void riscv_stage_memory_step(system_t* sys, riscv_processor_t* pro
     result[0] = in->results[0];
     result[1] = in->results[1];
     
-    addr = (void*) in->control.memory_op.addr;
+    addr = octa_to_voidp(in->control.memory_op.addr);
 
     switch(in->control.op) 
     {

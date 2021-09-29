@@ -55,6 +55,9 @@
 #endif
 
 #ifdef ENV_32
+#define oh(o) (o >> 32)
+#define ol(o) (o & 0xFFFFFFFF)
+
 #define octa_and_expr(a, b) octa_and(a, b)
 #define octa_or_expr(a, b) octa_or(a, b)
 #define octa_xor_expr(a, b) octa_xor(a, b)

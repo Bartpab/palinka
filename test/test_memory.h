@@ -93,22 +93,28 @@ define_test(
   mem_map, 
   test_print("Memory map")
 ) {
-  char s[3][32];
-  octa o[3];
+  char s[4][32];
+  octa o[4];
 
   char exceptions = 0;
-  void* out;
-  void *pblock = (void*) 0xB0;
-  void *vbase = (void*) 0x8000000000000000;
+  void* out = 0;
+  void *pblock = (void*) (uintptr_t)(0xb0);
+  void *vbase = (void*) 0x800000;
+
+  test_print("%p\n", pblock);
 
   memory_t mem = mem_boostrap();
   
   vbase = mem_map(&mem, vbase, pblock, 1);
 
+  test_print("%p\n", pblock);
+
   o[0] = voidp_to_octa(pblock);
   o[1] = voidp_to_octa(vbase);
 
   octa_str(o[0], s[0], 32), octa_str(o[1], s[1], 32);
+
+  test_print("%p\n", pblock);
 
   test_check(
     test_print("Map physical %s to virtual %s, the returned address should not be NULL.",  s[0], s[1]),
@@ -116,19 +122,25 @@ define_test(
     test_failure("Should not be NULL")
   );
 
+  test_print("%p\n", pblock);
+
   test_check(
     test_print("We translate virtual %s, it must not cause a page fault.", s[1]),
     mem_tl(&mem, vbase, &out, &exceptions),
     test_failure("Should not have a page fault.")
   );
 
+  test_print("%p\n", pblock);
+
   o[3] = voidp_to_octa(out);
   octa_str(o[3], s[3], 32);
 
+  test_print("%p\n", pblock);
+
   test_check(
-    test_print("The translated address %s must be %s.", s[1], s[0]),
+    test_print("The translated address %p must be %p.", vbase, out),
     pblock == out,
-    test_failure("Got %s.", s[3])
+    test_failure("Expecting %p, got %p.", pblock, out)
   )
 
   test_success;
@@ -150,7 +162,7 @@ define_test(
   memory_t mem = mem_boostrap();
   allocator_t allocator = GLOBAL_ALLOCATOR;
 
-  void* vaddr = (void*) 0x8000000000000000;
+  void* vaddr = (void*) 0x800000;
   void* pblock = mem_alloc_managed(&mem, &allocator, vaddr, sizeof(char));
 
   o[1] = voidp_to_octa(vaddr);
@@ -170,7 +182,6 @@ define_test(
 
   test_end;
 }
-
 
 define_test_chapter(
   memory, test_print("Memory"), 

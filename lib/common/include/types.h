@@ -110,10 +110,11 @@ double octa_to_double(octa x) {
 }
 
 void* octa_to_voidp(octa x) {
-  return (void*)x;
+  return (void*)(uintptr_t)(x);
 }
 
 octa voidp_to_octa(void* x) {
-  return (octa) (x);
+  uintptr_t ptr = (uintptr_t)(x);
+  return (octa)ptr;
 }
 #endif
