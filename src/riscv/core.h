@@ -39,7 +39,10 @@ static void __riscv_init(system_t* sys, riscv_processor_cfg_t* cfg)
     
     proc->frequency = cfg->frequency; //500MHz
     proc->remaining_cycles = 0;
-   
+
+    // Init the bus interface
+    proc->bus_interface.fsb = 0; // Connected to nothing
+
     proc->pc = cfg->boot_address;
 
     for(int i = 0; i < 32; i++) proc->regs[i] = 0;
@@ -47,6 +50,7 @@ static void __riscv_init(system_t* sys, riscv_processor_cfg_t* cfg)
 
     proc->regs[2]   = cfg->memory_size;
     proc->regs[0]   = octa_zero;
+    
 
     riscv_pipeline_create(&proc->pipeline);
 }

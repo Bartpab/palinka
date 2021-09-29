@@ -3,6 +3,7 @@
 
 #include "../../lib/common/include/types.h"
 #include "../../lib/common/include/alu.h"
+#include "../bus/bus.h"
 #include "../system.h"
 #include "./instr.h"
 #include "./csr.h"
@@ -128,6 +129,13 @@ typedef struct {
 
     octa pc;
     riscv_pipeline_t pipeline;
+
+    struct {
+        bus_t*      fsb;        // Front-side bus
+        octa        mar;        // Memory address register
+        octa        mdr;        // Memory data register
+        char        status;     // Status of the bus interface
+    } bus_interface;
 
     // Simulation
     unsigned int frequency; // Hz

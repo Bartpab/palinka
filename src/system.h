@@ -18,10 +18,15 @@ typedef struct system_t
 {
   // System state
   int state;
+  float atomic_time; // Smallest unit of time possible
 
   // The memory of the system
   memory_t mem;
   
+  // Sub-systems
+  struct system_t* subs[32]; 
+  struct system_t** last_sub;
+
   // Keep track of the allocator.
   allocator_t allocator;
   
@@ -29,14 +34,27 @@ typedef struct system_t
   void (*step)(struct system_t* sys);
   void (*alloc_sim_time)(struct system_t* sys, unsigned int ms);
 
-  // Some stats
-
 } system_t;
 
 void __sys_init(system_t* sys, allocator_t* page_node_allocator)
 {
   __mem_init(&sys->mem, page_node_allocator);
   sys->state = SYS_READY;
+}
+
+bool sys_add_subsystem(system_t* parent, system_t* sub)
+{
+  if(parent->last_sub == &parent->subs[31])
+    return false;
+  
+  if(parent->last_sub == 0)
+    parent->last_sub = &parent->subs[0];
+  else
+    parent->last_sub++;
+  
+  *parent->last_sub = sub;
+
+  return true;
 }
 
 void sys_destroy(system_t* sys)
