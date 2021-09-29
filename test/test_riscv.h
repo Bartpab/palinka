@@ -204,6 +204,14 @@ tetra riscv_ebreak()
 {
   return 1048691;
 }
+tetra riscv_csrrw(byte rd, byte rs1, tetra csr)
+{
+  return encode_i_type(csr) | encode_rs1(rs1) | encode_rd(rd) | encode_funct3(0b001) | encode_opcode(0b1110011);
+}
+tetra riscv_csrrs(byte rd, byte rs1, tetra csr)
+{
+  return encode_i_type(csr) | encode_rs1(rs1) | encode_rd(rd) | encode_funct3(0b010) | encode_opcode(0b1110011);
+}
 
 define_test(riscv_auipc, test_print("RISCV_AUIPC"))
 {
@@ -1384,6 +1392,75 @@ define_test(riscv_and, test_print("RISCV_AND"))
     sys_delete(sys, &allocator);
     test_end;
 }
+define_test(riscv_csrrw, test_print("RISCV_CSRRW"))
+{
+    allocator_t allocator = GLOBAL_ALLOCATOR;
+    tetra prog[] = {
+      riscv_csrrw(28, 29, 30),
+      riscv_ebreak()
+    };
+    octa expected[2] = {int_to_octa(6), int_to_octa(12)};
+    
+    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    riscv_processor_t* proc = __get_riscv_proc(sys);
+
+    proc->regs[28] = octa_zero;
+    proc->regs[29] = int_to_octa(6);
+    proc->csrs[30] = int_to_octa(12);
+
+    test_print("CSRRW rd(x28), rs1(x29), csr(30)\n");
+
+    sys_run(sys, 100);
+
+    test_check(
+      test_print("Check that csr30 := x29"),
+      octa_eq(proc->csrs[30], expected[0]),
+      test_failure("Expecting %lld, got %lld", expected[0], proc->csrs[30])
+    );
+
+    test_check(
+      test_print("Check that x28 := csr30"),
+      octa_eq(proc->regs[28], expected[1]),
+      test_failure("Expecting %lld, got %lld", expected[1], proc->regs[28])
+    );
+
+    sys_delete(sys, &allocator);
+
+    tetra prog_2[] = {
+      riscv_csrrw(0, 29, 30),
+      riscv_ebreak()      
+    };
+
+    sys = riscv_bootstrap((char*) &prog_2, sizeof(prog_2), 0);
+    proc = __get_riscv_proc(sys);
+
+    proc->regs[29] = int_to_octa(6);
+    proc->csrs[30] = int_to_octa(12);
+
+    test_print("CSRRW rd(x0), rs1(x29), csr(30)\n");
+
+    sys_run(sys, 100); 
+
+    expected[0] = int_to_octa(6);
+    expected[1] = octa_zero;
+
+    test_check(
+      test_print("Check that csr30 := x29"),
+      octa_eq(proc->csrs[30], expected[0]),
+      test_failure("Expecting %lld, got %lld", expected[0], proc->csrs[30])
+    );
+
+    test_check(
+      test_print("Check that x0 != csr30"),
+      octa_eq(proc->regs[0], expected[1]),
+      test_failure("Expecting %lld, got %lld", expected[1], proc->regs[0])
+    );
+
+    test_success;
+    test_teardown;
+    sys_delete(sys, &allocator);
+    test_end;
+}
 
 define_test_chapter(
   riscv_branching, test_print("RISCV Branching"),
@@ -1424,9 +1501,15 @@ define_test_chapter(
 )
 
 define_test_chapter(
+  riscv_csr, test_print("RISCV CSR"),
+  riscv_csrrw
+)
+
+define_test_chapter(
   riscv, test_print("RISCV"),
   riscv_auipc,
   riscv_branching,
   riscv_memory,
-  riscv_alu
+  riscv_alu,
+  riscv_csr
 )

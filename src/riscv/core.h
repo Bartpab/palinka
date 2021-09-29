@@ -42,9 +42,8 @@ static void __riscv_init(system_t* sys, riscv_processor_cfg_t* cfg)
    
     proc->pc = cfg->boot_address;
 
-    for(int i = 0; i < 32; i++) {
-        proc->regs[i] = 0;
-    }
+    for(int i = 0; i < 32; i++) proc->regs[i] = 0;
+    for(int i = 0; i < 4096; i++) proc->csrs[i] = 0;
 
     proc->regs[2]   = cfg->memory_size;
     proc->regs[0]   = octa_zero;
@@ -59,7 +58,6 @@ void riscv_alloc_sim_time(system_t* sys, unsigned int ms) {
     float remaining_cycles = s * (float)(proc->frequency);
     proc->remaining_cycles = (int) remaining_cycles;
 }
-
 
 void riscv_step(system_t* sys)
 {   

@@ -453,7 +453,9 @@ static inline void riscv_stage_execute_step(system_t* sys, riscv_processor_t* pr
         // Halt the simulation
         case RISCV_EBREAK: out->simulation.halt = true;
         case RISCV_FENCE_I: break;
-        case RISCV_CSRRW: result[0] = b, result[1] = a; break;
+        case RISCV_CSRRW: 
+            result[0] = b, result[1] = a; 
+            break;
         default: break;
     }
     

@@ -26,19 +26,18 @@ typedef enum riscv_opcode_t {
 #define ARG0_IS_RS1             0b010 
 #define ARG0_IS_RS2             0b100 
 
-#define ARG1_IS_IMMEDIATE       (0b0001 << 3)
-#define ARG1_IS_RS1             (0b0100 << 3)
-#define ARG1_IS_RS2             (0b0010 << 3)
-#define ARG1_IS_CSR             (0b0110 << 3)
-#define ARG1_READ_IF_RD_NOT_X0  (0b1000 << 3)
+#define ARG1_IS_IMMEDIATE       (0b00001 << 3)
+#define ARG1_IS_RS1             (0b00100 << 3)
+#define ARG1_IS_RS2             (0b00010 << 3)
+#define ARG1_IS_CSR             (0b01000 << 3)
+#define ARG1_READ_IF_RD_NOT_X0  (0b10000 << 3)
       
-#define OUT0                    (0b111 << 7)
-#define OUT0_IS_TETRA           (0b001 << 7)
-#define OUT0_WRITE_REG          (0b010 << 7)
+#define OUT0_IS_TETRA           (0b100 << 8)
+#define OUT0_WRITE_REG          (0b010 << 8)
 
-#define OUT1_WRITE_CSR          (0b1 << 10)
+#define OUT1_WRITE_CSR          (0b1 << 11)
 
-#define WRITE_PC                (0b1 << 13)
+#define WRITE_PC                (0b1 << 12)
 
 typedef struct riscv_instr_info_t {
     const char* name;
