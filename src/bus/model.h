@@ -3,6 +3,8 @@
 
 #include <stddef.h>
 
+#include "../system.h"
+
 typedef struct {
     char    *data[2];
     size_t  length;

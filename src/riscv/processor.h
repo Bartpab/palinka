@@ -131,7 +131,7 @@ typedef struct {
     riscv_pipeline_t pipeline;
 
     struct {
-        bus_t*      fsb;        // Front-side bus
+        bus_t*      bus;        // Data bus (Either DMI/FSB...)
         octa        mar;        // Memory address register
         octa        mdr;        // Memory data register
         char        status;     // Status of the bus interface

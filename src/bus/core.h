@@ -2,11 +2,11 @@
 #define __BUS_CORE_H__
 
 #include "../system.h"
-#include "./bus.h"
+#include "./model.h"
 
 void bus_step(system_t* sys);
 
-void __bus_init(system_t* sys)
+void __bus_init(system_t* sys, size_t length)
 {
   bus_t* bus = __get_bus(sys);
 
@@ -32,7 +32,7 @@ system_t* bus_new(size_t length, allocator_t* allocator)
     return NULL;
 
   __sys_init(sys, allocator);
-  __bus_init(sys);
+  __bus_init(sys, length);
 
   return sys;
 }

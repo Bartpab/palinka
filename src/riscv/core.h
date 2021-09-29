@@ -17,8 +17,7 @@ system_t* riscv_new(allocator_t* allocator, riscv_processor_cfg_t* cfg)
 {
   system_t* sys = (system_t*) pmalloc(
     allocator, 
-    sizeof(system_t) 
-      + sizeof(riscv_processor_t) 
+    sizeof(system_t) + sizeof(riscv_processor_t) 
   );
   
   if(!sys)
@@ -41,7 +40,7 @@ static void __riscv_init(system_t* sys, riscv_processor_cfg_t* cfg)
     proc->remaining_cycles = 0;
 
     // Init the bus interface
-    proc->bus_interface.fsb = 0; // Connected to nothing
+    proc->bus_interface.bus = 0; // Connected to nothing
 
     proc->pc = cfg->boot_address;
 
