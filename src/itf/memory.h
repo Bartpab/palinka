@@ -6,9 +6,10 @@
 #include "../../lib/common/include/types.h"
 
 typedef enum {
-    MEM_STATUS_IDLE,
+    MEM_STATUS_IDLING,
     MEM_STATUS_READING,
     MEM_STATUS_READ,
+    MEM_STATUS_AFTER_READ,
     MEM_STATUS_WRITING,
     MEM_STATUS_WRITTEN
 } memory_itf_status;
@@ -45,32 +46,51 @@ void memory_itf_step(memory_itf_t* itf)
     // Not concerned
     if(cur_addr >= itf->base && cur_addr <= itf->limit) return;
 
-    if((cur_control & SYSTEM_BUS_READ) && (cur_control & SYSTEM_BUS_READY)) 
+    bool ready = cur_control & SYSTEM_BUS_READY;
+    bool write = cur_control & SYSTEM_BUS_WRITE;
+    bool read  = cur_control & SYSTEM_BUS_READ;
+    bool accept = cur_control & SYSTEM_BUS_ACCEPT;
+
+    // Read command from the system bus; and ready
+    if(read & ready) 
     {
-        // The data has been fetched
+        // Value was fetched
         if(curr->status == MEM_STATUS_READ) 
         {
-            *nxt_control_bus = SYSTEM_BUS_READ | SYSTEM_BUS_ACCEPT;
+            *nxt_control_bus |= SYSTEM_BUS_ACCEPT;
             *nxt_data_bus = curr->mbr;
-            nxt->status = MEM_STATUS_IDLE;
+            
+            nxt->status = MEM_STATUS_AFTER_READ;
         } 
         
-        if(curr->status == MEM_STATUS_IDLE) 
+        // Idling
+        if(curr->status == MEM_STATUS_IDLING) 
         {
-            nxt->status = MEM_STATUS_READING;
             nxt->mar = cur_addr;
+            nxt->status = MEM_STATUS_READING;
         }
     }
 
-    if((cur_control & SYSTEM_BUS_WRITE) && (cur_control & SYSTEM_BUS_READY)) 
+    // Ready is zero, accept is still on, and we returned from read status, we need to release the data bus
+    if(!ready && accept && curr->status == MEM_STATUS_AFTER_READ) 
     {
+        *nxt_control_bus &= ~SYSTEM_BUS_ACCEPT; // reset the accept flag
+        *nxt_data_bus = 0;  // clear the data bus
+        nxt->status = MEM_STATUS_IDLING; // return into idling state
+    }
+
+    // Write command from the system bus; and ready
+    if(write & ready) 
+    {
+        // Value was written
         if(curr->status == MEM_STATUS_WRITTEN) 
         {
-            *nxt_control_bus = SYSTEM_BUS_WRITE | SYSTEM_BUS_ACCEPT;
-            nxt->status = MEM_STATUS_IDLE;
+            *nxt_control_bus |= SYSTEM_BUS_ACCEPT;
+            nxt->status = MEM_STATUS_IDLING;
         }
 
-        if(curr->status == MEM_STATUS_IDLE) 
+        // Idling
+        if(curr->status == MEM_STATUS_IDLING) 
         {
             nxt->status = MEM_STATUS_WRITING;
             nxt->mar = cur_addr;
