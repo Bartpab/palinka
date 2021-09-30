@@ -39,8 +39,6 @@ static void __riscv_init(system_t* sys, riscv_processor_cfg_t* cfg)
     proc->frequency = cfg->frequency; //500MHz
     proc->remaining_cycles = 0;
 
-    // Init the bus interface
-    proc->bus_interface.bus = 0; // Connected to nothing
 
     proc->pc = cfg->boot_address;
 
@@ -62,6 +60,51 @@ void riscv_alloc_sim_time(system_t* sys, unsigned int ms) {
     proc->remaining_cycles = (int) remaining_cycles;
 }
 
+bool riscv_data_cache_lookup(riscv_processor_t* proc, octa addr, octa* data)
+{       
+    for(size_t i = 0; i < proc->data_cache_size; i++) 
+    {
+        if(proc->data_cache[i].free == false && proc->data_cache[i].addr == addr) 
+        {
+            *data = proc->data_cache[i].data;
+            return true;
+        }
+    }
+    return false;
+}
+
+bool riscv_data_cache_update(riscv_processor_t* proc, octa addr, octa data)
+{
+    for(size_t i = 0; i < proc->data_cache_size; i++) 
+    {
+        if(proc->data_cache[i].free == false && proc->data_cache[i].addr == addr) 
+        {
+            proc->data_cache[i].data = data;
+            proc->data_cache[i].cmd = 0;
+            return true;
+        }
+    }
+    return false;
+}
+
+void riscv_itf_step(riscv_processor_t* proc)
+{
+  processor_itf_state_t* cur = &proc->itf.state[0];
+  processor_itf_state_t* nxt = & proc->itf.state[1];
+
+  // We have read data
+  if(cur->status == PROC_ITF_STATUS_READ) 
+  {
+    // Update the data cache
+    riscv_data_cache_update(proc, cur->mar, cur->mbr);
+    
+    // Go back to idling state
+    nxt->status = PROC_ITF_STATUS_IDLING;
+  }
+
+  processor_itf_step(&proc->itf);
+}
+
 void riscv_step(system_t* sys)
 {   
     riscv_processor_t* proc = __get_riscv_proc(sys);
@@ -72,6 +115,10 @@ void riscv_step(system_t* sys)
     // Set zero at each cycle
     proc->regs[0] = 0;
 
+    // Interface step
+    riscv_itf_step(proc);
+
+    // Pipeline step
     riscv_pipeline_step(sys, proc, &proc->pipeline);
 
     if(proc->remaining_cycles > 0) 

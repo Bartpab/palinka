@@ -132,6 +132,15 @@ typedef struct {
     riscv_pipeline_t pipeline;
     processor_itf_t itf;
 
+    // L1 cache
+    struct {    
+        bool free;
+        int cmd;
+        octa addr;
+        octa data;
+    } data_cache[32];
+    size_t data_cache_size = 32;
+
     // Simulation
     unsigned int frequency; // Hz
     int remaining_cycles;
@@ -168,7 +177,7 @@ void __store_csr(system_t* sys, riscv_processor_t* proc, unsigned int addr, cons
 
 void riscv_pipeline_stage_fetch_create(riscv_stage_fetch_t* fetch)
 {
-  fetch->control.stall = false;
+    fetch->control.stall = false;
 }
 
 void riscv_pipeline_stage_decode_create(riscv_stage_decode_t* decode)
@@ -276,15 +285,16 @@ static inline bool riscv_stage_fetch_step(system_t* sys, riscv_processor_t* proc
         return false;        
 
     tetra raw;
-    void* vaddr = octa_to_voidp(proc->pc);
-    
-    if(!sys_load_tetra(sys, vaddr, &raw))
+
+    bool cache_miss = riscv_data_cache_lookup(proc, proc->pc, (octa*) &raw);
+
+    // We have a cache miss, we need to fetch data
+    if(cache_miss) 
     {
-        out->pc = proc->pc;
-        out->raw = 0; // NOP
-        sys_halt(sys);
+        out->raw = 0;
+        return;
     }
-    
+
     proc->pc += 4;
     out->debug.current_pc = proc->pc - 4;
     out->pc = proc->pc;
@@ -588,6 +598,7 @@ void riscv_pipeline_step(system_t* sys, riscv_processor_t* proc, riscv_pipeline_
 
   // Commit the results
   riscv_pipeline_commit_state(pipeline);
+
 
   if(pipeline->writeback[1].simulation.halt && pipeline->writeback[1].control.invalid == false) return sys_halt(sys);
 }

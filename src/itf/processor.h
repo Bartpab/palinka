@@ -13,7 +13,8 @@ typedef enum {
 
 typedef enum {
     PROC_ITF_STATUS_IDLING,
-    PROC_ITF_STATUS_STALLING
+    PROC_ITF_STATUS_STALLING,
+    PROC_ITF_STATUS_READ
 } processor_itf_status_t;
 
 typedef struct {
@@ -69,7 +70,7 @@ void processor_itf_step(processor_itf_t* itf)
             *nxt_address_bus = 0; // Reset the address bus
             *nxt_data_bus = 0; // Reset the data bus
 
-            nxt->status = PROC_ITF_STATUS_IDLING; // Idling
+            nxt->status = PROC_ITF_STATUS_READ; // Idling
         }
         // Writing \w an accept flag, we can assume the data has been written correctly
         else if(writing & accept) 
