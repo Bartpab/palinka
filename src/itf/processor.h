@@ -29,6 +29,11 @@ typedef struct {
     processor_itf_state_t state[2];
 } processor_itf_t;
 
+void processor_itf_commit_state(processor_itf_t* itf)
+{
+    itf->state[1] = itf->state[0];
+}
+
 void processor_itf_step(processor_itf_t* itf)
 {
     processor_itf_state_t* curr = &itf->state[0];     

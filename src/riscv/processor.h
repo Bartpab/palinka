@@ -3,7 +3,7 @@
 
 #include "../../lib/common/include/types.h"
 #include "../../lib/common/include/alu.h"
-#include "../bus/model.h"
+#include "../itf/processor.h"
 #include "../system.h"
 #include "./instr.h"
 #include "./csr.h"
@@ -128,14 +128,9 @@ typedef struct {
     octa csrs[4096];
 
     octa pc;
-    riscv_pipeline_t pipeline;
 
-    struct {
-        bus_t*      bus;        // Data bus (Either DMI/FSB...)
-        octa        mar;        // Memory address register
-        octa        mdr;        // Memory data register
-        char        status;     // Status of the bus interface
-    } bus_interface;
+    riscv_pipeline_t pipeline;
+    processor_itf_t itf;
 
     // Simulation
     unsigned int frequency; // Hz
@@ -570,6 +565,16 @@ static inline void riscv_state_check_control_hazard(system_t* sys, riscv_process
     }
 }
 
+void riscv_pipeline_commit_state(riscv_pipeline_t* pipeline)
+{
+    pipeline->fetch[1]        = pipeline->fetch[0];
+    pipeline->decode[1]       = pipeline->decode[0];
+    pipeline->read[1]         = pipeline->read[0];
+    pipeline->execute[1]      = pipeline->execute[0];
+    pipeline->memory[1]       = pipeline->memory[0];
+    pipeline->writeback[1]    = pipeline->writeback[0];
+}
+
 void riscv_pipeline_step(system_t* sys, riscv_processor_t* proc, riscv_pipeline_t* pipeline)
 {
   riscv_stage_fetch_step(sys, proc, pipeline);
@@ -582,12 +587,7 @@ void riscv_pipeline_step(system_t* sys, riscv_processor_t* proc, riscv_pipeline_
   riscv_state_check_control_hazard(sys, proc, pipeline);
 
   // Commit the results
-  pipeline->fetch[1]        = pipeline->fetch[0];
-  pipeline->decode[1]       = pipeline->decode[0];
-  pipeline->read[1]         = pipeline->read[0];
-  pipeline->execute[1]      = pipeline->execute[0];
-  pipeline->memory[1]       = pipeline->memory[0];
-  pipeline->writeback[1]    = pipeline->writeback[0];
+  riscv_pipeline_commit_state(pipeline);
 
   if(pipeline->writeback[1].simulation.halt && pipeline->writeback[1].control.invalid == false) return sys_halt(sys);
 }

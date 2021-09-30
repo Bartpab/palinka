@@ -15,8 +15,7 @@ typedef enum {
 } memory_itf_status;
 
 typedef struct {
-    octa mbr;
-    octa mar;
+    octa mbr, mar;
     int status;
 } memory_itf_state_t;
 
@@ -25,6 +24,11 @@ typedef struct {
     bus_t* sys_bus;
     size_t base, limit;
 } memory_itf_t;
+
+void memory_itf_commit_state(memory_itf_t* itf)
+{
+    itf->state[1] = itf->state[0];
+}
 
 void memory_itf_step(memory_itf_t* itf)
 {
