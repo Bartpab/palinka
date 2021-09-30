@@ -348,7 +348,7 @@ define_test(string_concat_it, test_print("String concat iterator"))
   test_check(
     test_print("Check the size of the vector"),
     size == 2,
-    test_failure("Wrong size, expecting 2, got %u", size)
+    test_failure("Wrong size, expecting 2, got %u", (unsigned int)size)
   );
 
   // Create an iterator

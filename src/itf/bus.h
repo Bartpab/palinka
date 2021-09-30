@@ -1,8 +1,19 @@
-#ifndef __BUS_CORE_H__
-#define __BUS_CORE_H__
+#ifndef __BUS_BUS_H__
+#define __BUS_BUS_H__
+
+#include <stddef.h>
 
 #include "../system.h"
-#include "./model.h"
+
+typedef struct {
+    char    *data[2];
+    size_t  length;
+} bus_t;
+
+bus_t* __get_bus(system_t* sys)
+{
+  return (bus_t*) (sys + 1);
+}
 
 void bus_step(system_t* sys);
 
