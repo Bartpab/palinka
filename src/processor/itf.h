@@ -2,8 +2,8 @@
 #define __ITF_PROCESSOR_H__
 
 #include "../../lib/common/include/types.h"
-#include "./bus.h"
-#include "./system_bus.h"
+#include "../itf/bus.h"
+#include "../itf/system_bus.h"
 
 typedef enum {
     PROC_ITF_NOTHING,

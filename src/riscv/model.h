@@ -2,10 +2,41 @@
 #define __RISCV_CORE_H__
 
 #include "../../lib/common/include/allocator.h"
+#include "../processor/cache.h"
+#include "../processor/itf.h"
 #include "../system.h"
-#include "./processor.h"
+#include "./pipeline.h"
 
 #define RISCV_START_ADDRESS 0x20000000
+
+typedef struct {
+    octa regs[32];
+    octa csrs[4096];
+
+    octa pc;
+
+    riscv_pipeline_t pipeline;
+    processor_itf_t itf;
+
+    // L1 cache
+    data_cache_t l1;
+    data_cache_entry_t __l1_entries[2][100];
+
+    // Simulation
+    unsigned int frequency; // Hz
+    int remaining_cycles;
+} riscv_processor_t;
+
+typedef struct {
+  unsigned int frequency;
+  unsigned int memory_size;
+  unsigned int boot_address;
+} riscv_processor_cfg_t;
+
+riscv_processor_t* __get_riscv_proc(system_t* sys)
+{
+  return (riscv_processor_t*) (sys + 1);
+}
 
 system_t* riscv_new(allocator_t* allocator, riscv_processor_cfg_t* cfg);
 void riscv_alloc_sim_time(system_t* sys, unsigned int ms);
@@ -39,7 +70,6 @@ static void __riscv_init(system_t* sys, riscv_processor_cfg_t* cfg)
     proc->frequency = cfg->frequency; //500MHz
     proc->remaining_cycles = 0;
 
-
     proc->pc = cfg->boot_address;
 
     for(int i = 0; i < 32; i++) proc->regs[i] = 0;
@@ -47,9 +77,12 @@ static void __riscv_init(system_t* sys, riscv_processor_cfg_t* cfg)
 
     proc->regs[2]   = cfg->memory_size;
     proc->regs[0]   = octa_zero;
-    
 
+    // Setup the pipeline
     riscv_pipeline_create(&proc->pipeline);
+
+    // Setup the L1 cache
+    data_cache_create(&proc->l1, (data_cache_entry_t*) &proc->__l1_entries[0], (data_cache_entry_t*) &proc->__l1_entries[1], 100);
 }
 
 void riscv_alloc_sim_time(system_t* sys, unsigned int ms) {
@@ -58,33 +91,6 @@ void riscv_alloc_sim_time(system_t* sys, unsigned int ms) {
     float s = (float)(ms) / 1000.0;
     float remaining_cycles = s * (float)(proc->frequency);
     proc->remaining_cycles = (int) remaining_cycles;
-}
-
-bool riscv_data_cache_lookup(riscv_processor_t* proc, octa addr, octa* data)
-{       
-    for(size_t i = 0; i < proc->data_cache_size; i++) 
-    {
-        if(proc->data_cache[i].free == false && proc->data_cache[i].addr == addr) 
-        {
-            *data = proc->data_cache[i].data;
-            return true;
-        }
-    }
-    return false;
-}
-
-bool riscv_data_cache_update(riscv_processor_t* proc, octa addr, octa data)
-{
-    for(size_t i = 0; i < proc->data_cache_size; i++) 
-    {
-        if(proc->data_cache[i].free == false && proc->data_cache[i].addr == addr) 
-        {
-            proc->data_cache[i].data = data;
-            proc->data_cache[i].cmd = 0;
-            return true;
-        }
-    }
-    return false;
 }
 
 void riscv_itf_step(riscv_processor_t* proc)
@@ -96,7 +102,7 @@ void riscv_itf_step(riscv_processor_t* proc)
   if(cur->status == PROC_ITF_STATUS_READ) 
   {
     // Update the data cache
-    riscv_data_cache_update(proc, cur->mar, cur->mbr);
+    data_cache_update(&proc->l1, cur->mar, cur->mbr);
     
     // Go back to idling state
     nxt->status = PROC_ITF_STATUS_IDLING;
@@ -109,8 +115,7 @@ void riscv_step(system_t* sys)
 {   
     riscv_processor_t* proc = __get_riscv_proc(sys);
     
-    if(proc->remaining_cycles == 0) 
-        return sys_halt(sys);
+    if(proc->remaining_cycles == 0) return sys_halt(sys);
 
     // Set zero at each cycle
     proc->regs[0] = 0;

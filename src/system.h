@@ -32,6 +32,7 @@ typedef struct system_t
   
   // VTable
   void (*step)(struct system_t* sys);
+  void (*commit)(struct system_t* sys);
   void (*alloc_sim_time)(struct system_t* sys, unsigned int ms);
 
 } system_t;
@@ -39,7 +40,11 @@ typedef struct system_t
 void __sys_init(system_t* sys, allocator_t* page_node_allocator)
 {
   __mem_init(&sys->mem, page_node_allocator);
+
   sys->state = SYS_READY;
+  sys->step = 0;
+  sys->commit = 0;
+  sys->alloc_sim_time = 0;
 }
 
 bool sys_add_subsystem(system_t* parent, system_t* sub)
@@ -169,7 +174,12 @@ void sys_step(system_t* sys)
   if(sys->state == SYS_PANICKED)
     return;
 
-  sys->step(sys);
+  if(sys->step) sys->step(sys);
+}
+
+void sys_commit(system_t* sys)
+{
+  if(sys->commit) sys->commit(sys);
 }
 
 void sys_loop(system_t* sys)

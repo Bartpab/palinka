@@ -3,7 +3,7 @@
 
 #include "../../lib/common/include/types.h"
 #include "../../lib/common/include/alu.h"
-#include "../itf/processor.h"
+
 #include "../system.h"
 #include "./instr.h"
 #include "./csr.h"
@@ -98,66 +98,47 @@ typedef struct {
   } simulation;
 } riscv_stage_writeback_t;
 
-typedef struct 
-{ 
-    // Program counter
-    octa pc;
-
+typedef struct {
     // Fetch register
-    riscv_stage_fetch_t fetch[2];
+    riscv_stage_fetch_t fetch;
 
     // Fetch/Decode Register
-    riscv_stage_decode_t decode[2];
+    riscv_stage_decode_t decode;
 
     // Decode/Read Register
-    riscv_stage_read_t read[2];
+    riscv_stage_read_t read;
 
     // Read/Execute Register
-    riscv_stage_execute_t execute[2];
+    riscv_stage_execute_t execute;
 
     // Execute/Memory Register
-    riscv_stage_memory_t memory[2];
+    riscv_stage_memory_t memory;
 
     //Memory/Writeback Register
-    riscv_stage_writeback_t writeback[2];
+    riscv_stage_writeback_t writeback;
+
+} riscv_pipeline_state_t;
+
+typedef struct 
+{ 
+    riscv_pipeline_state_t state[2];
 
 } riscv_pipeline_t;
 
-typedef struct {
-    octa regs[32];
-    octa csrs[4096];
-
-    octa pc;
-
-    riscv_pipeline_t pipeline;
-    processor_itf_t itf;
-
-    // L1 cache
-    struct {    
-        bool free;
-        int cmd;
-        octa addr;
-        octa data;
-    } data_cache[32];
-    size_t data_cache_size = 32;
-
-    // Simulation
-    unsigned int frequency; // Hz
-    int remaining_cycles;
-} riscv_processor_t;
-
-typedef struct {
-  unsigned int frequency;
-  unsigned int memory_size;
-  unsigned int boot_address;
-} riscv_processor_cfg_t;
-
-riscv_processor_t* __get_riscv_proc(system_t* sys)
+void riscv_pipeline_create(riscv_pipeline_t* pipeline)
 {
-  return (riscv_processor_t*) (sys + 1);
+  for(unsigned char i = 0; i < 2; i++) 
+  {
+    riscv_pipeline_stage_fetch_create(&pipeline->state[i].fetch);
+    riscv_pipeline_stage_decode_create(&pipeline->state[i].decode);
+    riscv_pipeline_stage_read_create(&pipeline->state[i].read);
+    riscv_pipeline_stage_execute_create(&pipeline->state[i].execute);
+    riscv_pipeline_stage_memory_create(&pipeline->state[i].memory);
+    riscv_pipeline_stage_writeback_create(&pipeline->state[i].writeback);
+  }   
 }
 
-void __load_csr(system_t* sys, riscv_processor_t* proc, unsigned int addr, octa* out)
+static void __load_csr(system_t* sys, riscv_processor_t* proc, unsigned int addr, octa* out)
 {
     if(addr == SIE) {
         *out = proc->csrs[MIE] & proc->csrs[MIDELEG];
@@ -165,8 +146,7 @@ void __load_csr(system_t* sys, riscv_processor_t* proc, unsigned int addr, octa*
         *out = proc->csrs[addr % 4096];
     }
 }
-
-void __store_csr(system_t* sys, riscv_processor_t* proc, unsigned int addr, const octa value)
+static void __store_csr(system_t* sys, riscv_processor_t* proc, unsigned int addr, const octa value)
 {
     if(addr == SIE) {
         proc->csrs[MIE] = (proc->csrs[MIE] & ~proc->csrs[MIDELEG]) | (value & proc->csrs[MIDELEG]);
@@ -179,7 +159,6 @@ void riscv_pipeline_stage_fetch_create(riscv_stage_fetch_t* fetch)
 {
     fetch->control.stall = false;
 }
-
 void riscv_pipeline_stage_decode_create(riscv_stage_decode_t* decode)
 {
   decode->pc = 0;
@@ -188,7 +167,6 @@ void riscv_pipeline_stage_decode_create(riscv_stage_decode_t* decode)
   decode->control.invalid = false;
   decode->debug.current_pc = 0;
 }
-
 void riscv_pipeline_stage_read_create(riscv_stage_read_t* read)
 {
     read->pc = 0;
@@ -207,7 +185,6 @@ void riscv_pipeline_stage_read_create(riscv_stage_read_t* read)
     read->control.arg1_is_imm = false; 
     read->debug.current_pc = 0;
 }
-
 void riscv_pipeline_stage_execute_create(riscv_stage_execute_t* execute)
 {
     execute->args[0] = 0;
@@ -229,7 +206,6 @@ void riscv_pipeline_stage_execute_create(riscv_stage_execute_t* execute)
     execute->control.arg1_is_imm = false;
     execute->debug.current_pc = 0;
 }
-
 void riscv_pipeline_stage_memory_create(riscv_stage_memory_t* memory)
 {
     memory->pc = 0;
@@ -247,7 +223,6 @@ void riscv_pipeline_stage_memory_create(riscv_stage_memory_t* memory)
     memory->debug.current_pc = 0;
     memory->simulation.halt = false;
 }   
-
 void riscv_pipeline_stage_writeback_create(riscv_stage_writeback_t* writeback)
 {
     writeback->control.dregs[0].addr = 0;
@@ -262,24 +237,10 @@ void riscv_pipeline_stage_writeback_create(riscv_stage_writeback_t* writeback)
     writeback->simulation.halt = false;
 }
 
-void riscv_pipeline_create(riscv_pipeline_t* pipeline)
-{
-  for(unsigned char i = 0; i < 2; i++) 
-  {
-    riscv_pipeline_stage_fetch_create(&pipeline->fetch[i]);
-    riscv_pipeline_stage_decode_create(&pipeline->decode[i]);
-    riscv_pipeline_stage_read_create(&pipeline->read[i]);
-    riscv_pipeline_stage_execute_create(&pipeline->execute[i]);
-    riscv_pipeline_stage_memory_create(&pipeline->memory[i]);
-    riscv_pipeline_stage_writeback_create(&pipeline->writeback[i]);
-  }   
-}
-
-
 static inline bool riscv_stage_fetch_step(system_t* sys, riscv_processor_t* proc, riscv_pipeline_t* pipeline)
 {
-    riscv_stage_fetch_t* in = &pipeline->fetch[1];
-    riscv_stage_decode_t* out = &pipeline->decode[0];
+    riscv_stage_fetch_t* in     = &pipeline->state[0].fetch;
+    riscv_stage_decode_t* out   = &pipeline->state[1].decode;
 
     if(in->control.stall)
         return false;        
@@ -305,8 +266,8 @@ static inline bool riscv_stage_fetch_step(system_t* sys, riscv_processor_t* proc
 }
 static inline void riscv_stage_decode_step(system_t* sys, riscv_processor_t* proc, riscv_pipeline_t* pipeline)
 {
-    riscv_stage_decode_t* in = &pipeline->decode[1];
-    riscv_stage_read_t* out = &pipeline->read[0];
+    riscv_stage_decode_t* in = &pipeline->state[0].decode;
+    riscv_stage_read_t* out = &pipeline->state[1].read;
 
     if(in->control.stall)
         return;
@@ -340,12 +301,12 @@ static inline void riscv_stage_decode_step(system_t* sys, riscv_processor_t* pro
 
     // Check any data hazards
     riscv_reg_addr_t forward_regs[6] = {
-       pipeline->execute[1].control.dregs[0],
-       pipeline->execute[1].control.dregs[1],
-       pipeline->memory[1].control.dregs[0],
-       pipeline->memory[1].control.dregs[1],
-       pipeline->writeback[1].control.dregs[0], 
-       pipeline->writeback[1].control.dregs[1]
+       pipeline->state[0].execute.control.dregs[0],
+       pipeline->state[0].execute.control.dregs[1],
+       pipeline->state[0].memory.control.dregs[0],
+       pipeline->state[0].memory.control.dregs[1],
+       pipeline->state[0].writeback.control.dregs[0], 
+       pipeline->state[0].writeback.control.dregs[1]
     };
 
     for(unsigned char i = 0; i < 6; i++) 
@@ -356,11 +317,11 @@ static inline void riscv_stage_decode_step(system_t* sys, riscv_processor_t* pro
                 continue;
 
             // Data hazard !
-            if(forward_regs[i].type == pipeline->read[1].control.sregs[j].type && forward_regs[i].addr == pipeline->read[1].control.sregs[j].addr) 
+            if(forward_regs[i].type == pipeline->state[0].read.control.sregs[j].type && forward_regs[i].addr == pipeline->state[0].read.control.sregs[j].addr) 
             {
-                pipeline->fetch[0].control.stall = true;
-                pipeline->decode[0].control.stall = true;
-                pipeline->read[0].control.stall = true;
+                pipeline->state[1].fetch.control.stall = true;
+                pipeline->state[1].decode.control.stall = true;
+                pipeline->state[1].read.control.stall = true;
                 break;
             }
         }
@@ -368,8 +329,8 @@ static inline void riscv_stage_decode_step(system_t* sys, riscv_processor_t* pro
 }
 static inline void riscv_stage_read_step(system_t* sys, riscv_processor_t* proc, riscv_pipeline_t* pipeline)
 {
-    riscv_stage_read_t* in = &pipeline->read[1];
-    riscv_stage_execute_t* out = &pipeline->execute[0];
+    riscv_stage_read_t* in = &pipeline->state[0].read;
+    riscv_stage_execute_t* out = &pipeline->state[1].execute;
 
     if(in->control.stall)
         return;
@@ -402,8 +363,8 @@ static inline void riscv_stage_read_step(system_t* sys, riscv_processor_t* proc,
 }
 static inline void riscv_stage_execute_step(system_t* sys, riscv_processor_t* proc, riscv_pipeline_t* pipeline)
 {
-    riscv_stage_execute_t* in = &pipeline->execute[1];
-    riscv_stage_memory_t* out = &pipeline->memory[0];
+    riscv_stage_execute_t* in = &pipeline->state[0].execute;
+    riscv_stage_memory_t* out = &pipeline->state[1].memory;
 
     if(in->control.stall)
         return;
@@ -492,8 +453,8 @@ static inline void riscv_stage_memory_step(system_t* sys, riscv_processor_t* pro
     octa result[2];
     void* addr;
 
-    riscv_stage_memory_t* in = &pipeline->memory[1];
-    riscv_stage_writeback_t* out = &pipeline->writeback[0];
+    riscv_stage_memory_t* in = &pipeline->state[0].memory;
+    riscv_stage_writeback_t* out = &pipeline->state[1].writeback;
 
     if(in->control.stall)
         return;
@@ -537,7 +498,7 @@ static inline void riscv_stage_memory_step(system_t* sys, riscv_processor_t* pro
 }
 static inline void riscv_stage_writeback_step(system_t* sys, riscv_processor_t* proc, riscv_pipeline_t* pipeline)
 {
-   riscv_stage_writeback_t* in = &pipeline->writeback[1];
+   riscv_stage_writeback_t* in = &pipeline->state[0].writeback;
 
     if(in->control.stall)
         return;
@@ -551,19 +512,19 @@ static inline void riscv_stage_writeback_step(system_t* sys, riscv_processor_t* 
         *reg = in->results[i];
     }
 
-    pipeline->fetch[0].control.stall    = false;
-    pipeline->decode[0].control.stall   = false;
-    pipeline->read[0].control.stall     = false;
+    pipeline->state[1].fetch.control.stall    = false;
+    pipeline->state[1].decode.control.stall   = false;
+    pipeline->state[1].read.control.stall     = false;
 }
 
 static inline void riscv_state_check_control_hazard(system_t* sys, riscv_processor_t* proc, riscv_pipeline_t* pipeline)
 {
-    riscv_stage_execute_t* in       = &pipeline->execute[1];
-    riscv_stage_execute_t* nxt      = &pipeline->execute[0];
+    riscv_stage_execute_t* in       = &pipeline->state[0].execute;
+    riscv_stage_execute_t* nxt      = &pipeline->state[1].execute;
 
-    riscv_stage_memory_t* memory    = &pipeline->memory[0];
-    riscv_stage_read_t* read        = &pipeline->read[0];
-    riscv_stage_decode_t* decode    = &pipeline->decode[0];
+    riscv_stage_memory_t* memory    = &pipeline->state[0].memory;
+    riscv_stage_read_t* read        = &pipeline->state[0].read;
+    riscv_stage_decode_t* decode    = &pipeline->state[0].decode;
     
     // Write target
     if(in->control.write_pc == true && nxt->pc - 4 != memory->pc)
@@ -577,14 +538,8 @@ static inline void riscv_state_check_control_hazard(system_t* sys, riscv_process
 
 void riscv_pipeline_commit_state(riscv_pipeline_t* pipeline)
 {
-    pipeline->fetch[1]        = pipeline->fetch[0];
-    pipeline->decode[1]       = pipeline->decode[0];
-    pipeline->read[1]         = pipeline->read[0];
-    pipeline->execute[1]      = pipeline->execute[0];
-    pipeline->memory[1]       = pipeline->memory[0];
-    pipeline->writeback[1]    = pipeline->writeback[0];
+    pipeline->state[0] = pipeline->state[1];
 }
-
 void riscv_pipeline_step(system_t* sys, riscv_processor_t* proc, riscv_pipeline_t* pipeline)
 {
   riscv_stage_fetch_step(sys, proc, pipeline);
@@ -596,11 +551,7 @@ void riscv_pipeline_step(system_t* sys, riscv_processor_t* proc, riscv_pipeline_
 
   riscv_state_check_control_hazard(sys, proc, pipeline);
 
-  // Commit the results
-  riscv_pipeline_commit_state(pipeline);
-
-
-  if(pipeline->writeback[1].simulation.halt && pipeline->writeback[1].control.invalid == false) return sys_halt(sys);
+  if(pipeline->state[0].writeback.simulation.halt && pipeline->state[0].writeback.control.invalid == false) sys_halt(sys);
 }
 
 #endif
