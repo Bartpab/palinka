@@ -60,6 +60,11 @@ word byte_to_word(byte b2, byte b1)
   return ((word)(b2) << 8) | b1;
 }
 
+tetra word_to_tetra(word w2, word w1)
+{
+  return ((tetra)(w2) << 16) | w1;
+}
+
 octa byte_to_octa(byte b7, byte b6, byte b5, byte b4, byte b3, byte b2, byte b1, byte b0) {
   return word_to_octa(
     byte_to_word(b7, b6), 

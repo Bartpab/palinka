@@ -5,11 +5,9 @@
 #include "../lib/common/include/stream/buffer.h"
 
 #include "../src/system.h"
-#include "../src/memory/core.h"
+#include "../src/riscv.h"
 
-#include "../src/riscv/core.h"
-
-system_t* riscv_bootstrap(char* prog, size_t prog_length, size_t heap_memory)
+system_t* riscv_bootstrap(byte* prog, size_t prog_length, size_t heap_memory)
 {
   allocator_t allocator = GLOBAL_ALLOCATOR;
   riscv_processor_cfg_t cfg;
@@ -19,17 +17,16 @@ system_t* riscv_bootstrap(char* prog, size_t prog_length, size_t heap_memory)
   cfg.memory_size  = prog_length + heap_memory;
 
   system_t* sys = riscv_new(&allocator, &cfg);
-
-  sys_add_memory(sys, &allocator, (void*) 0x00, cfg.memory_size);
+  riscv_processor_t* proc = __get_riscv_proc(sys);
    
   void* addr = (void*) 0x00;
-  char* it = prog;
+  byte* it = prog;
   
   while(prog_length) 
   {
-    sys_store_byte(sys, addr, *it);
+    data_cache_write(&proc->l1, (octa)(uintptr_t)(addr), *it, 0);
     it++;
-    addr = addr + 1;
+    addr = (void*)((uintptr_t)(addr) + 1);
     prog_length--;
   }
 
@@ -225,7 +222,7 @@ define_test(riscv_auipc, test_print("RISCV_AUIPC"))
 
     octa expected = octa_plus(int_to_octa(4), octa_left_shift(int_to_octa(1), 12), 0);
     
-    system_t* sys = riscv_bootstrap((char*) &prog, 3 * 4, 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, 3 * 4, 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = 0;
@@ -258,7 +255,7 @@ define_test(riscv_jal, test_print("RISCV_JAL"))
     octa expected_reg = int_to_octa(8);
     octa expected_pc  = int_to_octa(12);
     
-    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, sizeof(prog), 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = octa_zero;
@@ -299,7 +296,7 @@ define_test(riscv_jalr, test_print("RISCV_JALR"))
     octa expected_reg = int_to_octa(8);
     octa expected_pc  = int_to_octa(16);
     
-    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, sizeof(prog), 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = octa_zero;
@@ -340,7 +337,7 @@ define_test(riscv_beq, test_print("RISCV_BEQ"))
 
     octa expected_pc = int_to_octa(16);
     
-    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, sizeof(prog), 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = int_to_octa(12);
@@ -375,7 +372,7 @@ define_test(riscv_bne, test_print("RISCV_BNE"))
 
     octa expected_pc  = int_to_octa(16);
     
-    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, sizeof(prog), 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = int_to_octa(12);
@@ -416,7 +413,7 @@ define_test(riscv_blt, test_print("RISCV_BLT"))
 
     octa expected_pc = int_to_octa(16);
     
-    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, sizeof(prog), 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = int_to_octa(6);
@@ -451,7 +448,7 @@ define_test(riscv_bge, test_print("RISCV_BGE"))
 
     octa expected_pc  = int_to_octa(16);
     
-    system_t* sys = riscv_bootstrap((char*) &prog, 5 * 4, 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, 5 * 4, 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = int_to_octa(12);
@@ -486,7 +483,7 @@ define_test(riscv_bltu, test_print("RISCV_BLTU"))
 
     octa expected_pc  = int_to_octa(16);
     
-    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, sizeof(prog), 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = int_to_octa(6);
@@ -521,7 +518,7 @@ define_test(riscv_bgeu, test_print("RISCV_BGEU"))
 
     octa expected_pc  = int_to_octa(16);
     
-    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, sizeof(prog), 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = int_to_octa(12);
@@ -554,7 +551,7 @@ define_test(riscv_lb, test_print("RISCV_LB"))
 
     octa expected  = int_to_octa(0x0D);
     
-    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, sizeof(prog), 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = int_to_octa(12);
@@ -586,7 +583,7 @@ define_test(riscv_lh, test_print("RISCV_LH"))
 
     octa expected  = int_to_octa(0xD00D);
     
-    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, sizeof(prog), 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = int_to_octa(12);
@@ -619,7 +616,7 @@ define_test(riscv_lw, test_print("RISCV_LW"))
 
     octa expected  = int_to_octa(0x1234D00D);
     
-    system_t* sys = riscv_bootstrap((char*) &prog, 5 * 4, 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, 5 * 4, 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = int_to_octa(12);
@@ -651,7 +648,7 @@ define_test(riscv_lbu, test_print("RISCV_LBU"))
 
     octa expected  = int_to_octa(0x0D);
     
-    system_t* sys = riscv_bootstrap((char*) &prog, 4 * 4, 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, 4 * 4, 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = int_to_octa(12);
@@ -683,7 +680,7 @@ define_test(riscv_lhu, test_print("RISCV_LHU"))
 
     octa expected  = int_to_octa(0xD00D);
     
-    system_t* sys = riscv_bootstrap((char*) &prog, 4 * 4, 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, 4 * 4, 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = int_to_octa(12);
@@ -716,7 +713,7 @@ define_test(riscv_sb, test_print("RISCV_SB"))
     octa expected  = int_to_octa(0x0D);
     byte result = octa_zero;
     
-    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, sizeof(prog), 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = int_to_octa(12);
@@ -726,7 +723,7 @@ define_test(riscv_sb, test_print("RISCV_SB"))
 
     test_check(
       test_print("Try to load memory value"),
-      sys_load_byte(sys, (void*) 12, &result),
+      data_cache_read(&proc->l1, 12, &result, 0),
       test_failure("Failed to load memory value")
     );
 
@@ -755,7 +752,7 @@ define_test(riscv_sh, test_print("RISCV_SH"))
     octa expected  = int_to_octa(0xD00D);
     octa result = octa_zero;
     
-    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, sizeof(prog), 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = int_to_octa(12);
@@ -765,7 +762,7 @@ define_test(riscv_sh, test_print("RISCV_SH"))
 
     test_check(
       test_print("Try to load memory value"),
-      sys_load_word(sys, (void*) 12, (word*) &result),
+      data_cache_read_word(&proc->l1, 12, (word*) &result, 0),
       test_failure("Failed to load memory value")
     );
 
@@ -794,7 +791,7 @@ define_test(riscv_sw, test_print("RISCV_SW"))
     octa expected  = int_to_octa(0x1234D00D);
     octa result = octa_zero;
     
-    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, sizeof(prog), 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = int_to_octa(12);
@@ -804,7 +801,7 @@ define_test(riscv_sw, test_print("RISCV_SW"))
 
     test_check(
       test_print("Try to load memory value"),
-      sys_load_tetra(sys, (void*) 12, (tetra*) &result),
+      data_cache_read_tetra(&proc->l1, 12, (tetra*) &result, 0),
       test_failure("Failed to load memory value")
     );
 
@@ -834,7 +831,7 @@ define_test(riscv_sd, test_print("RISCV_SD"))
     octa expected  = ll_int_to_octa(0x1122334455667788);
     octa result = octa_zero;
     
-    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, sizeof(prog), 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = int_to_octa(12);
@@ -844,7 +841,7 @@ define_test(riscv_sd, test_print("RISCV_SD"))
 
     test_check(
       test_print("Try to load memory value"),
-      sys_load_octa(sys, (void*) 12, &result),
+      data_cache_read_octa(&proc->l1, 12, &result, 0),
       test_failure("Failed to load memory value")
     );
 
@@ -870,7 +867,7 @@ define_test(riscv_addi, test_print("RISCV_ADDI"))
 
     octa expected = int_to_octa(15);
     
-    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, sizeof(prog), 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = int_to_octa(5);
@@ -900,7 +897,7 @@ define_test(riscv_slti, test_print("RISCV_SLTI"))
 
     octa expected = 1;
     
-    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, sizeof(prog), 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = -octa_int_max;
@@ -930,7 +927,7 @@ define_test(riscv_sltiu, test_print("RISCV_SLTIU"))
 
     octa expected = 0;
     
-    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, sizeof(prog), 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = octa_uint_max;
@@ -960,7 +957,7 @@ define_test(riscv_xori, test_print("RISCV_XORI"))
 
     octa expected = int_to_octa(1);
     
-    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, sizeof(prog), 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = octa_zero;
@@ -990,7 +987,7 @@ define_test(riscv_ori, test_print("RISCV_XORI"))
 
     octa expected = 1;
     
-    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, sizeof(prog), 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = octa_zero;
@@ -1020,7 +1017,7 @@ define_test(riscv_andi, test_print("RISCV_ANDI"))
 
     octa expected = int_to_octa(1);
     
-    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, sizeof(prog), 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = int_to_octa(1);
@@ -1050,7 +1047,7 @@ define_test(riscv_slli, test_print("RISCV_SLLI"))
 
     octa expected = octa_left_shift(int_to_octa(1), 1);
     
-    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, sizeof(prog), 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = int_to_octa(1);
@@ -1080,7 +1077,7 @@ define_test(riscv_srli, test_print("RISCV_SRLI"))
 
     octa expected = octa_right_shift(int_to_octa(2), 1, 0);
     
-    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, sizeof(prog), 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = int_to_octa(2);
@@ -1110,7 +1107,7 @@ define_test(riscv_srai, test_print("RISCV_SRAI"))
 
     octa expected = octa_right_shift(int_to_octa(2), 1, 0);
     
-    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, sizeof(prog), 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = int_to_octa(2);
@@ -1140,7 +1137,7 @@ define_test(riscv_add, test_print("RISCV_ADD"))
 
     octa expected = int_to_octa(15);
     
-    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, sizeof(prog), 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = octa_zero;
@@ -1169,7 +1166,7 @@ define_test(riscv_sub, test_print("RISCV_SUB"))
     };
     octa expected = 5;
     
-    system_t* sys = riscv_bootstrap((char*) &prog, 8, 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, 8, 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = 0;
@@ -1198,7 +1195,7 @@ define_test(riscv_slt, test_print("RISCV_SLT"))
     };
     octa expected = int_to_octa(0);
     
-    system_t* sys = riscv_bootstrap((char*) &prog, 8, 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, 8, 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = octa_zero;
@@ -1227,7 +1224,7 @@ define_test(riscv_sltu, test_print("RISCV_SLTU"))
     };
     octa expected = int_to_octa(1);
     
-    system_t* sys = riscv_bootstrap((char*) &prog, 8, 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, 8, 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = octa_zero;
@@ -1256,7 +1253,7 @@ define_test(riscv_xor, test_print("RISCV_XOR"))
     };
     octa expected = int_to_octa(1);
     
-    system_t* sys = riscv_bootstrap((char*) &prog, 8, 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, 8, 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = octa_zero;
@@ -1285,7 +1282,7 @@ define_test(riscv_srl, test_print("RISCV_SRL"))
     };
     octa expected = int_to_octa(1);
     
-    system_t* sys = riscv_bootstrap((char*) &prog, 8, 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, 8, 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = octa_zero;
@@ -1314,7 +1311,7 @@ define_test(riscv_sll, test_print("RISCV_SLL"))
     };
     octa expected = int_to_octa(4);
     
-    system_t* sys = riscv_bootstrap((char*) &prog, 8, 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, 8, 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = octa_zero;
@@ -1343,7 +1340,7 @@ define_test(riscv_or, test_print("RISCV_OR"))
     };
     octa expected = int_to_octa(3);
     
-    system_t* sys = riscv_bootstrap((char*) &prog, 8, 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, 8, 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = octa_zero;
@@ -1372,7 +1369,7 @@ define_test(riscv_and, test_print("RISCV_AND"))
     };
     octa expected = int_to_octa(2);
     
-    system_t* sys = riscv_bootstrap((char*) &prog, 8, 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, 8, 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = octa_zero;
@@ -1401,7 +1398,7 @@ define_test(riscv_csrrw, test_print("RISCV_CSRRW"))
     };
     octa expected[2] = {int_to_octa(6), int_to_octa(12)};
     
-    system_t* sys = riscv_bootstrap((char*) &prog, sizeof(prog), 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, sizeof(prog), 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = octa_zero;
@@ -1431,7 +1428,7 @@ define_test(riscv_csrrw, test_print("RISCV_CSRRW"))
       riscv_ebreak()      
     };
 
-    sys = riscv_bootstrap((char*) &prog_2, sizeof(prog_2), 0);
+    sys = riscv_bootstrap((byte*) &prog_2, sizeof(prog_2), 0);
     proc = __get_riscv_proc(sys);
 
     proc->regs[29] = int_to_octa(6);
