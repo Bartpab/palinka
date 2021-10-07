@@ -439,9 +439,9 @@ static inline void riscv_stage_writeback_step(system_t* sys, riscv_processor_t* 
     for(unsigned char i = 0; i < 2; i++) 
     {
         octa* reg = in->control.dregs[i].type == 0 ? &proc->regs[in->control.dregs[i].addr] : &proc->csrs[in->control.dregs[i].addr];
-        *reg = in->results[i];
+        tst_update_octa(transaction, reg, in->results[i]);
     }
-
+    
     pipeline->fetch.control.stall    = false;
     pipeline->decode.control.stall   = false;
     pipeline->read.control.stall     = false;
@@ -458,12 +458,12 @@ static inline void riscv_check_memory_wait(riscv_processor_t* proc, riscv_pipeli
     if(memory->control.wait) 
     {
         // Invalid all changes
-        tst_log_invalid(transaction, &proc->pc, sizeof(octa));
-        tst_log_invalid(transaction, fetch,     sizeof(riscv_stage_fetch_t));
-        tst_log_invalid(transaction, decode,    sizeof(riscv_stage_decode_t));
-        tst_log_invalid(transaction, read,      sizeof(riscv_stage_read_t));
-        tst_log_invalid(transaction, execute,   sizeof(riscv_stage_execute_t));
-        tst_log_invalid(transaction, memory,    sizeof(riscv_stage_memory_t));
+        tst_update_octa(transaction, &proc->pc, proc->pc);
+        tst_update_riscv_stage_fetch(transaction, fetch, *fetch);
+        tst_update_riscv_stage_decode(transaction, decode, *decode);
+        tst_update_riscv_stage_read(transaction, read, *read);
+        tst_update_riscv_stage_execute(transaction, execute, *execute);
+        tst_update_riscv_stage_memory(transaction, memory, *memory);
     }
 }
 

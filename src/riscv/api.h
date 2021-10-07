@@ -5,7 +5,6 @@
 #include "./pipeline.h"
 
 system_t* riscv_new(allocator_t* allocator, riscv_processor_cfg_t* cfg);
-void riscv_alloc_sim_time(system_t* sys, unsigned int ms);
 void riscv_step(system_t* sys);
 
 static void __riscv_init(system_t* sys, riscv_processor_cfg_t* cfg);
@@ -31,7 +30,6 @@ static void __riscv_init(system_t* sys, riscv_processor_cfg_t* cfg)
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     sys->step           = riscv_step;
-    sys->alloc_sim_time = riscv_alloc_sim_time; 
     
     proc->frequency = cfg->frequency; //500MHz
     proc->remaining_cycles = 0;
@@ -43,20 +41,14 @@ static void __riscv_init(system_t* sys, riscv_processor_cfg_t* cfg)
 
     proc->regs[2]   = cfg->memory_size;
     proc->regs[0]   = octa_zero;
+    
+    sys->atomic_time = 1.0 / (float)(cfg->frequency);
 
     // Setup the pipeline
     riscv_pipeline_create(&proc->pipeline);
 
     // Setup the L1 cache
     data_cache_create(&proc->l1, (data_cache_entry_t*) &proc->__l1_entries, 100);
-}
-
-void riscv_alloc_sim_time(system_t* sys, unsigned int ms) {
-    riscv_processor_t* proc = __get_riscv_proc(sys);
-
-    float s = (float)(ms) / 1000.0;
-    float remaining_cycles = s * (float)(proc->frequency);
-    proc->remaining_cycles = (int) remaining_cycles;
 }
 
 void riscv_itf_step(riscv_processor_t* proc, transaction_t* transaction)

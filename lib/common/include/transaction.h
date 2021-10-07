@@ -43,16 +43,17 @@ void tst_log_invalid(transaction_t* transaction, void* base, size_t length)
     void* x1 = (void*) ((uintptr_t)(x0) + length);
 
     transaction_log_t* it = transaction->head;
-    while(it != 0) {
+    
+    while(it != 0) 
+    {
         void* dest = *(void**)(it + 1);
         if(dest >= base && dest < x1) it->invalid = true;
+        it = it->next;
     }
 }
 
 static void tst_add_log(transaction_t* transaction, transaction_log_t* log)
 {
-
-    
     if(transaction->head == NULL)
         transaction->head = transaction->tail = log;
     else {
@@ -106,263 +107,52 @@ void tst_commit(transaction_t* transaction) {
         it = it->next;
     }
 
+    transaction->head = transaction->tail = 0;
     transaction->size = 0;
 }
 
-static void tst_update_byte_commit(transaction_log_t* log)
-{
-    byte** dest = (byte**)(log + 1);
-    byte* value = (byte*)((char*)(log) + sizeof(byte**));
-
-    **dest = *value;
+#define decl_tst_update_type(type, typename) static void tst_update_ ## typename ## _commit(transaction_log_t* log) \
+{\
+    uintptr_t base = (uintptr_t)(log + 1); \
+    type** dest = (type**)(base); \
+    type* value = (type*)(base + sizeof(type*)); \
+\
+    **dest = *value; \
+}\
+\
+bool tst_update_##typename(transaction_t* transaction, type* dest, type value)\
+{\
+    if(transaction == 0)\
+    {\
+        *dest = value;\
+        return true;\
+    }\
+\
+    transaction_log_t* log = (transaction_log_t*) tst_new_log(transaction, sizeof(type*) + sizeof(type));\
+\
+    if(log == NULL)\
+        return false;\
+\
+    uintptr_t base = (uintptr_t)(log + 1);\
+    type** __dest = (type**) base;\
+    type* __value = (type*)(base + sizeof(type*));\
+\
+    *__dest = dest;\
+    *__value = value;\
+\
+    log->commit = tst_update_##typename##_commit;\
+\
+    return true;\
 }
 
-bool tst_update_byte(transaction_t* transaction, byte* dest, byte value)
-{
-    if(transaction == 0)
-    {
-        *dest = value;
-        return true;
-    }
-
-    transaction_log_t* log = (transaction_log_t*) tst_new_log(transaction, sizeof(byte*) + sizeof(byte));
-
-    if(log == NULL)
-        return false;
-    
-    byte** __dest = (byte**)(log + 1);
-    byte* __value = (dest + 1);
-
-    *__dest = dest;
-    *__value = value;
-    
-    log->commit = tst_update_byte_commit;
-    
-    return true;
-}
-
-static void tst_update_tetra_commit(transaction_log_t* log)
-{
-    tetra** dest = (tetra**)(log + 1);
-    tetra* value = (tetra*)((char*)(log) + sizeof(tetra**));
-
-    **dest = *value;
-}
-
-bool tst_update_tetra(transaction_t* transaction, tetra* dest, tetra value)
-{
-    if(transaction == 0)
-    {
-        *dest = value;
-        return true;
-    }
-    
-    transaction_log_t* log = (transaction_log_t*) tst_new_log(transaction, sizeof(tetra*) + sizeof(tetra));
-
-    if(log == NULL)
-        return false;
-    
-    tetra** __dest = (tetra**)(log + 1);
-    tetra* __value = (dest + 1);
-
-    *__dest = dest;
-    *__value = value;
-    
-    log->commit = tst_update_tetra_commit;
-    
-    return true;
-}
-
-static void tst_update_octa_commit(transaction_log_t* log)
-{
-    octa** dest = (octa**)(log + 1);
-    octa* value = (octa*)((char*)(log) + sizeof(octa**));
-
-    **dest = *value;
-}
-
-bool tst_update_octa(transaction_t* transaction, octa* dest, octa value)
-{
-    if(transaction == 0)
-    {
-        *dest = value;
-        return true;
-    }
-
-    transaction_log_t* log = (transaction_log_t*) tst_new_log(transaction, sizeof(octa*) + sizeof(octa));
-
-    if(log == NULL)
-        return false;
-    
-    octa** __dest = (octa**)(log + 1);
-    octa* __value = (dest + 1);
-
-    *__dest = dest;
-    *__value = value;
-    
-    log->commit = tst_update_octa_commit;
-    
-    return true;
-}
-
-static void tst_update_bool_commit(transaction_log_t* log)
-{
-    bool** dest = (bool**)(log + 1);
-    bool* value = (bool*)((char*)(log) + sizeof(bool**));
-
-    **dest = *value;
-}
-
-bool tst_update_bool(transaction_t* transaction, bool* dest, bool value)
-{
-    if(transaction == 0)
-    {
-        *dest = value;
-        return true;
-    }
-
-    transaction_log_t* log = (transaction_log_t*) tst_new_log(transaction, sizeof(bool*) + sizeof(bool));
-
-    if(log == NULL)
-        return false;
-    
-    bool** __dest = (bool**)(log + 1);
-    bool* __value = (dest + 1);
-
-    *__dest = dest;
-    *__value = value;
-    
-    log->commit = tst_update_bool_commit;
-    
-    return true;
-}
-
-static void tst_update_char_commit(transaction_log_t* log)
-{
-    char** dest = (char**)(log + 1);
-    char* value = (char*)((char*)(log) + sizeof(char**));
-
-    **dest = *value;
-}
-
-bool tst_update_char(transaction_t* transaction, char* dest, char value)
-{
-    if(transaction == 0)
-    {
-        *dest = value;
-        return true;
-    }
-    
-    transaction_log_t* log = (transaction_log_t*) tst_new_log(transaction, sizeof(char*) + sizeof(char));
-
-    if(log == NULL)
-        return false;
-    
-    char** __dest = (char**)(log + 1);
-    char* __value = (dest + 1);
-
-    *__dest = dest;
-    *__value = value;
-    
-    log->commit = tst_update_char_commit;
-    
-    return true;
-}
-
-static void tst_update_uchar_commit(transaction_log_t* log)
-{
-    unsigned char** dest = (unsigned char**)(log + 1);
-    unsigned char* value = (unsigned char*)((char*)(log) + sizeof(char**));
-
-    **dest = *value;
-}
-
-bool tst_update_uchar(transaction_t* transaction, unsigned char* dest, unsigned char value)
-{
-    if(transaction == 0)
-    {
-        *dest = value;
-        return true;
-    }
-    
-    transaction_log_t* log = (transaction_log_t*) tst_new_log(transaction, sizeof(unsigned char*) + sizeof(unsigned char));
-
-    if(log == NULL)
-        return false;
-    
-    unsigned char** __dest = (unsigned char**)(log + 1);
-    unsigned char* __value = (unsigned char*)(dest + 1);
-
-    *__dest = dest;
-    *__value = value;
-    
-    log->commit = tst_update_uchar_commit;
-    
-    return true;
-}
-
-static void tst_update_int_commit(transaction_log_t* log)
-{
-    int** dest = (int**)(log + 1);
-    int* value = (int*)((char*)(log) + sizeof(int**));
-
-    **dest = *value;
-}
-
-bool tst_update_int(transaction_t* transaction, int* dest, int value)
-{
-    if(transaction == 0)
-    {
-        *dest = value;
-        return true;
-    }
-    
-    transaction_log_t* log = (transaction_log_t*) tst_new_log(transaction, sizeof(int*) + sizeof(int));
-
-    if(log == NULL)
-        return false;
-    
-    int** __dest = (int**)(log + 1);
-    int* __value = (dest + 1);
-
-    *__dest = dest;
-    *__value = value;
-    
-    log->commit = tst_update_int_commit;
-    
-    return true;
-}
-
-static void tst_update_uint_commit(transaction_log_t* log)
-{
-    unsigned int** dest = (unsigned int**)(log + 1);
-    unsigned int* value = (unsigned int*)((char*)(log) + sizeof(unsigned int**));
-
-    **dest = *value;
-}
-
-bool tst_update_uint(transaction_t* transaction, unsigned int* dest, unsigned int value)
-{
-    if(transaction == 0)
-    {
-        *dest = value;
-        return true;
-    }
-    
-    transaction_log_t* log = (transaction_log_t*) tst_new_log(transaction, sizeof(unsigned int*) + sizeof(unsigned int));
-
-    if(log == NULL)
-        return false;
-    
-    unsigned int** __dest = (unsigned int**)(log + 1);
-    unsigned int* __value = (dest + 1);
-
-    *__dest = dest;
-    *__value = value;
-    
-    log->commit = tst_update_uint_commit;
-    
-    return true;
-}
+decl_tst_update_type(byte, byte)
+decl_tst_update_type(word, word)
+decl_tst_update_type(tetra, tetra)
+decl_tst_update_type(octa, octa)
+decl_tst_update_type(unsigned int, uint)
+decl_tst_update_type(int, int)
+decl_tst_update_type(bool, bool)
+decl_tst_update_type(char, char)
+decl_tst_update_type(unsigned char, uchar)
 
 #endif

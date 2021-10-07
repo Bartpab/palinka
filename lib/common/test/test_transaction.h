@@ -23,6 +23,17 @@ define_test(transaction, test_print("Transaction"))
         test_failure("Expecing 10, got %d", bte)
     );
 
+    bte = 0;
+    tst_update_byte(&transaction, &bte, 10);
+    tst_log_invalid(&transaction, &bte, sizeof(byte));
+    tst_commit(&transaction);
+    
+    test_check(
+        test_print("Check that the value of the byte does not change after invalidation of the related logs."),
+        bte == 0,
+        test_failure("Expecing 0, got %d", bte)
+    );
+
     test_success;
     test_teardown;
     transaction_destroy(&transaction);

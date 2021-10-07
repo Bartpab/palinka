@@ -2,6 +2,7 @@
 #define __RISCV_PIPELINE_MODEL_H__
 
 #include "../../../lib/common/include/types.h"
+#include "../../../lib/common/include/transaction.h"
 
 typedef struct {
   int addr;
@@ -113,5 +114,12 @@ typedef struct
     riscv_stage_writeback_t writeback;
 
 } riscv_pipeline_t;
+
+decl_tst_update_type(riscv_stage_fetch_t, riscv_stage_fetch)
+decl_tst_update_type(riscv_stage_decode_t, riscv_stage_decode)
+decl_tst_update_type(riscv_stage_read_t, riscv_stage_read)
+decl_tst_update_type(riscv_stage_execute_t, riscv_stage_execute)
+decl_tst_update_type(riscv_stage_memory_t, riscv_stage_memory)
+decl_tst_update_type(riscv_stage_writeback_t, riscv_stage_writeback)
 
 #endif

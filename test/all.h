@@ -11,9 +11,8 @@
 #include "test_memory.h"
 
 set_tests(
-  transaction
-  //,riscv, system, string, buffer, 
-  //arith, memory
+  transaction, riscv, system, string, buffer 
+  //, arith, memory
   //, mmix
   //, lexer
 );
