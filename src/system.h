@@ -29,9 +29,9 @@ typedef struct system_t
   allocator_t allocator;
   
   // VTable
-  void (*step)(struct system_t* sys);
-  void (*commit)(struct system_t* sys);
-  void (*alloc_sim_time)(struct system_t* sys, unsigned int ms);
+  struct {
+    void (*step)(struct system_t* sys);
+  } vtable;
 
 } system_t;
 
@@ -40,9 +40,7 @@ void __sys_init(system_t* sys, allocator_t* transaction_allocator)
   transaction_create(&sys->transaction, transaction_allocator, 1000);
   sys->state = SYS_READY;
   sys->steps = sys->atomic_time = 0;
-  sys->step = 0;
-  sys->commit = 0;
-  sys->alloc_sim_time = 0;
+  sys->vtable.step = 0;
 }
 
 void sys_destroy(system_t* sys)
@@ -64,15 +62,13 @@ void sys_commit(system_t* sys)
 
 void sys_step(system_t* sys) 
 {
-  if(sys->steps > 0) sys->steps--;
+  if(sys->steps > 0) 
+    sys->steps = sys->steps - 1;
   
-  if(sys->state == SYS_PANICKED)
-    return;
-
-  if(!sys->step) 
+  if(sys->vtable.step == 0) 
     return;
   
-  sys->step(sys);
+  sys->vtable.step(sys);
   sys_commit(sys);
 }
 
@@ -80,12 +76,6 @@ void sys_loop(system_t* sys)
 {
   if(sys->state == SYS_STOPPED)
     return;
-
-  if(sys->state == SYS_HALTED || sys->state == SYS_READY) 
-  {
-    sys->alloc_sim_time(sys, -1);
-    sys->state = SYS_RUNNING;
-  }
 
   while(sys->state == SYS_RUNNING) 
     sys_step(sys);
@@ -115,7 +105,7 @@ void sys_run(system_t* sys, unsigned int ms)
   if(sys->state == SYS_HALTED || sys->state == SYS_READY) 
   {
     sys->state = SYS_RUNNING;
-    sys->steps += (int)(ms * 1000 / sys->atomic_time);
+    sys->steps = (int)(((float)(ms) / 1000.0) / sys->atomic_time);
   }
 
   while(sys->state == SYS_RUNNING && sys->steps > 0) 

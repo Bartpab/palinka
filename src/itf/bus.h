@@ -29,7 +29,7 @@ void __bus_init(system_t* sys, size_t length)
   bus->length = length;
 
   // Set v-table
-  sys->step = bus_step;
+  sys->vtable.step = bus_step;
 }
 
 system_t* bus_new(size_t length, allocator_t* allocator)

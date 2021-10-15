@@ -13,20 +13,20 @@ system_t* riscv_bootstrap(byte* prog, size_t prog_length, size_t heap_memory)
   riscv_processor_cfg_t cfg;
 
   cfg.boot_address = 0;
-  cfg.frequency    = 100000000; // 50 MHz
-  cfg.memory_size  = prog_length + heap_memory;
+  cfg.frequency    = 1000; // 1 kHz
 
   system_t* sys = riscv_new(&allocator, &cfg);
   riscv_processor_t* proc = __get_riscv_proc(sys);
    
-  void* addr = (void*) 0x00;
+  octa addr = 0x00;
   byte* it = prog;
   
+  // Write directly in the CPU cache (don't need to install memory system)
   while(prog_length) 
   {
     data_cache_write(&proc->l1, (octa)(uintptr_t)(addr), *it, 0);
     it++;
-    addr = (void*)((uintptr_t)(addr) + 1);
+    addr++;
     prog_length--;
   }
 
@@ -222,7 +222,7 @@ define_test(riscv_auipc, test_print("RISCV_AUIPC"))
 
     octa expected = octa_plus(int_to_octa(4), octa_left_shift(int_to_octa(1), 12), 0);
     
-    system_t* sys = riscv_bootstrap((byte*) &prog, 3 * 4, 0);
+    system_t* sys = riscv_bootstrap((byte*) &prog, sizeof(prog), 0);
     riscv_processor_t* proc = __get_riscv_proc(sys);
 
     proc->regs[28] = 0;

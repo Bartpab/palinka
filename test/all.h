@@ -8,10 +8,14 @@
 
 #include "test_riscv.h"
 #include "test_system.h"
-#include "test_memory.h"
+#include "test_data_cache.h"
 
 set_tests(
-  transaction, riscv, system, string, buffer 
+  data_cache, 
+  transaction, 
+  riscv, 
+  system
+  //, string, buffer 
   //, arith, memory
   //, mmix
   //, lexer

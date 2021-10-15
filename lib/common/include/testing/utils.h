@@ -29,6 +29,8 @@ typedef struct
 
 } test_context_t;
 
+test_context_t g_test_context;
+
 void test_display_buffer(test_context_t* ctx) 
 {
   for(unsigned char i = 1; i <= ctx->cursor; i++ )
@@ -56,58 +58,44 @@ void test_transition(test_context_t* ctx, int transition)
   }
 }
 
-#define passert(x) for ( ; !(x) ; assert(x) )
-
-#define test_print(fmt, ...) tctx->cursor++; snprintf(tctx->buffer[tctx->cursor], 0xFF, fmt, ## __VA_ARGS__); 
-#define test_check(msg_stmt, test, failure) test_print("[CHECK L%i]: ", __LINE__); msg_stmt; test_print("\n"); passert(test) { failure; }  test_print("[CHECK OK].\n");
-
-#define test_begin(msg_stmt) test_transition(tctx, BEGIN_TEST); test_print("\n[TEST %s] ", __FILE__); msg_stmt; test_print("\n");
-#define test_failure(msg, ...) test_print("[CHECK FAILURE]: ");  test_print(msg, ##__VA_ARGS__); \
-  test_print("\n");\
-  test_print("[TEST FAILED]\n");\
-  test_transition(tctx, FAILED_TEST);\
-  goto lbl_teardown_test;
-
-#define test_success test_transition(tctx, SUCCEEDED_TEST);
+#define test_print(fmt, ...) __test_context->cursor++; snprintf(__test_context->buffer[__test_context->cursor], 0xFF, fmt, ## __VA_ARGS__)
+#define test_check(msg_stmt, test, failure) test_print("[CHECK L%i]: ", __LINE__); msg_stmt; test_print("\n"); if((test) == false) { failure } test_print("[CHECK OK].\n");
+#define test_begin(msg_expr) test_transition(__test_context, BEGIN_TEST); test_print("\n[TEST %s] ", __FILE__); msg_expr; test_print("\n");
+#define test_success test_transition(__test_context, SUCCEEDED_TEST);
 #define test_end return;
+#define test_failure(msg, ...) test_print("[CHECK FAILURE]: "); test_print(msg, ##__VA_ARGS__); test_print("\n"); test_print("[TEST FAILED]\n"); test_transition(__test_context, FAILED_TEST); goto lbl_teardown_test;
+#define test_teardown lbl_teardown_test:
 
-#define define_test(id, msg_stmt) \
-void __test_ ## id (test_context_t* tctx); \
-void test_ ## id (test_context_t* tctx) { \
-  test_begin(msg_stmt);\
-  __test_ ##id (tctx); \
-} \
-void __test_ ##id (test_context_t* tctx) 
-
-#define test_teardown lbl_teardown_test: 
+#define define_test(id, msg_expr) void __test_ ## id (test_context_t* __test_context); void test_ ## id (test_context_t* __test_context) {\
+  test_begin(msg_expr);\
+  __test_ ##id (__test_context);\
+}\
+void __test_ ##id (test_context_t* __test_context) 
 
 #define exec_test(id) __exec_test__(id)
-#define __exec_test__(id) test_ ##id (tctx);
+#define __exec_test__(id) test_ ##id (__test_context);
 #define exec_tests(...) MAP(exec_test, __VA_ARGS__)
 
-#define exec_test_chapter(id) test_##id(tctx);
+#define exec_test_chapter(id) test_##id(__test_context);
 #define exec_test_chapters(...) MAP(exec_test_chapter, __VA_ARGS__)
 
 #define define_test_chapter(id, msg_stmt, ...) \
-void test_ ##id(test_context_t* tctx) {\
-   exec_tests(__VA_ARGS__)\
+void test_ ##id(test_context_t* __test_context) {\
+  exec_tests(__VA_ARGS__)\
 };
 
 #define set_tests(...) \
 int test() {\
   printf("TEST\n");\
-  test_context_t ctx;\
-  ctx.total = 0, ctx.success = 0, ctx.failed = 0;\
-  ctx.cursor = 0;\
-  ctx.state = IDLE;\
+  g_test_context.cursor = g_test_context.total = g_test_context.success = g_test_context.failed = 0;\
+  g_test_context.state = IDLE;\
 \
-  test_context_t* tctx = &ctx;\
+  test_context_t* __test_context = &g_test_context;\
   test_print(" ");\
 \
-  exec_test_chapters(__VA_ARGS__); \
-  printf("\n");\
-  printf("PASSED: %d / %d.\n", ctx.success, ctx.total);\
-  return ctx.failed > 0 ? 1 : 0;\
+  exec_test_chapters(__VA_ARGS__);\
+  printf("\nPASSED: %d / %d.\n", g_test_context.success, g_test_context.total);\
+  return g_test_context.failed > 0 ? 1 : 0;\
 }
 
 #endif

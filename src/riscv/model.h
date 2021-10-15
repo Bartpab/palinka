@@ -28,9 +28,8 @@ typedef struct {
     int remaining_cycles;
 } riscv_processor_t;
 
-typedef struct {
+typedef struct riscv_processor_cfg_t {
   unsigned int frequency;
-  unsigned int memory_size;
   unsigned int boot_address;
 } riscv_processor_cfg_t;
 

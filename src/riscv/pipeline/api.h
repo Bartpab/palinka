@@ -291,7 +291,9 @@ static inline void riscv_stage_execute_step(system_t* sys, riscv_processor_t* pr
     switch(in->control.op) 
     {
         case RISCV_LUI: result[0] = imm; break; // OK
-        case RISCV_AUIPC: result[0] = octa_plus_expr(pc - 4 , octa_left_shift_expr(imm, 12)); break;
+        case RISCV_AUIPC: 
+            result[0] = octa_plus_expr(pc - 4 , octa_left_shift_expr(imm, 12)); 
+        break;
         // jump
         case RISCV_JAL: 
             result[0] = pc, pc = octa_plus_expr(octa_incr_expr(pc, -4), octa_left_shift_expr(b, 2)); 
@@ -441,10 +443,6 @@ static inline void riscv_stage_writeback_step(system_t* sys, riscv_processor_t* 
         octa* reg = in->control.dregs[i].type == 0 ? &proc->regs[in->control.dregs[i].addr] : &proc->csrs[in->control.dregs[i].addr];
         tst_update_octa(transaction, reg, in->results[i]);
     }
-    
-    pipeline->fetch.control.stall    = false;
-    pipeline->decode.control.stall   = false;
-    pipeline->read.control.stall     = false;
 }
 
 static inline void riscv_check_memory_wait(riscv_processor_t* proc, riscv_pipeline_t* pipeline, transaction_t* transaction)

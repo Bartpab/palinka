@@ -6,15 +6,59 @@
 typedef struct transaction_log_t {
     void (*commit)(struct transaction_log_t* self);
     bool invalid;
-    struct transaction_log_t* next;
+    uintptr_t next;
 } transaction_log_t;
 
 typedef struct {
     allocator_t log_allocator;
     void* base;
     size_t size, capacity;
-    transaction_log_t *head, *tail;
+    uintptr_t tail;
 } transaction_t;
+
+typedef struct {
+    transaction_t* transaction;
+    transaction_log_t* curr;
+    bool started;
+} transaction_log_iterator_t;
+
+void transaction_log_iter(transaction_t* transaction, transaction_log_iterator_t* it)
+{
+    it->curr = 0;
+    it->started = 0;
+    it->transaction = transaction;
+}
+
+bool transaction_log_it_next(transaction_log_iterator_t* it) {
+    if(it->started == false)
+    {   
+        it->curr = (transaction_log_t*)(it->transaction->size > 0 ? it->transaction->base : 0);
+        it->started = true;
+        
+        if(it->transaction->size == 0)
+            return false;
+        
+        return true;
+    }
+
+    if(it->curr->next == 0)
+        return false;
+    else
+        it->curr = (transaction_log_t*)((uintptr_t)(it->transaction->base) + it->curr->next);
+    
+    return true;
+}
+
+bool transaction_log_it_get(transaction_log_iterator_t* it, transaction_log_t** out)
+{
+    if(it->curr != 0) 
+    {
+        *out = it->curr;
+        return true;
+    }
+    
+    return false;
+}
 
 void transaction_create(transaction_t* transaction, allocator_t* log_allocator, size_t capacity)
 {
@@ -22,7 +66,6 @@ void transaction_create(transaction_t* transaction, allocator_t* log_allocator, 
     transaction->base = pmalloc(log_allocator, capacity);
     transaction->capacity = capacity;
     transaction->size = 0;
-    transaction->head = 0;
     transaction->tail = 0;
 }
 
@@ -33,35 +76,65 @@ void transaction_destroy(transaction_t* transaction)
     pfree(&transaction->log_allocator, transaction->base);
     transaction->base = 0;
     transaction->size = transaction->capacity = 0;
-    transaction->head = 0;
     transaction->tail = 0;
 }
 
 void tst_log_invalid(transaction_t* transaction, void* base, size_t length)
 {
-    void* x0 = (void*) base;
-    void* x1 = (void*) ((uintptr_t)(x0) + length);
+    uintptr_t x0 = (uintptr_t) base;
+    uintptr_t x1 = (uintptr_t) (x0 + length);
 
-    transaction_log_t* it = transaction->head;
-    
-    while(it != 0) 
+    transaction_log_iterator_t it;
+    transaction_log_iter(transaction, &it);
+
+    transaction_log_t* log;
+
+    while(transaction_log_it_next(&it)) 
     {
-        void* dest = *(void**)(it + 1);
-        if(dest >= base && dest < x1) it->invalid = true;
-        it = it->next;
+        transaction_log_it_get(&it, &log);
+        uintptr_t dest = (uintptr_t)(*(void**)(log + 1));
+        if(dest >= x0 && dest < x1) log->invalid = true;
     }
 }
 
-static void tst_add_log(transaction_t* transaction, transaction_log_t* log)
+static void tst_add_log(transaction_t* transaction, transaction_log_t* log, size_t length)
 {
-    if(transaction->head == NULL)
-        transaction->head = transaction->tail = log;
+    uintptr_t rel = (uintptr_t)(log) - (uintptr_t)(transaction->base);
+
+    if(transaction->size == 0) transaction->tail = rel;
     else {
-        transaction->tail->next = log;
-        transaction->tail = log;
+        transaction_log_t* tail = (transaction_log_t*)(transaction->base + transaction->tail);
+        tail->next = rel;
+        transaction->tail = rel;
     }
+
+    transaction->size += length;
 }
 
+static bool __check_capacity(transaction_t* transaction, size_t payload_size)
+{
+    size_t length = sizeof(transaction_log_t) + payload_size;
+    
+    if(transaction->size + length > transaction->capacity) 
+    {
+        size_t capacity = transaction->capacity;
+        
+        while(capacity < transaction->size + length) 
+        {
+            if(capacity == 0) capacity = 1;
+            else capacity <<= 1;
+        }
+        
+        transaction_log_t* base = (transaction_log_t*) prealloc(&transaction->log_allocator, transaction->base, capacity);
+        
+        if(!base) return false;
+        
+        transaction->base = base;
+        transaction->capacity = capacity;
+    }
+
+    return true;
+}
 
 transaction_log_t* tst_new_log(transaction_t* transaction, size_t payload_size)
 {
@@ -70,44 +143,35 @@ transaction_log_t* tst_new_log(transaction_t* transaction, size_t payload_size)
 
     size_t length = sizeof(transaction_log_t) + payload_size;
     
-    if(transaction->size + length > transaction->capacity) 
-    {
-        size_t capacity = transaction->capacity;
-        while(capacity < transaction->size + length) {
-            if(capacity == 0) capacity = 1;
-            else capacity <<= 1;
-        }
-        transaction_log_t* base = (transaction_log_t*) prealloc(&transaction->log_allocator, transaction->base, capacity);
-        if(!base) return NULL;
-        transaction->base = base;
-        transaction->capacity = capacity;
-    }
+    if(!__check_capacity(transaction, payload_size))
+        return NULL;
 
-    char* offset = (char*)transaction->base;
-    offset += transaction->size;
-    transaction_log_t* log = (transaction_log_t*) offset;
+    transaction_log_t* log = (transaction_log_t*) ((char*)(transaction->base) + transaction->size);
     log->invalid = false;
     log->next = 0;
-    tst_add_log(transaction, log);
-    transaction->size += length;
+    tst_add_log(transaction, log, length);
     return log;   
 }
 
 void tst_commit_log(transaction_log_t* log)
 {
-    if(!log->invalid)
-        log->commit(log);
+    if(!log->invalid) log->commit(log);
 }
 
-void tst_commit(transaction_t* transaction) {
-    transaction_log_t* it = transaction->head;
+void tst_commit(transaction_t* transaction) 
+{
+    transaction_log_iterator_t it;
+    transaction_log_iter(transaction, &it);
 
-    while(it != 0) {
-        tst_commit_log(it);
-        it = it->next;
+    transaction_log_t* log;
+
+    while(transaction_log_it_next(&it)) 
+    {
+        transaction_log_it_get(&it, &log);
+        tst_commit_log(log);
     }
 
-    transaction->head = transaction->tail = 0;
+    transaction->tail = 0;
     transaction->size = 0;
 }
 
@@ -127,6 +191,7 @@ bool tst_update_##typename(transaction_t* transaction, type* dest, type value)\
         *dest = value;\
         return true;\
     }\
+    if(memcmp(dest, &value, sizeof(type)) == 0) return true;\
 \
     transaction_log_t* log = (transaction_log_t*) tst_new_log(transaction, sizeof(type*) + sizeof(type));\
 \
